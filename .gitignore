@@ -22,4 +22,4 @@ evaluation/target/
 weka/build/
 
 .idea/
-.mv.db
+*.mv.db
