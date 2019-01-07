@@ -1,0 +1,2 @@
+classifier,attributeSelection,seed,dataset,flow,weightedAreaUnderROC,weightedFMeasure,weightedPrecision,weightedRecall,errorRate,timeElapsed
+randomforest,symmetrical-uncert-attribute-eval,1,sonar.arff,0.997063845238647,0.9767775378870845,0.9778110161443495,0.9777777777777777,0.022222222222222223

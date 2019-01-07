@@ -1,0 +1,65 @@
+; This extremely simple example shows some of the most essential
+; features of SHOP2.
+
+(defdomain taxi (
+  (:- (first ?head (?head . ?tail))())
+  (:- (first nil nil)())
+
+  (:- (rest ?tail (?head . ?tail))())
+  (:- (rest nil nil)())
+
+  (:- (same ?x ?x) ())
+  (:- (different ?x ?y)((not (same ?x ?y))))
+
+
+  (:- (get-head ?var ?list)
+    (assign ?var (call GetHead ?list))
+  )
+
+  (:- (get-tail ?var ?list)
+    (assign ?var (call GetTail ?list))
+  )
+
+  (:- (have-in-list ?var (?head . ?tail))
+    ((same ?var ?head))
+  )
+  (:- (have-in-list ?var (?head . ?tail))
+    ((different ?var ?head)(have-in-list ?var ?tail))
+  )
+
+  (:operator (!!addInWorldState ?atom)
+    ()
+    ()
+    (?atom)
+  )
+
+  ; To call taxi ?t to location ?x
+  (:operator (!call-taxi ?t ?x) 
+	() 
+	()
+	((at ?t ?x))
+  )
+
+  ; To ride a taxi ?t from ?x to ?y by ?a
+  (:operator (!ride-taxi ?a ?t ?x ?y) 
+	((at ?a ?x) (at ?t ?x) (get-head ?head (?x ?t ?y))
+	 (get-tail ?tail (?x ?t ?y))
+	 (call = (call CheckListEmpty (?x ?t)) 0)
+	 (have-in-list ?y (?a ?t ?x)))
+	((at ?a ?x) (at ?t ?x))
+	((at ?a ?y) (at ?t ?y)(abc ?head)(abc ?tail))
+  )
+  
+  ; To travel by taxi from ?x to ?y by ?a
+  (:method (travel-by-taxi ?a ?t ?x ?y)
+	; Call taxi if taxi is not at ?x
+	((not (at ?t ?x)))
+	((!call-taxi ?t ?x)
+	 (!!addInWorldState (is-peron ?x))
+	 (travel-by-taxi ?a ?t ?x ?y))
+
+	; If taxi is at ?x, ride taxi from ?x to ?y
+	((at ?t ?x))
+	((!ride-taxi ?a ?t ?x ?y)))
+  )
+))

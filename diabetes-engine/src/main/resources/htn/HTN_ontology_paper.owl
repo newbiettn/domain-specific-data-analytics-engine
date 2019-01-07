@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper">
+    <Prefix name="" IRI="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <NamedIndividual IRI="#parameter-to"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#parameter-from"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Predicate"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#parameters"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-operator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-goal"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#position"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#operator-move"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#parameter-x"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#uses-parameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MethodFlow"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Axiom"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#pursuitPosition-flow1"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-flow"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#delete-predicate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProblemDefinition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-precondition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DomainDefinition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#adds-predicate"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#domain-definition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-task"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InitialState"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#shop2code"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-method"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Method"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#parameter-agent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Goal"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-axiom"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-predicate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Operator"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#predicate-next"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#has-name"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-parameter"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#predicate-at"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Parameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has-domain"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="#DomainDefinition"/>
+        <NamedIndividual IRI="#domain-definition"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Method"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Operator"/>
+        <NamedIndividual IRI="#operator-move"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Parameter"/>
+        <NamedIndividual IRI="#parameter-agent"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Parameter"/>
+        <NamedIndividual IRI="#parameter-from"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Parameter"/>
+        <NamedIndividual IRI="#parameter-to"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Parameter"/>
+        <NamedIndividual IRI="#parameter-x"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Predicate"/>
+        <NamedIndividual IRI="#predicate-at"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Predicate"/>
+        <NamedIndividual IRI="#predicate-next"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MethodFlow"/>
+        <NamedIndividual IRI="#pursuitPosition-flow1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MethodFlow"/>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has-method"/>
+        <NamedIndividual IRI="#domain-definition"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has-operator"/>
+        <NamedIndividual IRI="#domain-definition"/>
+        <NamedIndividual IRI="#operator-move"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-flow"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+        <NamedIndividual IRI="#pursuitPosition-flow1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-flow"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-parameter"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+        <NamedIndividual IRI="#parameter-agent"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-parameter"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+        <NamedIndividual IRI="#parameter-from"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-parameter"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+        <NamedIndividual IRI="#parameter-to"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(at ?agent ?to)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#adds-predicate"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#predicate-at"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(at ?agent ?from)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#delete-predicate"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#predicate-at"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-parameter"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#parameter-agent"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-parameter"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#parameter-from"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-parameter"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#parameter-to"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(at ?agent ?from)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-precondition"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#predicate-at"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(next ?from ?to)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-precondition"/>
+        <NamedIndividual IRI="#operator-move"/>
+        <NamedIndividual IRI="#predicate-next"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(at ?agent ?from)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-precondition"/>
+        <NamedIndividual IRI="#pursuitPosition-flow1"/>
+        <NamedIndividual IRI="#predicate-at"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(next ?from ?to)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-precondition"/>
+        <NamedIndividual IRI="#pursuitPosition-flow1"/>
+        <NamedIndividual IRI="#predicate-next"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(!move ?agent ?from ?to)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-task"/>
+        <NamedIndividual IRI="#pursuitPosition-flow1"/>
+        <NamedIndividual IRI="#operator-move"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(at ?agent ?from)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-precondition"/>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+        <NamedIndividual IRI="#predicate-at"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(next ?from ?x)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-precondition"/>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+        <NamedIndividual IRI="#predicate-next"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(pursuitPosition ?agent ?x)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-task"/>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+        <NamedIndividual IRI="#method-pursuitPosition"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <Annotation>
+            <AnnotationProperty IRI="#position"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#shop2code"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">(!move ?agent ?from ?x)</Literal>
+        </Annotation>
+        <ObjectProperty IRI="#has-task"/>
+        <NamedIndividual IRI="#pursuitPosition-flow2"/>
+        <NamedIndividual IRI="#operator-move"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#has-name"/>
+        <NamedIndividual IRI="#domain-definition"/>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">goldminers</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#has-task"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#adds-predicate"/>
+        <Class IRI="#Operator"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#delete-predicate"/>
+        <Class IRI="#Operator"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-axiom"/>
+        <Class IRI="#DomainDefinition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-domain"/>
+        <Class IRI="#ProblemDefinition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-flow"/>
+        <Class IRI="#Method"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-goal"/>
+        <Class IRI="#ProblemDefinition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-method"/>
+        <Class IRI="#DomainDefinition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-operator"/>
+        <Class IRI="#DomainDefinition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-parameter"/>
+        <Class IRI="#Method"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-parameter"/>
+        <Class IRI="#Operator"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-parameter"/>
+        <Class IRI="#Predicate"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-precondition"/>
+        <Class IRI="#Method"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-precondition"/>
+        <Class IRI="#MethodFlow"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-precondition"/>
+        <Class IRI="#Operator"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has-predicate"/>
+        <Class IRI="#InitialState"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#uses-parameter"/>
+        <Class IRI="#Predicate"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#adds-predicate"/>
+        <Class IRI="#Predicate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#delete-predicate"/>
+        <Class IRI="#Predicate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-axiom"/>
+        <Class IRI="#Axiom"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-domain"/>
+        <Class IRI="#DomainDefinition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-flow"/>
+        <Class IRI="#MethodFlow"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-goal"/>
+        <Class IRI="#Goal"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-method"/>
+        <Class IRI="#Method"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-operator"/>
+        <Class IRI="#Operator"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-parameter"/>
+        <Class IRI="#Parameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-precondition"/>
+        <Class IRI="#Predicate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has-predicate"/>
+        <Class IRI="#Predicate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#uses-parameter"/>
+        <Class IRI="#Parameter"/>
+    </ObjectPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#DomainDefinition</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">A class which represents quokkas</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#parameters"/>
+        <IRI>#adds-predicate</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#parameters"/>
+        <IRI>#delete-predicate</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#position"/>
+        <IRI>#has-axiom</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">asdfdsfdsf sdf</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has-parameter</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">asdfdsafds fdsfdsfs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#parameters"/>
+        <IRI>#has-precondition</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#parameter-agent</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">this is param-agent</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

@@ -1,0 +1,12 @@
+; This extremely simple example shows some of the most essential
+; features of SHOP2.
+
+(defdomain dm (
+  ; Preprocessing operators
+  (:operator (!call-taxi ?t ?x) 
+	() 
+	()
+	((at ?t ?x))
+  )
+
+))

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/ActorDefault.owl" uri="ActorDefault.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/Grounding.owl" uri="Grounding.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/Process.owl" uri="Process.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/Profile.owl" uri="Profile.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/ProfileAdditionalParameters.owl" uri="ProfileAdditionalParameters.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/Service.owl" uri="Service.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl" uri="Expression.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl" uri="ObjectList.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46" uri="DMO.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1518566347667" name="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-47" uri="DMOv2.owl"/>
+    </group>
+</catalog>

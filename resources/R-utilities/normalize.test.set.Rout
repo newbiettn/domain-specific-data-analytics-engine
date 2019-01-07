@@ -1,0 +1,54 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+Microsoft R Open 3.3.2
+The enhanced R distribution from Microsoft
+Microsoft packages Copyright (C) 2016 Microsoft Corporation
+
+Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
+
+Default CRAN mirror snapshot taken on 2016-11-01.
+See: https://mran.microsoft.com/.
+
+[Previously saved workspace restored]
+
+> ################################################################################
+> stat <- read.csv("normalization.stat.csv", header = FALSE)
+> new.item <- read.csv("new.item.csv", header = FALSE)
+> ################################################################################
+> normalize.test.set <- function(dt, stat){
++   for (i in 1:ncol(dt)){
++     x <- dt[,i]
++     min <- stat[i, 1]
++     max <- stat[i, 2]
++     dt[,i] <- (x - min)/(max - min) 
++   }
++   return(dt)
++ }
+> normalized.new.item <- normalize.test.set(new.item, stat)
+> write.table(normalized.new.item, "normalized.new.item.csv",
++           row.names = FALSE,
++           col.names = FALSE,
++           sep = ",")
+> 
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.135   0.043   0.623 

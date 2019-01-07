@@ -1,0 +1,3 @@
+2018-08-24 12:35:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "BEST_FLOW_BY_CLUSTER" not found; SQL statement:
+SELECT TOP 10 classifier, attributeSelection, rank FROM BEST_FLOW_BY_CLUSTER WHERE cluster = ? ORDER BY rank ASC [42102-196]

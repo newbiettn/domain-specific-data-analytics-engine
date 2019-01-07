@@ -1,0 +1,1387 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#"
+     xml:base="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-algorithm -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-algorithm"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-element -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-element"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-type -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-type"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-followed-by -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-followed-by">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-preceded-by -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-preceded-by"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#test -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#test"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#Aggregate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#Aggregate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessedDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BooleanDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BooleanDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CharacterDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CharacterDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValueExistInDataTableAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValueExistInDataTableAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValueExistInDataTableSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValueExistInDataTableSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValueExistInDataTableAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValuePercentageForFeatureAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValuePercentageForFeatureAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValuePercentageForFeatureSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValuePercentageForFeatureSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValuePercentageForFeatureAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ComponentMatchingAssesment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ComponentMatchingAssesment"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ContainMissingValueDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ContainMissingValueDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataFilePath -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataFilePath">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMetadata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMetadata -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMetadata">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningElement"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-algorithm"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#CheckMissingValueExistInDataTableAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataType"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DateAndTimeDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DateAndTimeDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeleteFeatureWithTooManyMissingValuesTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeleteFeatureWithTooManyMissingValuesTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeleteFeatureWithTooManyMissingValuesTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeleteFeatureWithTooManyMissingValuesTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeleteFeatureWithTooManyMissingValuesTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RemoveFeatureAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentTask"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-preceded-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DiscreteDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DiscreteDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#EnsembleAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#EnsembleAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureConstructionTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureConstructionTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureSelectionPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureSelectionPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureSelectionTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureSelectionTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureSelectionTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureSelectionTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureTransformationPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureTransformationPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureTransformationTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureTransformationTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTask"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-followed-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#InstanceElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#InstanceElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-type"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TupleDataType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#IntegerDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#IntegerDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ContainMissingValueDataTableElement"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueFreeDataTableElement"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RawDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueCheckingTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ContainMissingValueDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueFreeDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueFreeDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTaskSpecification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueHandlingTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ContainMissingValueDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelBuildingPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelBuildingPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTask"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-followed-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-preceded-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingTechniqueSelectionPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingTechniqueSelectionPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessedDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#NeedToTransformDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#NeedToTransformDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#NoNeedToTransformDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#NoNeedToTransformDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SingleGeneralizationAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTask">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTask"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTask"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTask"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTask"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTask"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTask"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessedDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessedDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTask"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-followed-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-preceded-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RandomForest -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RandomForest">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TreeAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RawDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RawDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReadDataTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReadDataTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReadDataTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReadDataTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReadDataTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RawDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataFilePath"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RealDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RealDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PrimitiveDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelingTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PredictiveModelElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessedDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionAlgorithm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RemoveFeatureAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RemoveFeatureAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueDeletionAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithMeanTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithMeanTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithMeanTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithMeanTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithMeanTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTaskSpecification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithModeTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithModeTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithModeTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithModeTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValueWithModeTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationTaskSpecification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValuesByMeanAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValuesByMeanAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValuesByModeAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReplaceMissingValuesByModeAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MissingValueImputationAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReportingPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ReportingPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DeploymentPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SetTargetAttributeTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SetTargetAttributeTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SetTargetAttributeTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SetTargetAttributeTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SetTargetAttributeTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ImportDataTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RawDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RawDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#uses-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetClassIndex"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SingleGeneralizationAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#SingleGeneralizationAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetClassIndex -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetClassIndex">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMetadata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-type"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DiscreteDataType"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RealDataType"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TestDesignGenerationPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TestDesignGenerationPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationPhase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationPhase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#KDDPhase"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-solved-by"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTask"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-followed-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#ModelingPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#is-preceded-by"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#PreprocessingPhase"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTask"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#has-data-mining-task-specification"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTaskSpecification"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTaskSpecification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformationTaskSpecification">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataMiningTaskSpecification"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#produces-data-mining-element"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformedDataTableElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformedDataTableElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TransformedDataTableElement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#DataTableElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TreeAlgorithm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TreeAlgorithm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationAlgorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TupleDataType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TupleDataType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#Aggregate"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTask"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTask"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTask"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#BinaryClassificationTaskSpecification"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#MultiClassClassificationTaskSpecification"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#RegressionTaskSpecification"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#FeatureElement"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#InstanceElement"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-46#TargetElement"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

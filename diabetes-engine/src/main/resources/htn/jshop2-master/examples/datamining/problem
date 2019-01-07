@@ -1,0 +1,66 @@
+(defproblem problem datamining
+    (; task type
+     (data-mining-task-type-instance taskType)
+     (has-val taskType BinaryClassificationTask)
+
+     ; data mining requirement
+     (data-mining-requirement-instance dataMiningRequirement)
+     ;(has-interpretability-requirement dataMiningRequirement)
+     ;(has-speed-requirement dataMiningRequirement)
+     ;(has-robust-to-many-category-requirement dataMiningRequirement)
+     ;(has-variable-importance-requirement dataMiningRequirement)
+
+
+     ; target class
+     (target-class-instance targetClass)
+     (has-name targetClass class)
+
+     ; features
+     (feature-instance feature1)
+     (feature-instance feature2)
+     (feature-instance feature3)
+     (feature-instance feature4)
+     (has-name feature1 sepallength)
+     (has-name feature2 sepalwidth)
+     (has-name feature3 petallength)
+     (has-name feature4 petalwidth)
+     (has-index feature1 1)
+     (has-index feature2 2)
+     (has-index feature3 3)
+     (has-index feature4 4)
+     (has-data-type feature1 Numerical)
+     (has-data-type feature2 Categorical)
+     (has-data-type feature3 Categorical)
+     (has-data-type feature4 Categorical)
+     (has-missing-percentage feature1 0)
+     (has-missing-percentage feature2 0)
+     (has-missing-percentage feature3 10)
+     (has-missing-percentage feature4 50)
+
+     ; data table
+     (data-table-instance dataTable)
+     (has-feature dataTable (feature1 feature2 feature3 feature4))
+     (has-target-class dataTable targetClass)
+     (contains-data-type dataTable Numerical)
+     (has-number-of-data-points dataTable 30)
+     (has-number-of-features dataTable 4)
+     (has-input-data-file-type dataTable arff)
+     (has-missing-value dataTable)
+
+     ; filename
+     (has-file-name dataTable iris)
+
+     ; data mining info
+     (data-mining-model-instance dataMiningModel)
+     (data-mining-result-instance dataMiningResult)
+     (is-empty dataMiningResult)
+     (is-empty dataMiningModel)
+    )
+
+    ((generate-data-mining-workflow
+                                taskType
+                                dataMiningRequirement
+                                dataTable
+                                dataMiningModel
+                                dataMiningResult))
+)

@@ -1,0 +1,669 @@
+(defdomain datamining (
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; AXIOMS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:- (get-head ?var ?list)
+        (assign ?var (call GetHead ?list))
+    )
+
+    (:- (get-tail ?var ?list)
+        (assign ?var (call GetTail ?list))
+    )
+
+    (:- (same ?x ?x) ())
+
+    (:- (different ?x ?y)((not (same ?x ?y))))
+
+    (:- (have-in-list ?var (?head . ?tail))
+        ((same ?var ?head))
+    )
+
+    (:- (have-in-list ?var (?head . ?tail))
+        ((different ?var ?head)(have-in-list ?var ?tail))
+    )
+
+    (:- (initialize-operator ?out ?op ?list)
+        (assign ?out (call InitializeOperator ?op ?list))
+    )
+
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; BOOKKEEPING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; add state to the world, convenient to use in method when
+    ; updating states is not possible, cost 0
+    (:operator (!!add-state-to-the-world ?state)
+        ()
+        ()
+        (?state)
+        0
+    )
+    (:operator (!!remove-state-from-the-world ?state)
+        ()
+        (?state)
+        ()
+        0
+    )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; OPERATORS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; 1. DATA PREPARATION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:operator (!load-csv-operator ?data_table)
+        ((has-file-name ?data_table ?file_name)
+         (call InitializeOperator load-csv-operator (?file_name)))
+        ()
+        ((is-loaded ?data_table))
+    )
+
+    (:operator (!load-arff-operator ?data_table)
+        ((has-file-name ?data_table ?file_name)
+         (call InitializeOperator load-arff-operator (?file_name)))
+        ()
+        ((is-loaded ?data_table))
+    )
+
+    (:operator (!randomize-operator ?data_table)
+        ((call InitializeOperator randomize-operator ()))
+        ()
+        ((is-shuffled ?data_table))
+    )
+
+    (:operator (!class-assigner-operator ?data_table ?target_class)
+        ((has-name ?target_class ?target_class_name)
+         (call InitializeOperator class-assigner-operator (?target_class_name)))
+        ()
+        ((assign-target-class ?data_table ?target_class))
+    )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; 2. DATA PREPROCESSING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; replace missing values with means and modes (Weka Operator)
+    (:operator (!replace-missing-value-operator ?data_table ?feature)
+        ((has-feature ?data_table ?feature_list)
+         (have-in-list ?feature ?feature_list)
+         (has-name ?feature ?feature_name)
+         (call InitializeOperator replace-missing-value-operator (?feature_name)))
+        ()
+        ((has-missing-percentage ?feature 0)
+         (is-imputed ?feature))
+    )
+
+    ; remove feature
+    (:operator (!remove-feature-operator ?data_table ?feature)
+        ((has-feature ?data_table ?feature_list)
+         (have-in-list ?feature ?feature_list)
+         (has-index ?feature ?feature_index)
+         (call InitializeOperator remove-feature-operator (?feature_index)))
+        ()
+        ()
+    )
+
+    ; attribute selection
+    (:operator (!cfs-subset-eval-operator ?data_table)
+        ((call InitializeOperator cfs-subset-eval-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+
+    (:operator (!correlation-attribute-eval-operator ?data_table)
+        ((call InitializeOperator correlation-attribute-eval-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+    (:operator (!gain-ratio-attribute-eval-operator ?data_table)
+        ((call InitializeOperator gain-ratio-attribute-eval-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+    (:operator (!info-gain-attribute-eval-operator ?data_table)
+        ((call InitializeOperator info-gain-attribute-eval-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+    (:operator (!relieff-attribute-eval-operator ?data_table)
+        ((call InitializeOperator relieff-attribute-eval-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+    (:operator (!symmetrical-uncert-attribute-eval-operator ?data_table)
+        ((call InitializeOperator symmetrical-uncert-attribute-eval-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+
+    (:operator (!wrapper-subset-eval-with-adaboost-operator ?data_table)
+        ((call InitializeOperator wrapper-subset-eval-with-adaboost-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+
+    (:operator (!wrapper-subset-eval-with-rf-operator ?data_table)
+        ((call InitializeOperator wrapper-subset-eval-with-rf-operator ()))
+        ()
+        ((is-reduced-dimension ?data_table))
+    )
+
+    ; standardization
+    (:operator (!standardization-operator ?data_table)
+        ((call InitializeOperator standardization-operator ()))
+        ()
+        ((is-standardized ?data_table))
+    )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; 3. MODELING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    (:operator (!set-binary-classification-algorithm-operator ?modeling_algorithm ?algorithm_name)
+        ((call InitializeOperator set-binary-classification-operator ()))
+        ()
+        ((has-algorithm-name ?modeling_algorithm ?algorithm_name))
+    )
+    (:operator (!cross-validation-fold-maker-operator ?data_mining_model)
+        ((call InitializeOperator cross-validation-fold-maker-operator ()))
+        ()
+        ((set-evaluation-method ?data_mining_model)
+         (has-evaluation-method ?data_mining_model crossvalidation))
+    )
+
+    (:operator (!j48-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator j48-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model j48))
+    )
+
+    (:operator (!randomforest-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator randomforest-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model randomforest))
+    )
+
+    (:operator (!adaboostm1-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator adaboostm1-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model adaboostm1))
+    )
+
+    (:operator (!neuralnetwork-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator neuralnetwork-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model neuralnetwork))
+    )
+
+    (:operator (!logistic-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator logistic-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model logistic))
+    )
+
+    (:operator (!smo-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator smo-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model smo))
+    )
+
+    (:operator (!kstar-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator kstar-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model kstar))
+    )
+
+    (:operator (!ibk-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator ibk-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model ibk))
+    )
+
+    (:operator (!lwl-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator lwl-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model lwl))
+    )
+
+    (:operator (!bagging-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator bagging-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model bagging))
+    )
+
+    (:operator (!logitboost-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator logitboost-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model logitboost))
+    )
+
+    (:operator (!randomsubspace-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator randomsubspace-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model randomsubspace))
+    )
+
+    (:operator (!stacking-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator stacking-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model stacking))
+    )
+
+    (:operator (!decisiontable-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator decisiontable-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model decisiontable))
+    )
+
+    (:operator (!vote-operator ?data_table ?data_mining_model)
+        ((is-empty ?data_mining_model)
+         (call InitializeOperator vote-operator ()))
+        ((is-empty ?data_mining_model))
+        ((has-data-table ?data_mining_model ?data_table)
+         (has-data-mining-algorithm ?data_mining_model vote))
+    )
+
+(:operator (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result)
+        ((set-evaluation-method ?data_mining_model)
+         (not (is-empty ?data_mining_model))
+         (is-empty ?data_mining_result)
+         (call InitializeOperator classifier-performance-evaluator-operator ()))
+         ((is-empty ?data_mining_result))
+         ()
+    )
+
+    (:operator (!result-viewer-operator ?data_mining_result)
+        ((not (is-empty ?data_mining_result))
+         (call InitializeOperator result-viewer-operator ()))
+        ()
+        ()
+    )
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; METHODS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; 1. DATA PREPARATION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Highest level of data preparation methods
+    (:method (data-preparation-method ?data_table)
+        ; csv
+        ((has-input-data-file-type ?data_table csv)
+         (has-target-class ?data_table ?target_class))
+        ((!load-csv-operator ?data_table)
+         (!randomize-operator ?data_table)
+         (!class-assigner-operator ?data_table ?target_class))
+
+        ; arff
+        ((has-input-data-file-type ?data_table arff)
+         (has-target-class ?data_table ?target_class))
+        ((!load-arff-operator ?data_table)
+         (!randomize-operator ?data_table)
+         (!class-assigner-operator ?data_table ?target_class))
+    )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; 2. DATA PREPROCESSING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;; a) MISSING VALUE HANDLING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; replace missing values with means and modes if missing percentage is less than 30
+    ; OR remove that feature if missing percentage is higher than 30
+    ; doing nothing if there is no missing value in the feature
+    (:method (missing-value-handling-method ?data_table ?feature_list)
+        ; replace missing value if possible
+        ((call = (call CheckListEmpty ?feature_list) 0)
+         (get-head ?f ?feature_list)
+         (get-tail ?tail ?feature_list)
+         (has-missing-percentage ?f ?val)
+         (call <= ?val 30)(call > ?val 0))
+        ((!replace-missing-value-operator ?data_table ?f)
+         (missing-value-handling-method ?data_table ?tail))
+
+        ; remove feature if there are too many missing values
+        ((call = (call CheckListEmpty ?feature_list) 0)
+         (get-head ?f ?feature_list)
+         (get-tail ?tail ?feature_list)
+         (has-missing-percentage ?f ?val)
+         (call > ?val 30))
+        ((!remove-feature-operator ?data_table ?f)
+         (missing-value-handling-method ?data_table ?tail))
+
+        ; do nothing if missing percentage = 0
+        ((call = (call CheckListEmpty ?feature_list) 0)
+         (get-head ?f ?feature_list)
+         (get-tail ?tail ?feature_list)
+         (has-missing-percentage ?f ?val)
+         (call = ?val 0))
+        ((missing-value-handling-method ?data_table ?tail))
+
+        ; base case: no feature left
+        ((call = (call CheckListEmpty ?feature_list) 1))
+        ()
+    )
+
+    (:method (missing-value-handling-method ?data_table)
+        ((has-feature ?data_table ?feature_list)
+         (has-missing-value ?data_table))
+        ((missing-value-handling-method ?data_table ?feature_list)
+         (!!remove-state-from-the-world (has-missing-value ?data_table)))
+
+        ; fall back
+        ()
+        ()
+    )
+
+    ;;;;;;;;;;;;;;;; b) ATTRIBUTE SELECTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; attribute selection handling method
+    ; if have 20x data points as the number of features, no feature selection
+    ; otherwise perform attribute selection to the dataset
+    (:method (attribute-selection-handling-method ?data_table ?data_mining_requirement)
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement cfs-subset-eval))
+        ((!cfs-subset-eval-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement correlation-attribute-eval))
+        ((!correlation-attribute-eval-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement gain-ratio-attribute-eval))
+        ((!gain-ratio-attribute-eval-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement info-gain-attribute-eval))
+        ((!info-gain-attribute-eval-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement relieff-attribute-eval))
+        ((!relieff-attribute-eval-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement symmetrical-uncert-attribute-eval))
+        ((!symmetrical-uncert-attribute-eval-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement wrapper-subset-eval-with-adaboost-operator))
+        ((!wrapper-subset-eval-with-adaboost-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (not (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+         (has-attribute-selection-algorithm ?data_mining_requirement wrapper-subset-eval-with-rf-operator))
+        ((!wrapper-subset-eval-with-rf-operator ?data_table))
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (has-attribute-selection-algorithm ?data_mining_requirement no-attribute-selection))
+        ()
+
+        ((has-number-of-features ?data_table ?no_features)
+         (has-number-of-data-points ?data_table ?no_points)
+         (call >= (call * ?no_features 99999) ?no_points)
+         (has-neuralnetwork-algorithm-requirement ?data_mining_requirement))
+        ()
+    )
+
+    ;;;;;;;;;;;;;;;; c) STANDARDIZATION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; because normalization heavily suffers from outliers, we choose to use standardization
+    ; in case the data is numerical
+    (:method (data-standardization-method ?data_table)
+        ((contains-data-type ?data_table Numerical))
+        ((!standardization-operator ?data_table))
+    )
+
+    ;;;;;;;;;;;;;;;; d) HIGHEST LEVEL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Highest level method for data preprocessing
+    (:method (data-preprocessing-method ?data_table ?data_mining_requirement)
+        ; main
+        ((is-loaded ?data_table))
+        ((missing-value-handling-method ?data_table)
+         (attribute-selection-handling-method ?data_table ?data_mining_requirement)
+         (data-standardization-method ?data_table))
+    )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; 3. MODELING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:method (binary-classification-modeling-method ?data_table
+                ?data_mining_requirement
+                ?data_mining_model
+                ?data_mining_result)
+        ;j48
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (not (has-missing-values ?data_table))
+         (has-j48-algorithm-requirement ?data_mining_requirement))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!j48-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (not (has-missing-values ?data_table))
+         (has-speed-requirement ?data_mining_requirement))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!j48-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (not (has-missing-values ?data_table))
+         (has-interpretability-requirement ?data_mining_requirement))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!j48-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+         ;adaboost
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-adaboostm1-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!adaboostm1-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;random forest
+       ((is-loaded ?data_table)
+        (has-target-class ?data_table ?target_class)
+        (assign-target-class ?data_table ?target_class)
+        (has-randomforest-algorithm-requirement ?data_mining_requirement)
+        (not (has-missing-values ?data_table)))
+       ((!cross-validation-fold-maker-operator ?data_mining_model)
+        (!randomforest-operator ?data_table ?data_mining_model)
+        (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-variable-importance-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!randomforest-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;neural network
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-neuralnetwork-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!neuralnetwork-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;logistic
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-logistic-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!logistic-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;SMO
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-smo-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!smo-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;KStar
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-kstar-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!kstar-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;IBk
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-ibk-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!ibk-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;LWL
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-lwl-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!lwl-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;Bagging
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-bagging-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!bagging-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;LogitBoost
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-logitboost-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!logitboost-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;RandomSubspace
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-randomsubspace-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!randomsubspace-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;Stacking
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-stacking-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!stacking-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;Vote
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-vote-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!vote-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+
+        ;DecisionTable
+        ((is-loaded ?data_table)
+         (has-target-class ?data_table ?target_class)
+         (assign-target-class ?data_table ?target_class)
+         (has-decisiontable-algorithm-requirement ?data_mining_requirement)
+         (not (has-missing-values ?data_table)))
+        ((!cross-validation-fold-maker-operator ?data_mining_model)
+         (!decisiontable-operator ?data_table ?data_mining_model)
+         (!classifier-performance-evaluator-operator ?data_mining_model ?data_mining_result))
+    )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;; REPORT UTILS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:method (report-method ?data_mining_result)
+        (not (is-empty ?data_mining_result))
+        ((!result-viewer-operator ?data_mining_result))
+    )
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; HIGHEST LEVEL TASK ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:method (generate-data-mining-workflow
+                ?task_type
+                ?data_mining_requirement
+                ?data_table
+                ?data_mining_model
+                ?data_mining_result)
+        ((has-val ?task_type BinaryClassificationTask))
+        ((data-preparation-method ?data_table)
+         (data-preprocessing-method ?data_table ?data_mining_requirement)
+         (binary-classification-modeling-method ?data_table
+                                        ?data_mining_requirement
+                                        ?data_mining_model
+                                        ?data_mining_result)
+         (report-method ?data_mining_result))
+    )
+))

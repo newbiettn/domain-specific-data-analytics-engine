@@ -1,0 +1,2 @@
+Jul 29, 2018 6:44:39 PM com.github.fommil.jni.JniLoader liberalLoad
+INFO: successfully loaded /var/folders/fw/25rxzzr9287d6_krb9kdcp600000gn/T/jniloader9029962548316206982netlib-native_system-osx-x86_64.jnilib
