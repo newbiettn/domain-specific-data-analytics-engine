@@ -1,0 +1,89 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+Microsoft R Open 3.3.2
+The enhanced R distribution from Microsoft
+Microsoft packages Copyright (C) 2016 Microsoft Corporation
+
+Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
+
+Default CRAN mirror snapshot taken on 2016-11-01.
+See: https://mran.microsoft.com/.
+
+[Previously saved workspace restored]
+
+> rm(list = ls(all = T))
+> ################################################################################
+> # Load library
+> library(ConsRank)
+Loading required package: MASS
+Loading required package: proxy
+
+Attaching package: ‘proxy’
+
+The following objects are masked from ‘package:stats’:
+
+    as.dist, dist
+
+The following object is masked from ‘package:base’:
+
+    as.matrix
+
+Loading required package: rgl
+Loading required package: gtools
+
+Attaching package: ‘ConsRank’
+
+The following object is masked from ‘package:base’:
+
+    labels
+
+> ################################################################################
+> # Ranking 
+> dt <- read.csv("ranking.csv", header = FALSE)
+> 
+> if (nrow(dt)>1){
++   ranking <- QuickCons(dt)
++   # Extract the ranking from the list result
++   consensus <- ranking$Consensus
++   last.row <- consensus[nrow(consensus),]
++   last.row <- t(as.matrix(last.row))
++   # Sort the list but still keep the workflow id 
++   last.row <- last.row[,order(last.row)]
++ } else {
++   s <- dt[1,]
++   last.row <- sort(s, decreasing = TRUE)
++ }
+> 
+> # Extract top 10 best
+> top.workflow <- names(last.row)[1:100]
+> 
+> # Remove NA in case there are not enough 10 workflows
+> top.workflow <- as.vector(na.omit(top.workflow))
+> ################################################################################
+> # Print the top 5 workflow ids into file to be read by Java
+> str <- paste(top.workflow, collapse = ",")
+> # Write to file
+> write(str, "best_workflow_index.txt")
+> 
+> 
+> 
+> proc.time()
+    user   system  elapsed 
+1417.591    6.357 1424.757 

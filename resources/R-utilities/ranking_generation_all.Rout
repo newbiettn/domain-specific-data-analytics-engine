@@ -1,0 +1,210 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+Microsoft R Open 3.3.2
+The enhanced R distribution from Microsoft
+Microsoft packages Copyright (C) 2016 Microsoft Corporation
+
+Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
+
+Default CRAN mirror snapshot taken on 2016-11-01.
+See: https://mran.microsoft.com/.
+
+[Previously saved workspace restored]
+
+> rm(list = ls(all = T))
+> ################################################################################
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> ################################################################################
+> dt <- read.csv("temp.csv", header = TRUE)
+> dt$FLOW <- as.factor(dt$FLOW)
+> n_levels <- length(levels(factor(dt$FLOW)))
+> 
+> # remove workflows that do not perform on all datasets
+> # for (cluster in 0:max(dt$CLUSTER)){
+>     temp.dt <- dt %>%
++       # filter(CLUSTER == cluster) %>%
++       as.data.frame()
+>     num.datasets <- length(unique(temp.dt$DATASET))
+>     tb <- table(temp.dt$CLASSIFIER, temp.dt$ATTRIBUTESELECTION)
+>     tb
+                
+                 cfs-subset-eval correlation-attribute-eval
+  adaboostm1                 267                        267
+  bagging                    267                        267
+  decisiontable              267                        267
+  ibk                        267                        267
+  j48                        267                        267
+  kstar                      267                        267
+  logistic                    44                          0
+  logitboost                 267                        267
+  lwl                        267                        267
+  neuralnetwork                0                          0
+  randomforest               267                        267
+  randomsubspace             267                        267
+  smo                        267                        267
+  stacking                   267                        267
+  vote                       267                        267
+                
+                 gain-ratio-attribute-eval info-gain-attribute-eval
+  adaboostm1                           267                      267
+  bagging                              267                      267
+  decisiontable                        267                      267
+  ibk                                  267                      267
+  j48                                  267                      267
+  kstar                                267                      267
+  logistic                               0                        0
+  logitboost                           267                      267
+  lwl                                  267                      267
+  neuralnetwork                          0                        0
+  randomforest                         267                      267
+  randomsubspace                       267                      267
+  smo                                  267                      267
+  stacking                             267                      267
+  vote                                 267                      267
+                
+                 no-attribute-selection relieff-attribute-eval
+  adaboostm1                        267                    267
+  bagging                           267                    267
+  decisiontable                     267                    267
+  ibk                               267                    267
+  j48                               267                    267
+  kstar                             267                    267
+  logistic                          267                      0
+  logitboost                        267                    267
+  lwl                               267                    267
+  neuralnetwork                     267                      0
+  randomforest                      267                    267
+  randomsubspace                    267                    267
+  smo                               267                    266
+  stacking                          267                    267
+  vote                              267                    267
+                
+                 symmetrical-uncert-attribute-eval
+  adaboostm1                                   267
+  bagging                                      267
+  decisiontable                                267
+  ibk                                          267
+  j48                                          267
+  kstar                                        267
+  logistic                                       0
+  logitboost                                   267
+  lwl                                          267
+  neuralnetwork                                  0
+  randomforest                                 267
+  randomsubspace                               267
+  smo                                          267
+  stacking                                     267
+  vote                                         267
+                
+                 wrapper-subset-eval-with-adaboost-operator
+  adaboostm1                                            267
+  bagging                                               267
+  decisiontable                                         267
+  ibk                                                   266
+  j48                                                   267
+  kstar                                                 267
+  logistic                                                0
+  logitboost                                            266
+  lwl                                                   267
+  neuralnetwork                                           0
+  randomforest                                          266
+  randomsubspace                                        267
+  smo                                                   267
+  stacking                                              267
+  vote                                                  267
+>     rnames <- row.names(tb)
+>     cnames <- colnames(tb)
+>     for (i in 1:nrow(tb)){ #row
++       for(j in 1:ncol(tb)){ #col
++         if (tb[i,j] < num.datasets && tb[i,j] > 0){
++           c <- rnames[i]
++           a <- cnames[j]
++           dt <- dt[!(dt$CLASSIFIER == c & 
++                        dt$ATTRIBUTESELECTION == a),]
++           print(paste0(c, "/", a))
++         }
++       }
++     }
+[1] "ibk/wrapper-subset-eval-with-adaboost-operator"
+[1] "logistic/cfs-subset-eval"
+[1] "logitboost/wrapper-subset-eval-with-adaboost-operator"
+[1] "randomforest/wrapper-subset-eval-with-adaboost-operator"
+[1] "smo/relieff-attribute-eval"
+> # }
+> dt <- dt %>%
++   group_by(DATASET) %>%
++   arrange(DATASET, desc(MEANAUC)) %>%
++   mutate(rankByAUC = rank(-MEANAUC, ties.method = "min")) %>%
++   as.data.frame()
+> 
+> dt <- dt %>%
++   group_by(DATASET, rankByAUC) %>%
++   arrange(DATASET, rankByAUC, MEANTIMEELAPSED) %>%
++   mutate(rankByTime = rank(MEANTIMEELAPSED, ties.method = "random")) %>%
++   as.data.frame()
+> 
+> myrank <- function(rankByErr, rankByTime){
++   newrank <- c()
++   if (length(unique(rankByErr)) == 1){
++     newrank <- rankByErr + rankByTime - 1
++   } else {
++     newrank <- rankByErr
++   }
++   return (newrank)
++ }
+> dt <- dt %>%
++   group_by(DATASET, rankByAUC, rankByTime) %>%
++   arrange(DATASET, rankByAUC, rankByTime) %>%
++   mutate(rank = myrank(rankByAUC, rankByTime)) %>%
++   as.data.frame()
+> 
+> dt$MEANAUC <- as.numeric(as.character(dt$MEANAUC))
+> dt$MEANFMEASURE <- as.numeric(as.character(dt$MEANFMEASURE))
+> dt$MEANPRECISION <- as.numeric(as.character(dt$MEANPRECISION))
+> dt$MEANRECALL <- as.numeric(as.character(dt$MEANRECALL))
+> dt$MEANERRORRATE <- as.numeric(as.character(dt$MEANERRORRATE))
+> dt$MEANTIMEELAPSED <- as.numeric(as.character(dt$MEANTIMEELAPSED))
+> 
+> mask <- apply(dt[c("MEANAUC", "MEANFMEASURE", "MEANPRECISION",
++                    "MEANRECALL", "MEANERRORRATE", "MEANTIMEELAPSED")], 2, is.nan)
+> 
+> dt[is.na(dt)] <- NA
+> 
+> write.csv(dt, 
++           "experiment_workflow_ranking_by_dataset.csv",
++           quote = FALSE,
++           row.names = FALSE,
++           na = "")
+> ################################################################################
+> 
+> proc.time()
+   user  system elapsed 
+  4.020   0.128   4.228 

@@ -1,0 +1,60 @@
+-------------------------------------------------------------------------------
+Test set: weka.classifiers.meta.ClassificationViaRegressionTest
+-------------------------------------------------------------------------------
+Tests run: 23, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.281 sec <<< FAILURE!
+testRegression(weka.classifiers.meta.ClassificationViaRegressionTest)  Time elapsed: 0.011 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: Regression test failed. Difference:
++++ Reference: src/test/resources/wekarefs/weka/classifiers/meta/ClassificationViaRegressionTest.ref +++
+10 predictions
+NOM: 0.0 0.0 1.0 0.973341367583095 0.02665863241690505
+NOM: 0.0 0.0 1.0 0.9524951020531026 0.047504897946897384
+NOM: 0.0 0.0 1.0 0.993490469203576 0.006509530796424058
+NOM: 0.0 0.0 1.0 0.9429297606330429 0.05707023936695715
+NOM: 1.0 1.0 1.0 0.0022872290965505475 0.9977127709034495
+NOM: 1.0 1.0 1.0 0.0 1.0
+NOM: 1.0 1.0 1.0 0.05165225921391215 0.9483477407860879
+NOM: 0.0 0.0 1.0 0.9732051524144633 0.026794847585536737
+NOM: 1.0 1.0 1.0 0.0 1.0
+NOM: 1.0 1.0 1.0 0.024988999313463548 0.9750110006865365
++++ Current +++
+10 predictions
+NOM: 0.0 0.0 1.0 0.973341367583095 0.026658632416905054
+NOM: 0.0 0.0 1.0 0.9524951020531026 0.04750489794689739
+NOM: 0.0 0.0 1.0 0.993490469203576 0.006509530796424059
+NOM: 0.0 0.0 1.0 0.9429297606330429 0.057070239366957154
+NOM: 1.0 1.0 1.0 0.0022872290965505475 0.9977127709034495
+NOM: 1.0 1.0 1.0 0.0 1.0
+NOM: 1.0 1.0 1.0 0.05165225921391215 0.9483477407860879
+NOM: 0.0 0.0 1.0 0.9732051524144633 0.02679484758553674
+NOM: 1.0 1.0 1.0 0.0 1.0
+NOM: 1.0 1.0 1.0 0.024988999313463548 0.9750110006865365
++++
+	at junit.framework.Assert.fail(Assert.java:47)
+	at weka.classifiers.AbstractClassifierTest.testRegression(AbstractClassifierTest.java:987)
+	at sun.reflect.GeneratedMethodAccessor21.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at junit.framework.TestCase.runTest(TestCase.java:164)
+	at junit.framework.TestCase.runBare(TestCase.java:130)
+	at junit.framework.TestResult$1.protect(TestResult.java:106)
+	at junit.framework.TestResult.runProtected(TestResult.java:124)
+	at junit.framework.TestResult.run(TestResult.java:109)
+	at junit.framework.TestCase.run(TestCase.java:120)
+	at junit.framework.TestSuite.runTest(TestSuite.java:230)
+	at junit.framework.TestSuite.run(TestSuite.java:225)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.junit.JUnitTestSet.execute(JUnitTestSet.java:98)
+	at org.apache.maven.surefire.junit.JUnit3Provider.executeTestSet(JUnit3Provider.java:107)
+	at org.apache.maven.surefire.junit.JUnit3Provider.invoke(JUnit3Provider.java:84)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at com.sun.proxy.$Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+

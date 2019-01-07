@@ -1,0 +1,509 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper"
+     xml:base="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper"
+     xmlns:HTN_ontology_paper="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameters -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameters"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#position -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#position"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#shop2code -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#shop2code"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#adds-predicate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#adds-predicate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+        <HTN_ontology_paper:parameters></HTN_ontology_paper:parameters>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#delete-predicate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#delete-predicate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+        <HTN_ontology_paper:parameters></HTN_ontology_paper:parameters>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-axiom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-axiom">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Axiom"/>
+        <HTN_ontology_paper:position>asdfdsfdsf sdf</HTN_ontology_paper:position>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-domain -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-domain">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#ProblemDefinition"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-flow -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-flow">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#MethodFlow"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-goal -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-goal">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#ProblemDefinition"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-method -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-method">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-operator -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-operator">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+        <rdfs:comment>asdfdsafds fdsfdsfs</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#MethodFlow"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+        <HTN_ontology_paper:parameters></HTN_ontology_paper:parameters>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-predicate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-predicate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#InitialState"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-task -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-task">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#uses-parameter -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#uses-parameter">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-name"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Axiom -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Axiom"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition">
+        <rdfs:comment xml:lang="en">A class which represents quokkas</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Goal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Goal"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#InitialState -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#InitialState"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#MethodFlow -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#MethodFlow"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#ProblemDefinition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#ProblemDefinition"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#domain-definition -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#domain-definition">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#DomainDefinition"/>
+        <HTN_ontology_paper:has-method rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <HTN_ontology_paper:has-operator rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <HTN_ontology_paper:has-name>goldminers</HTN_ontology_paper:has-name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Method"/>
+        <HTN_ontology_paper:has-flow rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1"/>
+        <HTN_ontology_paper:has-flow rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2"/>
+        <HTN_ontology_paper:has-parameter rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-agent"/>
+        <HTN_ontology_paper:has-parameter rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-from"/>
+        <HTN_ontology_paper:has-parameter rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-to"/>
+    </owl:NamedIndividual>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-flow"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</HTN_ontology_paper:position>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-flow"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</HTN_ontology_paper:position>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-agent"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</HTN_ontology_paper:position>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-from"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</HTN_ontology_paper:position>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-to"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</HTN_ontology_paper:position>
+    </owl:Axiom>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Operator"/>
+        <HTN_ontology_paper:adds-predicate rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:delete-predicate rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:has-parameter rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-agent"/>
+        <HTN_ontology_paper:has-parameter rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-from"/>
+        <HTN_ontology_paper:has-parameter rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-to"/>
+        <HTN_ontology_paper:has-precondition rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:has-precondition rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next"/>
+    </owl:NamedIndividual>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-to"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</HTN_ontology_paper:position>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:shop2code>(at ?agent ?from)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next"/>
+        <HTN_ontology_paper:shop2code>(next ?from ?to)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#adds-predicate"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:shop2code>(at ?agent ?to)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#delete-predicate"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:shop2code>(at ?agent ?from)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-agent"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</HTN_ontology_paper:position>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-parameter"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-from"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</HTN_ontology_paper:position>
+    </owl:Axiom>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-agent -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-agent">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+        <rdfs:comment>this is param-agent</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-from -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-from">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-to -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-to">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-x -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#parameter-x">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Parameter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#Predicate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#MethodFlow"/>
+        <HTN_ontology_paper:has-precondition rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:has-precondition rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next"/>
+        <HTN_ontology_paper:has-task rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+    </owl:NamedIndividual>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:shop2code>(at ?agent ?from)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next"/>
+        <HTN_ontology_paper:shop2code>(next ?from ?to)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow1"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-task"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <HTN_ontology_paper:shop2code>(!move ?agent ?from ?to)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#MethodFlow"/>
+        <HTN_ontology_paper:has-precondition rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:has-precondition rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next"/>
+        <HTN_ontology_paper:has-task rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <HTN_ontology_paper:has-task rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+    </owl:NamedIndividual>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-at"/>
+        <HTN_ontology_paper:shop2code>(at ?agent ?from)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-precondition"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#predicate-next"/>
+        <HTN_ontology_paper:shop2code>(next ?from ?x)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-task"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#method-pursuitPosition"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</HTN_ontology_paper:position>
+        <HTN_ontology_paper:shop2code>(pursuitPosition ?agent ?x)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#pursuitPosition-flow2"/>
+        <owl:annotatedProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#has-task"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2017/11/HTN_ontology_paper#operator-move"/>
+        <HTN_ontology_paper:position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</HTN_ontology_paper:position>
+        <HTN_ontology_paper:shop2code>(!move ?agent ?from ?x)</HTN_ontology_paper:shop2code>
+    </owl:Axiom>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

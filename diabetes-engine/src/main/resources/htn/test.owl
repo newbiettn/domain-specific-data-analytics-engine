@@ -1,0 +1,617 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#"
+     xml:base="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#decomposesTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#decomposesTo"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step1 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step1">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#decomposesTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step2 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step2">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#decomposesTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step3 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step3">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#decomposesTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step4 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step4">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#decomposesTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Attribute -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Attribute">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Metadata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeConstruction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeConstruction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTableProcessing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeGroup -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeGroup">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Attribute"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeManipulation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeManipulation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTableProcessing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeReduction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeReduction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTableProcessing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeSelectionOperator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeSelectionOperator">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Metadata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#BinaryColumn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#BinaryColumn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#BinaryTargetTable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#BinaryTargetTable">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CategorialColumn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CategorialColumn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CheckMissingValues -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CheckMissingValues">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ClassificationLearners -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ClassificationLearners">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictiveSupervisedLearners"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CleanMissingValues -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CleanMissingValues">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CrossEvaluation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CrossEvaluation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#EvaluationGoals"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Data -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Data">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#IOObject"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Metadata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataFormat -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataFormat">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Metadata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTableProcessing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTableProcessing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DescriptiveModeling -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DescriptiveModeling">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InductionTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Discretization -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Discretization">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeManipulation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoPreprocessing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoPreprocessing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoTesting -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoTesting">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoTraining -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoTraining">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#EvaluationGoals -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#EvaluationGoals">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#OptionalSubGoal"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Goal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Goal">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#IOObject -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#IOObject">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ImputeMissingValues -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ImputeMissingValues">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InductionTask -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InductionTask">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Goal"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InstanceConstruction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InstanceConstruction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTableProcessing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#J48 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#J48">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ClassificationLearners"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MakeReport -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MakeReport">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Metadata -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Metadata">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MethodEvaluation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MethodEvaluation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MissingValueFreeColumn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MissingValueFreeColumn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MissingValueFreeDataTable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MissingValueFreeDataTable">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MissingValueImputation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MissingValueImputation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeManipulation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Model -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Model">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#IOObject"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Modeling -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Modeling">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ModelingWithTestSetSplit -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ModelingWithTestSetSplit">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Method"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step1"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#CleanMissingValues"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step2"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoTraining"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step3"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DoTesting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#step4"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#MakeReport"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#NoEvaluation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#NoEvaluation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#EvaluationGoals"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Nominal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Nominal">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#NominalInputTable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#NominalInputTable">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#NonMissingValueFreeColumn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#NonMissingValueFreeColumn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Normalization -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Normalization">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeManipulation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Numerical -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Numerical">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#AttributeType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Operator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Operator">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#OptionalSubGoal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#OptionalSubGoal">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Goal"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PatternDiscovery -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PatternDiscovery">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InductionTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning-Domain -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning-Domain">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning-Problem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning-Problem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Planning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictionModel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictionModel">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Model"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictiveModeling -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictiveModeling">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#InductionTask"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictiveSupervisedLearners -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PredictiveSupervisedLearners">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SupervisedLearners"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PreprocessingModel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#PreprocessingModel">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Model"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#RandomForest -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#RandomForest">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#ClassificationLearners"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Report -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Report">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#IOObject"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SingleAttribute -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SingleAttribute">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Attribute"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SingleDataColumn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SingleDataColumn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataColumn"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SupervisedLearners -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#SupervisedLearners">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#Modeling"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#TableWithEmptyColumnsDropped -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#TableWithEmptyColumnsDropped">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#TableWithEmptyRowsDropped -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#TableWithEmptyRowsDropped">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#TableWithFilledPrediction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#TableWithFilledPrediction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/newbiettn/ontologies/2018/1/untitled-ontology-37#DataTable"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

@@ -1,0 +1,2 @@
+(defproblem problem taxi
+  ((at me home) (at taxi city)) ((travel-by-taxi me taxi home park)))
