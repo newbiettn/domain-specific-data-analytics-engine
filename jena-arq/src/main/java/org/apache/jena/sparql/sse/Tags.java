@@ -62,7 +62,7 @@ public class Tags
     public static final String tagFilter          = "filter" ;
     // public static final String traph = "graph" ;
     public static final String tagLabel           = "label" ;
-    public static final String tagService         = "planner" ;
+    public static final String tagService         = "service" ;
     public static final String tagProc            = "proc" ;
     public static final String tagPropFunc        = "propfunc" ;
     public static final String tagJoin            = "join" ;

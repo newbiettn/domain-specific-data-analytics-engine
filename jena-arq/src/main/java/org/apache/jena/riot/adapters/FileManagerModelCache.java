@@ -39,7 +39,7 @@ class FileManagerModelCache {
             modelCache.clear() ;
     }
     
-    /** Change the state of model cache : does not clear the cache */
+    /** Change the state of model cache : does not clear the cache */ 
     public void setModelCaching(boolean state)
     {
         cacheModelLoads = state ;

@@ -55,10 +55,10 @@ foaf:focus  a             owl:ObjectProperty , rdf:Property ;
 
 foaf:accountServiceHomepage
         a                 owl:ObjectProperty , rdf:Property ;
-        rdfs:comment      "Indicates a homepage of the planner provide for this online account." ;
+        rdfs:comment      "Indicates a homepage of the service provide for this online account." ;
         rdfs:domain       foaf:OnlineAccount ;
         rdfs:isDefinedBy  foaf: ;
-        rdfs:label        "account planner homepage" ;
+        rdfs:label        "account service homepage" ;
         rdfs:range        foaf:Document ;
         vs:term_status    "testing" .
 

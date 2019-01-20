@@ -28,7 +28,6 @@ import org.apache.jena.sparql.core.assembler.AssemblerUtils ;
 import org.apache.jena.sparql.engine.http.Service ;
 import org.apache.jena.sparql.expr.aggregate.AggregateRegistry ;
 import org.apache.jena.sparql.function.FunctionRegistry ;
-import org.apache.jena.sparql.lib.Metadata ;
 import org.apache.jena.sparql.mgt.ARQMgt ;
 import org.apache.jena.sparql.mgt.Explain ;
 import org.apache.jena.sparql.mgt.Explain.InfoLevel ;
@@ -37,7 +36,8 @@ import org.apache.jena.sparql.pfunction.PropertyFunctionRegistry ;
 import org.apache.jena.sparql.util.Context ;
 import org.apache.jena.sparql.util.MappingRegistry ;
 import org.apache.jena.sparql.util.Symbol ;
-import org.apache.jena.system.JenaSystem ;
+import org.apache.jena.sys.JenaSystem ;
+import org.apache.jena.util.Metadata;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 
@@ -73,7 +73,7 @@ public class ARQ
     public static final String logInfoName = "org.apache.jena.arq.info" ;
     
     /** Name of the logger for remote HTTP requests */
-    public static final String logHttpRequestName = "org.apache.jena.arq.planner" ;
+    public static final String logHttpRequestName = "org.apache.jena.arq.service" ;
     
     private static final Logger logExec = LoggerFactory.getLogger(logExecName) ;
     private static final Logger logInfo = LoggerFactory.getLogger(logInfoName) ;
@@ -236,9 +236,9 @@ public class ARQ
 
     /** 
      * Use this Symbol to allow passing additional query parameters to a 
-     * SERVICE <IRI> call.
-     * Parameters need to be grouped by SERVICE <IRI>,  
-     * a Map<String, Map<String,List<String>>> is assumed.
+     * {@literal SERVICE <IRI>} call.
+     * Parameters need to be grouped by {@literal SERVICE <IRI>},  
+     * a {@literal Map<String, Map<String,List<String>>>} is assumed.
      * The key of the first map is the SERVICE IRI, the value is a Map 
      * which maps the name of a query string parameters to its values.
      * 
@@ -317,7 +317,7 @@ public class ARQ
     
     /** 
      *  Context key controlling whether the main query engine flattens simple paths
-     *  (e.g. <tt>?x :p/:q ?z => ?x :p ?.0 . ?.0 ?q ?z</tt>)   
+     *  (e.g. <tt>?x :p/:q ?z =&gt; ?x :p ?.0 . ?.0 ?q ?z</tt>)   
      *  <p>Default is "true"
      */  
     public static final Symbol optPathFlatten = SystemARQ.allocSymbol("optPathFlatten") ;
@@ -408,7 +408,7 @@ public class ARQ
 
     /** 
      *  Context key controlling whether the standard optimizer applies
-     *  optimizations to conjunctions (&&) in filters.
+     *  optimizations to conjunctions (&amp;&amp;) in filters.
      *  <p>By default, this transformation is applied.
      */  
     public static final Symbol optFilterConjunction = SystemARQ.allocSymbol("optFilterConjunction") ;

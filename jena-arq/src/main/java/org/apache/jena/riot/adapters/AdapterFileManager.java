@@ -283,7 +283,7 @@ public class AdapterFileManager extends org.apache.jena.util.FileManager
             : RDFLanguages.resourceNameToLang(mappedURI, Lang.RDFXML) ;
 
         // Not : RDFDataMgr.read(model, mappedURI, baseURI, lang);
-        // Allow model.read to be overridden e.g. by OntModel which does import processing.
+        // Allow model.read to be overridden e.g. by OntModel which does import processing.   
         if ( baseURI == null )
             baseURI = SysRIOT.chooseBaseIRI(filenameOrURI) ;
         try(TypedInputStream in = streamManager.openNoMapOrNull(mappedURI)) {

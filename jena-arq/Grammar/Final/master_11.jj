@@ -2215,7 +2215,7 @@ TOKEN [IGNORE_CASE] :
 |  < UNION:       "union" >
 |  < MINUS_P:     "minus" >
 |  < BIND:        "bind" >
-|  < SERVICE:     "planner" >
+|  < SERVICE:     "service" >
 
 #ifdef ARQ
 |  < LET:         "let" >

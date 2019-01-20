@@ -1592,7 +1592,7 @@ TOKEN [IGNORE_CASE] :
 | < UNION: "union" >
 | < MINUS_P: "minus" >
 | < BIND: "bind" >
-| < SERVICE: "planner" >
+| < SERVICE: "service" >
 | < EXISTS: "exists" >
 | < NOT: "not" >
 //|  < UNSAID:      "unsaid" >

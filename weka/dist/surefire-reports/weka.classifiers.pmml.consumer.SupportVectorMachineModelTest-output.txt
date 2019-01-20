@@ -1,1 +1,0 @@
-[MappingInfo] WARNING: incoming nominal attribute Employment does not have the same number of values as the corresponding mining schema attribute.

@@ -34,19 +34,35 @@ public class DatasetGraphWrapper implements DatasetGraph, Sync
 {
     // The wrapped DatasetGraph but all calls go via get() so this can be null.
     private final DatasetGraph dsg;
+    private Context context;
     
     /** Return the DatasetGraph being wrapped. */
     public final DatasetGraph getWrapped() { 
         return get();
     }
     
-    /** Recursively unwrap a DatasetGraphWrapped.
+    /** Recursively unwrap a {@link DatasetGraphWrapper}.
      * 
      * @return the first found {@link DatasetGraph} that is not an instance of {@link DatasetGraphWrapper}
      */
     public final DatasetGraph getBase() { 
         DatasetGraph dsgw = dsg;
         while (dsgw instanceof DatasetGraphWrapper) {
+            dsgw = ((DatasetGraphWrapper)dsg).getWrapped();
+        }
+        return dsgw;
+    }
+    
+    /** Recursively unwrap a {@link DatasetGraphWrapper}, stopping at a {@link DatasetGraphWrapper}
+     * that indicate it is "view changing", ie shows quads to the base dataset graph.  
+     * 
+     * @return the first found {@link DatasetGraph} that is not an instance of {@link DatasetGraphWrapper}
+     */
+    public final DatasetGraph getBaseForQuery() {
+        DatasetGraph dsgw = dsg;
+        while (dsgw instanceof DatasetGraphWrapper) {
+            if ( dsgw instanceof DatasetGraphWrapperView )
+                break;
             dsgw = ((DatasetGraphWrapper)dsg).getWrapped();
         }
         return dsgw;
@@ -58,6 +74,7 @@ public class DatasetGraphWrapper implements DatasetGraph, Sync
      *  made based on that contract. 
      */
     protected DatasetGraph get() { return dsg; }
+    protected Context getCxt()   { return context; }
 
     /** For operations that only read the DatasetGraph. */ 
     protected DatasetGraph getR() { return get(); }
@@ -71,8 +88,20 @@ public class DatasetGraphWrapper implements DatasetGraph, Sync
     /** For operations that pass on transaction actions. */
     protected DatasetGraph getT() { return get(); }
 
+    /**
+     * Create a operations wrapper around {@code dsg}.
+     * The {@link Context} of the wrapper is the context of the {@code dsg}. 
+     */
     public DatasetGraphWrapper(DatasetGraph dsg) {
+        this(dsg, (dsg == null) ? null : dsg.getContext());
+    }
+
+    /**
+     * Create a operations wrapper around {@code dsg} with {@code context}.
+     */
+    public DatasetGraphWrapper(DatasetGraph dsg, Context context) {
         this.dsg = dsg;
+        this.context = context;
     }
 
     @Override
@@ -165,7 +194,7 @@ public class DatasetGraphWrapper implements DatasetGraph, Sync
 
     @Override
     public Context getContext()
-    { return getR().getContext(); }
+    { return getCxt(); }
 
     @Override
     public long size()
@@ -209,6 +238,10 @@ public class DatasetGraphWrapper implements DatasetGraph, Sync
     @Override
     public boolean promote()
     { return getT().promote(); }
+    
+    @Override
+    public boolean promote(Promote type)
+    { return getT().promote(type); }
     
     @Override
     public void commit() 

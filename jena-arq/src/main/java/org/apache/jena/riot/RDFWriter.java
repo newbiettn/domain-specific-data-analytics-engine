@@ -139,7 +139,7 @@ public class RDFWriter {
             if ( ct == null )
                 throw new RiotException("Lang and RDFformat unset and can't determine syntax from '"+filename+"'");
             Lang lang = RDFLanguages.contentTypeToLang(ct);
-            if ( ct == null )
+            if ( lang == null )
                 throw new RiotException("No syntax registered for '"+ct.getContentType()+"'"); 
             fmt = RDFWriterRegistry.defaultSerialization(lang);
         }
@@ -200,21 +200,21 @@ public class RDFWriter {
 
     private void write$(OutputStream out, Graph graph, RDFFormat serialization) {
         WriterGraphRIOT w = createGraphWriter$(serialization);
-        w.write(out, graph, RiotLib.prefixMap(graph), null, context);
+        w.write(out, graph, RiotLib.prefixMap(graph), baseURI, context);
     }
 
     private void write$(OutputStream out, DatasetGraph dataset, RDFFormat serialization) {
         WriterDatasetRIOT w = createDatasetWriter$(serialization);
-        w.write(out, dataset, RiotLib.prefixMap(dataset), null, context);
+        w.write(out, dataset, RiotLib.prefixMap(dataset), baseURI, context);
     }
 
     private void write$(Writer out, Graph graph, RDFFormat serialization) {
         WriterGraphRIOT w = createGraphWriter$(serialization);
-        w.write(out, graph, RiotLib.prefixMap(graph), null,context);
+        w.write(out, graph, RiotLib.prefixMap(graph), baseURI,context);
     }
 
     private void write$(Writer out, DatasetGraph dataset, RDFFormat serialization) {
         WriterDatasetRIOT w = createDatasetWriter$(serialization);
-        w.write(out, dataset, RiotLib.prefixMap(dataset), null, context);
+        w.write(out, dataset, RiotLib.prefixMap(dataset), baseURI, context);
     }
 }

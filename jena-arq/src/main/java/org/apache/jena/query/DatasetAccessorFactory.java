@@ -32,7 +32,7 @@ import org.apache.jena.web.DatasetGraphAccessorHTTP ;
 public class DatasetAccessorFactory
 {
     /**
-     * Create an accessor for a remote HTTP planner
+     * Create an accessor for a remote HTTP service
      * @param serviceURI Service URI
      * @return Accessor
      */
@@ -42,7 +42,7 @@ public class DatasetAccessorFactory
     }
     
     /**
-     * Create an accessor for a remote HTTP planner that requires a custom client (e.g. for authentication)
+     * Create an accessor for a remote HTTP service that requires a custom client (e.g. for authentication)
      * @param serviceURI Service URI
      * @param client HTTP client
      * @return Accessor

@@ -1,0 +1,75 @@
+
+*****************************************************
+Summary
+-------
+Generated at: 2019-01-20T17:55:28+11:00
+
+Notes: 0
+Binaries: 0
+Archives: 0
+Standards: 49
+
+Apache Licensed: 46
+Generated Documents: 0
+
+JavaDocs are generated, thus a license header is optional.
+Generated files do not require license headers.
+
+0 Unknown Licenses
+
+*****************************************************
+  Files with Apache License headers will be marked AL
+  Binary files (which do not require any license headers) will be marked B
+  Compressed archives will be marked A
+  Notices, licenses etc. will be marked N
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/pom.xml
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/data/books.ttl
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/log4j-foreground.properties
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/log4j-server.properties
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/data-validator.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/fuseki.css
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/index.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/iri-validator.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/query-validator.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/query.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/sparql.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/update-validator.html
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/validator.html
+  W3C   /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/xml-to-html-links.xsl
+  W3C   /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/xml-to-html-plain.xsl
+  W3C   /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/pages/xml-to-html.xsl
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/sparqler/run-sparqler
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/cmds/FusekiMain.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/cmds/FusekiMainCmd.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/cmds/PlatformInfo.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/cmds/ServerConfig.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/FusekiLib.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/FusekiServer.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/main/java/org/apache/jena/fuseki/main/JettyServer.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/AbstractTestFusekiSecurityAssembler.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/AccessTestLib.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TestAuthorized.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TestFusekiSecurityAssemblerSeparate.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TestFusekiSecurityAssemblerShared.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TestSecurityBuilderSetup.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TestSecurityConfig.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TestSecurityFilterFuseki.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/access/TS_SecurityFuseki.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/CustomService.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/examples/ExtendFuseki_AddService_1.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/examples/ExtendFuseki_AddService_2.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/examples/ExtendFuseki_AddService_3.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/examples/SpecialService.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/FusekiTestAuth.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/FusekiTestServer.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TC_Fuseki.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TestEmbeddedFuseki.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TestFusekiCustomOperation.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TestFusekiTestAuth.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TestFusekiTestServer.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TestMultipleEmbedded.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/java/org/apache/jena/fuseki/main/TS_EmbeddedFuseki.java
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/src/test/resources/log4j.properties
+  AL    /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-fuseki2/jena-fuseki-main/testing/Access/passwd
+ 
+*****************************************************

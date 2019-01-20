@@ -48,7 +48,7 @@ import org.apache.jena.sparql.sse.builders.BuilderResultSet ;
 import org.apache.jena.sparql.util.Context;
 import org.apache.jena.sparql.util.NodeFactoryExtra ;
 import org.apache.jena.sparql.util.ResultSetUtils ;
-import org.apache.jena.system.JenaSystem;
+import org.apache.jena.sys.JenaSystem;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test ;
@@ -166,33 +166,55 @@ public class TestResultSet extends BaseTest
     }
     
     // Into some format.
+    private static String DIR = "testing/ResultSet/";
     
     @Test public void test_RS_7()
     {
-        ResultSet rs = ResultSetFactory.load("testing/ResultSet/output.srx") ;
+        ResultSet rs = ResultSetFactory.load(DIR+"output.srx") ;
         test_RS_fmt(rs, ResultsFormat.FMT_RS_XML, true) ;
     }
     
     @Test public void test_RS_8()
     {
-        ResultSet rs = ResultSetFactory.load("testing/ResultSet/output.srx") ;
+        ResultSet rs = ResultSetFactory.load(DIR+"output.srx") ;
         test_RS_fmt(rs, ResultsFormat.FMT_RS_JSON, true) ;
     }
     
     @Test public void test_RS_9()
     {
-        ResultSet rs = ResultSetFactory.load("testing/ResultSet/output.srx") ;
+        ResultSet rs = ResultSetFactory.load(DIR+"output.srx") ;
         test_RS_fmt(rs, ResultsFormat.FMT_RDF_XML, false) ;
     }
     
     @Test public void test_RS_10()
     {
-        ResultSet rs = ResultSetFactory.load("testing/ResultSet/output.srx") ;
+        ResultSet rs = ResultSetFactory.load(DIR+"output.srx") ;
         for ( ; rs.hasNext(); rs.next()) { }
         // We should be able to call hasNext() as many times as we want!
         assertFalse(rs.hasNext());
     }
 
+    // Test reading "variations". Things that are accepted but not in the form Jena writes. 
+    
+    // JENA-1563: xml:lang= and datatype=rdf:langString
+    @Test
+    public void rs_xmllang_datatype_1() {
+        ResultSetFactory.load(DIR + "rs-xmllang-datatype-1.srj");
+    }
+
+    // JENA-1563: xml:lang= and incompatible datatype
+    @Test(expected=ResultSetException.class)
+    public void rs_xmllang_datatype_2() {
+        // Bad: datatype is not rdf:langString (it is xsd:string in the test data)
+        ResultSetFactory.load(DIR + "rs-xmllang-datatype-2.srj");
+    }
+
+    // Explicit (unnecessary) datatype=xsd:string
+    @Test
+    public void rs_datatype_string() {
+        ResultSet rs = ResultSetFactory.load(DIR + "rs-datatype-string.srj");
+    }
+    
     @Test public void test_RS_union_1() 
     {
     	ResultSet rs1 = make("x", org.apache.jena.graph.NodeFactory.createURI("tag:local")) ;

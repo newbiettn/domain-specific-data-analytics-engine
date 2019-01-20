@@ -51,10 +51,10 @@ EOF
 
 N=0
 
-N=$((N+1)) ; testGood $ARQ $(fname "syntax-planner-" $N arq) <<EOF
+N=$((N+1)) ; testGood $ARQ $(fname "syntax-service-" $N arq) <<EOF
 PREFIX : <http://example/>
 SELECT *
-{ SERVICE <http://host/planner> {} }
+{ SERVICE <http://host/service> {} }
 EOF
 
 ## ---- GROUP BY

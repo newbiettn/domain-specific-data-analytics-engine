@@ -40,7 +40,7 @@ import org.apache.jena.sparql.syntax.Element ;
 import org.apache.jena.sparql.syntax.PatternVars ;
 import org.apache.jena.sparql.syntax.Template ;
 import org.apache.jena.sparql.util.FmtUtils ;
-import org.apache.jena.system.JenaSystem ;
+import org.apache.jena.sys.JenaSystem ;
 
 /** The data structure for a query as presented externally.
  *  There are two ways of creating a query - use the parser to turn
@@ -62,6 +62,7 @@ public class Query extends Prologue implements Cloneable, Printable
     public static final int QueryTypeConstruct  = 222 ;
     public static final int QueryTypeDescribe   = 333 ;
     public static final int QueryTypeAsk        = 444 ;
+    public static final int QueryTypeJson       = 555 ;
     int queryType = QueryTypeUnknown ; 
     
     // If no model is provided explicitly, the query engine will load
@@ -135,6 +136,7 @@ public class Query extends Prologue implements Cloneable, Printable
     public void setQueryConstructType()         { queryType = QueryTypeConstruct ; queryResultStar = true ; }
     public void setQueryDescribeType()          { queryType = QueryTypeDescribe ; }
     public void setQueryAskType()               { queryType = QueryTypeAsk ; }
+    public void setQueryJsonType()              { queryType = QueryTypeJson ; }
     
     public int getQueryType()                   { return queryType ; }
     
@@ -145,6 +147,8 @@ public class Query extends Prologue implements Cloneable, Printable
     public boolean isDescribeType()             { return queryType == QueryTypeDescribe ; }
 
     public boolean isAskType()                  { return queryType == QueryTypeAsk ; }
+
+    public boolean isJsonType()                 { return queryType == QueryTypeJson ; }
 
     public boolean isUnknownType()              { return queryType == QueryTypeUnknown ; }
     
@@ -335,7 +339,8 @@ public class Query extends Prologue implements Cloneable, Printable
     /** Return a dataset description (FROM/FROM NAMED clauses) for the query. */  
     public DatasetDescription getDatasetDescription()
     {
-        if ( ! hasDatasetDescription() ) return null;
+        if ( ! hasDatasetDescription() )
+            return null;
         
         DatasetDescription description = new DatasetDescription() ;
         
@@ -515,6 +520,18 @@ public class Query extends Prologue implements Cloneable, Printable
         havingExprs.add(expr) ;
     }
 
+    // SELECT JSON
+
+    private Map<String, Node> jsonMapping = new LinkedHashMap<>();
+
+    public void addJsonMapping(String key, Node value) {
+        jsonMapping.put(key, value);
+    }
+
+    public Map<String, Node> getJsonMapping() {
+        return Collections.unmodifiableMap(jsonMapping);
+    }
+
     // ---- Aggregates
 
     // Record allocated aggregations.
@@ -564,9 +581,10 @@ public class Query extends Prologue implements Cloneable, Printable
     /** Does the query have a VALUES trailing block? */
     public boolean hasValues()                { return valuesDataBlock != null ; }
     
+    /** Variables from a VALUES trailing block */
     public List<Var> getValuesVariables()     { return valuesDataBlock==null ? null : valuesDataBlock.getVars() ; }
     
-    /** VALUES data - null for a Node means undef */ 
+    /** Data from a VALUES trailing block. null for a Node means undef */ 
     public List<Binding> getValuesData()      { return valuesDataBlock==null ? null : valuesDataBlock.getRows() ; }
 
     public void setValuesDataBlock(List<Var> variables, List<Binding> values)
@@ -707,6 +725,8 @@ public class Query extends Prologue implements Cloneable, Printable
             visitor.visitDescribeResultForm(this) ;
         if ( this.isAskType() )
             visitor.visitAskResultForm(this) ;
+        if ( this.isJsonType() )
+            visitor.visitJsonResultForm(this) ;
         visitor.visitDatasetDecl(this) ;
         visitor.visitQueryPattern(this) ;
         visitor.visitGroupBy(this) ;
@@ -735,7 +755,7 @@ public class Query extends Prologue implements Cloneable, Printable
     // ---- Query canonical syntax
     
     // Reverse of parsing : should produce a string that parses to an equivalent query
-    // "Equivalent" => gives the same results on any model
+    // "Equivalent" => gives the same results on any model  
     @Override
     public String toString()
     { return serialize() ; }

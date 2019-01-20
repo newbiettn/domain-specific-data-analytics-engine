@@ -253,7 +253,7 @@ public class SyntaxVarScope
         public void visit(ElementGroup el)
         {
             // BIND scope rules
-            // (and planner warning)
+            // (and service warning)
             
             for ( int i = 0 ; i < el.size() ; i++ )
             {

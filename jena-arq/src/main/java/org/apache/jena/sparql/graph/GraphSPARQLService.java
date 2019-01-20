@@ -98,7 +98,7 @@ public class GraphSPARQLService extends GraphBase implements Graph
         Op op = new OpBGP(pattern) ;
         
 //        // Make remote execution object. 
-//        System.err.println("GraphSPARQLService.graphBaseFind: Unimplemented : remote planner execution") ;
+//        System.err.println("GraphSPARQLService.graphBaseFind: Unimplemented : remote service execution") ;
 //        //Plan plan = factory.create(op, getDataset(), BindingRoot.create(), null) ;
 //
 //        QueryIterator qIter = plan.iterator() ;

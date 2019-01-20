@@ -351,8 +351,8 @@ public class RDF_Decimal implements org.apache.thrift.TBase<RDF_Decimal, RDF_Dec
 
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
-    // alas, we cannot check 'value' because it's a primitive and you chose the non-model generator.
-    // alas, we cannot check 'scale' because it's a primitive and you chose the non-model generator.
+    // alas, we cannot check 'value' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'scale' because it's a primitive and you chose the non-beans generator.
     // check for sub-struct validity
   }
 

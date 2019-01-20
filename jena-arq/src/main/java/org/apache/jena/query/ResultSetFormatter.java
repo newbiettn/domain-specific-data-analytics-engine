@@ -31,6 +31,8 @@ import java.util.ArrayList ;
 import java.util.Iterator ;
 import java.util.List ;
 
+import org.apache.jena.atlas.io.IndentedWriter;
+import org.apache.jena.atlas.json.JsonObject;
 import org.apache.jena.atlas.logging.Log ;
 import org.apache.jena.rdf.model.RDFNode ;
 import org.apache.jena.riot.Lang;
@@ -40,11 +42,11 @@ import org.apache.jena.shared.PrefixMapping ;
 import org.apache.jena.sparql.ARQException ;
 import org.apache.jena.sparql.ARQNotImplemented ;
 import org.apache.jena.sparql.core.Prologue ;
-import org.apache.jena.sparql.resultset.RDFOutput;
 import org.apache.jena.sparql.resultset.ResultsFormat;
 import org.apache.jena.sparql.resultset.TextOutput;
 import org.apache.jena.sparql.resultset.XMLOutput;
 import org.apache.jena.sparql.serializer.SerializationContext ;
+import org.apache.jena.sys.JenaSystem;
 
 /** ResultSetFormatter - Convenience ways to call the various output formatters.
  *  in various formats.
@@ -52,6 +54,7 @@ import org.apache.jena.sparql.serializer.SerializationContext ;
  */
 
 public class ResultSetFormatter {
+    static { JenaSystem.init(); }
     // See also ResultSetMgr -- this post-dates this code.
     // Ideally, the operation here should call ResultSetMgr.
     
@@ -277,7 +280,7 @@ public class ResultSetFormatter {
     { output(System.out, resultSet, rFmt) ; }
 
     /** Output a ResultSet in some format.
-     *  To get detailed control over each format, call the appropropiate operation directly. 
+     *  To get detailed control over each format, call the appropriate operation directly. 
      * 
      * @param outStream Output
      * @param resultSet Result set
@@ -285,27 +288,15 @@ public class ResultSetFormatter {
      */
     
     static public void output(OutputStream outStream, ResultSet resultSet, ResultsFormat rFmt) {
-        
         Lang lang = ResultsFormat.convert(rFmt);
         if ( lang != null ) {
             output(outStream, resultSet, lang);
             return ;
         }
         
-        if ( rFmt.equals(ResultsFormat.FMT_RDF_XML) ) {
-            RDFOutput.outputAsRDF(outStream, "RDF/XML-ABBREV", resultSet) ;
+        boolean b = ResultsFormat.oldWrite(outStream, rFmt, null, resultSet);
+        if ( b )
             return ;
-        }
-
-        if ( rFmt.equals(ResultsFormat.FMT_RDF_TTL) ) {
-            RDFOutput.outputAsRDF(outStream, "TTL", resultSet) ;
-            return ;
-        }
-
-        if ( rFmt.equals(ResultsFormat.FMT_RDF_NT) ) {
-            RDFOutput.outputAsRDF(outStream, "N-TRIPLES", resultSet) ;
-            return ;
-        }
         throw new ARQException("Unknown ResultSet format: " + rFmt) ;
     }
     
@@ -314,24 +305,51 @@ public class ResultSetFormatter {
     public static void output(ResultSet resultSet, Lang resultFormat) {
         output(System.out, resultSet, resultFormat);
     }
+    
     public static void output(OutputStream outStream, ResultSet resultSet, Lang resultFormat) {
         ResultsWriter.create().lang(resultFormat).write(outStream, resultSet);
     }
+    
     public static void output(boolean result, Lang resultFormat) {
         output(System.out, result, resultFormat);
     }
-    // ---- General Output
     
     public static void output(OutputStream outStream, boolean result, Lang resultFormat) {
         ResultsWriter.create().lang(resultFormat).build().write(outStream, result);
     }
+
+    /** Output an iterator of JSON values.
+     *
+     * @param outStream output stream
+     * @param jsonItems The JSON values
+     */
+    public static void output(OutputStream outStream, Iterator<JsonObject> jsonItems)
+    {
+        IndentedWriter out = new IndentedWriter(outStream) ;
+        out.println("[") ;
+        out.incIndent() ;
+        while (jsonItems.hasNext())
+        {
+            JsonObject jsonItem = jsonItems.next() ;
+            jsonItem.output(out) ;
+            if ( jsonItems.hasNext() )
+                out.println(" ,");
+            else
+                out.println();
+        }
+        out.decIndent();
+        out.println("]");
+        out.flush();
+    }
+
+    // ---- General Output
+
+    // ---- XML Output
+
     /** Output a result set in the XML format
      * 
      * @param qresults      result set
      */
-    
-    // ---- XML Output
-
     static public void outputAsXML(ResultSet qresults)
     { outputAsXML(System.out, qresults) ; }
 
@@ -515,7 +533,7 @@ public class ResultSetFormatter {
     
     static public void outputAsJSON(OutputStream outStream, boolean booleanResult)
     { output(outStream, booleanResult, SPARQLResultSetJSON) ; }
-    
+
     // ---- SSE
     
     /** Output a boolean result in the SSE format

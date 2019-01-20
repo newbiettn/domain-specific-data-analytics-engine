@@ -1,2 +1,0 @@
-Jul 29, 2018 6:44:42 PM com.github.fommil.jni.JniLoader load
-INFO: already loaded netlib-native_system-osx-x86_64.jnilib

@@ -50,7 +50,7 @@ public class FOAF {
     /** <p>Indicates the name (identifier) associated with this online account.</p> */
     public static final Property accountName = M_MODEL.createProperty( "http://xmlns.com/foaf/0.1/accountName" );
 
-    /** <p>Indicates a homepage of the planner provide for this online account.</p> */
+    /** <p>Indicates a homepage of the service provide for this online account.</p> */
     public static final Property accountServiceHomepage = M_MODEL.createProperty( "http://xmlns.com/foaf/0.1/accountServiceHomepage" );
 
     /** <p>The age in years of some agent.</p> */

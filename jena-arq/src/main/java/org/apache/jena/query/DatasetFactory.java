@@ -28,6 +28,7 @@ import org.apache.jena.sparql.ARQException;
 import org.apache.jena.sparql.core.DatasetGraph;
 import org.apache.jena.sparql.core.DatasetGraphFactory;
 import org.apache.jena.sparql.core.DatasetImpl;
+import org.apache.jena.sparql.core.DatasetOne;
 import org.apache.jena.sparql.core.assembler.DatasetAssembler;
 import org.apache.jena.sparql.util.DatasetUtils;
 import org.apache.jena.sparql.util.graph.GraphUtils;
@@ -63,7 +64,6 @@ public class DatasetFactory {
      * so overheads can accumulate).
      * 
      * @return a transactional, in-memory, modifiable Dataset
-     * 
      */
 	public static Dataset createTxnMem() {
 		return wrap(DatasetGraphFactory.createTxnMem());
@@ -71,7 +71,7 @@ public class DatasetFactory {
 
 	/**
 	 * Create a general-purpose  {@link Dataset}.<br/>
-	 * Any graphs needed are in-memory unless explciitly added with {@link Dataset#addNamedModel}.
+	 * Any graphs needed are in-memory unless explicitly added with {@link Dataset#addNamedModel}.
 	 * </p>
 	 * This dataset type can contain graphs from any source when added via {@link Dataset#addNamedModel}.
 	 * These are held as links to the supplied graph and not copied.
@@ -109,9 +109,15 @@ public class DatasetFactory {
     }
 
     /**
-	 * @param model The model for the default graph
-	 * @return a dataset with the given model as the default graph
-	 */
+     * Create a dataset, starting with the model argument as the default graph of the
+     * dataset. Named graphs can be added. 
+     * <p> 
+     * Use {@link #wrap(Model)} to put dataset functionality around a single
+     * model when named graphs will not be added.
+     * 
+     * @param model The model for the default graph
+     * @return a dataset with the given model as the default graph
+     */
 	public static Dataset create(Model model) {
 	    Objects.requireNonNull(model, "Default model must be provided") ;
 		return new DatasetImpl(model);
@@ -135,11 +141,26 @@ public class DatasetFactory {
 	 * @return Dataset
 	 */
 	public static Dataset wrap(DatasetGraph dataset) {
-	    Objects.requireNonNull(dataset, "Can't wrap a null reference") ;
+	    Objects.requireNonNull(dataset, "Can't wrap a null DatasetGraph reference") ;
 		return DatasetImpl.wrap(dataset);
 	}
 
-	/**
+    /**
+     * Wrap a {@link Model} to make a dataset; the model is the default graph of the RDF Dataset. 
+     * 
+     * This dataset can not have additional models
+     * added to it, including indirectly through SPARQL Update
+     * adding new graphs.
+     *
+     * @param model
+     * @return Dataset
+     */
+    public static Dataset wrap(Model model) {
+        Objects.requireNonNull(model, "Can't wrap a null Model reference") ;
+        return DatasetOne.create(model);
+    }
+
+    /**
 	 * Wrap a {@link DatasetGraph} to make a dataset
 	 *
 	 * @param dataset DatasetGraph
@@ -172,7 +193,6 @@ public class DatasetFactory {
 	 * @param namedSourceList
 	 * @return a named graph container of graphs based on a list of URIs.
 	 */
-
 	public static Dataset createNamed(List<String> namedSourceList) {
 		return create((List<String>) null, namedSourceList, null);
 	}
@@ -187,7 +207,6 @@ public class DatasetFactory {
 	 * @param namedSourceList graphs to be attached as named graphs
 	 * @return Dataset
 	 */
-
 	public static Dataset create(List<String> uriList, List<String> namedSourceList) {
 		return create(uriList, namedSourceList, null);
 	}
@@ -202,7 +221,6 @@ public class DatasetFactory {
 	 * @param namedSourceList graphs to be attached as named graphs
 	 * @return Dataset
 	 */
-
 	public static Dataset create(String uri, List<String> namedSourceList) {
 		return create(uri, namedSourceList, null);
 	}
@@ -218,7 +236,6 @@ public class DatasetFactory {
 	 * @param baseURI baseURI for relative URI expansion
 	 * @return Dataset
 	 */
-
 	public static Dataset create(String uri, List<String> namedSourceList, String baseURI) {
 		return DatasetUtils.createDataset(uri, namedSourceList, baseURI);
 	}
@@ -234,7 +251,6 @@ public class DatasetFactory {
 	 * @param baseURI baseURI for relative URI expansion
 	 * @return Dataset
 	 */
-
 	public static Dataset create(List<String> uriList, List<String> namedSourceList, String baseURI) {
 		return DatasetUtils.createDataset(uriList, namedSourceList, baseURI);
 	}
@@ -294,7 +310,6 @@ public class DatasetFactory {
 	 * @param resource The resource for the dataset
 	 * @return Dataset
 	 */
-
 	public static Dataset assemble(Resource resource) {
         Objects.requireNonNull(resource, "resource can not be null") ;
 		Dataset ds = (Dataset) Assembler.general.open(resource);

@@ -123,13 +123,10 @@ public class WebContent
     public static final String      contentTypeJSON              = "application/json" ;
     public static final ContentType ctJSON                       = ContentType.create(contentTypeJSON) ;
     
+    // Unofficial
     public static final String      contentTypeResultsThrift     = "application/sparql-results+thrift" ;
     public static final ContentType ctResultsThrift              = ContentType.create(contentTypeResultsThrift) ;
     
-    // Unofficial
-    public static final String      contentTypeResultsBIO        = "application/sparql-results+bio" ;
-    public static final ContentType ctResultsBIO                 = ContentType.create(contentTypeResultsBIO) ;
-
     public static final String      contentTypeSPARQLQuery       = "application/sparql-query" ;
     public static final ContentType ctSPARQLQuery                = ContentType.create(contentTypeSPARQLQuery) ;
 
@@ -232,7 +229,7 @@ public class WebContent
      *  </p><p>
      *  The decision is 
      *  <blockquote>
-     *  <i>Content type</i> (but not text/plain) > <i>hint</i> > <i>file extension</i>.
+     *  <i>Content type</i> (but not text/plain) {@literal >} <i>hint</i> {@literal >} <i>file extension</i>.
      *  </blockquote>
      *  We make content type (via content negotiation) strongest because a server
      *  may return something unexpected because that is all it can do. We are

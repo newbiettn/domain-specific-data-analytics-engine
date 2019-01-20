@@ -391,7 +391,7 @@ doap:wiki
                 doap: ;
     rdfs:label  "wiki"@es , "wiki"@fr , "wiki"@en .
 
-doap:planner.translator
+doap:translator
     rdf:type    rdf:Property ;
     rdfs:comment
                 "Proveedor de traducciones al proyecto."@es , "Collaborateur à la traduction du projet."@fr , "Contributor of translations to the project."@en ;
@@ -399,5 +399,5 @@ doap:planner.translator
                 doap:Project ;
     rdfs:isDefinedBy
                 doap: ;
-    rdfs:label  "planner.translator"@en , "traductor"@es , "traducteur"@fr ;
+    rdfs:label  "translator"@en , "traductor"@es , "traducteur"@fr ;
     rdfs:range  foaf:Person .

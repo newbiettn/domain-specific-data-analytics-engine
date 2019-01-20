@@ -465,7 +465,7 @@ public class BuilderOp
         public Op make(ItemList list)
         {
             boolean silent = false ;
-            BuilderLib.checkLength(3, 4, list, "planner") ;
+            BuilderLib.checkLength(3, 4, list, "service") ;
             list = list.cdr() ;
             if ( list.size() == 3 )
             {

@@ -27,7 +27,7 @@ import org.junit.runners.Suite ;
     , TestDatasetGraphMem.class
     , TestDatasetGraphMemTriplesQuads.class
     , TestDatasetGeneral.class
-    // Not ready , TestDynamicDatasetMem.class
+    , TestDynamicDatasetMem.class
     , TestDatasetGraphsRegular.class
     , TestDatasetGraphCopyAdd.class
     , TestGraphOverDatasetMem.class
@@ -40,8 +40,9 @@ import org.junit.runners.Suite ;
     , TestDatasetGraphBaseFind_Mem.class
     , TestDatasetGraphBaseFindPattern_General.class
     , TestDatasetGraphBaseFindPattern_Mem.class
-    
     , TestSpecialGraphNames.class
+    
+    , TestDatasetGraphFilteredView.class
     , TestSpecials.class
 })
 

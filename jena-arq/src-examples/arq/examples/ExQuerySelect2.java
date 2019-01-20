@@ -22,11 +22,13 @@ package arq.examples;
 // The ARQ application API.
 import org.apache.jena.atlas.io.IndentedWriter ;
 import org.apache.jena.query.* ;
-import org.apache.jena.rdf.model.*;
+import org.apache.jena.rdf.model.Model ;
+import org.apache.jena.rdf.model.ModelFactory ;
+import org.apache.jena.rdf.model.Resource ;
 import org.apache.jena.vocabulary.DC ;
 
 /** Example 2 : Execute a simple SELECT query on a model
- *  to find the DC titles contained in a model.
+ *  to find the DC titles contained in a model. 
  *  Show how to print results twice. */
 
 public class ExQuerySelect2
@@ -44,7 +46,7 @@ public class ExQuerySelect2
         
         // Query string.
         String queryString = prolog + NL +
-            "SELECT ?title ?description WHERE {?x dc:title ?title. ?x dc:description ?description}" ;
+            "SELECT ?title WHERE {?x dc:title ?title}" ; 
         
         Query query = QueryFactory.create(queryString) ;
         // Print with line numbers
@@ -54,33 +56,17 @@ public class ExQuerySelect2
         // Create a single execution of this query, apply to a model
         // which is wrapped up as a Dataset
         
-        // Or QueryExecutionFactory.create(queryString, model) ;
-        try(QueryExecution qexec = QueryExecutionFactory.create(query, model)){
-            // Or QueryExecutionFactory.create(queryString, model) ;
-
-            System.out.println("Titles: ") ;
-
-            // Assumption: it's a SELECT query.
-            ResultSet rs = qexec.execSelect() ;
-
-            // The order of results is undefined.
-            for ( ; rs.hasNext() ; )
-            {
-                QuerySolution rb = rs.nextSolution() ;
-
-                // Get title - variable names do not include the '?' (or '$')
-                RDFNode x = rb.get("title") ;
-
-                // Check the type of the result value
-                if ( x.isLiteral() )
-                {
-                    Literal titleStr = (Literal)x  ;
-                    System.out.println("    "+titleStr) ;
-                }
-                else
-                    System.out.println("Strange - not a literal: "+x) ;
-
-            }
+        // Or QueryExecutionFactory.create(queryString, model) ;        
+        try(QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
+            // A ResultSet is an iterator - any query solutions returned by .next()
+            // are not accessible again.
+            // Create a ResultSetRewindable that can be reset to the beginning.
+            // Do before first use.
+            
+            ResultSetRewindable rewindable = ResultSetFactory.makeRewindable(qexec.execSelect()) ;
+            ResultSetFormatter.out(rewindable) ;
+            rewindable.reset() ;
+            ResultSetFormatter.out(rewindable) ;
         }
     }
     

@@ -26,7 +26,7 @@ import org.apache.jena.graph.impl.GraphPlain ;
 import org.apache.jena.rdf.model.Model ;
 import org.apache.jena.rdf.model.ModelFactory ;
 import org.apache.jena.sparql.SystemARQ ;
-import org.apache.jena.system.JenaSystem ;
+import org.apache.jena.sys.JenaSystem ;
 
 /** Ways to make graphs and models */
 public class GraphFactory
@@ -74,13 +74,13 @@ public class GraphFactory
     /** Guaranteed call-through to Jena's ModelFactory operation */
     public static Model makeJenaDefaultModel() { return ModelFactory.createDefaultModel() ; }
     
-    /** Create a model over a default graph (ARQ-wide for default graph type) */
+    /** Create a model over a default graph (ARQ-wide for default graph type) */ 
     public static Model makeDefaultModel()
     {
         return ModelFactory.createModelForGraph(createDefaultGraph()) ;
     }
 
-    /** Create a model over a plain graph (small-scale use only) */
+    /** Create a model over a plain graph (small-scale use only) */ 
     public static Model makePlainModel()
     {
         return ModelFactory.createModelForGraph(createPlainGraph()) ;

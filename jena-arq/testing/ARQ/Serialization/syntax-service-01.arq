@@ -2,6 +2,6 @@ PREFIX :    <http://example/>
 
 SELECT *
 {
-    SERVICE <http://host/planner>
+    SERVICE <http://host/service>
     { ?x :p ?p }
 }

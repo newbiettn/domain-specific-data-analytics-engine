@@ -18,10 +18,11 @@
 
 package org.apache.jena.sparql.syntax.syntaxtransform;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashMap ;
 import java.util.Map ;
 
-import org.apache.jena.atlas.junit.BaseTest ;
 import org.apache.jena.graph.Node ;
 import org.apache.jena.query.Query ;
 import org.apache.jena.query.QueryFactory ;
@@ -34,7 +35,7 @@ import org.apache.jena.update.UpdateRequest ;
 import org.junit.Test ;
 
 /** Test of variable replaced by value */
-public class TestSyntaxTransform extends BaseTest
+public class TestSyntaxTransform
 {
     @Test public void subst_query_01() {
         testQuery("SELECT * { }", 
@@ -88,8 +89,8 @@ public class TestSyntaxTransform extends BaseTest
 
     @Test public void subst_query_21() { 
         testQuery("SELECT * { ?s ?p ?srv SERVICE ?srv { ?s ?p ?srv}}",
-                  "SELECT * { ?s ?p <urn:planner> SERVICE <urn:planner> { ?s ?p <urn:planner>}}",
-                  "srv", "<urn:planner>") ; }
+                  "SELECT * { ?s ?p <urn:service> SERVICE <urn:service> { ?s ?p <urn:service>}}",
+                  "srv", "<urn:service>") ; }
     
     @Test public void subst_query_30() {
         testQuery("SELECT * { ?s ?p ?o } ORDER BY ?s", "SELECT * { <urn:x> ?p ?o } ORDER BY (<urn:x>)",

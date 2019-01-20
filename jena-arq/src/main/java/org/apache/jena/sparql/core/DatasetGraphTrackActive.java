@@ -54,6 +54,12 @@ public abstract class DatasetGraphTrackActive extends DatasetGraphWrapper
     }
 
     @Override
+    public final boolean promote(Promote promoteMode) {
+        checkActive();
+        return _promote(promoteMode);
+    }
+
+    @Override
     public final void commit() {
         checkActive();
         _commit();
@@ -74,7 +80,19 @@ public abstract class DatasetGraphTrackActive extends DatasetGraphWrapper
     @Override
     public abstract boolean isInTransaction() ;
     protected abstract void _begin(TxnType txnType);
-    protected abstract boolean _promote() ;
+    
+    // Decide promotion mode before passing on with mode.
+    protected boolean _promote() {
+        // Safe choice for READ and WRITE. 
+        Promote promoteMode = Promote.ISOLATED;
+        
+        TxnType txnType = transactionType();
+        if ( txnType == TxnType.READ_COMMITTED_PROMOTE )
+            promoteMode = Promote.READ_COMMITTED;
+        return _promote(promoteMode);
+    }
+    
+    protected abstract boolean _promote(Promote promoteMode) ;
     protected abstract void _commit() ;
     protected abstract void _abort() ;
     protected abstract void _end() ;

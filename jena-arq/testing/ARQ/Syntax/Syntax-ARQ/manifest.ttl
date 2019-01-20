@@ -83,8 +83,8 @@
 
 :test_8 rdf:type   mfx:PositiveSyntaxTestARQ ;
    dawgt:approval dawgt:NotClassified ;
-   mf:name    "syntax-planner-01.arq" ;
-   mf:action  <syntax-planner-01.arq> ;.
+   mf:name    "syntax-service-01.arq" ;
+   mf:action  <syntax-service-01.arq> ;.
 
 :test_9 rdf:type   mfx:PositiveSyntaxTestARQ ;
    dawgt:approval dawgt:NotClassified ;

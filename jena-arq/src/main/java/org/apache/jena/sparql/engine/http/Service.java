@@ -55,18 +55,16 @@ public class Service {
     public static final Symbol queryCompression = SystemARQ.allocSymbol(base, "queryCompression");
 
     /**
-     * Use to set the HTTP client for a planner.
+     * Use to set the HTTP client for a service.
      */
     public static final Symbol queryClient = SystemARQ.allocSymbol(base, "queryClient");
 
     /**
-     * Use this Symbol to allow passing additional planner context variables
-     * SERVICE <IRI> call. Parameters need to be grouped by SERVICE <IRI>, a
-     * Map<String, Context> is assumed. The key of the first map is the SERVICE
+     * Use this Symbol to allow passing additional service context variables
+     * {@literal SERVICE <IRI>} call. Parameters need to be grouped by {@literal SERVICE <IRI>}, a
+     * {@literal Map<String, Context>} is assumed. The key of the first map is the SERVICE
      * IRI, the value is a Context who's values will override any defaults in
      * the original context.
-     * 
-     * @see org.apache.jena.sparql.engine.http.Service
      */
     public static final Symbol serviceContext = SystemARQ.allocSymbol(base, "serviceContext");
 
@@ -93,13 +91,13 @@ public class Service {
     public static final Symbol queryTimeout = SystemARQ.allocSymbol(base, "queryTimeout");
 
     /**
-     * Executes a planner operator
+     * Executes a service operator
      * 
      * @param op
      *            Service
      * @param context
      *            Context
-     * @return Query iterator of planner results
+     * @return Query iterator of service results
      */
     public static QueryIterator exec(OpService op, Context context) {
         if ( context != null && context.isFalse(serviceAllowed) )
@@ -210,7 +208,7 @@ public class Service {
         HttpQuery httpQuery = new HttpQuery(uri);
         Context context = new Context(parentContext);
 
-        // add the context settings from the planner context
+        // add the context settings from the service context
         @SuppressWarnings("unchecked")
         Map<String, Context> serviceContextMap = (Map<String, Context>) context.get(serviceContext);
         if (serviceContextMap != null) {

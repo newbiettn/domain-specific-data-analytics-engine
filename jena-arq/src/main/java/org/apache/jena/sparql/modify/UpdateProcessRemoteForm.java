@@ -70,7 +70,7 @@ public class UpdateProcessRemoteForm extends UpdateProcessRemoteBase {
     public UpdateProcessRemoteForm(UpdateRequest request, String endpoint, Context context, HttpClient client, HttpContext httpContext) {
         this(request, endpoint, context);
         // Don't want to overwrite config we may have picked up from
-        // planner context in the parent constructor if the specified
+        // service context in the parent constructor if the specified
         // client is null
         if (client != null) this.setClient(client);
         if (httpContext != null) this.setHttpContext(httpContext);

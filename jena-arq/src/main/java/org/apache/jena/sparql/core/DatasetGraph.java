@@ -42,9 +42,9 @@ public interface DatasetGraph extends Transactional, Closeable
     /** Get the default graph as a Jena Graph */
     public Graph getDefaultGraph() ;
 
-    /** Get the graph named by graphNode : returns null on no graph 
+    /** Get the graph named by graphNode : returns null when there is no such graph. 
      * NB Whether a dataset contains a graph if there are no triples is not defined - see the specific implementation.
-     * Some datasets are "open" - they have all graphs even if no triples,
+     * Some datasets are "open" - they have all graphs even if no triples.
      */
     public Graph getGraph(Node graphNode) ;
     
@@ -123,10 +123,10 @@ public interface DatasetGraph extends Transactional, Closeable
      */
     public Iterator<Quad> findNG(Node g, Node s, Node p , Node o) ;
 
-    /** Test whether the dataset  (including default graph) contains a quad - may include wildcards, Node.ANY or null */
+    /** Test whether the dataset (including default graph) contains a quad - may include wildcards, Node.ANY or null */
     public boolean contains(Node g, Node s, Node p , Node o) ;
 
-    /** Test whether the dataset contains a quad  (including default graph)- may include wildcards, Node.ANY or null */
+    /** Test whether the dataset contains a quad (including default graph)- may include wildcards, Node.ANY or null */
     public boolean contains(Quad quad) ;
 
     /** Remove everything - remove all named graphs, clear the default graph */

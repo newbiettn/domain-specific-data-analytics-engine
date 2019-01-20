@@ -69,7 +69,7 @@ public class QueryIterService extends QueryIterRepeatApply
             throw ex ;
         }
             
-        // Need to put the outerBinding as parent to every binding of the planner call.
+        // Need to put the outerBinding as parent to every binding of the service call.
         // There should be no variables in common because of the OpSubstitute.substitute 
         QueryIterator qIter2 = new QueryIterCommonParent(qIter, outerBinding, getExecContext()) ;
         return qIter2 ;

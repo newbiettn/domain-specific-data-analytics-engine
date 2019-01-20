@@ -23,7 +23,7 @@ import org.apache.jena.graph.Node ;
 import org.apache.jena.graph.NodeFactory ;
 import org.apache.jena.sparql.util.NodeIsomorphismMap ;
 
-/** A SERVICE pattern - access a remote SPARQL planner. */
+/** A SERVICE pattern - access a remote SPARQL service. */
 
 public class ElementService extends Element
 {
@@ -45,7 +45,7 @@ public class ElementService extends Element
     public ElementService(Node n, Element el, boolean silent)
     {
         if ( ! n.isURI() && ! n.isVariable() )
-            Log.error(this, "Must be a URI (or variable which will be bound) for a planner endpoint") ;
+            Log.error(this, "Must be a URI (or variable which will be bound) for a service endpoint") ;
         this.serviceNode = n ;
         this.element = el ;
         this.silent = silent ;

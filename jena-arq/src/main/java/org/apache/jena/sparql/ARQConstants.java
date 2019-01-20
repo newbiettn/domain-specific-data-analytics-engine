@@ -18,6 +18,7 @@
 
 package org.apache.jena.sparql;
 
+import org.apache.jena.riot.system.Prologue;
 import org.apache.jena.shared.PrefixMapping ;
 import org.apache.jena.shared.impl.PrefixMappingImpl ;
 import org.apache.jena.sparql.util.Symbol ;
@@ -117,7 +118,9 @@ public class ARQConstants
         globalPrefixMap.setNsPrefix("rdfs", rdfsPrefix) ;
         globalPrefixMap.setNsPrefix("xsd",  xsdPrefix) ;
         globalPrefixMap.setNsPrefix("owl" , owlPrefix) ;
-        globalPrefixMap.setNsPrefix("fn" ,  fnPrefix) ; 
+        globalPrefixMap.setNsPrefix("fn" ,  fnPrefix) ;
+        // Treat op: as fn: (op: has no namespace in XSD F&O).
+        globalPrefixMap.setNsPrefix("op" ,  fnPrefix) ;
         globalPrefixMap.setNsPrefix("math" ,  mathPrefix) ;
         globalPrefixMap.setNsPrefix("afn",  ARQFunctionLibraryURI) ;
         globalPrefixMap.setNsPrefix("apf",  ARQPropertyFunctionLibraryURI) ;
@@ -220,11 +223,11 @@ public class ARQConstants
      *  See the <a href="http://www.w3.org/TR/sparql11-protocol">SPARQL protocol</a>.
      *  <p> 
      *  A dataset description specified outside the query should override a dataset description
-     *  in query and also the implicit dataset of a planner. The order is:
+     *  in query and also the implicit dataset of a service. The order is:
      *  <ol>
      *  <li>Dataset description from the protocol</li>
      *  <li>Dataset description from the query (FROM/FROM NAMED)</li>
-     *  <li>Dataset of the planner</li>
+     *  <li>Dataset of the service</li>
      *  </ol>
      *  Use in other situations should reflect this design. 
      *  The value of this key in a Context must be an object of type DatasetDescription. 
@@ -257,6 +260,9 @@ public class ARQConstants
     
     /** Graphs forming the named graphs (List&lt;String&gt;) (Dynamic dataset) */
     public static final Symbol symDatasetNamedGraphs       = SystemARQ.allocSymbol("datasetNamedGraphs") ;
+    
+    /** Context symbol for a supplied {@link Prologue} (used for text out of result sets). */
+    public static final Symbol symPrologue                 = SystemARQ.allocSymbol("prologue");
     
     /** Context key for making all SELECT queries have DISTINCT applied, whether stated ot not */
     public static final Symbol autoDistinct             = SystemARQ.allocSymbol("autoDistinct") ;

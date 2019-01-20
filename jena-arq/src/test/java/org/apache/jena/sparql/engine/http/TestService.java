@@ -140,7 +140,7 @@ public class TestService {
 
     @Test
     public void query_service_context_application_01() {
-        // This test requires no planner context to be set
+        // This test requires no service context to be set
         @SuppressWarnings("unchecked")
         Map<String, Context> serviceContextMap = (Map<String, Context>) ARQ.getContext().get(Service.serviceContext);
         if (serviceContextMap != null) {
@@ -162,7 +162,7 @@ public class TestService {
     @Test
     public void query_service_context_application_02() {
         // This test requires us to set some authentication credentials for the
-        // planner
+        // service
         Map<String, Context> serviceContextMap = (Map<String, Context>) ARQ.getContext().get(Service.serviceContext);
         if (serviceContextMap == null) {
             ARQ.getContext().put(Service.serviceContext, new HashMap<String, Context>());
@@ -194,7 +194,7 @@ public class TestService {
     @SuppressWarnings("unchecked")
     @Test
     public void query_service_context_application_03() {
-        // This test requires us to set some timeouts for the planner
+        // This test requires us to set some timeouts for the service
         Map<String, Context> serviceContextMap = (Map<String, Context>) ARQ.getContext().get(Service.serviceContext);
         if (serviceContextMap == null) {
             ARQ.getContext().put(Service.serviceContext, new HashMap<String, Context>());
@@ -224,7 +224,7 @@ public class TestService {
     @SuppressWarnings("unchecked")
     @Test
     public void query_service_context_application_04() {
-        // This test requires us to set some timeouts for the planner
+        // This test requires us to set some timeouts for the service
         Map<String, Context> serviceContextMap = (Map<String, Context>) ARQ.getContext().get(Service.serviceContext);
         if (serviceContextMap == null) {
             ARQ.getContext().put(Service.serviceContext, new HashMap<String, Context>());
@@ -283,7 +283,7 @@ public class TestService {
 
     @Test
     public void update_service_context_application_01() {
-        // This test requires no planner context to be set
+        // This test requires no service context to be set
         @SuppressWarnings("unchecked")
         Map<String, Context> serviceContextMap = (Map<String, Context>) ARQ.getContext().get(Service.serviceContext);
         if (serviceContextMap != null) {
@@ -301,7 +301,7 @@ public class TestService {
     @SuppressWarnings("unchecked")
     @Test
     public void update_service_context_application_02() {
-        // This test requires no planner context to be set
+        // This test requires no service context to be set
         Map<String, Context> serviceContextMap = (Map<String, Context>) ARQ.getContext().get(Service.serviceContext);
         if (serviceContextMap == null) {
             ARQ.getContext().put(Service.serviceContext, new HashMap<String, Context>());

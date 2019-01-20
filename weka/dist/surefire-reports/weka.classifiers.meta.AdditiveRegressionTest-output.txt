@@ -1,2 +1,0 @@
-Cannot build non-trivial model (only class attribute present in data!).
-Cannot build non-trivial model (only class attribute present in data!).

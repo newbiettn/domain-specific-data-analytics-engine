@@ -86,9 +86,9 @@ public class TestVarRename extends BaseTest
                                            true,
                                            "s") ; }
     
-    // JENA-494 : sub-query and planner interaction
-    @Test public void rename_14() { rename("(project (?z) (project (?z) (sequence (planner <http://foo> (bgp (?c ?p ?z)) ) (bgp (?c ?q ?z)) ) ) )",
-                                           "(project (?z) (project (?z) (sequence (planner <http://foo> (bgp (?/c ?/p ?z)) ) (bgp (?/c ?/q ?z)) ) ) )",
+    // JENA-494 : sub-query and service interaction
+    @Test public void rename_14() { rename("(project (?z) (project (?z) (sequence (service <http://foo> (bgp (?c ?p ?z)) ) (bgp (?c ?q ?z)) ) ) )",
+                                           "(project (?z) (project (?z) (sequence (service <http://foo> (bgp (?/c ?/p ?z)) ) (bgp (?/c ?/q ?z)) ) ) )",
                                            true,
                                            "z") ; }
 

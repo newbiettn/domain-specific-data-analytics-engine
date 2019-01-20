@@ -30,8 +30,10 @@ import org.apache.jena.riot.resultset.ResultSetWriter;
 import org.apache.jena.riot.resultset.ResultSetWriterFactory;
 import org.apache.jena.riot.resultset.ResultSetWriterRegistry;
 import org.apache.jena.sparql.util.Context;
+import org.apache.jena.sys.JenaSystem;
 
 public class ResultsWriter {
+    static { JenaSystem.init(); }
     
     /** Create a {@code ResultsWriter.Builder}. */
     public static Builder create() { return new Builder() ; }
@@ -88,7 +90,7 @@ public class ResultsWriter {
         } catch (IOException ex) { IO.exception(ex); }
     }
     
-    /** Write a result set, using the configurartion of the {@code ResultWriter}, to an {@code OutputStream}. */ 
+    /** Write a result set, using the configuration of the {@code ResultWriter}, to an {@code OutputStream}. */ 
     public void write(OutputStream output, ResultSet resultSet) {
         Objects.requireNonNull(output);
         Objects.requireNonNull(resultSet);

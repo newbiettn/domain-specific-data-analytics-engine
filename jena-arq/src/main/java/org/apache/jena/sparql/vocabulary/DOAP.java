@@ -64,7 +64,7 @@ public class DOAP {
     /** <p>Proveedor de traducciones al proyecto.Collaborateur � la traduction du projet.Contributor 
      *  of translations to the project.</p>
      */
-    public static final Property translator = m_model.createProperty( "http://usefulinc.com/ns/doap#planner.translator" );
+    public static final Property translator = m_model.createProperty( "http://usefulinc.com/ns/doap#translator" );
     
     /** <p>Page web � partir de laquelle on peut t�l�charger le programme.P�gina web 
      *  de la cu�l se puede bajar el software.Web page from which the project software 

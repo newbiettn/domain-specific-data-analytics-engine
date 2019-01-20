@@ -54,7 +54,7 @@ public class UpdateProcessRemote extends UpdateProcessRemoteBase
     {
         this(request, endpoint, context);
         // Don't want to overwrite config we may have picked up from
-        // planner context in the parent constructor if the specified
+        // service context in the parent constructor if the specified
         // client is null
         if (client != null) this.setClient(client);
         if (httpContext != null) this.setHttpContext(httpContext);
@@ -71,7 +71,7 @@ public class UpdateProcessRemote extends UpdateProcessRemoteBase
         
         // Build endpoint URL
         String endpoint = this.getEndpoint();
-        String querystring = this.getQueryString();
+        String querystring = this.getUpdateString();
         if (querystring != null && !querystring.equals("")) {
             endpoint = endpoint.contains("?") ? endpoint + "&" + querystring : endpoint + "?" + querystring;
         }

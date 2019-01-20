@@ -648,9 +648,9 @@
          rdf:type   mfx:TestSerialization ;
          mf:action  <syntax-select-expr-03.arq> ; 
       ]
-      [  mf:name    "syntax-planner-01.arq" ;
+      [  mf:name    "syntax-service-01.arq" ;
          rdf:type   mfx:TestSerialization ;
-         mf:action  <syntax-planner-01.arq> ;
+         mf:action  <syntax-service-01.arq> ; 
       ]
       [  mf:name    "syntax-subselect-10.arq" ;
          rdf:type   mfx:TestSerialization ;

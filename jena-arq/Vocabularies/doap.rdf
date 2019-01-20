@@ -417,9 +417,9 @@
 	<rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Person" />
 </rdf:Property>
 
-<rdf:Property rdf:about="http://usefulinc.com/ns/doap#planner.translator">
+<rdf:Property rdf:about="http://usefulinc.com/ns/doap#translator">
 	<rdfs:isDefinedBy rdf:resource="http://usefulinc.com/ns/doap#" />
-	<rdfs:label xml:lang="en">planner.translator</rdfs:label>
+	<rdfs:label xml:lang="en">translator</rdfs:label>
 	<rdfs:label xml:lang="fr">traducteur</rdfs:label>
 	<rdfs:label xml:lang="es">traductor</rdfs:label>
 	<rdfs:comment xml:lang="en">Contributor of translations to the project.</rdfs:comment>

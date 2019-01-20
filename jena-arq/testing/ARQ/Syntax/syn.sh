@@ -47,7 +47,7 @@ source syn-func.sh
     clean
     source ../syn-sparql-fed.sh
     createManifest "Syntax SPARQL 1.1 Federation" \
-	'<http://www.w3.org/2009/sparql/docs/tests/data-sparql11/syntax-planner/manifest#>'
+	'<http://www.w3.org/2009/sparql/docs/tests/data-sparql11/syntax-service/manifest#>'
 )
 
 # ARQ

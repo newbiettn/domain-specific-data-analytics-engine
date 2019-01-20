@@ -77,14 +77,14 @@ public abstract class UpdateProcessRemoteBase implements UpdateProcessor {
         this.endpoint = endpoint;
         this.context = Context.setupContextExec(context, null);
 
-        // Apply planner configuration if applicable
+        // Apply service configuration if applicable
         UpdateProcessRemoteBase.applyServiceConfig(endpoint, this);
     }
 
     /**
      * <p>
      * Helper method which applies configuration from the Context to the query
-     * engine if a planner context exists for the given URI
+     * engine if a service context exists for the given URI
      * </p>
      * <p>
      * Based off proposed patch for JENA-405 but modified to apply all relevant
@@ -130,6 +130,12 @@ public abstract class UpdateProcessRemoteBase implements UpdateProcessor {
         return this.endpoint;
     }
 
+    /** @deprecated Use {@link #getUpdateString()} */
+    @Deprecated
+    public String getQueryString() {
+        return getUpdateString();
+    }
+
     /**
      * Gets the generated HTTP query string portion of the endpoint URL if applicable
      * <p>
@@ -140,7 +146,7 @@ public abstract class UpdateProcessRemoteBase implements UpdateProcessor {
      * 
      * @return Generated query string
      */
-    public String getQueryString() {
+    public String getUpdateString() {
         return this.getParams().httpString();
     }
 

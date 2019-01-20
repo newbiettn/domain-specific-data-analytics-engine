@@ -223,6 +223,11 @@ public class OpVars
             addVar(acc, quadPattern.getGraphNode()) ;
             VarUtils.addVars(acc, quadPattern.getBasicPattern()) ;
         }
+        
+        @Override
+        public void visit(OpQuadBlock quadBlock) {
+            VarUtils.addVars(acc, quadBlock.getPattern()) ;
+        }
 
         @Override
         public void visit(OpTriple opTriple) {
@@ -283,6 +288,11 @@ public class OpVars
         @Override
         public void visit(OpProcedure opProc) {
             ExprVars.varsMentioned(acc, opProc.getArgs()) ;
+        }
+        
+        @Override
+        public void visit(OpExt opExt) {
+            // OpWalkerVisitor is taking care of calling opExt.effectiveOp().visit(this)
         }
     }
     

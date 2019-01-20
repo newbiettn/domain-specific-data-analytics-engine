@@ -53,8 +53,7 @@ public class HttpResponseLib
     {
         private Graph graph = null ;
         @Override
-        final public void handle(String baseIRI, HttpResponse response)
-        {
+        final public void handle(String baseIRI, HttpResponse response) {
             try {
                 Graph g = GraphFactory.createDefaultGraph() ;
                 HttpEntity entity = response.getEntity() ;
@@ -79,8 +78,7 @@ public class HttpResponseLib
     {
         private DatasetGraph dsg = null ;
         @Override
-        final public void handle(String baseIRI, HttpResponse response)
-        {
+        final public void handle(String baseIRI, HttpResponse response) {
             try {
                 DatasetGraph dsg = DatasetGraphFactory.createTxnMem();
                 HttpEntity entity = response.getEntity() ;
@@ -126,17 +124,13 @@ public class HttpResponseLib
     } ;
     
     /** Consume a response quietly. */
-    public static HttpResponseHandler nullResponse = new HttpResponseHandler() {
-        @Override
-        public void handle(String baseIRI , HttpResponse response ) {
-            EntityUtils.consumeQuietly(response.getEntity()) ;
-        }
-    } ;
-    
-    public static ResultsFormat contentTypeToResultSet(String contentType) { return mapContentTypeToResultSet.get(contentType) ; }
+    public static HttpResponseHandler nullResponse = (b, r) -> EntityUtils.consumeQuietly(r.getEntity());
+
+    // Old world.
+    // See also ResultSetFactory.load(in, fmt) 
+    private static ResultsFormat contentTypeToResultsFormat(String contentType) { return mapContentTypeToResultSet.get(contentType) ; }
     private static final Map<String, ResultsFormat> mapContentTypeToResultSet = new HashMap<>() ;
-    static
-    {
+    static {
         mapContentTypeToResultSet.put(WebContent.contentTypeResultsXML, ResultsFormat.FMT_RS_XML) ;
         mapContentTypeToResultSet.put(WebContent.contentTypeResultsJSON, ResultsFormat.FMT_RS_JSON) ;
         mapContentTypeToResultSet.put(WebContent.contentTypeTextTSV, ResultsFormat.FMT_RS_TSV) ;
@@ -144,23 +138,22 @@ public class HttpResponseLib
 
     /** Response handling for SPARQL result sets. */
     public static class HttpCaptureResponseResultSet implements HttpCaptureResponse<ResultSet>
-    {    
-        ResultSet rs = null ;
+    {
+        private ResultSet rs = null;
+
         @Override
-        public void handle(String baseIRI , HttpResponse response ) throws IOException
-        {
-            String ct = contentType(response) ;
-            ResultsFormat fmt = mapContentTypeToResultSet.get(ct) ;
-            InputStream in = response.getEntity().getContent() ;
-            rs = ResultSetFactory.load(in, fmt) ;
+        public void handle(String baseIRI, HttpResponse response) throws IOException {
+            String ct = contentType(response);
+            ResultsFormat fmt = contentTypeToResultsFormat(ct);
+            InputStream in = response.getEntity().getContent();
+            rs = ResultSetFactory.load(in, fmt);
             // Force reading
-            rs = ResultSetFactory.copyResults(rs) ;
+            rs = ResultSetFactory.copyResults(rs);
         }
 
         @Override
-        public ResultSet get()
-        {
-            return rs ;
+        public ResultSet get() {
+            return rs;
         }
     }
     

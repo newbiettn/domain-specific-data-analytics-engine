@@ -232,7 +232,7 @@ public class HttpQuery extends Params {
     }
 
     /**
-     * Sets HTTP Connection timeout, any value <= 0 is taken to mean no timeout
+     * Sets HTTP Connection timeout, any value {@literal <=} 0 is taken to mean no timeout
      * 
      * @param timeout
      *            Connection Timeout
@@ -251,7 +251,7 @@ public class HttpQuery extends Params {
     }
 
     /**
-     * Sets HTTP Read timeout, any value <= 0 is taken to mean no timeout
+     * Sets HTTP Read timeout, any value {@literal <=} 0 is taken to mean no timeout
      * 
      * @param timeout
      *            Read Timeout
@@ -300,9 +300,8 @@ public class HttpQuery extends Params {
     }
     
     private void contextualizeTimeoutSettings(RequestConfig.Builder builder) {
-        if (connectTimeout <= 0)
-            return;
-        builder.setConnectTimeout(connectTimeout);
+        if (connectTimeout > 0) builder.setConnectTimeout(connectTimeout);
+        if (readTimeout > 0) builder.setSocketTimeout(readTimeout);
     }
 
     private InputStream execGet() throws QueryExceptionHTTP {
@@ -362,7 +361,7 @@ public class HttpQuery extends Params {
     
     private QueryExceptionHTTP rewrap(HttpException httpEx) {
         // The historical contract of HTTP Queries has been to throw QueryExceptionHTTP however using the standard
-    	    // ARQ HttpOp machinery we use these days means the internal HTTP errors come back as HttpException
+        // ARQ HttpOp machinery we use these days means the internal HTTP errors come back as HttpException
         // Therefore we need to wrap appropriately
         responseCode = httpEx.getResponseCode();
         if (responseCode != -1) {

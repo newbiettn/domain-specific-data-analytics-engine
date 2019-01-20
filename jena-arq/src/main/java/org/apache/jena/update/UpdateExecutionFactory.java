@@ -276,7 +276,7 @@ public class UpdateExecutionFactory
         return uProc;
     }
     
-    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update service.
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @return Remote Update processor
@@ -286,7 +286,7 @@ public class UpdateExecutionFactory
         return createRemote(new UpdateRequest(update), remoteEndpoint, null, null, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update service.
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -297,7 +297,7 @@ public class UpdateExecutionFactory
         return createRemote(update, remoteEndpoint, client, null);
     }
     
-    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update service.
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -308,7 +308,7 @@ public class UpdateExecutionFactory
         return createRemote(new UpdateRequest(update), remoteEndpoint, null, client, httpContext) ;
     }
     
-    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update service.
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -319,7 +319,7 @@ public class UpdateExecutionFactory
         return createRemote(new UpdateRequest(update), remoteEndpoint, context, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update service.
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -331,7 +331,7 @@ public class UpdateExecutionFactory
         return createRemote(update, remoteEndpoint, context, client, null);
     }
         
-    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update to a remote SPARQL Update service.
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -344,7 +344,7 @@ public class UpdateExecutionFactory
         return createRemote(new UpdateRequest(update), remoteEndpoint, context, client) ;
     }
         
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service.
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @return Remote Update processor
@@ -354,7 +354,7 @@ public class UpdateExecutionFactory
         return createRemote(updateRequest, remoteEndpoint, null, null, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service.
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -365,7 +365,7 @@ public class UpdateExecutionFactory
         return createRemote(updateRequest, remoteEndpoint, null, client) ;
     }
 
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service.
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -377,7 +377,7 @@ public class UpdateExecutionFactory
         return createRemote(updateRequest, remoteEndpoint, null, client, httpContext) ;
     }
 
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service.
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -388,7 +388,7 @@ public class UpdateExecutionFactory
         return createRemote(updateRequest, remoteEndpoint, context, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service.
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -400,7 +400,7 @@ public class UpdateExecutionFactory
         return new UpdateProcessRemote(updateRequest, remoteEndpoint, context, client, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner.
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service.
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -413,7 +413,7 @@ public class UpdateExecutionFactory
         return new UpdateProcessRemote(updateRequest, remoteEndpoint, context, client, httpContext) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @return Remote Update processor
@@ -423,7 +423,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(update, remoteEndpoint, null, null, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -434,7 +434,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(update, remoteEndpoint, null, client) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -446,7 +446,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(update, remoteEndpoint, null, client, httpContext) ;
     }
 
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -457,7 +457,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(new UpdateRequest(update), remoteEndpoint, context, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -469,7 +469,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(new UpdateRequest(update), remoteEndpoint, null, client) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param update Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -480,7 +480,7 @@ public class UpdateExecutionFactory
     public static UpdateProcessor createRemoteForm(Update update, String remoteEndpoint, Context context, HttpClient client, HttpContext httpContext) {
         return createRemoteForm(new UpdateRequest(update), remoteEndpoint, null, client, httpContext) ;
     }
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @return Remote Update processor
@@ -490,7 +490,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(updateRequest, remoteEndpoint, null, null, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -501,7 +501,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(updateRequest, remoteEndpoint, null, client) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param client HTTP client
@@ -513,7 +513,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(updateRequest, remoteEndpoint, null, client, httpContext) ;
     }
 
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -524,7 +524,7 @@ public class UpdateExecutionFactory
         return new UpdateProcessRemoteForm(updateRequest, remoteEndpoint, context) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context
@@ -536,7 +536,7 @@ public class UpdateExecutionFactory
         return createRemoteForm(updateRequest, remoteEndpoint, context, client, null) ;
     }
     
-    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update planner using an HTML form
+    /** Create an UpdateProcessor that sends the update request to a remote SPARQL Update service using an HTML form
      * @param updateRequest Updates
      * @param remoteEndpoint Endpoint URL
      * @param context Context

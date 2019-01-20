@@ -21,22 +21,9 @@ package arq.examples;
 
 // The ARQ application API.
 import org.apache.jena.atlas.io.IndentedWriter ;
-import org.apache.jena.atlas.logging.Log;
-import org.apache.jena.ml.MLQuery;
-import org.apache.jena.ml.MLQueryFactory;
 import org.apache.jena.query.* ;
 import org.apache.jena.rdf.model.* ;
-import org.apache.jena.sparql.core.Var;
-import org.apache.jena.graph.Node;
-import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.apache.jena.sparql.util.FmtUtils;
 import org.apache.jena.vocabulary.DC ;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /** Example 1 : Execute a simple SELECT query on a model
  *  to find the DC titles contained in a model. */
@@ -45,87 +32,68 @@ public class ExQuerySelect1
 {
     static public final String NL = System.getProperty("line.separator") ; 
     
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         // Create the data.
-        // First part or the query string
-        String prolog = "PREFIX : <file:///Users/newbiettn/Downloads/d2rq-0.8.1/mapping.nt#>\n" +
-                "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                "PREFIX vocab: <file:///Users/newbiettn/Downloads/d2rq-0.8.1/vocab/>" ;
-
+        // This wil be the background (unnamed) graph in the dataset.
+        Model model = createModel() ;
+        
+        // First part or the query string 
+        String prolog = "PREFIX dc: <"+DC.getURI()+">" ;
+        
         // Query string.
         String queryString = prolog + NL +
-                "CREATE PREDICTION MODEL ?m " +
-                "TARGET ?survive " +
-                "WHERE {" +
-                "?pub FEATURE vocab:papers_Publish." +
-                "?title FEATURE vocab:papers_Title." +
-                "?year FEATURE vocab:papers_Year." +
-                "}";
-        MLQuery q = MLQueryFactory.create(queryString);
-        LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
-        StringBuilder whereStr = new StringBuilder();
-        for (Map.Entry<Var, Node> e : cpmWhereVars.entrySet()){
-            Var v = e.getKey();
-            Node n = e.getValue();
-            whereStr = whereStr.append("?s ").append("<").append(n.getURI()).append(">").append(" ").append("?").append(v.getVarName()).append(".").append(NL);
-        }
-//        System.out.println(whereStr);
-
-//        query.serialize(new IndentedWriter(System.out,true)) ;
+            "SELECT ?title WHERE {?x dc:title ?title}" ; 
+        
+        Query query = QueryFactory.create(queryString) ;
         // Print with line numbers
-        Log.info("MLQuery", "Successfully parse MLQuery");
+        query.serialize(new IndentedWriter(System.out,true)) ;
+        System.out.println() ;
+        
+        // Create a single execution of this query, apply to a model
+        // which is wrapped up as a Dataset
+        
+        try(QueryExecution qexec = QueryExecutionFactory.create(query, model)){
+            // Or QueryExecutionFactory.create(queryString, model) ;
 
-        // Create SELECT query
-        String selectQuery = prolog + NL +
-                "SELECT ?pub ?title ?year WHERE { " + NL +
-                whereStr.toString() +
-                " }";
-        System.out.println(selectQuery);
+            System.out.println("Titles: ") ;
 
-        Query query = QueryFactory.create(selectQuery);
-        // Remote execution.
-        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/d1/sparql", query) ) {
-            // Set the DBpedia specific timeout.
-            ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
+            // Assumption: it's a SELECT query.
+            ResultSet rs = qexec.execSelect() ;
 
-            // Execute.
-            ResultSet rs = qexec.execSelect();
-            ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(rs);
-            int numCols = resultSetRewindable.getResultVars().size();
+            // The order of results is undefined. 
+            for ( ; rs.hasNext() ; )
+            {
+                QuerySolution rb = rs.nextSolution() ;
 
-            StringBuilder header = new StringBuilder();
-            StringBuilder row = new StringBuilder();
-            for (int r = 0; resultSetRewindable.hasNext(); r++) {
-                QuerySolution rBind = resultSetRewindable.nextSolution();
-                for ( int col = 0 ; col < numCols ; col++ ) {
-                    String rVar = rs.getResultVars().get(col);
-                    // Print col headers
-                    if (r == 0){
-                        if (col < numCols-1)
-                            header.append(rVar).append(",");
-                        else
-                            header.append(rVar).append("\n");
-                    }
-                    // Print row
-                    RDFNode obj = rBind.get(rVar);
-                    String v = FmtUtils.stringForRDFNode(obj);
-                    if (col < numCols-1)
-                        row.append(v).append(",");
-                    else
-                        row.append(v).append("\n");
+                // Get title - variable names do not include the '?' (or '$')
+                RDFNode x = rb.get("title") ;
+
+                // Check the type of the result value
+                if ( x.isLiteral() )
+                {
+                    Literal titleStr = (Literal)x  ;
+                    System.out.println("    "+titleStr) ;
                 }
-            }
-            // Save to CSV
-            FileWriter fw = new FileWriter(
-                    "sparql_data_tmp.csv",
-                    false);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-            out.print(header.toString() + row.toString());
-            out.close();
+                else
+                    System.out.println("Strange - not a literal: "+x) ;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            }
         }
+    }
+    
+    public static Model createModel()
+    {
+        Model m = ModelFactory.createDefaultModel() ;
+        
+        Resource r1 = m.createResource("http://example.org/book#1") ;
+        Resource r2 = m.createResource("http://example.org/book#2") ;
+        
+        r1.addProperty(DC.title, "SPARQL - the book")
+          .addProperty(DC.description, "A book about SPARQL") ;
+        
+        r2.addProperty(DC.title, "Advanced techniques for SPARQL") ;
+        
+        return m ;
     }
 }

@@ -45,6 +45,7 @@ import static org.apache.jena.riot.WebContent.contentTypeTurtleAlt2;
 
 import java.util.*;
 
+import org.apache.jena.atlas.io.IO;
 import org.apache.jena.atlas.logging.Log ;
 import org.apache.jena.atlas.web.ContentType ;
 import org.apache.jena.atlas.web.MediaType ;
@@ -398,13 +399,20 @@ public class RDFLanguages
     /** Try to map a resource name to a {@link Lang}; return the given default where there is no registered mapping */
     public static Lang resourceNameToLang(String resourceName, Lang dftLang) { return filenameToLang(resourceName, dftLang) ; }
     
-    /** Try to map a file name to a {@link Lang}; return null on no registered mapping */
+    /** Try to map a URI or file name to a {@link Lang}; return null on no registered mapping. */
     public static Lang filenameToLang(String filename)
     {
-        if ( filename == null ) return null ;
-        if ( filename.endsWith(".gz") )
-            filename = filename.substring(0, filename.length()-3) ;
-        return fileExtToLang(FileUtils.getFilenameExt(filename)) ;
+        if ( filename == null )
+            return null;
+        // Remove any URI fragment (there can be only one # in a URI).
+        // Pragmatically, assume any # is URI related.
+        // URIs can be relative.
+        int iHash = filename.indexOf('#');
+        if ( iHash  > 0 )
+            filename = filename.substring(0, iHash);
+        // Gzip or BZip2 compressed?
+        filename = IO.filenameNoCompression(filename);
+        return fileExtToLang(FileUtils.getFilenameExt(filename));
     }
 
     /** Try to map a file name to a {@link Lang}; return the given default where there is no registered mapping */
