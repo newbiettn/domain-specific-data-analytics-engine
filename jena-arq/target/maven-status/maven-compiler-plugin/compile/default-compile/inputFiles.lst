@@ -305,6 +305,7 @@
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/op/OpAssign.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/expr/E_LessThanOrEqual.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/function/library/execTime.java
+/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/ml/MLQueryFactory.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/atlas/json/io/JSONHandler.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/modify/UpdateProcessRemote.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/AlgebraGenerator.java
@@ -365,6 +366,7 @@
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/op/OpTable.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/web/DatasetAdapter.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/sse/builders/OpBuildException.java
+/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/ml/MLData.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/function/js/EnvJavaScript.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/sse/lang/ParseHandlerForm.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/core/QuadPattern.java
@@ -406,6 +408,7 @@
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/pfunction/PFuncListAndSimple.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/util/QueryUtils.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/atlas/json/JsonObject.java
+/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/ml/MLQueryVisitor.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/function/library/leviathan/cartesian.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/expr/E_DateTimeMonth.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/op/OpTopN.java
@@ -521,6 +524,7 @@
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/engine/optimizer/reorder/PatternTriple.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/query/QueryVisitor.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/OpAsQuery.java
+/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/ml/MLModel.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/riot/system/MapWithScope.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/function/library/leviathan/ten.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/lang/ParserSPARQL10.java
@@ -848,6 +852,7 @@
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/lang/sparql_10/ParseException.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/optimize/TransformPathFlatternStd.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/engine/iterator/QueryIteratorCheck.java
+/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/ml/MLQuery.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/function/js/NV.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/util/PrintSerializable.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/expr/RegexJava.java
@@ -901,6 +906,7 @@
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/riot/system/FactoryRDF.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/algebra/optimize/OptimizerMinimal.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/expr/ExprFunctionN.java
+/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/lang/MLParser.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/sse/writers/WriterPath.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/riot/resultset/rw/ResultSetWriterXML.java
 /Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/jena-arq/src/main/java/org/apache/jena/sparql/function/library/min.java

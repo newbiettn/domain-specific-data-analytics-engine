@@ -21,6 +21,7 @@ package org.apache.jena.sparql.lang;
 import java.util.* ;
 
 import org.apache.jena.graph.Node ;
+import org.apache.jena.ml.MLQuery;
 import org.apache.jena.query.Query ;
 import org.apache.jena.query.QueryParseException ;
 import org.apache.jena.sparql.ARQInternalErrorException ;
@@ -323,4 +324,15 @@ public class SPARQLParserBase extends ParserBase
         activeLabelMap.clear() ;
         previousLabels.clear() ;
     }
+
+    //----------------------------------------------------------------------------------
+    protected MLQuery mlquery;
+    public void setMLQuery(MLQuery q)
+    {
+        mlquery = q ;
+        setPrologue(q) ;
+    }
+    public MLQuery getMLQuery() { return mlquery ; }
+    protected void startMLQuery() {}
+    protected void finishMLQuery() {}
 }

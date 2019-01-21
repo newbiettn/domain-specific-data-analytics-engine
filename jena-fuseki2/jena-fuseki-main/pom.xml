@@ -38,7 +38,7 @@
   <dependencies> 
 
     <dependency>
-      <groupId>org.apache.jena</groupId>
+      <groupId>DiabetesDiscoveryV2</groupId>
       <!-- <artifactId>jena-fuseki-core</artifactId>-->
       <!-- Depends on jena-fuseki-core -->
       <artifactId>jena-fuseki-access</artifactId>

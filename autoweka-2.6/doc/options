@@ -1,0 +1,23 @@
+-classpath
+'/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/autoweka-2.6/build/classes:/Users/newbiettn/.m2/repository/nz/ac/waikato/cms/weka/thirdparty/java-cup-11b-runtime/2015.03.26/java-cup-11b-runtime-2015.03.26.jar:/Users/newbiettn/.m2/repository/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_system-linux-x86_64/1.1/netlib-native_system-linux-x86_64-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_system-win-x86_64/1.1/netlib-native_system-win-x86_64-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_system-win-i686/1.1/netlib-native_system-win-i686-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_ref-osx-x86_64/1.1/netlib-native_ref-osx-x86_64-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/core/1.1/core-1.1.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/native_system-java/1.1/native_system-java-1.1.jar:/Users/newbiettn/.m2/repository/nz/ac/waikato/cms/weka/thirdparty/bounce/0.18/bounce-0.18.jar:/Users/newbiettn/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_ref-win-i686/1.1/netlib-native_ref-win-i686-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/googlecode/netlib-java/netlib-java/1.1/netlib-java-1.1.jar:/Users/newbiettn/.m2/repository/com/github/fommil/jniloader/1.1/jniloader-1.1.jar:/Users/newbiettn/.m2/repository/nz/ac/waikato/cms/weka/weka-dev/3.9.3/weka-dev-3.9.3.jar:/Users/newbiettn/.m2/repository/com/googlecode/matrix-toolkits-java/mtj/1.0.4/mtj-1.0.4.jar:/Users/newbiettn/.m2/repository/net/sourceforge/f2j/arpack_combined_all/0.1/arpack_combined_all-0.1.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_ref-linux-x86_64/1.1/netlib-native_ref-linux-x86_64-1.1-natives.jar:/Users/newbiettn/.m2/repository/nz/ac/waikato/cms/weka/thirdparty/java-cup-11b/2015.03.26/java-cup-11b-2015.03.26.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_system-linux-i686/1.1/netlib-native_system-linux-i686-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_ref-linux-armhf/1.1/netlib-native_ref-linux-armhf-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_system-linux-armhf/1.1/netlib-native_system-linux-armhf-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_ref-win-x86_64/1.1/netlib-native_ref-win-x86_64-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_ref-linux-i686/1.1/netlib-native_ref-linux-i686-1.1-natives.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/native_ref-java/1.1/native_ref-java-1.1.jar:/Users/newbiettn/.m2/repository/com/github/fommil/netlib/netlib-native_system-osx-x86_64/1.1/netlib-native_system-osx-x86_64-1.1-natives.jar'
+-encoding
+'UTF-8'
+-public
+-Xdoclint:none
+-author
+-bottom
+'Copyright &#169; 2019 <a href="http://www.waikato.ac.nz/">University of Waikato, Hamilton, NZ</a>. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/autoweka-2.6/doc'
+-docencoding
+'UTF-8'
+-doctitle
+'autoweka-2.6 1.0-SNAPSHOT API'
+-linkoffline
+'http://download.oracle.com/javase/6/docs/api' '/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/autoweka-2.6/dist/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'autoweka-2.6 1.0-SNAPSHOT API'

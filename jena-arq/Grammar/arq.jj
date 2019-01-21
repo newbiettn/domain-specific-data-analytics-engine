@@ -85,6 +85,8 @@ import org.apache.jena.sparql.modify.request.* ;
 import org.apache.jena.sparql.core.Quad ;
 
 
+import org.apache.jena.ml.*;
+
 public class ARQParser extends ARQParserBase
 {}
 PARSER_END(ARQParser)
@@ -92,9 +94,18 @@ PARSER_END(ARQParser)
 // // Common top for single entry point.
 // void Top(): {}
 // {
-//     ( Query() | Update() )
+//     ( Query() | Update() | MLQueryUnit() )
 //     <EOF>
 // }
+
+// MLQuery only entry point
+void MLQueryUnit(): { }
+{
+  ByteOrderMark()
+  { startMLQuery(); }
+  MLQuery() <EOF>
+  { finishMLQuery(); }
+}
 
 // Query only entry point
 void QueryUnit(): { }
@@ -151,7 +162,62 @@ void PrefixDecl() : { Token t ; String iri ; }
 }
 
 // ---- Query type clauses
-
+// ----------------------------------------------- CUSTOM --------------------------------------------------------------
+void MLQuery(): { }
+{
+  Prologue()
+  CreatePredictionModelQuery()
+}
+void CreatePredictionModelQuery(): { }
+{
+  CreatePredictionModelClause()
+  TargetClause()
+  WherePredictionClause()
+}
+void CreatePredictionModelClause(): { Var v; }
+{
+  <CREATE> <PREDICTION> <MODEL>
+    { getMLQuery().setQueryCreatePredictionModelType() ;
+      //System.out.println("CREATE PREDICTION MODEL ");
+    }
+  (
+    v = Var()
+    {
+        getMLQuery().setCPMName(v);
+        //System.out.println(v.getName());
+    }
+  )
+}
+void TargetClause(): { Var v; }
+{
+  <TARGET>
+  (
+    v = Var()
+      { getMLQuery().setCPMTarget(v);
+      //System.out.println(v.getName());
+      }
+  )
+}
+void WherePredictionClause(): { Var v; Node n = null ; }
+{
+  <WHERE>
+  <LBRACE>
+    (
+      (
+        v = Var()
+      )
+      <FEATURE>
+      (
+        n = GraphTerm()
+        { getMLQuery().addCPMWhereVars(v, n);
+          //System.out.println(n);
+        }
+      )
+      <DOT>
+    )*
+  <RBRACE>
+}
+// ---------------------------------------------------------------------------------------------------------------------
 void SelectQuery() : { }
 {  
   SelectClause()
@@ -171,7 +237,8 @@ void SubSelect() :{ }
 void SelectClause() : {  Var v ; Expr expr ; Node n ; }
 {
   <SELECT>
-    { getQuery().setQuerySelectType() ; Log.info(this, "AAAAAAAAAAAAAAAAAAAAAA");}
+    { getQuery().setQuerySelectType() ;
+    System.out.println("This is Select Clause");}
   ( <DISTINCT> { getQuery().setDistinct(true);} 
   | <REDUCED>  { getQuery().setReduced(true); }
   )? 
@@ -2194,6 +2261,15 @@ TOKEN [IGNORE_CASE] :
 |  < PREFIX:      "prefix" >
 
 // Result forms
+// ---------------------------------------------------------------------------------------------------------------------
+|  < PREDICT:     "predict" >
+|  < CASE:        "case" >
+|  < MODEL:       "model" >
+|  < ON :         "on" >
+|  < PREDICTION:  "prediction" >
+|  < TARGET:      "target" >
+|  < FEATURE:     "feature" >
+// ---------------------------------------------------------------------------------------------------------------------
 |  < SELECT:      "select" >
 |  < DISTINCT:    "distinct" >
 |  < REDUCED:     "reduced" >

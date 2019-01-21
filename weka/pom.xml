@@ -264,6 +264,7 @@
               <include>**/*Test.java</include>
             </includes>
             <disableXmlReport>true</disableXmlReport>
+            <testFailureIgnore>true</testFailureIgnore>
             <redirectTestOutputToFile>true</redirectTestOutputToFile>
             <systemPropertyVariables>
               <weka.test.Regression.root>src/test/resources/wekarefs</weka.test.Regression.root>

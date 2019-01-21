@@ -4,5 +4,5 @@
 <properties version="1.0">
   <comment>Fuseki System Properties</comment>
   <entry key="org.apache.jena.fuseki.version">3.11.0-SNAPSHOT</entry>
-  <entry key="org.apache.jena.fuseki.build.datetime">2019-01-20T06:53:56+0000</entry>
+  <entry key="org.apache.jena.fuseki.build.datetime">2019-01-21T05:54:14+0000</entry>
 </properties>

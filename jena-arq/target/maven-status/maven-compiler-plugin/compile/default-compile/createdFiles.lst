@@ -94,6 +94,7 @@ org/apache/jena/riot/lang/LangTurtleBase.class
 org/apache/jena/sparql/algebra/optimize/Rewrite.class
 org/apache/jena/sparql/serializer/QuerySerializerFactory.class
 org/apache/jena/sparql/algebra/PropertyFunctionGenerator$PropertyFunctionInstance.class
+org/apache/jena/sparql/lang/MLParser.class
 org/apache/jena/sparql/sse/builders/BuilderOp$1.class
 org/apache/jena/sparql/pfunction/library/ListBase1.class
 org/apache/jena/riot/thrift/wire/RDF_PrefixDecl$RDF_PrefixDeclStandardSchemeFactory.class
@@ -117,6 +118,7 @@ org/apache/jena/riot/thrift/wire/RDF_ANY$RDF_ANYStandardScheme.class
 org/apache/jena/sparql/algebra/optimize/Optimize$RewriterFactory.class
 org/apache/jena/sparql/lang/sparql_11/SPARQLParser11TokenManager.class
 org/apache/jena/sparql/sse/builders/BuilderExpr$47.class
+org/apache/jena/ml/MLQuery.class
 org/apache/jena/sparql/function/library/execTime.class
 org/apache/jena/sparql/engine/ref/Eval.class
 org/apache/jena/sparql/function/CastXSD.class
@@ -186,6 +188,7 @@ org/apache/jena/sparql/sse/builders/BuilderOp$10.class
 org/apache/jena/sparql/function/js/NV.class
 org/apache/jena/sparql/engine/ResultSetCheckCondition.class
 org/apache/jena/riot/web/HttpResponseLib.class
+org/apache/jena/ml/MLQueryVisitor.class
 org/apache/jena/sparql/engine/iterator/QueryIterSort$SortedBindingIterator.class
 org/apache/jena/sparql/sse/lang/ParseHandlerPlain$ListStack.class
 org/apache/jena/sparql/graph/PrefixMappingAdapter.class
@@ -238,6 +241,7 @@ org/apache/jena/sparql/modify/request/UpdateAdd.class
 org/apache/jena/system/ThreadTxn.class
 org/apache/jena/riot/system/StreamRDFLib$ParserOutputSinkTriples.class
 org/apache/jena/sparql/lang/ParserSPARQL11.class
+org/apache/jena/sparql/lang/MLParser$1.class
 org/apache/jena/sparql/engine/ref/EvaluatorDispatch.class
 org/apache/jena/sparql/pfunction/library/alt.class
 org/apache/jena/sparql/engine/iterator/QueryIteratorWrapper.class
@@ -302,6 +306,7 @@ org/apache/jena/riot/RDFWriterRegistry$2.class
 org/apache/jena/sparql/core/mem/QuadTableForm$2.class
 org/apache/jena/riot/adapters/AdapterLocator.class
 org/apache/jena/sparql/expr/ExprFunction2.class
+org/apache/jena/ml/MLData.class
 org/apache/jena/atlas/csv/CSVParser.class
 org/apache/jena/sparql/expr/nodevalue/XSDFuncOp$1.class
 org/apache/jena/sparql/modify/UpdateEngineWorker$1.class
@@ -875,6 +880,7 @@ org/apache/jena/atlas/json/JsonBoolean.class
 org/apache/jena/sparql/algebra/OpLib.class
 org/apache/jena/sparql/pfunction/PropertyFunctionBase$RepeatApplyIteratorPF.class
 org/apache/jena/riot/resultset/ResultSetReaderRegistry$1.class
+org/apache/jena/sparql/lang/MLParser$Action.class
 org/apache/jena/sparql/engine/binding/Binding1.class
 org/apache/jena/sparql/expr/ExprVisitor.class
 org/apache/jena/riot/thrift/wire/RDF_PrefixName.class
@@ -1140,6 +1146,7 @@ org/apache/jena/sparql/engine/optimizer/reorder/ReorderWeighted.class
 org/apache/jena/riot/system/PrefixMapStd.class
 org/apache/jena/sparql/algebra/OpVars.class
 org/apache/jena/sparql/engine/binding/BindingRoot.class
+org/apache/jena/ml/MLQueryFactory.class
 org/apache/jena/sparql/function/library/leviathan/tan.class
 org/apache/jena/sparql/expr/aggregate/AggCountDistinct$AccCountDistinct.class
 org/apache/jena/riot/system/RiotLib$WriterAdapter.class
@@ -1664,6 +1671,7 @@ org/apache/jena/sparql/sse/builders/BuilderPath$6.class
 org/apache/jena/sparql/engine/ref/QueryEngineRef$1.class
 org/apache/jena/sparql/graph/GraphFactory.class
 org/apache/jena/sparql/expr/ExprFunctionOp.class
+org/apache/jena/ml/MLModel.class
 org/apache/jena/sparql/pfunction/PFuncListAndList.class
 org/apache/jena/query/QueryBuildException.class
 org/apache/jena/sparql/engine/QueryIterator.class

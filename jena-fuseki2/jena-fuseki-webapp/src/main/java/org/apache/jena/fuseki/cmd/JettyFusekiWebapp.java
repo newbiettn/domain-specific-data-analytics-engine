@@ -144,8 +144,8 @@ public class JettyFusekiWebapp {
             throw new FusekiException("Failed to start server: " + ex.getMessage(), ex) ;
         }
         String now = DateTimeUtils.nowAsString() ;
-//        serverLog.info(format("Started %s on port %d", now, serverConnector.getPort())) ;
-        System.out.println("AAAAAAAAAAAAAA");
+        serverLog.info(format("Started %s on port %d", now, serverConnector.getPort())) ;
+        System.out.println("From JettyFusekiWebapp");
     }
 
     /**

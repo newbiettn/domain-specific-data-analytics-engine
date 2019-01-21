@@ -123,6 +123,7 @@
         </executions>
       </plugin>
 
+      <!-- To execute Fuseki as java executable file-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
