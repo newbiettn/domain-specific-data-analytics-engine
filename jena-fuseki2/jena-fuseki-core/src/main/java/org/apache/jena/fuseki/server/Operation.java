@@ -40,6 +40,7 @@ public class Operation {
     public static final Operation GSP_RW         = register("GSP_RW", "Graph Store Protocol");
     public static final Operation Quads_R        = register("Quads_R", "HTTP Quads (Read)");
     public static final Operation Quads_RW       = register("Quads_RW", "HTTP Quads");
+    public static final Operation ML             = register("ML", "SPARQL ML");
     
     // Plain REST operations on the dataset URL 
     public static final Operation DatasetRequest_R  = Quads_R;

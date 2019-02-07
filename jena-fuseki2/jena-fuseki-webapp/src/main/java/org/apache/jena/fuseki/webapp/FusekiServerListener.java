@@ -74,7 +74,7 @@ public class FusekiServerListener implements ServletContextListener {
         ServiceDispatchRegistry.set(servletContext, serviceDispatchRegistry);
         DataAccessPointRegistry dataAccessPointRegistry = new DataAccessPointRegistry() ;
         DataAccessPointRegistry.set(servletContext, dataAccessPointRegistry);
-        
+
         try {
             FusekiWebapp.formatBaseArea() ; 
             if ( ! FusekiWebapp.serverInitialized ) {

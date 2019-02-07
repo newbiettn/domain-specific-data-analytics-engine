@@ -74,6 +74,8 @@ public class HttpNames
     public static final String paramRequest         = "request" ; 
     public static final String paramUsingGraphURI        = "using-graph-uri" ;
     public static final String paramUsingNamedGraphURI   = "using-named-graph-uri" ;
+
+    public static final String paramML              = "ml" ;
     
     public static final String METHOD_DELETE        = "DELETE";
     public static final String METHOD_HEAD          = "HEAD";

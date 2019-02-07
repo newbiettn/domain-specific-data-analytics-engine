@@ -44,6 +44,7 @@ public class FusekiVocab
     public static final Property pServerPing        = property("pingEP");
     public static final Property pServerStats       = property("statsEP");
 
+    public static final Property pServiceMLEP                   = property("serviceML");
     public static final Property pServiceQueryEP                = property("serviceQuery");
     public static final Property pServiceUpdateEP               = property("serviceUpdate");
     public static final Property pServiceUploadEP               = property("serviceUpload");

@@ -53,6 +53,7 @@ public class FusekiBuilder
         
     /** Convenience operation to populate a {@link DataService} with the conventional default services. */ 
     public static void populateStdServices(DataService dataService, boolean allowUpdate) {
+        addServiceEP(dataService, Operation.ML,      "ml") ;
         addServiceEP(dataService, Operation.Query,      "query") ;
         addServiceEP(dataService, Operation.Query,      "sparql") ;
         if ( ! allowUpdate ) {

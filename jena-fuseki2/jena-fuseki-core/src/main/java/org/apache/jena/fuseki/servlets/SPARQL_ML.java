@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 import static java.lang.String.format;
+import static org.apache.jena.riot.web.HttpNames.paramQuery;
 
 /**
  * Upload data into a graph within a dataset. This is {@code fuseki:serviceUpload}.
@@ -72,29 +73,42 @@ public class SPARQL_ML extends ActionService
     @Override
     protected void perform(HttpAction action) {
         ServletOps.success(action) ;
+        String queryString = action.request.getParameter(paramQuery) ;
+        System.out.println(paramQuery);
+        execute(queryString, action) ;
         try {
-            action.response.setContentType("text/html") ;
-            action.response.setStatus(HttpSC.OK_200);
-            PrintWriter out = action.response.getWriter() ;
-            out.println("<html>") ;
-            out.println("<head>") ;
-            out.println("</head>") ;
-            out.println("<body>") ;
-            out.println("<h1>This is an ML </h1>");
-            out.println("<p>") ;
-            out.println("<p>") ;
-            out.println("</p>") ;
-            out.println("<button onclick=\"timeFunction()\">Back to Fuseki</button>");
-            out.println("</p>") ;
-            out.println("<script type=\"text/javascript\">");
-            out.println("function timeFunction(){");
-            out.println("window.location.href = \"/fuseki.html\";}");
-            out.println("</script>");
-            out.println("</body>") ;
-            out.println("</html>") ;
-            out.flush() ;
-            ServletOps.success(action) ;
+//            action.response.setContentType("text/html") ;
+//            action.response.setStatus(HttpSC.OK_200);
+//            PrintWriter out = action.response.getWriter() ;
+//            out.println("<html>") ;
+//            out.println("<head>") ;
+//            out.println("</head>") ;
+//            out.println("<body>") ;
+//            out.println("<h1>This is an ML </h1>");
+//            out.println("<p>") ;
+//            out.println("<p>") ;
+//            out.println("</p>") ;
+//            out.println("<button onclick=\"timeFunction()\">Back to Fuseki</button>");
+//            out.println("</p>") ;
+//            out.println("<script type=\"text/javascript\">");
+//            out.println("function timeFunction(){");
+//            out.println("window.location.href = \"/fuseki.html\";}");
+//            out.println("</script>");
+//            out.println("</body>") ;
+//            out.println("</html>") ;
+//            out.flush() ;
         }
         catch (Exception ex) { ServletOps.errorOccurred(ex) ; }
+    }
+
+    protected void execute(String queryString, HttpAction action) {
+        String queryStringLog = ServletOps.formatForLog(queryString);
+        if (action.verbose) {
+            String str = queryString;
+            if (str.endsWith("\n"))
+                str = str.substring(0, str.length() - 1);
+            action.log.info(format("[%d] Query = \n%s", action.id, str));
+        } else
+            action.log.info(format("[%d] Query = %s", action.id, queryStringLog));
     }
 }

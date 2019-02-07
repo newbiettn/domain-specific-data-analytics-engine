@@ -91,6 +91,7 @@ public class ServiceRouter extends ActionService {
 //        action.setEndpoint(ep);
         
         Endpoint ep = dataService.getEndpoint(endpointName);
+        System.out.println("Endpoint name is :" + ep.endpointName);
         if ( ep != null ) {
             Operation operation = ep.getOperation();
             action.setEndpoint(ep);
@@ -141,6 +142,7 @@ public class ServiceRouter extends ActionService {
         // -- Query
         boolean isQuery = request.getParameter(HttpNames.paramQuery) != null;
         if ( isQuery ) {
+            System.out.println("This is query");
             if ( !allowQuery(action) )
                 ServletOps.errorMethodNotAllowed("SPARQL query : " + action.getMethod());
             return Operation.Query;
@@ -160,6 +162,15 @@ public class ServiceRouter extends ActionService {
         boolean hasParamGraphDefault = request.getParameter(HttpNames.paramGraphDefault) != null;
         if ( hasParamGraph || hasParamGraphDefault )
             return gspOperation(action, request);
+
+        // -- Machine learning service
+        boolean isML = request.getParameter(HttpNames.paramML) != null;
+        if (isML){
+            System.out.println("This is a ML query");
+            if ( !allowQuery(action) )
+                ServletOps.errorMethodNotAllowed("SPARQL query : " + action.getMethod());
+            return Operation.ML;
+        }
 
         // -- Anything else.
         // Place for an extension point.

@@ -42,6 +42,7 @@ import org.apache.jena.riot.WebContent;
 public class ServiceDispatchRegistry {
 
     // XXX Change to the Access_* versions.
+    public static final ActionService mlServlet       = new SPARQL_ML();
     public static final ActionService queryServlet    = new SPARQL_QueryDataset() ;
     public static final ActionService updateServlet   = new SPARQL_Update() ;
     public static final ActionService uploadServlet   = new SPARQL_Upload() ;
@@ -69,6 +70,7 @@ public class ServiceDispatchRegistry {
     
     public ServiceDispatchRegistry(boolean includeStdConfig) {
         if ( includeStdConfig ) {
+            register(Operation.ML, WebContent.contentTypeSPARQLML, mlServlet);
             register(Operation.Query, WebContent.contentTypeSPARQLQuery, queryServlet);
             register(Operation.Update, WebContent.contentTypeSPARQLUpdate, updateServlet);
             register(Operation.Upload,   null, uploadServlet);

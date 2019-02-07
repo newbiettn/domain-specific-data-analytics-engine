@@ -17,7 +17,7 @@ define(
      */
     var ValidationOptions = Backbone.Model.extend( {
       initialize: function() {
-        this.set( {validateAs: "sparql"} );
+        this.set( {validateAs: "arq"} );
         this.set( {outputFormat: "algebra"} );
       },
 

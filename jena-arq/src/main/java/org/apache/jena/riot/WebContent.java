@@ -130,6 +130,9 @@ public class WebContent
     public static final String      contentTypeSPARQLQuery       = "application/sparql-query" ;
     public static final ContentType ctSPARQLQuery                = ContentType.create(contentTypeSPARQLQuery) ;
 
+    public static final String      contentTypeSPARQLML          = "application/sparql-ml" ;
+    public static final ContentType ctSPARQLML                   = ContentType.create(contentTypeSPARQLML) ;
+
     public static final String      contentTypeSPARQLUpdate      = "application/sparql-update" ;
     public static final ContentType ctSPARQLUpdate               = ContentType.create(contentTypeSPARQLUpdate) ;
 

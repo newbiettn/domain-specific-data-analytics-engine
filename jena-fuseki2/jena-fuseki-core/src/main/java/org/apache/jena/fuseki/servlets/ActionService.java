@@ -83,7 +83,7 @@ public abstract class ActionService extends ActionBase {
         // Endpoint Name is "" for GSP or quads.
         // Endpoint name is not "", but unknown for GSP direct naming (which is usually disabled).
         String endpointName = mapRequestToOperation(action, dataAccessPoint);
-        
+
         // ServiceRouter dispatch
         Operation operation = null;
         if ( !endpointName.isEmpty() ) {

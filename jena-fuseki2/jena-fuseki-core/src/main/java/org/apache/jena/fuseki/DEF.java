@@ -101,6 +101,7 @@ public class DEF
 
     
     // Names for services in the default configuration
+    public static final String ServiceML            = "ml" ;
     public static final String ServiceQuery         = "query" ;
     public static final String ServiceQueryAlt      = "sparql" ;
     public static final String ServiceUpdate        = "update" ;

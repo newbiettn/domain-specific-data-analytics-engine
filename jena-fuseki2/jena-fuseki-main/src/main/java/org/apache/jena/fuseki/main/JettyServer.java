@@ -305,9 +305,10 @@ public class JettyServer {
             // For Fuseki servlets added directly.
             // This enables servlets inheriting from {@link ActionBase} to work in the
             // plain Jetty server, e.g. to use Fuseki logging.
+            System.out.println("adjustForFuseki");
             try {
                 Fuseki.setVerbose(cxt, verbose);
-                ServiceDispatchRegistry.set(cxt, new ServiceDispatchRegistry(false));
+                ServiceDispatchRegistry.set(cxt, new ServiceDispatchRegistry(true));
                 DataAccessPointRegistry.set(cxt, new DataAccessPointRegistry());
             } catch (NoClassDefFoundError err) {
                 LOG.info("Fuseki classes not found");

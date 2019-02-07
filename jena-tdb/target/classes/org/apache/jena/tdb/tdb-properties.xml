@@ -4,5 +4,5 @@
 <properties version="1.0">
   <comment>TDB System Properties</comment>
   <entry key="org.apache.jena.tdb.version">3.11.0-SNAPSHOT</entry>
-  <entry key="org.apache.jena.tdb.build.datetime">2019-01-21T05:54:14+0000</entry>
+  <entry key="org.apache.jena.tdb.build.datetime">2019-01-23T00:41:19+0000</entry>
 </properties>

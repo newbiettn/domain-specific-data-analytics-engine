@@ -300,7 +300,10 @@ public class FusekiConfig {
  
         // In case the assembler included ja:contents
         DataService dataService = new DataService(ds.asDatasetGraph()) ;
+//        FusekiBuilder.populateStdServices(dataService, true);
 
+//        FusekiBuilder.addServiceEP(dataService, Operation.ML,     svc,    pServiceMLEP);
+        FusekiBuilder.addServiceEP(dataService, Operation.ML,      "ml") ;
         FusekiBuilder.addServiceEP(dataService, Operation.Query,  svc,    pServiceQueryEP) ;
         FusekiBuilder.addServiceEP(dataService, Operation.Update, svc,    pServiceUpdateEP) ;
         FusekiBuilder.addServiceEP(dataService, Operation.Upload, svc,    pServiceUploadEP);

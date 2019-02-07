@@ -86,9 +86,9 @@ require.config({
     'addon/fold/comment-fold': {deps: ['addon/fold/foldcode']},
     'addon/fold/foldgutter': {deps: ['addon/fold/foldcode']},
     'addon/fold/xml-fold': {deps: ['addon/fold/foldcode']},
-    'mode/javascript/javascript': {deps: ['lib/codemirror']},
-    'mode/sparql/sparql': {deps: ['lib/codemirror']},
-    'mode/xml/xml': {deps: ['lib/codemirror']},
+    // 'mode/javascript/javascript': {deps: ['lib/codemirror']},
+    // 'mode/sparql/sparql': {deps: ['lib/codemirror']},
+    // 'mode/xml/xml': {deps: ['lib/codemirror']},
     'mode/turtle/turtle': {deps: ['lib/codemirror']}
   }
 });

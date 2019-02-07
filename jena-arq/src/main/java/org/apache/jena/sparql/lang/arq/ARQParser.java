@@ -20,8 +20,7 @@ import org.apache.jena.sparql.core.Quad ;
 
 import org.apache.jena.ml.*;
 
-@SuppressWarnings("all")
-public class ARQParser extends ARQParserBase implements ARQParserConstants {
+n@SuppressWarnings("all")npublic class ARQParser extends ARQParserBase implements ARQParserConstants {
 
 // // Common top for single entry point.
 // void Top(): {}
