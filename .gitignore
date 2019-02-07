@@ -24,3 +24,5 @@ weka/build/
 
 .idea/
 *.mv.db
+
+*.html
