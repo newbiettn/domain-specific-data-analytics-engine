@@ -28,3 +28,7 @@ WHERE {
 ?year FEATURE vocab:papers_Year.
 }
 ```
+- *Maven clean install without testing*
+```
+clean install -Dmaven.test.skip=true
+```
