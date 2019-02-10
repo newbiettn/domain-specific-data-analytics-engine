@@ -20,6 +20,8 @@ hs_err_pid*
 weka/build/
 weka/doc/
 */*/target/
+autoweka-2.6/dist/
+weka/dist/
 
 .idea/
 *.mv.db
