@@ -20,7 +20,8 @@ import org.apache.jena.sparql.modify.request.* ;
 
 import org.apache.jena.ml.*;
 
-n@SuppressWarnings("all")npublic class SPARQLParser11 extends SPARQLParser11Base implements SPARQLParser11Constants {
+@SuppressWarnings("all")
+public class SPARQLParser11 extends SPARQLParser11Base implements SPARQLParser11Constants {
 
 // // Common top for single entry point.
 // void Top(): {}
