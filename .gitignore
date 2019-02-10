@@ -16,13 +16,11 @@ hs_err_pid*
 
 .DS_Store
 
-diabetes-engine/target/
-jshop2/target/
-smile-score-library/target/
-evaluation/target/
-weka/build/
+*/target/
 
 .idea/
 *.mv.db
 
 *.html
+
+
