@@ -17,6 +17,9 @@ hs_err_pid*
 .DS_Store
 
 */target/
+weka/build/
+weka/doc/
+*/*/target/
 
 .idea/
 *.mv.db
