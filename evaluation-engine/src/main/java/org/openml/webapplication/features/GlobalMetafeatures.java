@@ -26,7 +26,7 @@ public class GlobalMetafeatures {
     public GlobalMetafeatures(Integer window_size) throws Exception {
         Characterizer[] characterizers = {
                 new SimpleMetaFeatures(), // done before, but necessary for streams
-                new Statistical(),
+//                new Statistical(),
                 new NominalAttDistinctValues()
 //                new AttributeEntropy()
 //                new GenericLandmarker("kNN1N", cp1NN, 2, null),
