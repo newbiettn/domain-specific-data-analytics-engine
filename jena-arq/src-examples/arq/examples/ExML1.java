@@ -20,6 +20,9 @@ package arq.examples;
 
 
 // The ARQ application API.
+import com.opencsv.CSVReader;
+import common.ProjectPropertiesGetter;
+import mf.generator.MetafeatureGenerator;
 import org.apache.jena.atlas.io.IndentedWriter ;
 import org.apache.jena.atlas.logging.Log;
 import org.apache.jena.ml.MLQuery;
@@ -30,11 +33,16 @@ import org.apache.jena.sparql.core.Var;
 import org.apache.jena.graph.Node;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.sparql.util.FmtUtils;
-import org.apache.jena.vocabulary.DC ;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import smile.clustering.GMeans;
+import weka.core.Attribute;
+import weka.core.Instances;
+import weka.core.converters.ArffSaver;
+import weka.core.converters.CSVLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Reorder;
+
+import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,46 +53,53 @@ public class ExML1
 {
     static public final String NL = System.getProperty("line.separator") ; 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        String trainingCsv = "sparql_data_tmp.csv";
+        String trainingArff = "sparql_data_tmp.arff";
+
         // Create the data.
         // First part or the query string
         String prolog = "PREFIX : <file:///Users/newbiettn/Downloads/d2rq-0.8.1/mapping.nt#>\n" +
                 "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
                 "PREFIX vocab: <file:///Users/newbiettn/Downloads/d2rq-0.8.1/vocab/>" ;
 
-        // Query string.
+        // ML query string.
         String queryString = prolog + NL +
                 "CREATE PREDICTION MODEL ?m " +
-                "TARGET ?survive " +
+                "TARGET ?publish " +
                 "WHERE {" +
-                "?pub FEATURE vocab:papers_Publish." +
+                "?publish FEATURE vocab:papers_Publish." +
                 "?title FEATURE vocab:papers_Title." +
                 "?year FEATURE vocab:papers_Year." +
                 "}";
         MLQuery q = MLQueryFactory.create(queryString);
         LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
+        Var tVar = q.getCPMTarget();
+
         StringBuilder whereStr = new StringBuilder();
+        StringBuilder selectStr = new StringBuilder();
         for (Map.Entry<Var, Node> e : cpmWhereVars.entrySet()){
             Var v = e.getKey();
             Node n = e.getValue();
+            selectStr = selectStr.append("?").append(v.getVarName()).append(" ");
             whereStr = whereStr.append("?s ").append("<").append(n.getURI()).append(">").append(" ").append("?").append(v.getVarName()).append(".").append(NL);
         }
-//        System.out.println(whereStr);
 
-//        query.serialize(new IndentedWriter(System.out,true)) ;
-        // Print with line numbers
         Log.info("MLQuery", "Successfully parse MLQuery");
 
         // Create SELECT query
         String selectQuery = prolog + NL +
-                "SELECT ?pub ?title ?year WHERE { " + NL +
+                "SELECT " + selectStr.toString() +
+                " WHERE { " + NL +
                 whereStr.toString() +
                 " }";
-        System.out.println(selectQuery);
 
         Query query = QueryFactory.create(selectQuery);
-        // Remote execution.
-        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/d1/sparql", query) ) {
+        Log.info("ExML1", "Select query");
+//        query.serialize(new IndentedWriter(System.out,true)) ;
+
+        // Gather as a dataset for further ML execution
+        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/D2/query", query) ) {
             // Set the DBpedia specific timeout.
             ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
 
@@ -117,7 +132,7 @@ public class ExML1
             }
             // Save to CSV
             FileWriter fw = new FileWriter(
-                    "sparql_data_tmp.csv",
+                    trainingCsv,
                     false);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
@@ -126,6 +141,109 @@ public class ExML1
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        /* Convert CSV file to ARFF */
+        CSVLoader csvLoader = new CSVLoader();
+        csvLoader.setSource(new File(trainingCsv));
+        Instances data = csvLoader.getDataSet();
+
+        // Put the target attribute to the last position to manage easier
+        Attribute tAttr = data.attribute(tVar.getVarName());
+        int tIndex = tAttr.index() + 1;
+        StringBuilder attrIds = new StringBuilder();
+        for (int i = 1; i <= data.numAttributes(); i++){
+            if (i != tIndex){
+                attrIds.append(i).append(",");
+            }
+        }
+        attrIds.append(tIndex);
+        Reorder reorder = new Reorder();
+        reorder.setAttributeIndices(attrIds.toString());
+        reorder.setInputFormat(data);
+        data = Filter.useFilter(data, reorder);
+        data.setClassIndex(data.numAttributes() - 1);
+
+        ArffSaver saver = new ArffSaver();
+        saver.setInstances(data);
+        saver.setFile(new File(trainingArff));
+        saver.writeBatch();
+
+        /* Learn ML from the new generated dataset */
+        MetafeatureGenerator mfGen = new MetafeatureGenerator();
+        FileInputStream fi = new FileInputStream(new File("diabetes-engine/clustering_model_using_gmeans.ser"));
+        ObjectInputStream oi = new ObjectInputStream(fi);
+        GMeans gm = (GMeans) oi.readObject();
+        oi.close();
+
+        File trainingset = new File(trainingArff);
+        Map<String, Double> mf = mfGen.generate(trainingset);
+        mf.remove("NumberOfInstancesWithMissingValues");
+        mf.remove("NumberOfMissingValues");
+        mf.remove("PercentageOfMissingValues");
+        mf.remove("PercentageOfInstancesWithMissingValues");
+        double[] x = new double[mf.size()];
+        int i = 0;
+        for (String k : mf.keySet()){
+            x[i] = mf.get(k);
+            i++;
+        }
+
+        double[] normalizedX = normalize(x);
+        System.out.println(normalizedX.length);
+        int cluster = gm.predict(normalizedX);
+        Log.info("ExML1", "The dataset belongs to the cluster: " + cluster);
+
+    }
+
+    public static double[] normalize(double[] mf) throws Exception {
+        /*Export to csv*/
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int j = 0; j < mf.length; j++){
+            if (j == mf.length - 1)
+                stringBuilder.append(mf[j]);
+            else
+                stringBuilder.append(mf[j]).append(",");
+        }
+        stringBuilder.append("\n");
+
+        FileWriter fw = new FileWriter(
+               "resources/R-utilities/new.item.csv",
+                false);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        out.print(stringBuilder.toString());
+        out.close();
+
+        /*Normalize by R*/
+        Log.info("ExML1", "Running Rscript to perform normalization...");
+        runProcess("R CMD BATCH normalize.test.set.R");
+
+        /*Read back and convert to 2D array*/
+        String fname = ProjectPropertiesGetter.getSingleton().getProperty("R.utilities") + "normalized.new.item.csv";
+        CSVReader reader = new CSVReader(new FileReader(fname));
+        String[] line;
+        double[] normalizedMf = new double[mf.length];
+        while ((line = reader.readNext()) != null) {
+            for (int col = 0; col < mf.length; col++){
+                normalizedMf[col] = Double.parseDouble(line[col]);
+            }
+        }
+        return normalizedMf;
+    }
+    private static void runProcess(String command) throws Exception {
+        Process pro = Runtime.getRuntime()
+                .exec(command, null, new File("resources/R-utilities/"));
+        printLines(command + " :", pro.getInputStream());
+        printLines(command + " stderr:", pro.getErrorStream());
+        pro.waitFor();
+        Log.info("ExML1", command + " exitValue() " + pro.exitValue());
+    }
+    private static void printLines(String name, InputStream ins) throws Exception {
+        String line = null;
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(ins));
+        while ((line = in.readLine()) != null) {
+            Log.info("ExML1", name + " " + line);
         }
     }
 }

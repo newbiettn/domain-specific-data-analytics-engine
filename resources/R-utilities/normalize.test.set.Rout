@@ -51,4 +51,4 @@ See: https://mran.microsoft.com/.
 > 
 > proc.time()
    user  system elapsed 
-  0.135   0.043   0.623 
+  0.141   0.040   0.532 
