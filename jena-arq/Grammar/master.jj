@@ -251,7 +251,7 @@ void SelectClause() : {  Var v ; Expr expr ; Node n ; }
 {
   <SELECT>
     { getQuery().setQuerySelectType() ;
-    System.out.println("This is Select Clause");}
+//    System.out.println("This is Select Clause");}
   ( <DISTINCT> { getQuery().setDistinct(true);} 
   | <REDUCED>  { getQuery().setReduced(true); }
   )? 
