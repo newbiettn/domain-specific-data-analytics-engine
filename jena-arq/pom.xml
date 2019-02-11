@@ -148,6 +148,18 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>DiabetesDiscoveryV2</groupId>
+          <artifactId>smile-core-library</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
+    <dependency>
+      <groupId>DiabetesDiscoveryV2</groupId>
+      <artifactId>diabetes-engine</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
 
   </dependencies>
 
