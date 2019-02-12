@@ -18,12 +18,13 @@
 
 package arq.examples;
 
-
 // The ARQ application API.
 import com.opencsv.CSVReader;
 import common.ProjectPropertiesGetter;
+import db.DbUtils;
 import mf.generator.MetafeatureGenerator;
-import org.apache.jena.atlas.io.IndentedWriter ;
+import model.DMOperator;
+import model.DMPlan;
 import org.apache.jena.atlas.logging.Log;
 import org.apache.jena.ml.MLQuery;
 import org.apache.jena.ml.MLQueryFactory;
@@ -34,28 +35,44 @@ import org.apache.jena.graph.Node;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.sparql.util.FmtUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import planner.Trainer;
+import planner.translator.PlanTranslator;
 import smile.clustering.GMeans;
 import weka.core.Attribute;
 import weka.core.Instances;
+import weka.core.WekaException;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Reorder;
+import weka.knowledgeflow.*;
+import weka.knowledgeflow.steps.ClassifierPerformanceEvaluator;
 
 import java.io.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.*;
 
 /** Example 1 : Execute a simple SELECT query on a model
  *  to find the DC titles contained in a model. */
 
 public class ExML1
 {
-    static public final String NL = System.getProperty("line.separator") ; 
+    static public final String NL = System.getProperty("line.separator") ;
+    private static Logger logger = LoggerFactory.getLogger(ExML1.class);
     
     public static void main(String[] args) throws Exception {
-        String trainingCsv = "sparql_data_tmp.csv";
-        String trainingArff = "sparql_data_tmp.arff";
+        ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
+        File output = new File("output.txt");
+        String datasetName = "tmp_sparql_dataset";
+        String filePath = propGetter.getProperty("sparqml.resource.filepath");
+        int seed = 1;
+        MetafeatureGenerator mfGen = new MetafeatureGenerator();
+        DbUtils dbUtils = new DbUtils();
+        int clockTimeout = 30000;
+        String trainingCsv = filePath + "sparql_data_tmp.csv";
+        String trainingArff = filePath + "sparql_data_tmp.arff";
 
         // Create the data.
         // First part or the query string
@@ -75,6 +92,8 @@ public class ExML1
         MLQuery q = MLQueryFactory.create(queryString);
         LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
         Var tVar = q.getCPMTarget();
+        Var mVar = q.getCPMName();
+        String modelName = mVar.getVarName();
 
         StringBuilder whereStr = new StringBuilder();
         StringBuilder selectStr = new StringBuilder();
@@ -85,8 +104,7 @@ public class ExML1
             whereStr = whereStr.append("?s ").append("<").append(n.getURI()).append(">").append(" ").append("?").append(v.getVarName()).append(".").append(NL);
         }
 
-        Log.info("MLQuery", "Successfully parse MLQuery");
-
+        logger.info("Successfully parse MLQuery");
         // Create SELECT query
         String selectQuery = prolog + NL +
                 "SELECT " + selectStr.toString() +
@@ -95,7 +113,7 @@ public class ExML1
                 " }";
 
         Query query = QueryFactory.create(selectQuery);
-        Log.info("ExML1", "Select query");
+        logger.info( "Select query");
 //        query.serialize(new IndentedWriter(System.out,true)) ;
 
         // Gather as a dataset for further ML execution
@@ -169,13 +187,12 @@ public class ExML1
         saver.writeBatch();
 
         /* Learn ML from the new generated dataset */
-        MetafeatureGenerator mfGen = new MetafeatureGenerator();
         FileInputStream fi = new FileInputStream(new File("diabetes-engine/clustering_model_using_gmeans.ser"));
         ObjectInputStream oi = new ObjectInputStream(fi);
         GMeans gm = (GMeans) oi.readObject();
         oi.close();
 
-        File trainingset = new File(trainingArff);
+        File trainingset = new File("resources/sparqml/anneal.arff");
         Map<String, Double> mf = mfGen.generate(trainingset);
         mf.remove("NumberOfInstancesWithMissingValues");
         mf.remove("NumberOfMissingValues");
@@ -191,8 +208,173 @@ public class ExML1
         double[] normalizedX = normalize(x);
         System.out.println(normalizedX.length);
         int cluster = gm.predict(normalizedX);
-        Log.info("ExML1", "The dataset belongs to the cluster: " + cluster);
+        logger.info( "The dataset belongs to the cluster: " + cluster);
 
+        /* Data mining */
+        String trainingFileUrl = filePath + "anneal.arff";
+        List<Map<String, Object>> workflows = dbUtils.getWorkflowOfDatasetByCluster(cluster);
+        logger.info( "The size of workflows: " + workflows);
+        String[] classifiers = new String[workflows.size()];
+        String[] attributeSelections = new String[workflows.size()];
+
+        int flowIndex = 0;
+        int lastIndex = (workflows.size())-1;
+        List<Map<String, Object>> multiFlowResult = new ArrayList();
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        Runnable clockRun = () -> {
+            try {
+                Thread.sleep(clockTimeout);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+        Future<?> clockFuture = executor.submit(clockRun);
+
+        List<Future<Boolean>> futures = new ArrayList<>();
+        for (Map<String, Object> wk : workflows){
+            int finalFlowIndex = flowIndex;
+
+            Map<String, Object> results = new HashMap<>();
+            multiFlowResult.add(results);
+
+            /*Extract the workflow details*/
+            String c = (String) wk.get("classifier");
+            String a = (String) wk.get("attributeSelection");
+            //-- Execution
+            Trainer trainer = Trainer.getSingleton();
+            boolean compiledResult = trainer.generateProblemFile(trainingset, c, a);
+            if (compiledResult) {
+                //-- Generate the plan
+                DMPlan plan = trainer.generatePlan();
+                File f = new File("diabetes-engine/out.single." + finalFlowIndex + ".kf");
+                PlanTranslator planTranslator = new PlanTranslator(seed, filePath);
+                planTranslator.setTheComponent(plan);
+                String json = planTranslator.translate();
+                FileWriter fw = new FileWriter(f, false);
+                fw.write(json);
+                fw.close();
+
+                Callable flowCallable = () -> {
+                    JSONFlowLoader loader = new JSONFlowLoader();
+                    Flow flow = null;
+                    try {
+                        flow = loader.readFlow(f);
+                    } catch (WekaException e) {
+                        e.printStackTrace();
+                    }
+                    BaseExecutionEnvironment execE = new BaseExecutionEnvironment();
+                    FlowExecutor flowExecutor = execE.getDefaultFlowExecutor();
+                    flowExecutor.setFlow(flow);
+                    try {
+                        flowExecutor.runSequentially();
+                    } catch (WekaException e) {
+                        e.printStackTrace();
+                    }
+                    flowExecutor.waitUntilFinished();
+
+                    int lastIndx = plan.getOperators().size() - 2; //-- the index of ClassifierEvaluation component
+                    DMOperator lastOp = plan.getOperators().get(lastIndx);
+                    StepManager stepManager = flow.findStep(lastOp.getName());
+                    ClassifierPerformanceEvaluator eval = (ClassifierPerformanceEvaluator)stepManager.getManagedStep();
+
+                    results.put("classifier", c);
+                    results.put("attributeSelection", a);
+                    results.put("seed", seed);
+                    if (eval.getM_eval() != null) {
+                        results.put("weightedAreaUnderROC", eval.getM_eval().weightedAreaUnderROC());
+                        results.put("weightedFMeasure", eval.getM_eval().weightedFMeasure());
+                        results.put("weightedPrecision", eval.getM_eval().weightedPrecision());
+                        results.put("weightedRecall", eval.getM_eval().weightedRecall());
+                        results.put("errorRate", eval.getM_eval().errorRate());
+                        logger.info(eval.getM_eval().errorRate() + "==================");
+                    }
+                    return true;
+                };
+                Future<Boolean> future = executor.submit(flowCallable);
+                futures.add(future);
+                Trainer.reset();
+            } else {
+                Log.warn("ExML1", "Compilation of problem.java failed!");
+            }
+            flowIndex++;
+        }
+
+        boolean isOneDone = false;
+        while(!isOneDone){
+            for(Future<Boolean> future : futures){
+                if (!isOneDone){
+                    isOneDone = future.isDone();
+                }
+            }
+        }
+        boolean clockDone = false;
+        if (isOneDone) {
+            while (!clockDone){
+                boolean allDone = true;
+                clockDone = clockFuture.isDone();
+                for(Future<Boolean> future : futures){
+                    allDone &= future.isDone();
+                }
+                if (allDone)
+                    clockDone = true;
+            }
+        }
+        logger.info( "Shutdown now!!");
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.NANOSECONDS);
+
+        //-- Get the best flow based on AUC/ErrorRate
+        double bestErrorRate= 1;
+        int bestFlowIndex = -1;
+        int j = 0;
+        for (Map<String, Object> r : multiFlowResult){
+            if (r.get("errorRate") != null) {
+                double errorRate = (Double)r.get("errorRate");
+                if (bestErrorRate > errorRate){
+                    bestErrorRate = errorRate;
+                    bestFlowIndex = j;
+                }
+            }
+            j++;
+        }
+
+//                double bestAUC = 0;
+//                int bestFlowIndex = -1;
+//                int j = 0;
+//                for (Map<String, Object> r : multiFlowResult){
+//                    if (r.get("weightedAreaUnderROC") != null) {
+//                        double weightedAreaUnderROC = (Double)r.get("weightedAreaUnderROC");
+//                        if (bestAUC < weightedAreaUnderROC){
+//                            bestAUC = weightedAreaUnderROC;
+//                            bestFlowIndex = j;
+//                        }
+//                    }
+//                    j++;
+//                }
+        Map<String, Object> bestFlowResult = multiFlowResult.get(bestFlowIndex);
+
+        //-- Optimize the best wf and retrieve the result
+        String c = (String)bestFlowResult.get("classifier");
+        String a = (String)bestFlowResult.get("attributeSelection");
+        logger.info(a + "/" + c);
+
+        Trainer.getSingleton().trainModelForSPARQL(
+                datasetName,
+                trainingFileUrl,
+                modelName,
+                c,
+                a,
+                seed,
+                filePath);
+
+        boolean everythingIsDone = false;
+        while (!everythingIsDone){
+            everythingIsDone = true;
+            for(Future<Boolean> future : futures){
+                everythingIsDone &= future.get();
+            }
+        }
+        logger.info("=========================================================================================");
     }
 
     public static double[] normalize(double[] mf) throws Exception {
@@ -215,7 +397,7 @@ public class ExML1
         out.close();
 
         /*Normalize by R*/
-        Log.info("ExML1", "Running Rscript to perform normalization...");
+        logger.info( "Running Rscript to perform normalization...");
         runProcess("R CMD BATCH normalize.test.set.R");
 
         /*Read back and convert to 2D array*/
@@ -236,14 +418,14 @@ public class ExML1
         printLines(command + " :", pro.getInputStream());
         printLines(command + " stderr:", pro.getErrorStream());
         pro.waitFor();
-        Log.info("ExML1", command + " exitValue() " + pro.exitValue());
+        logger.info( command + " exitValue() " + pro.exitValue());
     }
     private static void printLines(String name, InputStream ins) throws Exception {
         String line = null;
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(ins));
         while ((line = in.readLine()) != null) {
-            Log.info("ExML1", name + " " + line);
+            logger.info( name + " " + line);
         }
     }
 }

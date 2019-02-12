@@ -230,7 +230,7 @@ public class DbUtils {
      * @param cluster (starts from 1)
      */
     public List<Map<String, Object>> getWorkflowOfDatasetByCluster(int cluster) {
-        String selectQuery = "SELECT TOP 100 classifier, attributeSelection, rank " +
+        String selectQuery = "SELECT TOP 3 classifier, attributeSelection, rank " +
                 "FROM BEST_FLOW_BY_CLUSTER " +
                 "WHERE cluster = ? " +
                 "ORDER BY rank ASC";

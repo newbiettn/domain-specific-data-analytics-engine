@@ -10,7 +10,8 @@ package planner;
 import com.google.common.base.Stopwatch;
 import common.ProjectPropertiesGetter;
 import db.DbUtils;
-import evaluation.TranslateToKFToEvaluateAgainstAutoWeka;
+import planner.translator.TranslateToKFForSPARQL;
+import planner.translator.TranslateToKFToEvaluateAgainstAutoWeka;
 import javafx.util.Pair;
 import model.DMDataset;
 import model.DMOperator;
@@ -657,7 +658,7 @@ public class Trainer {
     /**
      *
      *
-     * @param dataset
+     * @param datasetName
      * @param outputFile
      * @param classifier
      * @param attributeSelection
@@ -700,9 +701,7 @@ public class Trainer {
     }
 
     /**
-     *
-     *
-     * @param dataset
+     * @param datasetName
      * @param outputFile
      * @param classifier
      * @param attributeSelection
@@ -743,7 +742,7 @@ public class Trainer {
 
         return r;
     }
-        /**
+    /**
      * Read the ARFF file, generate the plan, execute it and then store the experiment into db.
      *
      * @param f the ARFF file
@@ -1012,5 +1011,33 @@ public class Trainer {
                 }
             }
         }
+    }
+
+    /**
+     *
+     * @param datasetName
+     * @param modelName
+     * @param classifier
+     * @param attributeSelection
+     * @param seed
+     * @param filePath
+     */
+    public void trainModelForSPARQL(String datasetName,
+                                                    String trainingFileUrl,
+                                                    String modelName,
+                                                    String classifier,
+                                                    String attributeSelection,
+                                                    int seed,
+                                                    String filePath) {
+        TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
+        String wekaOutputFile = propGetter.getProperty("single.weka.output.file");
+        File kfFile = trans.translateToSaveModelForSPARQL(
+                wekaOutputFile,
+                trainingFileUrl,
+                modelName,
+                seed,
+                attributeSelection,
+                classifier);
+        Flow flow = executeTranslatedPlan(kfFile);
     }
 }
