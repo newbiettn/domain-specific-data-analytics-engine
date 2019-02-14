@@ -179,7 +179,7 @@ void PrefixDecl() : { Token t ; String iri ; }
 void MLQuery(): { }
 {
   Prologue()
-  CreatePredictionModelQuery()
+  (CreatePredictionModelQuery() | PredictQuery())
 }
 void CreatePredictionModelQuery(): { }
 {
@@ -187,48 +187,61 @@ void CreatePredictionModelQuery(): { }
   TargetClause()
   WherePredictionClause()
 }
+void PredictQuery():{}
+{
+  PredictClause()
+  WherePredictionClause()
+  UsingModelClause()
+}
 void CreatePredictionModelClause(): { Var v; }
 {
   <CREATE> <PREDICTION> <MODEL>
     { getMLQuery().setQueryCreatePredictionModelType() ;
-      //System.out.println("CREATE PREDICTION MODEL ");
     }
   (
     v = Var()
     {
-        getMLQuery().setCPMName(v);
-        //System.out.println(v.getName());
+        getMLQuery().setModelName(v);
     }
   )
+}
+void PredictClause():{Var v;}
+{
+  <PREDICT>
+  { getMLQuery().setQueryPredictType() ;}
+  (v = Var())
+}
+void UsingModelClause(): {Var v;}
+{
+  <USING> <MODEL> (v = Var() { getMLQuery().setModelName(v);})
 }
 void TargetClause(): { Var v; }
 {
   <TARGET>
   (
     v = Var()
-      { getMLQuery().setCPMTarget(v);
-      //System.out.println(v.getName());
-      }
+      { getMLQuery().setTargetName(v);}
   )
 }
 void WherePredictionClause(): { Var v; Node n = null ; }
 {
   <WHERE>
   <LBRACE>
+    TripleFeatureClause()
     (
-      (
-        v = Var()
-      )
-      <FEATURE>
-      (
-        n = GraphTerm()
-        { getMLQuery().addCPMWhereVars(v, n);
-          //System.out.println(n);
-        }
-      )
-      <DOT>
+        <DOT>
+        TripleFeatureClause()
     )*
   <RBRACE>
+}
+void TripleFeatureClause(): {Var v; Node n; }
+{
+     v = Var()
+     <FEATURE>
+     (
+        n = GraphTerm()
+        { getMLQuery().addCPMWhereVars(v, n); }
+     )
 }
 // ---------------------------------------------------------------------------------------------------------------------
 void SelectQuery() : { }
@@ -250,8 +263,7 @@ void SubSelect() :{ }
 void SelectClause() : {  Var v ; Expr expr ; Node n ; }
 {
   <SELECT>
-    { getQuery().setQuerySelectType() ;
-//    System.out.println("This is Select Clause");}
+    { getQuery().setQuerySelectType() ; }
   ( <DISTINCT> { getQuery().setDistinct(true);} 
   | <REDUCED>  { getQuery().setReduced(true); }
   )? 
@@ -2377,9 +2389,7 @@ TOKEN [IGNORE_CASE] :
 // Result forms
 // ---------------------------------------------------------------------------------------------------------------------
 |  < PREDICT:     "predict" >
-|  < CASE:        "case" >
 |  < MODEL:       "model" >
-|  < ON :         "on" >
 |  < PREDICTION:  "prediction" >
 |  < TARGET:      "target" >
 |  < FEATURE:     "feature" >
