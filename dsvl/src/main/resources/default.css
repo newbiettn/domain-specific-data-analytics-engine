@@ -1,0 +1,47 @@
+/* 
+    Document   : default
+    Created on : 10.07.2013, 17:34:18
+    Author     : Michael Hoffer <info@michaelhoffer.de>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+
+.vflow-background {
+    /*-fx-background-color: linear-gradient(to top, rgb(5,5,5), rgb(110,110,120));*/
+}
+
+.window {
+    -fx-background-color: none;
+}
+.select-textfield{
+    -fx-background-color: none;
+}
+.select-node-window{
+    -fx-skin: "jfxtras.internal.scene.control.skin.window.DefaultWindowSkin";
+    -fx-glass-color: rgba(85, 132, 160, 0.9);
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-glass-color, 50%), -fx-glass-color);
+    -fx-border-color: derive(-fx-glass-color, -60%);
+    -fx-border-width: 2;
+    -fx-background-insets: 1;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-font-size: 18;
+}
+.patient-node-window{
+    -fx-skin: "jfxtras.internal.scene.control.skin.window.DefaultWindowSkin";
+    -fx-glass-color: rgba(85, 132, 160, 0.9);
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-glass-color, 50%), -fx-glass-color);
+    -fx-border-color: derive(-fx-glass-color, -60%);
+    -fx-border-width: 2;
+    -fx-background-insets: 1;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-font-size: 18;
+}
+
+
+

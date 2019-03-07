@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="875.0" prefWidth="1288.0" stylesheets="@../default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <children>
+      <HBox prefHeight="58.0" prefWidth="1288.0" style="-fx-background-color: gray;">
+         <children>
+            <ToolBar prefHeight="48.0" prefWidth="255.0">
+              <items>
+                  <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSELECTNode" text="Select" />
+                  <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addASKNode" text="Ask" />
+                  <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCREATEMLMODELNode" text="Create ML Model" />
+              </items>
+            </ToolBar>
+            <ToolBar prefHeight="48.0" prefWidth="31.0" />
+            <ToolBar prefHeight="48.0" prefWidth="274.0">
+               <items>
+                  <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPATIENTNode" text="Patient" />
+               </items>
+            </ToolBar>
+            <ToolBar prefHeight="48.0" prefWidth="760.0" />
+         </children>
+      </HBox>
+      <AnchorPane fx:id="canvasPane" prefHeight="838.0" prefWidth="1288.0" style="-fx-background-color: white;" />
+   </children>
+</VBox>
