@@ -32,3 +32,9 @@ WHERE {
 ```
 clean install -Dmaven.test.skip=true
 ```
+
+- *The project depends on VWorkflows (https://github.com/newbiettn/VWorkflows). Thus to make it possible to add dependency to Maven pom file, it is necessary to publish VWorkflows to local repo. Publish VWorkflows to local maven repo (~/.m2/repository)*
+```
+Run gradle build in Intellij in Gradle tab.
+Run gradle publishToLocalMaven in IntelliJ Gradle tab.
+```
