@@ -31,10 +31,7 @@ public class PatientNodeSkin extends CustomFlowNodeSkin {
 
     @Override
     protected Node createView() {
-        getNode().getStyleClass().setAll("patient-node-window");
-        getModel().setTitle("Patient Node");
-        getNode().getLeftIcons().clear();
-        getNode().setPrefSize(100, 30);
+
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
                 .getClassLoader().getResource("fxml/PatientNode.fxml"));
         try {
@@ -43,6 +40,12 @@ public class PatientNodeSkin extends CustomFlowNodeSkin {
             Logger.getLogger(PatientNodeSkin.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
+
+//        getNode().getStyleClass().setAll("patient-node-window");
+        getModel().setTitle("Patient Node");
+        getNode().getLeftIcons().clear();
+
+        getNode().setPrefSize(250, 30);
 
         PatientNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());

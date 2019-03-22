@@ -4,6 +4,7 @@ import beans.PatientNodeBean;
 import eu.mihosoft.vrl.workflow.VNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -13,9 +14,6 @@ import javafx.scene.layout.HBox;
 public class PatientNodeController {
     private VNode node;
     private PatientNodeBean patientNodeBean;
-
-    @FXML
-    private BorderPane nodeBorderPaneContainer;
 
     @FXML
     private HBox nodeHboxContainer;

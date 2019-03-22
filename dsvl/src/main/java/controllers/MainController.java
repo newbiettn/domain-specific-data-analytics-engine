@@ -1,15 +1,18 @@
 package controllers;
 
 import beans.PatientNodeBean;
+
 import eu.mihosoft.vrl.workflow.FlowFactory;
 import eu.mihosoft.vrl.workflow.VFlow;
 import eu.mihosoft.vrl.workflow.VNode;
 import eu.mihosoft.vrl.workflow.fx.FXValueSkinFactory;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import beans.SelectNodeBean;
+import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.PatientNodeSkin;
@@ -30,7 +33,7 @@ public class MainController {
     private VFlow copyFlow;
 
     @FXML
-    private AnchorPane canvasPane;
+    private AnchorPane contentPane;
 
     @FXML
     private Button selectBtn;
@@ -40,8 +43,6 @@ public class MainController {
 
     @FXML
     private ResourceBundle resourceBundle;
-
-
 
     public MainController(){}
 
@@ -62,18 +63,28 @@ public class MainController {
         copyFlow.setVisible(false);
 
         // Create skin factory for flow visualization
-        skinFactory = new FXValueSkinFactory(canvasPane);
+        skinFactory = new FXValueSkinFactory(contentPane);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
         flow.setSkinFactories(skinFactory);
         copyFlow.setSkinFactories(skinFactory);
+//        flow.getNodes().addListener(new ListChangeListener<VNode>() {
+//            @Override
+//            public void onChanged(Change<? extends VNode> c) {
+//                flow.getSkinFactories().clear();
+//                flow.setSkinFactories(skinFactory);
+//            }
+//        });
     }
 
     @FXML
     private void addSELECTNode() {
-        VNode n = copyFlow.newNode();
+        VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
-        flow.newNode(n.getValueObject());
+        n.addInput("data");
+        n.addOutput("data");
+        flow.getSkinFactories().clear();
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -81,6 +92,8 @@ public class MainController {
         VNode n = copyFlow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
         flow.newNode(n.getValueObject());
+        flow.getSkinFactories().clear();
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -92,10 +105,11 @@ public class MainController {
 
     @FXML
     private void addPATIENTNode() {
-        VNode n = copyFlow.newNode();
+        VNode n = flow.newNode();
         n.getValueObject().setValue(new PatientNodeBean());
-        flow.newNode(n.getValueObject());
+        n.addInput("data");
+        n.addOutput("data");
+        flow.getSkinFactories().clear();
+        flow.setSkinFactories(skinFactory);
     }
-
-
 }

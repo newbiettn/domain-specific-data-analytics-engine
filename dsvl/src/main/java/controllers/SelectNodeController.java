@@ -14,9 +14,6 @@ public class SelectNodeController {
     private SelectNodeBean selectNodeBean;
 
     @FXML
-    private BorderPane nodeBorderPaneContainer;
-
-    @FXML
     private HBox nodeHboxContainer;
 
     @FXML

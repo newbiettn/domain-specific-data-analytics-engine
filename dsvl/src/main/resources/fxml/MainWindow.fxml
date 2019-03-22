@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="875.0" prefWidth="1288.0" stylesheets="@../default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<?import java.net.URL?>
+<VBox minHeight="600" minWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
       <HBox prefHeight="58.0" prefWidth="1288.0" style="-fx-background-color: gray;">
          <children>
@@ -25,6 +24,9 @@
             <ToolBar prefHeight="48.0" prefWidth="760.0" />
          </children>
       </HBox>
-      <AnchorPane fx:id="canvasPane" prefHeight="838.0" prefWidth="1288.0" style="-fx-background-color: white;" />
+      <AnchorPane fx:id="contentPane" prefHeight="838.0" prefWidth="1288.0" styleClass="vflow-background" />
    </children>
+    <stylesheets>
+        <URL value="@css/default.css" />
+    </stylesheets>
 </VBox>

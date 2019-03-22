@@ -31,9 +31,9 @@ public abstract class CustomFlowNodeSkin extends FXFlowNodeSkinBase {
     public void updateView() {
 
 //        getNode().getLeftIcons().add(new MinimizeIcon(getNode()));
-        getNode().getLeftIcons().clear();
-        getNode().getLeftIcons().add(new CloseIcon(getNode()));
-        getNode().setPrefWidth(15);
+//        getNode().getLeftIcons().clear();
+//        getNode().getLeftIcons().add(new CloseIcon(getNode()));
+//        getNode().setPrefWidth(15);
 
         super.updateView();
 

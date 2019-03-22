@@ -29,7 +29,7 @@ public class SelectNodeSkin extends CustomFlowNodeSkin {
 
     @Override
     protected Node createView() {
-        getNode().getStyleClass().setAll("select-node-window");
+//        getNode().getStyleClass().setAll("select-node-window");
         getModel().setTitle("SELECT Node");
         getNode().getLeftIcons().clear();
         getNode().setPrefSize(100, 30);
