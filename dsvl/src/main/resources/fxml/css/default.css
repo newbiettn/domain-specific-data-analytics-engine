@@ -1,223 +1,106 @@
-/* 
-    Document   : default
-    Created on : 10.07.2013, 17:34:18
-    Author     : Michael Hoffer <info@michaelhoffer.de>
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-
-
-.vflow-background {
-    -fx-background-color: linear-gradient(to top, rgb(5,5,5), rgb(110,110,120));
-}
-
-.window {
-    -fx-background-color: none;
-}
-.select-textfield{
-    -fx-background-color: none;
-}
-.select-node-window{
-    -fx-skin: "jfxtras.internal.scene.control.skin.window.DefaultWindowSkin";
-    -fx-glass-color: rgba(85, 132, 160, 0.9);
-    -fx-alignment: center;
-    -fx-background-color: linear-gradient(to bottom, derive(-fx-glass-color, 50%), -fx-glass-color);
-    -fx-border-color: derive(-fx-glass-color, -60%);
-    -fx-border-width: 2;
-    -fx-background-insets: 1;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
-    -fx-font-size: 18;
-}
-.patient-node-window{
-    -fx-skin: "jfxtras.internal.scene.control.skin.window.DefaultWindowSkin";
-    -fx-glass-color: rgba(85, 132, 160, 0.9);
-    -fx-alignment: center;
-    -fx-background-color: linear-gradient(to bottom, derive(-fx-glass-color, 50%), -fx-glass-color);
-    -fx-border-color: derive(-fx-glass-color, -60%);
-    -fx-border-width: 2;
-    -fx-background-insets: 1;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
-    -fx-font-size: 18;
-}
-
+/**
+ * Copyright 2012-2016 Michael Hoffer <info@michaelhoffer.de>. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
+ *
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ *
+ * Please cite the following publication(s):
+ *
+ * M. Hoffer, C.Poliwoda, G.Wittum. Visual Reflection Library -
+ * A Framework for Declarative GUI Programming on the Java Platform.
+ * Computing and Visualization in Science, 2011, in press.
+ *
+ * THIS SOFTWARE IS PROVIDED BY Michael Hoffer <info@michaelhoffer.de> "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Michael Hoffer <info@michaelhoffer.de> OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * The views and conclusions contained in the software and documentation are those of the
+ * authors and should not be interpreted as representing official policies, either expressed
+ * or implied, of Michael Hoffer <info@michaelhoffer.de>.
+ */
 /*
-    Document   : default
-    Created on : 10.07.2013, 17:34:18
-    Author     : Michael Hoffer <info@michaelhoffer.de>
+    Document   : default.css
+    Created on : 08.10.2012, 10:17:51
+    Author     : Michael Hoffer  &lt;info@michaelhoffer.de&gt;
     Description:
         Purpose of the stylesheet follows.
 */
 
-
-
 .vflow-background {
-    -fx-background-color: linear-gradient(to top, rgb(50,50,50), rgb(110,110,120));
+    -fx-background-color: linear-gradient(to bottom, rgb(10,32,60), rgb(42,52,120));
 }
 
 .window {
-    -fx-border-width: 1.5px;
-    -fx-border-color: rgba(40,40,40,0.6);
-    -fx-background-color : green;
-    /*        rgba(122,122,122,0.9) 0%,
-            rgba(82,82,82,0.9) 100%);*/
+    -fx-background-color: rgba(120,140,255,0.2);
+    -fx-border-color: rgba(120,140,255,0.42);
+    -fx-border-width: 2;
+}
 
-    /*    -fx-background-radius: 12;
-        -fx-border-radius: 12;*/
+.vnode-connector {
+    -fx-background-color: rgba(0,0,0,0.75);
+    -fx-stroke: rgba(120, 140, 255, 0.42);
+    -fx-border-width: 2px;
+    -fx-border-color: rgba(120, 140, 255, 0.72);
+    -fx-shape: "m 187.92089,378.88528 a 12.94066,12.94066 0 0 1 -12.94067,12.94066 12.94066,12.94066 0 0 1 -12.94066,-12.94066 12.94066,12.94066 0 0 1 12.94066,-12.94066 12.94066,12.94066 0 0 1 12.94067,12.94066 z"
+}
 
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            20, 0.0, 10, 10);*/
+.vnode-connector-control {
+    -fx-background-color: rgba(255,255,0,0.75);
+    -fx-stroke: rgba(120, 140, 255, 0.42);
+    /*    -fx-border-color: rgba(255,255,0,0.75);*/
+}
+
+.vnode-connector-event {
+    -fx-background-color: rgba(255,100,255,0.75);
+    -fx-stroke: rgba(120, 140, 255, 0.42);
+    /*-fx-border-color: rgba(255,100,255,0.75);*/
+}
+
+.vnode-connector-data {
+    -fx-background-color: rgba(10,10,10,0.75);
+    -fx-stroke: rgba(120, 140, 255, 0.42);
+    /*-fx-border-color: rgba(10,10,10,0.75);*/
+}
+
+.vnode-connection {
+    -fx-stroke: rgba(120,140,255,0.2);
+    -fx-stroke-width: 5px;
+}
+
+.vnode-new-connection {
+    -fx-stroke: rgba(120,140,255,0.2);
+    -fx-stroke-width: 5px;
 }
 
 .window-titlebar {
 
-    /*-fx-background-color: rgba(20,20,20,0.5);*/
-    /*-fx-border-color: rgba(120,140,255,0.42);*/
-    /*-fx-border-width: 0;*/
-    /*-fx-padding: 6 4 3 4;*/
-    /*-fx-background-insets: 0 0 -2 0;*/
-    /*-fx-alignment: center;*/
-    /*-fx-stroke: rgba(255,255,255,50);*/
-    /*-fx-fill: rgba(255,255,255,50);*/
+    -fx-background-color: rgba(20,20,45,0.4);
+    -fx-border-color: rgba(120,140,255,0.42);
+    -fx-border-width: 0;
+    -fx-padding: 6 4 3 4;
+    -fx-background-insets: 2 2 -2 2;
 
-    /*    -fx-background-radius: 12;
-        -fx-border-radius: 12;*/
-    -fx-content-display: none;
+    -fx-alignment: center;
+    -fx-fill: rgba(255,255,255,50);
 }
 
-
-
-
-.vnode-connection {
-    -fx-stroke: rgba(12, 220, 12, 0.75);
-    -fx-stroke-width: 5px;
-    /*-fx-stroke-line-cap: round;*/
-
-    -fx-effect: dropshadow(one-pass-box,
-    rgba(0, 0, 0, 0.9),
-    10, 0.0, 0, 0);
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
 }
 
-.vnode-new-connection {
-    -fx-stroke: rgba(220, 220, 220, 0.75);
-    -fx-stroke-width: 5px;
-    /*-fx-stroke-line-cap: round;*/
-
-    -fx-effect: dropshadow(one-pass-box,
-    rgba(0, 0, 0, 0.9),
-    10, 0.0, 0, 0);
+.scroll-pane {
+    -fx-background-color: transparent;
 }
-
-.vnode-connection-control {
-    -fx-stroke: rgba(255, 255, 10, 0.75);
-    -fx-stroke-width: 5px;
-    /*-fx-stroke-line-cap: round;*/
-
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            7, 0.0, 0, 0);*/
-}
-
-.vnode-new-connection-control {
-    -fx-stroke: rgba(255, 255, 10, 0.75);
-    -fx-stroke-width: 5px;
-    /*-fx-stroke-line-cap: round;*/
-
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            7, 0.0, 0, 0);*/
-}
-
-.vnode-connection-event {
-    -fx-stroke: rgba(10, 255, 10, 0.75);
-    -fx-stroke-width: 5px;
-    /*-fx-stroke-line-cap: round;*/
-
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            7, 0.0, 0, 0);*/
-}
-
-
-.vnode-new-connection-event {
-    -fx-stroke: rgba(10, 255, 10, 0.75);
-    -fx-stroke-width: 5px;
-    /*-fx-stroke-line-cap: round;*/
-
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            7, 0.0, 0, 0);*/
-}
-
-
-.vnode-connector {
-    -fx-fill: red;
-}
-
-
-.vnode-connector-data {
-    -fx-fill: red;
-}
-
-
-.vnode-connector-control {
-    -fx-fill: radial-gradient(center 50% 25%,
-    radius 75%,
-    rgb(255,255,10) 0%,
-    rgb(40,40,40) 100%);
-
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            7, 0.0, 0, 0);*/
-}
-
-.vnode-connector-event {
-    -fx-fill: radial-gradient(center 50% 25%,
-    radius 75%,
-    rgb(10,255,10) 0%,
-    rgb(40,40,40) 100%);
-
-    /*    -fx-effect: dropshadow(one-pass-box,
-            rgba(0, 0, 0, 0.9),
-            7, 0.0, 0, 0);*/
-}
-
-.segment-background {
-    -fx-background-color: rgba(20,20,20,0.7);
-}
-
-
-.input-field {
-    -fx-background-image: url("../resources/input-field-01-bg.png");
-    -fx-background-size: stretch;
-    -fx-background-repeat: no-repeat;
-    -fx-font-size: 16;
-}
-
-
-.chart-title {
-    -fx-text-fill: rgb(220,220,200);
-    -fx-font-size: 1.6em;
-}
-
-.axis-label {
-    -fx-text-fill: rgb(220,220,200);
-}
-
-/*.chart-vertical-grid-lines {
-    -fx-stroke: #3278fa;
-}
-.chart-horizontal-grid-lines {
-    -fx-stroke: #3278fa;
-}*/
-.chart-alternative-row-fill {
-    -fx-fill: rgba(120,120,120,0.1);
-    -fx-stroke: transparent;
-    -fx-stroke-width: 0;
-}
-
-
-

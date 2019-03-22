@@ -45,7 +45,7 @@ public class PatientNodeSkin extends CustomFlowNodeSkin {
         getModel().setTitle("Patient Node");
         getNode().getLeftIcons().clear();
 
-        getNode().setPrefSize(250, 30);
+        getNode().setPrefSize(100, 80);
 
         PatientNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());

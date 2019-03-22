@@ -4,27 +4,45 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<VBox minHeight="600" minWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<VBox minHeight="600"
+      minWidth="600"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.MainController">
    <children>
       <HBox prefHeight="58.0" prefWidth="1288.0" style="-fx-background-color: gray;">
          <children>
             <ToolBar prefHeight="48.0" prefWidth="255.0">
               <items>
-                  <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSELECTNode" text="Select" />
-                  <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addASKNode" text="Ask" />
-                  <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCREATEMLMODELNode" text="Create ML Model" />
+                  <Button fx:id="selectBtn"
+                          mnemonicParsing="false"
+                          onAction="#addSELECTNode"
+                          text="Select" />
+                  <Button fx:id="askBtn"
+                          mnemonicParsing="false"
+                          onAction="#addASKNode"
+                          text="Ask" />
+                  <Button fx:id="createMLModelBtn"
+                          mnemonicParsing="false"
+                          onAction="#addCREATEMLMODELNode"
+                          text="Create ML Model" />
               </items>
             </ToolBar>
             <ToolBar prefHeight="48.0" prefWidth="31.0" />
             <ToolBar prefHeight="48.0" prefWidth="274.0">
                <items>
-                  <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPATIENTNode" text="Patient" />
+                  <Button fx:id="patientBtn"
+                          mnemonicParsing="false"
+                          onAction="#addPATIENTNode"
+                          text="Patient" />
                </items>
             </ToolBar>
             <ToolBar prefHeight="48.0" prefWidth="760.0" />
          </children>
       </HBox>
-      <AnchorPane fx:id="contentPane" prefHeight="838.0" prefWidth="1288.0" styleClass="vflow-background" />
+      <StackPane fx:id="contentPane"
+                 styleClass="vflow-background"
+                 VBox.vgrow="ALWAYS"/>
    </children>
     <stylesheets>
         <URL value="@css/default.css" />

@@ -32,7 +32,7 @@ public class SelectNodeSkin extends CustomFlowNodeSkin {
 //        getNode().getStyleClass().setAll("select-node-window");
         getModel().setTitle("SELECT Node");
         getNode().getLeftIcons().clear();
-        getNode().setPrefSize(100, 30);
+        getNode().setPrefSize(30, 30);
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
                 .getClassLoader().getResource("fxml/SelectNode.fxml"));
         try {

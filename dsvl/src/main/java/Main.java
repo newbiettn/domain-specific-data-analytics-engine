@@ -46,38 +46,4 @@ public class Main extends Application {
         stage.show();
     }
 
-//    @Override
-//    public void start(Stage stage){
-//        VFlow flow = FlowFactory.newFlow();
-//        flow.setVisible(true);
-//
-//        VNode functionNode = createInputNode(flow, "Input 11",
-//                new FunctionInput("x*x+a*sin(x*3)", 80, 1));
-//
-//
-//        VCanvas canvas = new VCanvas();
-//        canvas.setTranslateToMinNodePos(false);
-//        canvas.setMinScaleX(0.5);
-//        canvas.setMinScaleY(0.5);
-//        canvas.setMaxScaleX(1.0);
-//        canvas.setMaxScaleY(1.0);
-//
-//        // define it as background (css class)
-//        canvas.getStyleClass().setAll("vflow-background");
-//
-//        // create skin factory for flow visualization
-//        FXValueSkinFactory fXSkinFactory = new FXValueSkinFactory(canvas);
-//        fXSkinFactory.addSkinClassForValueType(FunctionInput.class, InputFunctionFlowNodeSkin.class);
-//        flow.addSkinFactories(fXSkinFactory);
-//
-//        Scene scene = new Scene(canvas, 1024, 600);
-//
-//        // add css style
-//        scene.getStylesheets().setAll("fxml/css/default.css");
-//
-//        stage.setTitle("AAAAAAAAAAAAA");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-
 }
