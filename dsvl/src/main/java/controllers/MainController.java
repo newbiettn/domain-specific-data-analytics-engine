@@ -2,6 +2,7 @@ package controllers;
 
 import beans.PatientNodeBean;
 
+import eu.mihosoft.scaledfx.ScaleBehavior;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.FXValueSkinFactory;
 import eu.mihosoft.vrl.workflow.fx.VCanvas;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.PatientNodeSkin;
 import skins.SelectNodeSkin;
+import sun.tools.jstat.Scale;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,6 +56,7 @@ public class MainController {
         logger.info("Resource = " + resourceBundle);
 
         canvas = new VCanvas();
+        canvas.setTranslateToMinNodePos(false); // avoid panning
         canvas.setMaxScaleX(1);
         canvas.setMaxScaleY(1);
         Pane root = (Pane) canvas.getContent();
