@@ -30,7 +30,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
 
         StackPane canvas = new StackPane();
-        Scene scene = new Scene(canvas, 1600, 800);
+        Scene scene = new Scene(canvas);
 
         try {
             fxmlLoader.load();
