@@ -2,7 +2,7 @@ package controllers;
 
 import beans.PatientNodeBean;
 
-import eu.mihosoft.scaledfx.ScaleBehavior;
+import beans.VariableNodeBean;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.FXValueSkinFactory;
 import eu.mihosoft.vrl.workflow.fx.VCanvas;
@@ -15,13 +15,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.PatientNodeSkin;
 import skins.SelectNodeSkin;
-import sun.tools.jstat.Scale;
+import skins.VariableNodeSkin;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * Main controller.
+ *
+ * @author newbiettn
+ * @since 2019-03-1
  *
  */
 public class MainController {
@@ -72,17 +75,18 @@ public class MainController {
         skinFactory = new FXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
+        skinFactory.addSkinClassForValueType(VariableNodeBean.class, VariableNodeSkin.class);
         flow.setSkinFactories(skinFactory);
     }
 
     @FXML
-    private void addSELECTNode() {
+    private void addSelectNode() {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
-        n.setMainInput(n.addInput("data"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        n.setMainOutput(n.addOutput("data"))
+//        n.setMainInput(n.addInput("data"))
+//                .getVisualizationRequest()
+//                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        n.setMainOutput(n.addOutput("query"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
 //        flow.getSkinFactories().clear();
@@ -90,7 +94,7 @@ public class MainController {
     }
 
     @FXML
-    private void addASKNode() {
+    private void addAskNode() {
 //        n.getValueObject().setValue(new SelectNodeBean());
 //        flow.newNode(n.getValueObject());
 //        flow.getSkinFactories().clear();
@@ -98,20 +102,35 @@ public class MainController {
     }
 
     @FXML
-    private void addCREATEMLMODELNode() {
+    private void addCreateMLModelNode() {
 //        VNode n = copyFlow.newNode();
 //        n.getValueObject().setValue(new SelectNodeBean());
 //        flow.newNode(n.getValueObject());
     }
 
     @FXML
-    private void addPATIENTNode() {
+    private void addPatientNode() {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new PatientNodeBean());
-        n.setMainInput(n.addInput("data"))
+        n.setMainInput(n.addInput("query"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        n.setMainOutput(n.addOutput("data"))
+
+        // Output
+        n.setMainOutput(n.addOutput("hasURN"))
+                .getVisualizationRequest()
+                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        n.setMainOutput(n.addOutput("hasEpisode"))
+                .getVisualizationRequest()
+                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addVariableNode() {
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new VariableNodeBean());
+        n.setMainInput(n.addInput("data"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
         flow.setSkinFactories(skinFactory);

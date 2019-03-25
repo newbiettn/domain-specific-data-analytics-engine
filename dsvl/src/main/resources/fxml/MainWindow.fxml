@@ -14,18 +14,23 @@
          <children>
             <ToolBar prefHeight="48.0" prefWidth="255.0">
               <items>
-                  <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSELECTNode" text="Select" />
-                  <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addASKNode" text="Ask" />
-                  <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCREATEMLMODELNode" text="Create ML Model" />
+                  <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
+                  <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
+                  <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
               </items>
             </ToolBar>
             <ToolBar prefHeight="48.0" prefWidth="31.0" />
             <ToolBar prefHeight="48.0" prefWidth="266.0">
                <items>
-                  <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPATIENTNode" text="Patient" />
+                  <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
+                  <Button fx:id="episodeBtn" mnemonicParsing="false" text="Episode" />
                </items>
             </ToolBar>
-            <ToolBar prefHeight="48.0" prefWidth="760.0" />
+            <ToolBar prefHeight="48.0" prefWidth="760.0">
+               <items>
+                  <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Variable" />
+               </items>
+            </ToolBar>
          </children>
       </HBox>
       <StackPane fx:id="contentPane" alignment="BASELINE_CENTER" prefHeight="1126.0" prefWidth="1288.0" styleClass="vflow-background" VBox.vgrow="ALWAYS" />

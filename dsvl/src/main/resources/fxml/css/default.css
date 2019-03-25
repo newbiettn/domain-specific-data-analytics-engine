@@ -52,37 +52,44 @@
 .vnode-connector {
     -fx-background-color: rgba(0,0,0,0.75);
     -fx-stroke: rgba(120, 140, 255, 0.42);
-    -fx-border-width: 2px;
+    -fx-border-width: 1px;
     -fx-border-color: rgba(120, 140, 255, 0.72);
-    -fx-shape: "m 187.92089,378.88528 a 12.94066,12.94066 0 0 1 -12.94067,12.94066 12.94066,12.94066 0 0 1 -12.94066,-12.94066 12.94066,12.94066 0 0 1 12.94066,-12.94066 12.94066,12.94066 0 0 1 12.94067,12.94066 z"
+    /*-fx-shape: "m 187.92089,378.88528 a 12.94066,12.94066 0 0 1 -12.94067,12.94066 12.94066,12.94066 0 0 1 -12.94066,-12.94066 12.94066,12.94066 0 0 1 12.94066,-12.94066 12.94066,12.94066 0 0 1 12.94067,12.94066 z"*/
+    -fx-shape: "M-1,0a1,1 0 1,0 2,0a1,1 0 1,0 -2,0";
+}
+
+.vnode-connector-query {
+    /*-fx-background-color: rgba(250, 255, 248, 0.75);*/
+    -fx-stroke: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
 }
 
 .vnode-connector-control {
     -fx-background-color: rgba(255,255,0,0.75);
     -fx-stroke: rgba(120, 140, 255, 0.42);
-    /*    -fx-border-color: rgba(255,255,0,0.75);*/
+    -fx-border-color: rgba(255,255,0,0.75);
 }
 
-.vnode-connector-event {
+.vnode-connector-hasURN {
     -fx-background-color: rgba(255,100,255,0.75);
-    -fx-stroke: rgba(120, 140, 255, 0.42);
-    /*-fx-border-color: rgba(255,100,255,0.75);*/
+    -fx-stroke: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
 }
 
-.vnode-connector-data {
-    -fx-background-color: rgba(10,10,10,0.75);
-    -fx-stroke: rgba(120, 140, 255, 0.42);
-    /*-fx-border-color: rgba(10,10,10,0.75);*/
+.vnode-connector-hasEpisode {
+    -fx-background-color: rgb(102, 255, 204);
+    -fx-stroke: rgb(255, 255, 255);
+    -fx-border-color: rgb(255, 255, 255);
 }
 
 .vnode-connection {
     -fx-stroke: rgba(120,140,255,0.2);
-    -fx-stroke-width: 5px;
+    -fx-stroke-width: 4px;
 }
 
 .vnode-new-connection {
     -fx-stroke: rgba(120,140,255,0.2);
-    -fx-stroke-width: 5px;
+    -fx-stroke-width: 4px;
 }
 
 .window-titlebar {
