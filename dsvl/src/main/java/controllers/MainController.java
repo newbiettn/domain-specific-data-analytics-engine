@@ -62,8 +62,8 @@ public class MainController {
 
         canvas = new VCanvas();
         canvas.setTranslateToMinNodePos(false); // avoid panning
-        canvas.setMaxScaleX(1);
-        canvas.setMaxScaleY(1);
+        canvas.setMaxScaleX(0.6);
+        canvas.setMaxScaleY(0.6);
         Pane root = (Pane) canvas.getContent();
         contentPane.getChildren().add(canvas);
         rootPane = root;
@@ -120,12 +120,12 @@ public class MainController {
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
 
         // Output
-        n.setMainOutput(n.addOutput("hasURN"))
+        n.setMainOutput(n.addOutput("data"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        n.setMainOutput(n.addOutput("hasEpisode"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+//        n.setMainOutput(n.addOutput("hasEpisode"))
+//                .getVisualizationRequest()
+//                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
         flow.setSkinFactories(skinFactory);
     }
 
