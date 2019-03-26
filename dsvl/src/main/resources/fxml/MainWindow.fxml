@@ -23,7 +23,7 @@
             <ToolBar prefHeight="48.0" prefWidth="266.0">
                <items>
                   <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
-                  <Button fx:id="episodeBtn" mnemonicParsing="false" text="Episode" />
+                  <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
                </items>
             </ToolBar>
             <ToolBar prefHeight="48.0" prefWidth="760.0">

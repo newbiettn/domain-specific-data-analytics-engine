@@ -1,5 +1,6 @@
 package controllers;
 
+import beans.EpisodeNodeBean;
 import beans.PatientNodeBean;
 
 import beans.VariableNodeBean;
@@ -13,6 +14,7 @@ import beans.SelectNodeBean;
 import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import skins.EpisodeNodeSkin;
 import skins.PatientNodeSkin;
 import skins.SelectNodeSkin;
 import skins.VariableNodeSkin;
@@ -76,6 +78,7 @@ public class MainController {
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
         skinFactory.addSkinClassForValueType(VariableNodeBean.class, VariableNodeSkin.class);
+        skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
         flow.setSkinFactories(skinFactory);
     }
 
@@ -130,6 +133,16 @@ public class MainController {
     private void addVariableNode() {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new VariableNodeBean());
+        n.setMainInput(n.addInput("data"))
+                .getVisualizationRequest()
+                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addEpisodeNode() {
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new EpisodeNodeBean());
         n.setMainInput(n.addInput("data"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
