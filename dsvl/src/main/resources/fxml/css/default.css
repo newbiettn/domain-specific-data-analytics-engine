@@ -97,7 +97,7 @@
 
 .vnode-connection {
     -fx-stroke: rgb(138, 138, 138);
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 .vnode-new-connection {

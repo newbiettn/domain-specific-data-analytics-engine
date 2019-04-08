@@ -20,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
@@ -44,7 +45,9 @@ public class MainController {
     private Pane rootPane;
     private Path selectedPath;
     private Connection selectedConnection;
+    private Text selectedConnectionText;
     private VFlowModel vFlowModel;
+    private VFlow cloneFlow;
 
     @FXML
     private Pane contentPane;
@@ -90,6 +93,8 @@ public class MainController {
         // Node flow
         flow = FlowFactory.newFlow();
         flow.setVisible(true);
+        cloneFlow = FlowFactory.newFlow();
+        cloneFlow.setVisible(false);
 
         // Create skin factory for flow visualization
         skinFactory = new CustomFXValueSkinFactory(canvas);
@@ -102,17 +107,20 @@ public class MainController {
         // config right accordion
         rightAccordion.setExpandedPane(propertiesTitledPane);
 
-        // add event handler for connections
+        // add event handler for new connection when added
         Connections conns = flow.getConnections("query");
         conns.getConnections().addListener(new ListChangeListener<Connection>() {
             @Override
             public void onChanged(Change<? extends Connection> c) {
                 while (c.next()){
-                    if (c.wasAdded()){
-                        List<? extends Connection> subList = c.getAddedSubList();
-                        Connection conn = subList.get(0);
-                        addEventHandlerForConn(conn);
-                    }
+//                    if (c.wasAdded()){
+                        List<? extends Connection> subList = c.getList();
+                        System.out.println(subList.size());
+                        for (int i = 0; i < subList.size(); i++){
+                            Connection conn = subList.get(i);
+                            addEventHandlerForConn(conn);
+                        }
+//                    }
                 }
             }
         });
@@ -125,13 +133,15 @@ public class MainController {
      */
     public void addEventHandlerForConn(Connection con){
             Path p = con.getConnectionPath();
-            System.out.println(p);
+            Text t = con.getConnectionText();
             p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    System.out.println(p);
                     connectionName.setText(con.getName());
                     selectedPath = p;
                     selectedConnection = con;
+                    selectedConnectionText = t;
                     System.out.println(con.getName());
                 }
             });
@@ -139,9 +149,9 @@ public class MainController {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
-                    System.out.println("connection name entered");
-                    System.out.println(selectedConnection);
-                    selectedConnection.setName(connectionName.getText());
+                    String newName = connectionName.getText();
+                    selectedConnection.setName(newName);
+                    selectedConnectionText.setText(newName);
                 }
             }
         });
@@ -149,36 +159,25 @@ public class MainController {
 
     @FXML
     private void addSelectNode() {
-
-        VNode n = flow.newNode();
+        VNode n = cloneFlow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
-//        n.setMainInput(n.addInput("data"))
-//                .getVisualizationRequest()
-//                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
         n.setMainOutput(n.addOutput("query"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        flow.setSkinFactories(skinFactory);
+        flow.newNode(n);
     }
 
     @FXML
     private void addAskNode() {
-//        n.getValueObject().setValue(new SelectNodeBean());
-//        flow.newNode(n.getValueObject());
-//        flow.getSkinFactories().clear();
-//        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
     private void addCreateMLModelNode() {
-//        VNode n = copyFlow.newNode();
-//        n.getValueObject().setValue(new SelectNodeBean());
-//        flow.newNode(n.getValueObject());
     }
 
     @FXML
     private void addPatientNode() {
-        VNode n = flow.newNode();
+        VNode n = cloneFlow.newNode();
         n.getValueObject().setValue(new PatientNodeBean());
         n.setMainInput(n.addInput("query"))
                 .getVisualizationRequest()
@@ -188,10 +187,7 @@ public class MainController {
         n.setMainOutput(n.addOutput("data"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-//        n.setMainOutput(n.addOutput("hasEpisode"))
-//                .getVisualizationRequest()
-//                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        flow.setSkinFactories(skinFactory);
+        flow.newNode(n);
 
     }
 
