@@ -5,21 +5,27 @@ import beans.PatientNodeBean;
 
 import beans.VariableNodeBean;
 import eu.mihosoft.vrl.workflow.*;
-import eu.mihosoft.vrl.workflow.fx.FXValueSkinFactory;
-import eu.mihosoft.vrl.workflow.fx.VCanvas;
+import eu.mihosoft.vrl.workflow.fx.*;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import beans.SelectNodeBean;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import skins.EpisodeNodeSkin;
-import skins.PatientNodeSkin;
-import skins.SelectNodeSkin;
-import skins.VariableNodeSkin;
+import skins.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -36,6 +42,9 @@ public class MainController {
     private VFlow flow;
     private VCanvas canvas;
     private Pane rootPane;
+    private Path selectedPath;
+    private Connection selectedConnection;
+    private VFlowModel vFlowModel;
 
     @FXML
     private Pane contentPane;
@@ -48,6 +57,15 @@ public class MainController {
 
     @FXML
     private ResourceBundle resourceBundle;
+
+    @FXML
+    private Accordion rightAccordion;
+
+    @FXML
+    private TitledPane propertiesTitledPane;
+
+    @FXML
+    private TextField connectionName;
 
     public MainController(){}
 
@@ -74,16 +92,64 @@ public class MainController {
         flow.setVisible(true);
 
         // Create skin factory for flow visualization
-        skinFactory = new FXValueSkinFactory(canvas);
+        skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
         skinFactory.addSkinClassForValueType(VariableNodeBean.class, VariableNodeSkin.class);
         skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
         flow.setSkinFactories(skinFactory);
+
+        // config right accordion
+        rightAccordion.setExpandedPane(propertiesTitledPane);
+
+        // add event handler for connections
+        Connections conns = flow.getConnections("query");
+        conns.getConnections().addListener(new ListChangeListener<Connection>() {
+            @Override
+            public void onChanged(Change<? extends Connection> c) {
+                while (c.next()){
+                    if (c.wasAdded()){
+                        List<? extends Connection> subList = c.getAddedSubList();
+                        Connection conn = subList.get(0);
+                        addEventHandlerForConn(conn);
+                    }
+                }
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param con
+     */
+    public void addEventHandlerForConn(Connection con){
+            Path p = con.getConnectionPath();
+            System.out.println(p);
+            p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    connectionName.setText(con.getName());
+                    selectedPath = p;
+                    selectedConnection = con;
+                    System.out.println(con.getName());
+                }
+            });
+        connectionName.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    System.out.println("connection name entered");
+                    System.out.println(selectedConnection);
+                    selectedConnection.setName(connectionName.getText());
+                }
+            }
+        });
     }
 
     @FXML
     private void addSelectNode() {
+
         VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
 //        n.setMainInput(n.addInput("data"))
@@ -92,7 +158,6 @@ public class MainController {
         n.setMainOutput(n.addOutput("query"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-//        flow.getSkinFactories().clear();
         flow.setSkinFactories(skinFactory);
     }
 
@@ -127,6 +192,7 @@ public class MainController {
 //                .getVisualizationRequest()
 //                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
         flow.setSkinFactories(skinFactory);
+
     }
 
     @FXML
@@ -136,7 +202,7 @@ public class MainController {
         n.setMainInput(n.addInput("data"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        flow.setSkinFactories(skinFactory);
+        flow.getSkinFactories().clear();
     }
 
     @FXML
@@ -146,6 +212,7 @@ public class MainController {
         n.setMainInput(n.addInput("data"))
                 .getVisualizationRequest()
                 .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        flow.setSkinFactories(skinFactory);
+//        flow.setSkinFactories(skinFactory);
     }
+
 }
