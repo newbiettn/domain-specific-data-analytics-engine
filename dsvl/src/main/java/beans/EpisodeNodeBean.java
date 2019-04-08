@@ -1,5 +1,8 @@
 package beans;
 
+
+import java.util.ArrayList;
+
 /**
  * Represents an episode.
  *
@@ -7,19 +10,9 @@ package beans;
  * @since  2019-03-26
  *
  */
-public class EpisodeNodeBean {
+public class EpisodeNodeBean extends ObjectBean{
 
-    private String value;
-
-    public EpisodeNodeBean(){
-        value = "";
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public EpisodeNodeBean(ArrayList<String> cns) {
+        super(cns);
     }
 }

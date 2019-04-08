@@ -1,18 +1,17 @@
 package beans;
 
-public class PatientNodeBean {
 
-    private String value;
+import java.util.ArrayList;
 
-    public PatientNodeBean(){
-        value = "";
-    }
+/**
+ * Represent a Patient node in DSVL.
+ *
+ * @author newbiettn
+ * @since 2019-March-01
+ */
+public class PatientNodeBean extends ObjectBean{
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public PatientNodeBean(ArrayList<String> cns) {
+        super(cns);
     }
 }

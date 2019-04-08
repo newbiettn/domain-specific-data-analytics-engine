@@ -6,6 +6,7 @@ import beans.PatientNodeBean;
 import beans.VariableNodeBean;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
+import eu.mihosoft.vrl.workflow.io.WorkflowIO;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -25,7 +26,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -108,19 +112,19 @@ public class MainController {
         rightAccordion.setExpandedPane(propertiesTitledPane);
 
         // add event handler for new connection when added
-        Connections conns = flow.getConnections("query");
+        Connections conns = flow.getConnections("data");
         conns.getConnections().addListener(new ListChangeListener<Connection>() {
             @Override
             public void onChanged(Change<? extends Connection> c) {
                 while (c.next()){
-//                    if (c.wasAdded()){
-                        List<? extends Connection> subList = c.getList();
-                        System.out.println(subList.size());
+                    if (c.wasAdded()){
+                        List<? extends Connection> subList = c.getAddedSubList();
+                        logger.info("Connection list has been added by " + subList.size());
                         for (int i = 0; i < subList.size(); i++){
                             Connection conn = subList.get(i);
                             addEventHandlerForConn(conn);
                         }
-//                    }
+                    }
                 }
             }
         });
@@ -137,12 +141,11 @@ public class MainController {
             p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    System.out.println(p);
                     connectionName.setText(con.getName());
                     selectedPath = p;
                     selectedConnection = con;
                     selectedConnectionText = t;
-                    System.out.println(con.getName());
+                    logger.info("Click on:" + p);
                 }
             });
         connectionName.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -161,9 +164,7 @@ public class MainController {
     private void addSelectNode() {
         VNode n = cloneFlow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
-        n.setMainOutput(n.addOutput("query"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        n.addOutput("data");
         flow.newNode(n);
     }
 
@@ -177,38 +178,48 @@ public class MainController {
 
     @FXML
     private void addPatientNode() {
-        VNode n = cloneFlow.newNode();
-        n.getValueObject().setValue(new PatientNodeBean());
-        n.setMainInput(n.addInput("query"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        ArrayList<String> cns = new ArrayList<>();
+        cns.add("hasURN");
+        cns.add("hasEpisode");
 
-        // Output
-        n.setMainOutput(n.addOutput("data"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
+        VNode n = cloneFlow.newNode();
+        n.getValueObject().setValue(new PatientNodeBean(cns));
+        n.addInput("data");
+        n.addOutput("data");
         flow.newNode(n);
 
     }
 
     @FXML
-    private void addVariableNode() {
-        VNode n = flow.newNode();
-        n.getValueObject().setValue(new VariableNodeBean());
-        n.setMainInput(n.addInput("data"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-        flow.getSkinFactories().clear();
+    private void addEpisodeNode() {
+        ArrayList<String> cns = new ArrayList<>();
+        cns.add("hasAge");
+        cns.add("hasDiabetesTestScore");
+
+        VNode n = cloneFlow.newNode();
+        n.getValueObject().setValue(new EpisodeNodeBean(cns));
+        n.addInput("data");
+        n.addOutput("data");
+        flow.newNode(n);
     }
 
     @FXML
-    private void addEpisodeNode() {
-        VNode n = flow.newNode();
-        n.getValueObject().setValue(new EpisodeNodeBean());
-        n.setMainInput(n.addInput("data"))
-                .getVisualizationRequest()
-                .set(VisualizationRequest.KEY_CONNECTOR_AUTO_LAYOUT, true);
-//        flow.setSkinFactories(skinFactory);
+    private void addVariableNode() {
+        VNode n = cloneFlow.newNode();
+        n.getValueObject().setValue(new VariableNodeBean());
+        n.addInput("data");
+        flow.newNode(n);
+    }
+
+    @FXML
+    private void parseFlow(){
+        try {
+            WorkflowIO.saveToXML(Paths.get("flow01.xml"), flow.getModel());
+            logger.info("Parsed the flow");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -30,17 +30,22 @@
                                 <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
                             </items>
                         </ToolBar>
-                        <ToolBar prefHeight="41.0" prefWidth="353.0">
+                        <ToolBar prefHeight="39.0" prefWidth="281.0">
                             <items>
                                 <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
                                 <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
                             </items>
                         </ToolBar>
-                        <ToolBar prefHeight="41.0" prefWidth="566.0">
+                        <ToolBar prefHeight="39.0" prefWidth="639.0">
                             <items>
                                 <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Variable" />
                             </items>
                         </ToolBar>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                      <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="79.0" text="Parse" onAction="#parseFlow"/>
+                    </items>
+                  </ToolBar>
                     </children>
                 </HBox>
                 <AnchorPane prefHeight="643.0" prefWidth="1141.0" style="-fx-background-color: rgb(74, 75, 78);">
@@ -74,7 +79,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Name" />
-                                    <TextField GridPane.columnIndex="1" fx:id="connectionName"/>
+                                    <TextField fx:id="connectionName" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                            </children>
