@@ -4,24 +4,26 @@ import beans.EpisodeNodeBean;
 import beans.PatientNodeBean;
 
 import beans.VariableNodeBean;
+import com.sun.org.apache.bcel.internal.generic.Select;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import eu.mihosoft.vrl.workflow.io.WorkflowIO;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import beans.SelectNodeBean;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
@@ -47,10 +49,7 @@ public class MainController {
     private VFlow flow;
     private VCanvas canvas;
     private Pane rootPane;
-    private Path selectedPath;
     private Connection selectedConnection;
-    private Text selectedConnectionText;
-    private VFlowModel vFlowModel;
     private VFlow cloneFlow;
 
     @FXML
@@ -72,7 +71,7 @@ public class MainController {
     private TitledPane propertiesTitledPane;
 
     @FXML
-    private TextField connectionName;
+    private ChoiceBox<String> connectionName;
 
     public MainController(){}
 
@@ -128,7 +127,6 @@ public class MainController {
                 }
             }
         });
-
     }
 
     /**
@@ -137,25 +135,41 @@ public class MainController {
      */
     public void addEventHandlerForConn(Connection con){
             Path p = con.getConnectionPath();
-            Text t = con.getConnectionText();
             p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    connectionName.setText(con.getName());
-                    selectedPath = p;
                     selectedConnection = con;
-                    selectedConnectionText = t;
-                    logger.info("Click on:" + p);
+                    String t = selectedConnection.getConnectionText().getText();
+                    logger.info("Click on:" + con);
+
+                    VNode sender = con.getSender().getNode();
+                    Object obj = sender.getValueObject().getValue();
+                    if (obj.getClass().equals(PatientNodeBean.class)){
+                        PatientNodeBean bean = (PatientNodeBean) obj;
+                        connectionName.setItems(bean.getConnNames());
+                        logger.info(t);
+                        if (!t.isEmpty()){
+                            connectionName.getSelectionModel().select(t);
+                        }
+
+                    } else if (obj.getClass().equals(EpisodeNodeBean.class)){
+                        EpisodeNodeBean bean = (EpisodeNodeBean) obj;
+                        connectionName.setItems(bean.getConnNames());
+                        logger.info(t);
+                        if (!t.isEmpty()){
+                            connectionName.getSelectionModel().select(t);
+                        }
+                    }
+
                 }
             });
-        connectionName.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+        connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)){
-                    String newName = connectionName.getText();
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    String newName = newValue;
+                    selectedConnection.getConnectionText().setText(newName);
                     selectedConnection.setName(newName);
-                    selectedConnectionText.setText(newName);
-                }
+                    logger.info(newValue);
             }
         });
     }
@@ -187,7 +201,6 @@ public class MainController {
         n.addInput("data");
         n.addOutput("data");
         flow.newNode(n);
-
     }
 
     @FXML
