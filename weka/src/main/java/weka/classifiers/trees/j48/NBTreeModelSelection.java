@@ -130,7 +130,7 @@ public class NBTreeModelSelection extends ModelSelection {
         // Apart from class attribute.
         if (i != (data).classIndex()) {
 
-          // Get models for current attribute.
+          // Get beans for current attribute.
           currentModel[i] = new NBTreeSplit(i, m_minNoObj, sumOfWeights);
           currentModel[i].setGlobalModel(noSplitModel);
           currentModel[i].buildClassifier(data);

@@ -32,8 +32,8 @@ import smile.util.MulticoreExecutor;
  * linear model used for binomial regression. Logistic regression applies
  * maximum likelihood estimation after transforming the dependent into
  * a logit variable. A logit is the natural log of the odds of the dependent
- * equaling a certain value or not (usually 1 in binary logistic models,
- * the highest value in multinomial models). In this way, logistic regression
+ * equaling a certain value or not (usually 1 in binary logistic beans,
+ * the highest value in multinomial beans). In this way, logistic regression
  * estimates the odds of a certain event (value) occurring. 
  * <p>
  * Goodness-of-fit tests such as the likelihood ratio test are available

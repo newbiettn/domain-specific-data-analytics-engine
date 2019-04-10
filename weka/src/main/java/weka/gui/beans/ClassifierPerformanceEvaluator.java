@@ -83,7 +83,7 @@ public class ClassifierPerformanceEvaluator extends AbstractEvaluator implements
   protected boolean m_errorPlotPointSizeProportionalToMargin;
 
   /**
-   * Number of threads to use to train models with
+   * Number of threads to use to train beans with
    */
   protected int m_executionSlots = 2;
 

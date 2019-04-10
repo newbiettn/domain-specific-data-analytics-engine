@@ -38,7 +38,7 @@ define(
 //
 //      /** User wants to open the filter dialog */
 //      onFilter: function( event ) {
-//        var varModel = bgViz.models.variablesConfig.independentVar();
+//        var varModel = bgViz.beans.variablesConfig.independentVar();
 //        var rangeType = varModel.component.range().rangeType();
 //        var viewName = rangeType.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
 //

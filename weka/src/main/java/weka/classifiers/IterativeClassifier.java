@@ -24,7 +24,7 @@ package weka.classifiers;
 import weka.core.Instances;
 
 /**
- * Interface for classifiers that can induce models of growing
+ * Interface for classifiers that can induce beans of growing
  * complexity one step at a time.
  *
  * @author Gabi Schmidberger (gabi@cs.waikato.ac.nz)

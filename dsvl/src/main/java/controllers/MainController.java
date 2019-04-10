@@ -147,7 +147,6 @@ public class MainController {
                     if (obj.getClass().equals(PatientNodeBean.class)){
                         PatientNodeBean bean = (PatientNodeBean) obj;
                         connectionName.setItems(bean.getConnNames());
-                        logger.info(t);
                         if (!t.isEmpty()){
                             connectionName.getSelectionModel().select(t);
                         }
@@ -155,7 +154,6 @@ public class MainController {
                     } else if (obj.getClass().equals(EpisodeNodeBean.class)){
                         EpisodeNodeBean bean = (EpisodeNodeBean) obj;
                         connectionName.setItems(bean.getConnNames());
-                        logger.info(t);
                         if (!t.isEmpty()){
                             connectionName.getSelectionModel().select(t);
                         }
@@ -169,17 +167,17 @@ public class MainController {
                     String newName = newValue;
                     selectedConnection.getConnectionText().setText(newName);
                     selectedConnection.setName(newName);
-                    logger.info(newValue);
             }
         });
     }
 
     @FXML
     private void addSelectNode() {
-        VNode n = cloneFlow.newNode();
+        VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
-        n.addOutput("data");
-        flow.newNode(n);
+        n.setMainOutput(n.addOutput("data"));
+        n.getMainOutput("data").setMaxNumberOfConnections(1);
+        flow.setSkinFactoriesNewbiettn(skinFactory);
     }
 
     @FXML
@@ -196,11 +194,14 @@ public class MainController {
         cns.add("hasURN");
         cns.add("hasEpisode");
 
-        VNode n = cloneFlow.newNode();
+        VNode n = flow.newNode();
         n.getValueObject().setValue(new PatientNodeBean(cns));
-        n.addInput("data");
-        n.addOutput("data");
-        flow.newNode(n);
+        n.getValueObject().setValue(new EpisodeNodeBean(cns));
+        n.setMainInput(n.addInput("data"));
+        n.setMainOutput(n.addOutput("data"));
+        n.getMainInput("data").setMaxNumberOfConnections(10);
+        n.getMainOutput("data").setMaxNumberOfConnections(1);
+        flow.setSkinFactoriesNewbiettn(skinFactory);
     }
 
     @FXML
@@ -209,19 +210,22 @@ public class MainController {
         cns.add("hasAge");
         cns.add("hasDiabetesTestScore");
 
-        VNode n = cloneFlow.newNode();
+        VNode n = flow.newNode();
         n.getValueObject().setValue(new EpisodeNodeBean(cns));
-        n.addInput("data");
-        n.addOutput("data");
-        flow.newNode(n);
+        n.setMainInput(n.addInput("data"));
+        n.setMainOutput(n.addOutput("data"));
+        n.getMainInput("data").setMaxNumberOfConnections(1);
+        n.getMainOutput("data").setMaxNumberOfConnections(1);
+        flow.setSkinFactoriesNewbiettn(skinFactory);
     }
 
     @FXML
     private void addVariableNode() {
-        VNode n = cloneFlow.newNode();
+        VNode n = flow.newNode();
         n.getValueObject().setValue(new VariableNodeBean());
-        n.addInput("data");
-        flow.newNode(n);
+        n.setMainInput(n.addInput("data"));
+        n.getMainInput("data").setMaxNumberOfConnections(1);
+        flow.setSkinFactoriesNewbiettn(skinFactory);
     }
 
     @FXML

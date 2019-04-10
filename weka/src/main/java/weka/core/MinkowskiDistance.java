@@ -37,7 +37,7 @@ import weka.core.neighboursearch.PerformanceStats;
  * between objects of that data model can be computed.<br/>
  * <br/>
  * Attention: For efficiency reasons the use of consistency checks (like are the
- * data models of the two instances exactly the same), is low.<br/>
+ * data beans of the two instances exactly the same), is low.<br/>
  * <br/>
  * For more information, see:<br/>
  * <br/>
@@ -129,7 +129,7 @@ public class MinkowskiDistance extends NormalizableDistance implements
       + "One object defines not one distance but the data model in which "
       + "the distances between objects of that data model can be computed.\n\n"
       + "Attention: For efficiency reasons the use of consistency checks "
-      + "(like are the data models of the two instances exactly the same), "
+      + "(like are the data beans of the two instances exactly the same), "
       + "is low.\n\n" + "For more information, see:\n\n"
       + getTechnicalInformation().toString();
   }

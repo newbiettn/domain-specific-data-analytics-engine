@@ -455,7 +455,7 @@ public class AssociationsPanel extends AbstractPerspective implements
               // anything yet.
               // TODO should probably add options to store full model and
               // save/load
-              // models like the classifier and clusterer panels
+              // beans like the classifier and clusterer panels
               Associator configCopy = associator.getClass().newInstance();
               if (configCopy instanceof OptionHandler) {
                 ((OptionHandler) configCopy)

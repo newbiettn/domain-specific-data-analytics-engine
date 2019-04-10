@@ -51,7 +51,7 @@ import smile.math.special.Gamma;
  * <ul>
  * <li> When k = 1, it is the exponential distribution.
  * <li> When k = 2, it becomes equivalent to the Rayleigh distribution,
- * which models the modulus of a two-dimensional uncorrelated bivariate
+ * which beans the modulus of a two-dimensional uncorrelated bivariate
  * normal vector.
  * <li> When k = 3.4, it appears similar to the normal distribution.
  * <li> As k goes to infinity, the Weibull distribution asymptotically

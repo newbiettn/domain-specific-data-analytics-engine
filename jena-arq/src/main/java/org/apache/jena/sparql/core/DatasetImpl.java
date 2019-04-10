@@ -61,7 +61,7 @@ public class DatasetImpl implements Dataset
     }
     
     /** Create a Dataset with the model as default model.
-     *  Named models must be explicitly added to identify the storage to be used.
+     *  Named beans must be explicitly added to identify the storage to be used.
      */
     public DatasetImpl(Model model) {
         this.dsg = DatasetGraphFactory.create(model.getGraph()) ;

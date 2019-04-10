@@ -103,7 +103,7 @@
  * (e.g. cross-validation, regularization, early stopping, pruning, Bayesian
  * priors on parameters or model comparison), that can indicate when further
  * training is not resulting in better generalization. The basis of some
- * techniques is either (1) to explicitly penalize overly complex models,
+ * techniques is either (1) to explicitly penalize overly complex beans,
  * or (2) to test the model's ability to generalize by evaluating its
  * performance on a set of data not used for training, which is assumed to
  * approximate the typical unseen data that a model will encounter.</dd>

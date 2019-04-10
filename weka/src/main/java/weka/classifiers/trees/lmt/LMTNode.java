@@ -371,7 +371,7 @@ public class LMTNode extends LogisticBase {
     Vector<LMTNode> nodeList;
     CompareNode comparator = new CompareNode();
 
-    // determine training error of logistic models and subtrees, and calculate
+    // determine training error of logistic beans and subtrees, and calculate
     // alpha-values from them
     treeErrors();
     calculateAlphas();
@@ -402,7 +402,7 @@ public class LMTNode extends LogisticBase {
       prune = (nodeList.size() > 0);
     }
 
-    // discard references to models at internal nodes because they are not
+    // discard references to beans at internal nodes because they are not
     // needed
     for (Object node : getNodes()) {
       LMTNode lnode = (LMTNode) node;
@@ -430,7 +430,7 @@ public class LMTNode extends LogisticBase {
 
     CompareNode comparator = new CompareNode();
 
-    // determine training error of logistic models and subtrees, and calculate
+    // determine training error of logistic beans and subtrees, and calculate
     // alpha-values from them
     treeErrors();
     calculateAlphas();
@@ -488,7 +488,7 @@ public class LMTNode extends LogisticBase {
 
   /**
    * Method to "unprune" a logistic model tree. Sets all leaf-fields to false.
-   * Faster than re-growing the tree because the logistic models do not have to
+   * Faster than re-growing the tree because the logistic beans do not have to
    * be fit again.
    */
   protected void unprune() {
@@ -739,7 +739,7 @@ public class LMTNode extends LogisticBase {
 
   /**
    * Returns a description of the logistic model tree (tree structure and
-   * logistic models)
+   * logistic beans)
    * 
    * @return describing string
    */
@@ -759,7 +759,7 @@ public class LMTNode extends LogisticBase {
       text.append("\n\nNumber of Leaves  : \t" + numLeaves() + "\n");
       text.append("\nSize of the Tree : \t" + numNodes() + "\n");
 
-      // This prints logistic models after the tree, comment out if only tree
+      // This prints logistic beans after the tree, comment out if only tree
       // should be printed
       text.append(modelsToString());
       return text.toString();
@@ -827,7 +827,7 @@ public class LMTNode extends LogisticBase {
   }
 
   /**
-   * Assigns numbers to the logistic regression models at the leaves of the tree
+   * Assigns numbers to the logistic regression beans at the leaves of the tree
    */
   public int assignLeafModelNumbers(int leafCounter) {
     if (!m_isLeaf) {

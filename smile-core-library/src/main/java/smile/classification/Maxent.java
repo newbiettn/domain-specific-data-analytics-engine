@@ -29,15 +29,15 @@ import smile.util.MulticoreExecutor;
 
 /**
  * Maximum Entropy Classifier. Maximum entropy is a technique for learning
- * probability distributions from data. In maximum entropy models, the
+ * probability distributions from data. In maximum entropy beans, the
  * observed data itself is assumed to be the testable information. Maximum
- * entropy models don't assume anything about the probability distribution
+ * entropy beans don't assume anything about the probability distribution
  * other than what have been observed and always choose the most uniform
  * distribution subject to the observed constraints.
  * <p>
  * Basically, maximum entropy classifier is another name of multinomial logistic
  * regression applied to categorical independent variables, which are
- * converted to binary dummy variables. Maximum entropy models are widely
+ * converted to binary dummy variables. Maximum entropy beans are widely
  * used in natural language processing.  Here, we provide an implementation
  * which assumes that binary features are stored in a sparse array, of which
  * entries are the indices of nonzero features.

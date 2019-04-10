@@ -33,7 +33,7 @@ import smile.math.matrix.EVD;
  * matrices &Sigma;<sub>k</sub>(&alpha;). The parameter &alpha; in [0, 1]
  * controls the complexity of the model. When &alpha; is one, RDA becomes QDA.
  * While &alpha; is zero, RDA is equivalent to LDA. Therefore, the
- * regularization factor &alpha; allows a continuum of models between LDA and QDA.
+ * regularization factor &alpha; allows a continuum of beans between LDA and QDA.
  * 
  * @see LDA
  * @see QDA
@@ -79,7 +79,7 @@ public class RDA implements SoftClassifier<double[]>, Serializable {
      */
     public static class Trainer extends ClassifierTrainer<double[]> {
         /**
-         * Regularization factor in [0, 1] allows a continuum of models
+         * Regularization factor in [0, 1] allows a continuum of beans
          * between LDA and QDA.
          */
         private double alpha;
@@ -98,7 +98,7 @@ public class RDA implements SoftClassifier<double[]>, Serializable {
          * is 1E-4.
          * 
          * @param alpha regularization factor in [0, 1] allows a continuum of
-         * models between LDA and QDA.
+         * beans between LDA and QDA.
          */
         public Trainer(double alpha) {
             if (alpha < 0.0 || alpha > 1.0) {
@@ -142,7 +142,7 @@ public class RDA implements SoftClassifier<double[]>, Serializable {
      * Constructor. Learn regularized discriminant analysis.
      * @param x training samples.
      * @param y training labels in [0, k), where k is the number of classes.
-     * @param alpha regularization factor in [0, 1] allows a continuum of models
+     * @param alpha regularization factor in [0, 1] allows a continuum of beans
      * between LDA and QDA.
      */
     public RDA(double[][] x, int[] y, double alpha) {
@@ -153,7 +153,7 @@ public class RDA implements SoftClassifier<double[]>, Serializable {
      * Constructor. Learn regularized discriminant analysis.
      * @param x training samples.
      * @param y training labels in [0, k), where k is the number of classes.
-     * @param alpha regularization factor in [0, 1] allows a continuum of models
+     * @param alpha regularization factor in [0, 1] allows a continuum of beans
      * between LDA and QDA.
      * @param priori the priori probability of each class.
      */
@@ -165,7 +165,7 @@ public class RDA implements SoftClassifier<double[]>, Serializable {
      * Constructor. Learn regularized discriminant analysis.
      * @param x training samples.
      * @param y training labels in [0, k), where k is the number of classes.
-     * @param alpha regularization factor in [0, 1] allows a continuum of models
+     * @param alpha regularization factor in [0, 1] allows a continuum of beans
      * between LDA and QDA.
      * @param priori the priori probability of each class.
      * @param tol tolerance to decide if a covariance matrix is singular; it

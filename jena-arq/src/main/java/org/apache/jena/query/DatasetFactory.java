@@ -44,7 +44,7 @@ public class DatasetFactory {
      * <p>
      * See also {@link #createTxnMem()} for a transactional dataset.
      * <p>
-     * This implementation copies models when {@link Dataset#addNamedModel(String, Model)} is called.
+     * This implementation copies beans when {@link Dataset#addNamedModel(String, Model)} is called.
      * <p>
      * This implementation does not support serialized transactions (it only provides MRSW locking). 
      * 
@@ -148,7 +148,7 @@ public class DatasetFactory {
     /**
      * Wrap a {@link Model} to make a dataset; the model is the default graph of the RDF Dataset. 
      * 
-     * This dataset can not have additional models
+     * This dataset can not have additional beans
      * added to it, including indirectly through SPARQL Update
      * adding new graphs.
      *

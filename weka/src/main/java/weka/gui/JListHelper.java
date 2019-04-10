@@ -27,7 +27,7 @@ import javax.swing.JList;
 
 /**
  * A helper class for JList GUI elements with DefaultListModel or 
- * derived models.
+ * derived beans.
  *
  * @author  FracPete (fracpete at waikato dot ac dot nz)
  * @version $Revision: 8034 $

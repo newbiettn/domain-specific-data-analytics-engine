@@ -11,7 +11,7 @@ define(
         _ = require( "underscore" ),
         fui = require( "app/fui" ),
         sprintf = require( "sprintf" ),
-        Dataset = require( "app/models/dataset" ),
+        Dataset = require( "app/beans/dataset" ),
         PageUtils = require( "app/util/page-utils" );
 
     var DATASETS_MANAGEMENT_PATH = "/$/datasets";
@@ -166,7 +166,7 @@ define(
       }
     } );
 
-    // when the models module starts, automatically load the server description
+    // when the beans module starts, automatically load the server description
     fui.models.addInitializer( function( options ) {
       var fusekiServer = new FusekiServer();
       fui.models.fusekiServer = fusekiServer;

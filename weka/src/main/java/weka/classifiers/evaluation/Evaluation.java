@@ -60,7 +60,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * Class for evaluating machine learning models.
+ * Class for evaluating machine learning beans.
  * <p/>
  *
  * -------------------------------------------------------------------
@@ -130,8 +130,8 @@ import java.util.zip.GZIPOutputStream;
  * Outputs statistics only, not the classifier.
  * <p/>
  *
- * -output-models-for-training-splits <br/>
- * Output models for training splits if cross-validation or percentage-split evaluation is used.
+ * -output-beans-for-training-splits <br/>
+ * Output beans for training splits if cross-validation or percentage-split evaluation is used.
  * <p/>
  *
  * -do-not-output-per-class-statistics <br/>
@@ -959,8 +959,8 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
    * Outputs statistics only, not the classifier.
    * <p/>
    * <p>
-   * -output-models-for-training-splits <br/>
-   * Output models for training splits if cross-validation or percentage-split evaluation is used.
+   * -output-beans-for-training-splits <br/>
+   * Output beans for training splits if cross-validation or percentage-split evaluation is used.
    * <p/>
    * <p>
    * -do-not-output-per-class-statistics <br/>
@@ -1227,8 +1227,8 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
    * Outputs statistics only, not the classifier.
    * <p/>
    *
-   * -output-models-for-training-splits <br/>
-   * Output models for training splits if cross-validation or percentage-split evaluation is used.
+   * -output-beans-for-training-splits <br/>
+   * Output beans for training splits if cross-validation or percentage-split evaluation is used.
    * <p/>
    *
    * -do-not-output-per-class-statistics <br/>
@@ -1317,7 +1317,7 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
     String testFileName = Utils.getOption('T', options);
     String foldsString = Utils.getOption('x', options);
     String seedString = Utils.getOption('s', options);
-    boolean outputModelsForTrainingSplits = Utils.getFlag("output-models-for-training-splits", options);
+    boolean outputModelsForTrainingSplits = Utils.getFlag("output-beans-for-training-splits", options);
     boolean classStatistics = !Utils.getFlag("do-not-output-per-class-statistics", options);
     boolean noOutput = Utils.getFlag('o', options);
     boolean trainStatistics = !Utils.getFlag('v', options);
@@ -1434,7 +1434,7 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
       }
       if (outputModelsForTrainingSplits && (testFileName.length() > 0 ||
               ((splitPercentageString.length() == 0) && noCrossValidation))) {
-        throw new IllegalArgumentException("Can only output models for training splits if cross-validation or " +
+        throw new IllegalArgumentException("Can only output beans for training splits if cross-validation or " +
               "percentage split evaluation is performed!");
       }
 
@@ -4398,8 +4398,8 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
     optionsText.append("\tOutputs no statistics for training data.\n");
     optionsText.append("-o\n");
     optionsText.append("\tOutputs statistics only, not the classifier.\n");
-    optionsText.append("-output-models-for-training-splits\n");
-    optionsText.append("\tOutput models for training splits if cross-validation or percentage-split evaluation is used.\n");
+    optionsText.append("-output-beans-for-training-splits\n");
+    optionsText.append("\tOutput beans for training splits if cross-validation or percentage-split evaluation is used.\n");
     optionsText.append("-do-not-output-per-class-statistics\n");
     optionsText.append("\tDo not output statistics for each class.\n");
     optionsText.append("-k\n");

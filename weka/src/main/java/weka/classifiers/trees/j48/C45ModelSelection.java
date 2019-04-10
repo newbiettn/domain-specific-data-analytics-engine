@@ -133,7 +133,7 @@ public class C45ModelSelection extends ModelSelection {
         // Apart from class attribute.
         if (i != (data).classIndex()) {
 
-          // Get models for current attribute.
+          // Get beans for current attribute.
           currentModel[i] = new C45Split(i, m_minNoObj, sumOfWeights,
             m_useMDLcorrection);
           currentModel[i].buildClassifier(data);

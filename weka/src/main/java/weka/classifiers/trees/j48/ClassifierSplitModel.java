@@ -29,7 +29,7 @@ import weka.core.RevisionHandler;
 import weka.core.Utils;
 
 /** 
- * Abstract class for classification models that can be used 
+ * Abstract class for classification beans that can be used
  * recursively to split the data.
  *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)

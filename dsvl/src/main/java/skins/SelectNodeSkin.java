@@ -29,10 +29,6 @@ public class SelectNodeSkin extends CustomFlowNodeSkin {
 
     @Override
     protected Node createView() {
-//        getNode().getStyleClass().setAll("select-node-window");
-        getModel().setTitle("SELECT Node");
-        getNode().getLeftIcons().clear();
-        getNode().setPrefSize(30, 30);
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
                 .getClassLoader().getResource("fxml/SelectNode.fxml"));
         try {
@@ -41,6 +37,9 @@ public class SelectNodeSkin extends CustomFlowNodeSkin {
             Logger.getLogger(SelectNodeSkin.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
+        getModel().setTitle("SELECT Node");
+        getNode().getLeftIcons().clear();
+        getNode().setPrefSize(30, 80);
 
         SelectNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());

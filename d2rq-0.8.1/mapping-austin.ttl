@@ -1,0 +1,1260 @@
+@prefix map: <#> .
+@prefix dbp: <http://dbpedia.org/resource/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vcard: <http://www.w3.org/2001/vcard-rdf/3.0#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix diab: <http://localhost:2020/resource/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	d2rq:jdbcDSN "jdbc:mysql://127.0.0.1:3306/AustinDiabetes";
+	d2rq:username "root";
+	d2rq:password "root";
+	jdbc:autoReconnect "true";
+	jdbc:zeroDateTimeBehavior "convertToNull";
+	.
+
+# Table tblPatient
+map:Patient a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Patient@@tblPatients.ur_no@@";
+	d2rq:class diab:Patient;
+	.
+
+map:Patient_hasURN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Patient;
+	d2rq:property diab:hasURN;
+	d2rq:column "tblPatients.ur_no";
+	d2rq:datatype xsd:string;
+	.
+
+# Episodes
+map:Episode a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Episode@@tblEpisodes.row_names@@";
+	d2rq:class diab:Episode;
+	.
+map:Episode_hasEpisodeKey a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasEpisodeKey;
+	d2rq:column "tblEpisodes.episode_key";
+	.
+map:Episode_hasSex_F a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property foaf:gender;
+	d2rq:constantValue "Female";
+	d2rq:condition "tblEpisodes.sex = '0'";
+	.
+map:Episode_hasSex_M a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property foaf:gender;
+	d2rq:constantValue "Male";
+	d2rq:condition "tblEpisodes.sex = '1'";
+	.
+map:Episode_hasAge a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property foaf:age;
+	d2rq:column "tblEpisodes.age";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasMaritalStatusCode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatusCode;
+	d2rq:column "tblEpisodes.marital_status_code";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasMaritalStatus_DeFacto a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "De facto";
+	d2rq:condition "tblEpisodes.marital_status = 'De facto'";
+	.
+map:Episode_hasMaritalStatus_Divorced a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "Divorced";
+	d2rq:condition "tblEpisodes.marital_status = 'Divorced'";
+	.
+map:Episode_hasMaritalStatus_Married a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "Married";
+	d2rq:condition "tblEpisodes.marital_status = 'Married'";
+	.
+map:Episode_hasMaritalStatus_NeverMarried a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "Never married";
+	d2rq:condition "tblEpisodes.marital_status = 'Never married'";
+	.
+map:Episode_hasMaritalStatus_NotStated a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "Not stated";
+	d2rq:condition "tblEpisodes.marital_status = 'Not stated/inadequately described'";
+	.
+map:Episode_hasMaritalStatus_Separated a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "Separated";
+	d2rq:condition "tblEpisodes.marital_status = 'Separated'";
+	.
+map:Episode_hasMaritalStatus_Widowed a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasMaritalStatus;
+	d2rq:constantValue "Widowed";
+	d2rq:condition "tblEpisodes.marital_status = 'Widowed'";
+	.
+map:Episode_hasCountryOfBirthCode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasCountryOfBirthCode;
+	d2rq:column "tblEpisodes.country_of_birth_code";
+	d2rq:datatype xsd:integer;
+	.
+
+map:Episode_hasCountryOfBirth_Afghanistan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Afghanistan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Afghanistan'";
+    .
+map:Episode_hasCountryOfBirth_Albania a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Albania";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Albania'";
+    .
+map:Episode_hasCountryOfBirth_Algeria a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Algeria";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Algeria'";
+    .
+map:Episode_hasCountryOfBirth_Argentina a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Argentina";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Argentina'";
+    .
+map:Episode_hasCountryOfBirth_Armenia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Armenia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Armenia'";
+    .
+map:Episode_hasCountryOfBirth_Australia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Australia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Australia'";
+    .
+map:Episode_hasCountryOfBirth_AustralianExternalTerritoriesnec a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/AustralianExternalTerritoriesnec";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Australian External Territories  nec'";
+    .
+map:Episode_hasCountryOfBirth_Austria a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Austria";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Austria'";
+    .
+map:Episode_hasCountryOfBirth_Bangladesh a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Bangladesh";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Bangladesh'";
+    .
+map:Episode_hasCountryOfBirth_Belarus a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Belarus";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Belarus'";
+    .
+map:Episode_hasCountryOfBirth_Belgium a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Belgium";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Belgium'";
+    .
+map:Episode_hasCountryOfBirth_Bhutan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Bhutan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Bhutan'";
+    .
+map:Episode_hasCountryOfBirth_BosniaandHerzegovina a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/BosniaandHerzegovina";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Bosnia and Herzegovina'";
+    .
+map:Episode_hasCountryOfBirth_Brazil a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Brazil";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Brazil'";
+    .
+map:Episode_hasCountryOfBirth_Bulgaria a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Bulgaria";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Bulgaria'";
+    .
+map:Episode_hasCountryOfBirth_BurmaMyanmar a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/BurmaMyanmar";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Burma  Myanmar '";
+    .
+map:Episode_hasCountryOfBirth_Cambodia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Cambodia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Cambodia'";
+    .
+map:Episode_hasCountryOfBirth_Canada a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Canada";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Canada'";
+    .
+map:Episode_hasCountryOfBirth_Chile a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Chile";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Chile'";
+    .
+map:Episode_hasCountryOfBirth_ChinaexcludesSARsandTaiwan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/ChinaexcludesSARsandTaiwan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'China  excludes SARs and Taiwan  '";
+    .
+map:Episode_hasCountryOfBirth_Colombia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Colombia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Colombia'";
+    .
+map:Episode_hasCountryOfBirth_Croatia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Croatia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Croatia'";
+    .
+map:Episode_hasCountryOfBirth_Cuba a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Cuba";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Cuba'";
+    .
+map:Episode_hasCountryOfBirth_Cyprus a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Cyprus";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Cyprus'";
+    .
+map:Episode_hasCountryOfBirth_CzechRepublic a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/CzechRepublic";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Czech Republic'";
+    .
+map:Episode_hasCountryOfBirth_Denmark a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Denmark";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Denmark'";
+    .
+map:Episode_hasCountryOfBirth_EastTimor a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/EastTimor";
+    d2rq:condition "tblEpisodes.country_of_birth = 'East Timor'";
+    .
+map:Episode_hasCountryOfBirth_Egypt a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Egypt";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Egypt'";
+    .
+map:Episode_hasCountryOfBirth_ElSalvador a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/ElSalvador";
+    d2rq:condition "tblEpisodes.country_of_birth = 'El Salvador'";
+    .
+map:Episode_hasCountryOfBirth_England a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/England";
+    d2rq:condition "tblEpisodes.country_of_birth = 'England'";
+    .
+map:Episode_hasCountryOfBirth_Eritrea a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Eritrea";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Eritrea'";
+    .
+map:Episode_hasCountryOfBirth_Estonia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Estonia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Estonia'";
+    .
+map:Episode_hasCountryOfBirth_Ethiopia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Ethiopia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Ethiopia'";
+    .
+map:Episode_hasCountryOfBirth_Fiji a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Fiji";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Fiji'";
+    .
+map:Episode_hasCountryOfBirth_Finland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Finland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Finland'";
+    .
+map:Episode_hasCountryOfBirth_FormerYugoslavRepublicofMacedoniaFYROM a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/FormerYugoslavRepublicofMacedoniaFYROM";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Former Yugoslav Republic of Macedonia  FYROM '";
+    .
+map:Episode_hasCountryOfBirth_France a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/France";
+    d2rq:condition "tblEpisodes.country_of_birth = 'France'";
+    .
+map:Episode_hasCountryOfBirth_GazaStripandWestBank a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/GazaStripandWestBank";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Gaza Strip and West Bank'";
+    .
+map:Episode_hasCountryOfBirth_Germany a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Germany";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Germany'";
+    .
+map:Episode_hasCountryOfBirth_Ghana a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Ghana";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Ghana'";
+    .
+map:Episode_hasCountryOfBirth_Greece a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Greece";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Greece'";
+    .
+map:Episode_hasCountryOfBirth_HongKongSARofChina a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/HongKongSARofChina";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Hong Kong  SAR of China '";
+    .
+map:Episode_hasCountryOfBirth_Hungary a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Hungary";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Hungary'";
+    .
+map:Episode_hasCountryOfBirth_InadequatelyDescribed a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/InadequatelyDescribed";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Inadequately Described'";
+    .
+map:Episode_hasCountryOfBirth_India a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/India";
+    d2rq:condition "tblEpisodes.country_of_birth = 'India'";
+    .
+map:Episode_hasCountryOfBirth_Indonesia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Indonesia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Indonesia'";
+    .
+map:Episode_hasCountryOfBirth_Iran a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Iran";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Iran'";
+    .
+map:Episode_hasCountryOfBirth_Iraq a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Iraq";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Iraq'";
+    .
+map:Episode_hasCountryOfBirth_Ireland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Ireland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Ireland'";
+    .
+map:Episode_hasCountryOfBirth_Israel a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Israel";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Israel'";
+    .
+map:Episode_hasCountryOfBirth_Italy a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Italy";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Italy'";
+    .
+map:Episode_hasCountryOfBirth_Jamaica a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Jamaica";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Jamaica'";
+    .
+map:Episode_hasCountryOfBirth_Japan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Japan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Japan'";
+    .
+map:Episode_hasCountryOfBirth_Jordan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Jordan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Jordan'";
+    .
+map:Episode_hasCountryOfBirth_Kenya a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Kenya";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Kenya'";
+    .
+map:Episode_hasCountryOfBirth_Kiribati a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Kiribati";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Kiribati'";
+    .
+map:Episode_hasCountryOfBirth_KoreaDemocraticPeoplesRepublicofNorth a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/KoreaDemocraticPeoplesRepublicofNorth";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Korea  Democratic People s Republic of  North '";
+    .
+map:Episode_hasCountryOfBirth_KoreaRepublicofSouth a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/KoreaRepublicofSouth";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Korea  Republic of  South '";
+    .
+map:Episode_hasCountryOfBirth_Kosovo a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Kosovo";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Kosovo'";
+    .
+map:Episode_hasCountryOfBirth_Kuwait a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Kuwait";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Kuwait'";
+    .
+map:Episode_hasCountryOfBirth_Laos a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Laos";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Laos'";
+    .
+map:Episode_hasCountryOfBirth_Latvia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Latvia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Latvia'";
+    .
+map:Episode_hasCountryOfBirth_Lebanon a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Lebanon";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Lebanon'";
+    .
+map:Episode_hasCountryOfBirth_Liberia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Liberia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Liberia'";
+    .
+map:Episode_hasCountryOfBirth_Libya a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Libya";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Libya'";
+    .
+map:Episode_hasCountryOfBirth_Lithuania a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Lithuania";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Lithuania'";
+    .
+map:Episode_hasCountryOfBirth_Luxembourg a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Luxembourg";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Luxembourg'";
+    .
+map:Episode_hasCountryOfBirth_MacauSARofChina a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/MacauSARofChina";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Macau  SAR of China '";
+    .
+map:Episode_hasCountryOfBirth_Malaysia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Malaysia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Malaysia'";
+    .
+map:Episode_hasCountryOfBirth_Malta a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Malta";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Malta'";
+    .
+map:Episode_hasCountryOfBirth_Mauritius a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Mauritius";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Mauritius'";
+    .
+map:Episode_hasCountryOfBirth_Mexico a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Mexico";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Mexico'";
+    .
+map:Episode_hasCountryOfBirth_Monaco a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Monaco";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Monaco'";
+    .
+map:Episode_hasCountryOfBirth_Montenegro a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Montenegro";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Montenegro'";
+    .
+map:Episode_hasCountryOfBirth_Morocco a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Morocco";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Morocco'";
+    .
+map:Episode_hasCountryOfBirth_Nepal a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Nepal";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Nepal'";
+    .
+map:Episode_hasCountryOfBirth_Netherlands a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Netherlands";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Netherlands'";
+    .
+map:Episode_hasCountryOfBirth_NewZealand a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/NewZealand";
+    d2rq:condition "tblEpisodes.country_of_birth = 'New Zealand'";
+    .
+map:Episode_hasCountryOfBirth_Nigeria a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Nigeria";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Nigeria'";
+    .
+map:Episode_hasCountryOfBirth_Niue a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Niue";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Niue'";
+    .
+map:Episode_hasCountryOfBirth_NorfolkIsland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/NorfolkIsland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Norfolk Island'";
+    .
+map:Episode_hasCountryOfBirth_NorthernIreland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/NorthernIreland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Northern Ireland'";
+    .
+map:Episode_hasCountryOfBirth_Norway a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Norway";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Norway'";
+    .
+map:Episode_hasCountryOfBirth_NotElsewhereClassified a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/NotElsewhereClassified";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Not Elsewhere Classified'";
+    .
+map:Episode_hasCountryOfBirth_NotStated a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/NotStated";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Not Stated'";
+    .
+map:Episode_hasCountryOfBirth_OceaniaandAntarctica a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/OceaniaandAntarctica";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Oceania and Antarctica'";
+    .
+map:Episode_hasCountryOfBirth_Pakistan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Pakistan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Pakistan'";
+    .
+map:Episode_hasCountryOfBirth_PapuaNewGuinea a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/PapuaNewGuinea";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Papua New Guinea'";
+    .
+map:Episode_hasCountryOfBirth_Peru a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Peru";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Peru'";
+    .
+map:Episode_hasCountryOfBirth_Philippines a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Philippines";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Philippines'";
+    .
+map:Episode_hasCountryOfBirth_Poland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Poland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Poland'";
+    .
+map:Episode_hasCountryOfBirth_PolynesiaexcludesHawaii a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/PolynesiaexcludesHawaii";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Polynesia  excludes Hawaii '";
+    .
+map:Episode_hasCountryOfBirth_Portugal a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Portugal";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Portugal'";
+    .
+map:Episode_hasCountryOfBirth_Romania a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Romania";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Romania'";
+    .
+map:Episode_hasCountryOfBirth_RussianFederation a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/RussianFederation";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Russian Federation'";
+    .
+map:Episode_hasCountryOfBirth_Samoa a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Samoa";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Samoa'";
+    .
+map:Episode_hasCountryOfBirth_SamoaAmerican a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SamoaAmerican";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Samoa  American'";
+    .
+map:Episode_hasCountryOfBirth_SaudiArabia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SaudiArabia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Saudi Arabia'";
+    .
+map:Episode_hasCountryOfBirth_Scotland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Scotland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Scotland'";
+    .
+map:Episode_hasCountryOfBirth_Senegal a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Senegal";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Senegal'";
+    .
+map:Episode_hasCountryOfBirth_Seychelles a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Seychelles";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Seychelles'";
+    .
+map:Episode_hasCountryOfBirth_Singapore a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Singapore";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Singapore'";
+    .
+map:Episode_hasCountryOfBirth_Slovakia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Slovakia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Slovakia'";
+    .
+map:Episode_hasCountryOfBirth_Slovenia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Slovenia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Slovenia'";
+    .
+map:Episode_hasCountryOfBirth_SolomonIslands a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SolomonIslands";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Solomon Islands'";
+    .
+map:Episode_hasCountryOfBirth_Somalia a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Somalia";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Somalia'";
+    .
+map:Episode_hasCountryOfBirth_SouthAfrica a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SouthAfrica";
+    d2rq:condition "tblEpisodes.country_of_birth = 'South Africa'";
+    .
+map:Episode_hasCountryOfBirth_SouthernandEastAfrica a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SouthernandEastAfrica";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Southern and East Africa'";
+    .
+map:Episode_hasCountryOfBirth_Spain a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Spain";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Spain'";
+    .
+map:Episode_hasCountryOfBirth_SriLanka a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SriLanka";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Sri Lanka'";
+    .
+map:Episode_hasCountryOfBirth_SubSaharanAfrica a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/SubSaharanAfrica";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Sub Saharan Africa'";
+    .
+map:Episode_hasCountryOfBirth_Sudan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Sudan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Sudan'";
+    .
+map:Episode_hasCountryOfBirth_Swaziland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Swaziland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Swaziland'";
+    .
+map:Episode_hasCountryOfBirth_Sweden a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Sweden";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Sweden'";
+    .
+map:Episode_hasCountryOfBirth_Switzerland a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Switzerland";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Switzerland'";
+    .
+map:Episode_hasCountryOfBirth_Syria a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Syria";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Syria'";
+    .
+map:Episode_hasCountryOfBirth_Taiwan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Taiwan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Taiwan'";
+    .
+map:Episode_hasCountryOfBirth_Tanzania a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Tanzania";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Tanzania'";
+    .
+map:Episode_hasCountryOfBirth_Thailand a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Thailand";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Thailand'";
+    .
+map:Episode_hasCountryOfBirth_Tonga a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Tonga";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Tonga'";
+    .
+map:Episode_hasCountryOfBirth_Turkey a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Turkey";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Turkey'";
+    .
+map:Episode_hasCountryOfBirth_Uganda a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Uganda";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Uganda'";
+    .
+map:Episode_hasCountryOfBirth_Ukraine a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Ukraine";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Ukraine'";
+    .
+map:Episode_hasCountryOfBirth_UnitedArabEmirates a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/UnitedArabEmirates";
+    d2rq:condition "tblEpisodes.country_of_birth = 'United Arab Emirates'";
+    .
+map:Episode_hasCountryOfBirth_UnitedKingdomChannelIslandsandIsleofMan a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/UnitedKingdomChannelIslandsandIsleofMan";
+    d2rq:condition "tblEpisodes.country_of_birth = 'United Kingdom  Channel Islands and Isle of Man'";
+    .
+map:Episode_hasCountryOfBirth_UnitedStatesofAmerica a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/UnitedStatesofAmerica";
+    d2rq:condition "tblEpisodes.country_of_birth = 'United States of America'";
+    .
+map:Episode_hasCountryOfBirth_Uruguay a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Uruguay";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Uruguay'";
+    .
+map:Episode_hasCountryOfBirth_Venezuela a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Venezuela";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Venezuela'";
+    .
+map:Episode_hasCountryOfBirth_Vietnam a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Vietnam";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Vietnam'";
+    .
+map:Episode_hasCountryOfBirth_Wales a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Wales";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Wales'";
+    .
+map:Episode_hasCountryOfBirth_Zimbabwe a d2rq:ObjectPropertyBridge;
+    d2rq:belongsToClassMap map:Episode;
+    d2rq:property diab:hasCountryOfBirth;
+    d2rq:uriPattern "http://dbpedia.org/resource/Zimbabwe";
+    d2rq:condition "tblEpisodes.country_of_birth = 'Zimbabwe'";
+    .
+map:Episode_hasReligionCode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasReligionCode;
+	d2rq:column "tblEpisodes.religion_code";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasReligion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasReligion;
+	d2rq:column "tblEpisodes.religion";
+	d2rq:datatype xsd:string;
+	.
+map:Episode_hasPrefLanguageCode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasPrefLanguageCode;
+	d2rq:column "tblEpisodes.pref_language_code";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasPreferredLanguage a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasPreferredLanguage;
+	d2rq:column "tblEpisodes.preferred_language";
+	d2rq:datatype xsd:string;
+	.
+map:Episode_hasInterpreterRequired a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasInterpreterRequired;
+	d2rq:column "tblEpisodes.interpreter_required";
+	d2rq:datatype xsd:string;
+	.
+map:Episode_hasGp_N a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasGp;
+	d2rq:constantValue "N";
+	d2rq:condition "tblEpisodes.has_gp = 'N'";
+	.
+map:Episode_hasGp_Y a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasGp;
+	d2rq:constantValue "Y";
+	d2rq:condition "tblEpisodes.has_gp = 'Y'";
+	.
+map:Episode_hasGp_U a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasGp;
+	d2rq:constantValue "U";
+	d2rq:condition "tblEpisodes.has_gp = 'U'";
+	.
+map:Episode_hasAlcoholStatus_Z6371 a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasAlcoholStatus;
+	d2rq:uriPattern "http://localhost:2020/resource/Z63.71";
+	d2rq:condition "tblEpisodes.alcohol_status = 'Z63.71  Alcoholism in family'";
+	.
+map:Episode_hasAlcoholStatus_Z8641 a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasAlcoholStatus;
+	d2rq:uriPattern "http://localhost:2020/resource/Z86.41";
+	d2rq:condition "tblEpisodes.alcohol_status = 'Z86.41  Personal history of alcohol use disorder'";
+	.
+map:Episode_hasAlcoholStatus_Z721 a d2rq:ObjectPropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasAlcoholStatus;
+	d2rq:uriPattern "http://localhost:2020/resource/Z72.1";
+	d2rq:condition "tblEpisodes.alcohol_status = 'Z72.1  Alcohol use'";
+	.
+map:Episode_hasSmokingStatus_Z720 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasSmokingStatus;
+	d2rq:uriPattern "http://localhost:2020/resource/Z72.0";
+	d2rq:condition "tblEpisodes.smoking_status = 'Z72.0  Tobacco use, current'";
+	.
+map:Episode_hasSmokingStatus_Z8643 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasSmokingStatus;
+	d2rq:uriPattern "http://localhost:2020/resource/Z86.43";
+	d2rq:condition "tblEpisodes.smoking_status = 'Z86.43  Personal history of tobacco use disorder'";
+	.
+map:Episode_hasHbA1c a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasHbA1c;
+	d2rq:column "tblEpisodes.has_HbA1c";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasDiabetesDiagnosis a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasDiabetesDiagnosis;
+	d2rq:column "tblEpisodes.diabetes_diagnosis";
+	d2rq:datatype xsd:string;
+	.
+map:Episode_hasLengthOfStay a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasLengthOfStay;
+	d2rq:column "tblEpisodes.length_of_stay";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasLengthOfStayType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasLengthOfStayType;
+	d2rq:column "tblEpisodes.los_type";
+	d2rq:datatype xsd:integer;
+	.
+map:Episode_hasDeceasedEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasDeceasedEvent;
+	d2rq:column "tblEpisodes.deceased_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:Episode_isDeceased a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:isDeceased;
+	d2rq:column "tblEpisodes.deceased";
+	d2rq:datatype xsd:boolean;
+	.
+map:Episode_hasHbA1cTestRequestEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasHbA1cTestRequestEvent;
+	d2rq:column "tblEpisodes.HbA1c_req_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:Episode_hasHbA1cTestResult a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasHbA1cTestResult;
+	d2rq:column "tblEpisodes.HbA1c_result";
+	d2rq:datatype xsd:float;
+	.
+
+map:Episode_hasAdmissionNumber a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:hasAdmissionNumber;
+	d2rq:column "tblEpisodes.admission_th";
+	d2rq:datatype xsd:integer;
+	.
+# Admission
+map:AdmissionReport a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "AdmissionReport/@@tblAdmissionReport.row_names@@";
+	d2rq:class diab:AdmissionReport;
+	.
+map:AdmissionReport_hasTimestamp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasTimestamp;
+	d2rq:column "tblAdmissionReport.timestamp";
+	d2rq:propertyDefinitionLabel "has timestamp";
+	d2rq:datatype xsd:dateTime;
+	.
+## Admission Type
+map:AdmissionReport_hasAdmissionType_P a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_P";
+	d2rq:condition "tblAdmissionReport.type = 'P'";
+	.
+map:AdmissionReport_hasAdmissionType_O a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_O";
+	d2rq:condition "tblAdmissionReport.type = 'O'";
+	.
+map:AdmissionReport_hasAdmissionType_C a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_C";
+	d2rq:condition "tblAdmissionReport.type = 'C'";
+	.
+map:AdmissionReport_hasAdmissionType_M a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_M";
+	d2rq:condition "tblAdmissionReport.type = 'M'";
+	.
+map:AdmissionReport_hasAdmissionType_Y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_Y";
+	d2rq:condition "tblAdmissionReport.type = 'Y'";
+	.
+map:AdmissionReport_hasAdmissionType_S a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_S";
+	d2rq:condition "tblAdmissionReport.type = 'S'";
+	.
+map:AdmissionReport_hasAdmissionType_K a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionType;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionType_K";
+	d2rq:condition "tblAdmissionReport.type = 'K'";
+	.
+## Admission Source
+map:AdmissionReport_hasAdmissionSource_K a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_K";
+	d2rq:condition "tblAdmissionReport.source = 'K'";
+	.
+map:AdmissionReport_hasAdmissionSource_S a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_S";
+	d2rq:condition "tblAdmissionReport.source = 'S'";
+	.
+map:AdmissionReport_hasAdmissionSource_Y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_Y";
+	d2rq:condition "tblAdmissionReport.source = 'Y'";
+	.
+map:AdmissionReport_hasAdmissionSource_T a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_T";
+	d2rq:condition "tblAdmissionReport.source = 'T'";
+	.
+map:AdmissionReport_hasAdmissionSource_B a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_B";
+	d2rq:condition "tblAdmissionReport.source = 'B'";
+	.
+map:AdmissionReport_hasAdmissionSource_A a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_A";
+	d2rq:condition "tblAdmissionReport.source = 'A'";
+	.
+map:AdmissionReport_hasAdmissionSource_N a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_N";
+	d2rq:condition "tblAdmissionReport.source = 'N'";
+	.
+map:AdmissionReport_hasAdmissionSource_H a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionSource;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_H";
+	d2rq:condition "tblAdmissionReport.source = 'H'";
+	.
+## Admission Unit
+map:AdmissionReport_hasAdmissionUnit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionUnit;
+	d2rq:column "tblAdmissionReport.unit";
+	.
+## Admission Ward
+map:AdmissionReport_hasAdmissionWard a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AdmissionReport;
+	d2rq:property diab:hasAdmissionWard;
+	d2rq:column "tblAdmissionReport.ward";
+	.
+
+# Separation
+map:SeparationReport a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "SeparationReport/@@tblSeparationReport.row_names@@";
+	d2rq:class diab:SeparationReport;
+	.
+map:SeparationReport_hasTimestamp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasTimestamp;
+	d2rq:column "tblSeparationReport.timestamp";
+	d2rq:datatype xsd:dateTime;
+	.
+## Admission Mode
+map:SeparationReport_hasSeparationMode_H a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_H";
+	d2rq:condition "tblSeparationReport.mode = 'H'";
+	.
+map:SeparationReport_hasSeparationMode_N a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_N";
+	d2rq:condition "tblSeparationReport.mode = 'N'";
+	.
+map:SeparationReport_hasSeparationMode_A a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_A";
+	d2rq:condition "tblSeparationReport.mode = 'A'";
+	.
+map:SeparationReport_hasSeparationMode_B a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_B";
+	d2rq:condition "tblSeparationReport.mode = 'B'";
+	.
+map:SeparationReport_hasSeparationMode_T a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_T";
+	d2rq:condition "tblSeparationReport.mode = 'T'";
+	.
+map:SeparationReport_hasSeparationMode_Z a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_Z";
+	d2rq:condition "tblSeparationReport.mode = 'Z'";
+	.
+map:SeparationReport_hasSeparationMode_D a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_D";
+	d2rq:condition "tblSeparationReport.mode = 'D'";
+	.
+map:SeparationReport_hasSeparationMode_S a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_S";
+	d2rq:condition "tblSeparationReport.mode = 'S'";
+	.
+map:SeparationReport_hasSeparationMode_G a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationMode;
+	d2rq:uriPattern "http://localhost:2020/resource/AdmissionSource_G";
+	d2rq:condition "tblSeparationReport.mode = 'G'";
+	.
+## Separation Unit
+map:SeparationReport_hasSeparationUnit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationUnit;
+	d2rq:column "tblSeparationReport.unit";
+	.
+## Separation Ward
+map:SeparationReport_hasSeparationWard a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SeparationReport;
+	d2rq:property diab:hasSeparationWard;
+	d2rq:column "tblSeparationReport.ward";
+	.
+
+# Patient - Episode
+map:Patient_hasEpisode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Patient;
+	d2rq:property diab:hasEpisode;
+	d2rq:refersToClassMap map:Episode;
+    d2rq:join "tblEpisodes.ur_no = tblPatients.ur_no";
+	.
+
+# Episode - Admisison Report & SeparationReport
+map:Episode_containsAdmissionReport a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:containsAdmissionReport;
+	d2rq:refersToClassMap map:AdmissionReport;
+    d2rq:join "tblEpisodes.admission_report_id = tblAdmissionReport.row_names";
+	.
+map:Episode_containsSeparationReport a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Episode;
+	d2rq:property diab:containsSeparationReport;
+	d2rq:refersToClassMap map:SeparationReport;
+    d2rq:join "tblEpisodes.separation_report_id = tblSeparationReport.row_names";
+	.

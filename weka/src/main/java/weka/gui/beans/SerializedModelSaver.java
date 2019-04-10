@@ -45,7 +45,7 @@ import weka.core.xml.KOML;
 import weka.core.xml.XStream;
 
 /**
- * A bean that saves serialized models
+ * A bean that saves serialized beans
  * 
  * @author Mark Hall (mhall{[at]}pentaho{[dot]}org
  * @version $Revision: 11077 $
@@ -105,7 +105,7 @@ public class SerializedModelSaver extends JPanel implements BeanCommon,
   public final static int KOMLV = 1;
   public final static int XSTREAM = 2;
 
-  /** the extension for serialized models (binary Java serialization) */
+  /** the extension for serialized beans (binary Java serialization) */
   public final static String FILE_EXTENSION = "model";
 
   /**
@@ -501,7 +501,7 @@ public class SerializedModelSaver extends JPanel implements BeanCommon,
   }
 
   /**
-   * Helper routine to actually save the models.
+   * Helper routine to actually save the beans.
    */
   private void saveModel(String fileName, Instances trainHeader, Object model) {
     m_fileFormat = validateFileFormat(m_fileFormat);
@@ -693,7 +693,7 @@ public class SerializedModelSaver extends JPanel implements BeanCommon,
   }
 
   /**
-   * Set how often to save incremental models. <= 0 means only at the end of the
+   * Set how often to save incremental beans. <= 0 means only at the end of the
    * stream
    * 
    * @param s how often to save (after every s instances)
@@ -703,7 +703,7 @@ public class SerializedModelSaver extends JPanel implements BeanCommon,
   }
 
   /**
-   * Get how often to save incremental models. <= 0 means only at the end of the
+   * Get how often to save incremental beans. <= 0 means only at the end of the
    * stream
    * 
    * @return how often to save (after every s instances)
@@ -718,7 +718,7 @@ public class SerializedModelSaver extends JPanel implements BeanCommon,
    * @return information about this bean.
    */
   public String globalInfo() {
-    return "Save trained models to serialized object files.";
+    return "Save trained beans to serialized object files.";
   }
 
   /**

@@ -99,9 +99,9 @@ public class NBTreeClassifierTree extends ClassifierTree {
   }
 
   /**
-   * Print the models at the leaves
+   * Print the beans at the leaves
    * 
-   * @return textual description of the leaf models
+   * @return textual description of the leaf beans
    */
   public String printLeafModels() {
     StringBuffer text = new StringBuffer();

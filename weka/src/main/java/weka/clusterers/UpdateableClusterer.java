@@ -23,7 +23,7 @@ package weka.clusterers;
 import weka.core.Instance;
 
 /**
- * Interface to incremental cluster models that can learn using one instance 
+ * Interface to incremental cluster beans that can learn using one instance
  * at a time.
  * 
  * @author  FracPete (fracpete at waikato dot ac dot nz)

@@ -24,7 +24,7 @@ package weka.classifiers;
 import weka.core.Instance;
 
 /**
- * Interface to incremental classification models that can learn using
+ * Interface to incremental classification beans that can learn using
  * one instance at a time.
  *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)

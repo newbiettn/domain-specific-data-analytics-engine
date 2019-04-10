@@ -1211,7 +1211,7 @@ public class NaiveBayesMultinomialText extends AbstractClassifier implements
   public void finalizeAggregation() throws Exception {
     if (m_numModels == 0) {
       throw new Exception("Unable to finalize aggregation - "
-        + "haven't seen any models to aggregate");
+        + "haven't seen any beans to aggregate");
     }
 
     if (m_periodicP > 0 && m_t > m_periodicP) {

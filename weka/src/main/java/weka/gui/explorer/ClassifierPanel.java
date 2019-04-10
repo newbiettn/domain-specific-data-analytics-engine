@@ -206,8 +206,8 @@ public class ClassifierPanel extends AbstractPerspective implements
   /** Check to output the model built from the training data. */
   protected JCheckBox m_OutputModelBut = new JCheckBox("Output model");
 
-  /** Check to output the models built from the training splits. */
-  protected JCheckBox m_OutputModelsForTrainingSplitsBut = new JCheckBox("Output models for training splits");
+  /** Check to output the beans built from the training splits. */
+  protected JCheckBox m_OutputModelsForTrainingSplitsBut = new JCheckBox("Output beans for training splits");
 
   /** Check to output true/false positives, precision/recall for each class. */
   protected JCheckBox m_OutputPerClassBut = new JCheckBox(
@@ -414,7 +414,7 @@ public class ClassifierPanel extends AbstractPerspective implements
     m_OutputModelBut
       .setToolTipText("Output the model obtained from the full training set");
     m_OutputModelsForTrainingSplitsBut
-            .setToolTipText("Output the models obtained from the training splits");
+            .setToolTipText("Output the beans obtained from the training splits");
     m_OutputPerClassBut.setToolTipText("Output precision/recall & true/false"
       + " positives for each class");
     m_OutputConfusionBut
@@ -3529,9 +3529,9 @@ public class ClassifierPanel extends AbstractPerspective implements
   }
 
   /**
-   * Gets whether the user has opted to output the models for the training splits
+   * Gets whether the user has opted to output the beans for the training splits
    *
-   * @return true if the models for the training splits are to be output
+   * @return true if the beans for the training splits are to be output
    */
   public boolean isSelectedOutputModelsForTrainingSplits() {
     return m_OutputModelsForTrainingSplitsBut.isSelected();
@@ -3753,7 +3753,7 @@ public class ClassifierPanel extends AbstractPerspective implements
     protected static final boolean OUTPUT_MODEL = true;
 
     protected static final Settings.SettingKey OUTPUT_MODELS_FOR_TRAINING_SPLITS_KEY =
-            new Settings.SettingKey(ID + ".outputModelsForTrainingSplits", "Output models obtained from"
+            new Settings.SettingKey(ID + ".outputModelsForTrainingSplits", "Output beans obtained from"
                     + " the training splits", "");
     protected static final boolean OUTPUT_MODELS_FOR_TRAINING_SPLITS = false;
 

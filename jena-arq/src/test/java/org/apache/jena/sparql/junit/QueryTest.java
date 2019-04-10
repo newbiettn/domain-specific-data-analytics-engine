@@ -356,7 +356,7 @@ public class QueryTest extends EarlTestCase
         
         results.reset() ;
         Model actualModel = RDFOutput.encodeAsModel(results) ;
-        // Tidy the models.
+        // Tidy the beans.
         // Very regretable.
         
         expectedModel.removeAll(null, RDF.type,  ResultSetGraphVocab.ResultSet) ;

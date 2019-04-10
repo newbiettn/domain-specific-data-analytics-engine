@@ -143,7 +143,7 @@ public class SerializedModelSaverCustomizer
     m_parentWindow = parent;
   }
 
-  /** Sets up dialog for saving models to a file */
+  /** Sets up dialog for saving beans to a file */
   public void setUpFile() {
     removeAll();
     m_fileChooser.setFileFilter(new FileFilter() {
@@ -312,7 +312,7 @@ public class SerializedModelSaverCustomizer
     gbConstraints.gridx = 0;
     gbLayout.setConstraints(saveSchedule, gbConstraints);
     alignedP.add(saveSchedule);
-    saveSchedule.setToolTipText("How often to save incremental models "
+    saveSchedule.setToolTipText("How often to save incremental beans "
       + "(<=0 means only at the end of the stream)");
 
     m_incrementalSaveSchedule =
@@ -325,7 +325,7 @@ public class SerializedModelSaverCustomizer
     gbLayout.setConstraints(m_incrementalSaveSchedule, gbConstraints);
     alignedP.add(m_incrementalSaveSchedule);
     m_incrementalSaveSchedule
-      .setToolTipText("How often to save incremental models "
+      .setToolTipText("How often to save incremental beans "
         + "(<=0 means only at the end of the stream)");
 
     JLabel relativeLab =

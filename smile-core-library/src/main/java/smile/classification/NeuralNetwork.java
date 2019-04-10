@@ -81,7 +81,7 @@ import java.io.Serializable;
  * optimally select hyper-parameters such as to minimize the generalization
  * error. The second is to use some form of regularization, which emerges
  * naturally in a Bayesian framework, where the regularization can be
- * performed by selecting a larger prior probability over simpler models;
+ * performed by selecting a larger prior probability over simpler beans;
  * but also in statistical learning theory, where the goal is to minimize over
  * the "empirical risk" and the "structural risk".
  * <p>

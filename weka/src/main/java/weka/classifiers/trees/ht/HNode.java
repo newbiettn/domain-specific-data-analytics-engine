@@ -196,7 +196,7 @@ public abstract class HNode implements Serializable {
   /**
    * Print a textual description of the tree
    * 
-   * @param printLeaf true if leaf models (NB, NB adaptive) should be output
+   * @param printLeaf true if leaf beans (NB, NB adaptive) should be output
    * @return a textual description of the tree
    */
   public String toString(boolean printLeaf) {

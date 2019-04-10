@@ -34,7 +34,7 @@ public class DatasetGraphFactory
      * <p>
      * See also {@link #createTxnMem()} for a transactional dataset.
      * <p>
-     * This implementation copies models when {@link Dataset#addNamedModel(String, Model)} is called.
+     * This implementation copies beans when {@link Dataset#addNamedModel(String, Model)} is called.
      * <p>
      * This implementation provides "best effort" transactions; it only provides MRSW locking.
      * Use {@link #createTxnMem} for a proper in-memory transactional {@code DatasetGraph}.

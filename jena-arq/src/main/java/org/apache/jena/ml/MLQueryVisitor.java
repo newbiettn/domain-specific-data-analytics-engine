@@ -9,5 +9,6 @@ package org.apache.jena.ml;
 
 public interface MLQueryVisitor {
     public void visitCreatePredictionModel(MLQuery mlQuery);
+    public void visitPredict(MLQuery mlQuery);
 
 }

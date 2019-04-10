@@ -73,7 +73,7 @@ define(
 
     } );
 
-    // when the models module starts, create the model
+    // when the beans module starts, create the model
     fui.models.addInitializer( function( options ) {
       fui.models.validationOptions = new ValidationOptions();
       fui.vent.trigger( "models.validation-options.ready" );

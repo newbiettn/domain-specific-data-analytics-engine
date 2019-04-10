@@ -46,7 +46,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
 /**
  <!-- globalinfo-start -->
- * Implements stochastic gradient descent for learning various linear models (binary class SVM, binary class logistic regression, squared loss, Huber loss and epsilon-insensitive loss linear regression). Globally replaces all missing values and transforms nominal attributes into binary ones. It also normalizes all attributes, so the coefficients in the output are based on the normalized data.<br/>
+ * Implements stochastic gradient descent for learning various linear beans (binary class SVM, binary class logistic regression, squared loss, Huber loss and epsilon-insensitive loss linear regression). Globally replaces all missing values and transforms nominal attributes into binary ones. It also normalizes all attributes, so the coefficients in the output are based on the normalized data.<br/>
  * For numeric class attributes, the squared, Huber or epsilon-insensitve loss function must be used. Epsilon-insensitive and Huber loss may require a much higher learning rate.
  * <p/>
  <!-- globalinfo-end -->
@@ -561,7 +561,7 @@ public class SGD extends RandomizableClassifier implements
    */
   public String globalInfo() {
     return "Implements stochastic gradient descent for learning"
-        + " various linear models (binary class SVM, binary class"
+        + " various linear beans (binary class SVM, binary class"
         + " logistic regression, squared loss, Huber loss and "
         + "epsilon-insensitive loss linear regression)."
         + " Globally replaces all missing values and transforms nominal"
@@ -1003,7 +1003,7 @@ public class SGD extends RandomizableClassifier implements
   public void finalizeAggregation() throws Exception {    
     if (m_numModels == 0) {
       throw new Exception("Unable to finalize aggregation - " +
-                "haven't seen any models to aggregate");
+                "haven't seen any beans to aggregate");
     }
     
     for (int i = 0; i < m_weights.length; i++) {

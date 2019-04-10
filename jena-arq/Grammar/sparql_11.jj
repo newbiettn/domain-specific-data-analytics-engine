@@ -174,10 +174,11 @@ void CreatePredictionModelQuery(): { }
   TargetClause()
   WherePredictionClause()
 }
-void PredictQuery():{}
+void PredictQuery():{Element el = null ; }
 {
   PredictClause()
   WherePredictionClause()
+  el = Filter() { getMLQuery().setFilterEle(el); }
   UsingModelClause()
 }
 void CreatePredictionModelClause(): { Var v; }
@@ -2068,6 +2069,7 @@ TOKEN [IGNORE_CASE] :
 |  < PREDICTION:  "prediction" >
 |  < TARGET:      "target" >
 |  < FEATURE:     "feature" >
+|  < CONDITION:   "condition" >
 // ---------------------------------------------------------------------------------------------------------------------
 |  < SELECT:      "select" >
 |  < DISTINCT:    "distinct" >

@@ -406,7 +406,7 @@ public abstract class SPARQL_Query extends SPARQL_Protocol
             // CONSTRUCT is processed as a extended CONSTRUCT - result is a dataset.
             ResponseDataset.doResponseDataset(action, result.getDataset());
         else if ( result.isModel() )
-            // DESCRIBE results are models
+            // DESCRIBE results are beans
             ResponseDataset.doResponseModel(action, result.getModel());
         else if ( result.isBoolean() )
             ResponseResultSet.doResponseResultSet(action, result.getBooleanResult()) ;

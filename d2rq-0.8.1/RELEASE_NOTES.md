@@ -223,7 +223,7 @@ Version 0.7 provides several bugfixes, better dump performance, several new feat
 - supports the SPARQL query language.
 - added dump-rdf command line script.
 - added automatic mapping generator.
-- added Jena Assembler for D2RQ models.
+- added Jena Assembler for D2RQ beans.
 
 ### Enhancements
 - improved compatibility with MySQL, Oracle and PostgreSQL.

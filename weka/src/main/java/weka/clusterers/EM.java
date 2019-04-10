@@ -1224,7 +1224,7 @@ NumberOfClustersRequestable, WeightedInstancesHandler {
   }
 
   /**
-   * Return the normal distributions for the cluster models
+   * Return the normal distributions for the cluster beans
    * 
    * @return a <code>double[][][]</code> value
    */

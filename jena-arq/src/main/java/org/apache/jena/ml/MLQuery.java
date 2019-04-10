@@ -11,6 +11,8 @@ import org.apache.jena.graph.Node;
 import org.apache.jena.query.QueryException;
 import org.apache.jena.sparql.core.Prologue;
 import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.syntax.Element;
+import org.apache.jena.sparql.syntax.ElementFilter;
 
 import java.util.LinkedHashMap;
 
@@ -19,12 +21,17 @@ public class MLQuery extends Prologue{
     int queryType = QueryTypeUnknown ;
     public static final int QueryTypeUnknown                      = -123 ;
     public static final int QueryTypeCreatePredictionModel        = 555 ;
+    public static final int QueryTypePredict                      = 555 ;
 
     public int getQueryType()                    { return queryType ; }
 
     public void setQueryCreatePredictionModelType() { queryType = QueryTypeCreatePredictionModel ; }
 
     public boolean isCreatePredictionModelType() { return queryType == QueryTypeCreatePredictionModel; }
+
+    public void setQueryPredictType() { queryType = QueryTypePredict; }
+
+    public boolean isCreatePredictType() { return queryType == QueryTypePredict; }
 
     private MLModel model;
     public MLModel getModel() { return model; }
@@ -38,42 +45,53 @@ public class MLQuery extends Prologue{
 
     // ---- CREATE PREDICTION MODEL ----------------------------------------
     private LinkedHashMap<Var, Node> cpmWhereVars = new LinkedHashMap<>();
-    private Var cpmName;
-    private Var cpmTarget;
+    private Var modelName;
+    private Var targetName;
+
+    // ---- PREDICT --------------------------------------------------------
+    Element filterEle;
+
+    public Element getFilterEle() {
+        return filterEle;
+    }
+
+    public void setFilterEle(Element filterEle) {
+        this.filterEle = filterEle;
+    }
 
     /** Set variable model name.
      *
      * @param v corresponding to SPARQL variables, such as ?s, ?p
      */
-    public void setCPMName(Var v) {
+    public void setModelName(Var v) {
         if ( !v.isVariable() )
             throw new QueryException("Not a variable: "+v) ;
 //        model.setName(v.getName());
-        this.cpmName = v;
+        this.modelName = v;
     }
 
     /** Get name variable.
      */
-    public Var getCPMName(){
-        return this.cpmName;
+    public Var getModelName(){
+        return this.modelName;
     }
 
     /** Set target variable.
      *
      * @param v corresponding to SPARQL variables, such as ?s, ?p
      */
-    public void setCPMTarget(Var v) {
+    public void setTargetName(Var v) {
         if ( !v.isVariable() )
             throw new QueryException("Not a variable: "+v) ;
-        this.cpmTarget = v;
+        this.targetName = v;
     }
 
     /** Return the target variable
      *
      * @return
      */
-    public Var getCPMTarget(){
-        return this.cpmTarget;
+    public Var setTargetName(){
+        return this.targetName;
     }
 
     /** Add feature descriptions of ML model from query.
@@ -105,11 +123,9 @@ public class MLQuery extends Prologue{
     public void visit(MLQueryVisitor visitor){
         if (this.isCreatePredictionModelType()){
             visitor.visitCreatePredictionModel(this);
+        } else if (this.isCreatePredictType()){
+            visitor.visitPredict(this);
         }
     }
-
-//    public MLModel createMLModel(){
-//    }
-
 
 }

@@ -34,7 +34,7 @@ import weka.core.RevisionHandler;
 import weka.core.Summarizable;
 
 /**
- * Class for evaluating machine learning models. Delegates to the actual
+ * Class for evaluating machine learning beans. Delegates to the actual
  * implementation in weka.classifiers.evaluation.Evaluation.
  * 
  * <p/>

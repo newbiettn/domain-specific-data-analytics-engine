@@ -29,6 +29,6 @@ public abstract class AbstractTestGraphTDB extends AbstractTestGraph
     
     @Override public void testIsomorphismFile() {}
     
-    // Meaning less - graphs (and hence models) are not indpenedent of their datasets. 
+    // Meaning less - graphs (and hence beans) are not indpenedent of their datasets.
     @Override public void testCloseSetsIsClosed() {}
 }

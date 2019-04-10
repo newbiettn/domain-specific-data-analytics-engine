@@ -28,7 +28,7 @@ import org.apache.jena.sparql.util.NodeIsomorphismMap ;
 public class ElementDataset extends Element1
 {
     // Can keep either form - but not both.
-    // Helps because models have prefixes.
+    // Helps because beans have prefixes.
     private DatasetGraph dataset = null ;
     
     public ElementDataset(DatasetGraph data, Element patternElement)

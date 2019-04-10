@@ -11,7 +11,7 @@ import de.fuberlin.wiwiss.d2rq.parser.MapParser;
 /**
  * <p>A D2RQ read-only Jena model backed by a D2RQ-mapped non-RDF database.</p>
  *
- * <p>D2RQ is a declarative mapping language for describing mappings between ontologies and relational data models.
+ * <p>D2RQ is a declarative mapping language for describing mappings between ontologies and relational data beans.
  * More information about D2RQ is found at: http://www4.wiwiss.fu-berlin.de/bizer/d2rq/</p>
  *
  * <p>This class is a thin wrapper around a {@link GraphD2RQ} and provides only

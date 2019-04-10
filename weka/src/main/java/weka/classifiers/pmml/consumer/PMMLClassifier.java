@@ -181,13 +181,13 @@ public abstract class PMMLClassifier extends AbstractClassifier
   }
 
   /**
-   * Throw an exception - PMML models are pre-built.
+   * Throw an exception - PMML beans are pre-built.
    *
    * @param data the Instances to learn from
    * @throws Exception if something goes wrong
    */
   public void buildClassifier(Instances data) throws Exception {
-    throw new Exception("[PMMLClassifier] PMML models are pre-built "
+    throw new Exception("[PMMLClassifier] PMML beans are pre-built "
                         + "and static!");
   }
   

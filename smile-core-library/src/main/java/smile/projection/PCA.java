@@ -37,7 +37,7 @@ import smile.math.matrix.SVD;
  * from its (in some sense) most informative viewpoint.
  * <p>
  * PCA is mostly used as a tool in exploratory data analysis and for making
- * predictive models. PCA involves the calculation of the eigenvalue
+ * predictive beans. PCA involves the calculation of the eigenvalue
  * decomposition of a data covariance matrix or singular value decomposition
  * of a data matrix, usually after mean centering the data for each attribute.
  * The results of a PCA are usually discussed in terms of component scores and

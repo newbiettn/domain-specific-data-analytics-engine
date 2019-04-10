@@ -47,7 +47,7 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 
 /**
- * Class for evaluating clustering models.
+ * Class for evaluating clustering beans.
  * <p/>
  * 
  * Valid options are:

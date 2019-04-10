@@ -147,12 +147,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.googlecode.netlib-java</groupId>
-      <artifactId>netlib-java</artifactId>
-      <version>1.1</version>
-    </dependency>
-
-    <dependency>
       <groupId>DiabetesDiscoveryV2</groupId>
       <artifactId>autoweka</artifactId>
       <version>1.0</version>

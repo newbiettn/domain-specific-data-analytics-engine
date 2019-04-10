@@ -27,7 +27,7 @@ import org.apache.jena.sparql.core.DatasetImpl;
 
 /**
  * A dataset that just hold a single model as the default graph. 
- * It is particularly appropriate for use with inference models.
+ * It is particularly appropriate for use with inference beans.
  * 
  * @apiNote
  * This class makes the use of DatasetImpl with one fixed model clearer. It may

@@ -25,7 +25,7 @@ import smile.math.matrix.EVD;
 
 /**
  * Quadratic discriminant analysis. QDA is closely related to linear discriminant
- * analysis (LDA). Like LDA, QDA models the conditional probability density
+ * analysis (LDA). Like LDA, QDA beans the conditional probability density
  * functions as a Gaussian distribution, then uses the posterior distributions
  * to estimate the class for a given test data. Unlike LDA, however,
  * in QDA there is no assumption that the covariance of each of the classes

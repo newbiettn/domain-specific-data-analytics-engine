@@ -34,9 +34,14 @@
                 <module>jshop2</module>
                 <module>autoweka-2.6</module>
                 <module>jena-fuseki2</module>
+                <module>dsvl</module>
             </modules>
         </profile>
     </profiles>
+    <modules>
+
+        <module>vworkflows-test</module>
+    </modules>
 
     <packaging>pom</packaging>
 

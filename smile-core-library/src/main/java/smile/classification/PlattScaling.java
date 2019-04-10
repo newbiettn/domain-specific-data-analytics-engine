@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * Platt scaling or Platt calibration is a way of transforming the outputs
  * of a classification model into a probability distribution over classes.
  * The method was invented by John Platt in the context of support vector
- * machines, but can be applied to other classification models.
+ * machines, but can be applied to other classification beans.
  * Platt scaling works by fitting a logistic regression model to
  * a classifier's scores.
  *

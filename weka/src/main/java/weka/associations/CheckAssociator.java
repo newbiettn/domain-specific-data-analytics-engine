@@ -878,7 +878,7 @@ public class CheckAssociator extends CheckScheme implements RevisionHandler {
   }
 
   /**
-   * Checks whether the scheme correctly initialises models when
+   * Checks whether the scheme correctly initialises beans when
    * buildAssociations is called. This test calls buildAssociations with one
    * training dataset. buildAssociations is then called on a training set with
    * different structure, and then again with the original training set. If the
@@ -1129,7 +1129,7 @@ public class CheckAssociator extends CheckScheme implements RevisionHandler {
 
         if (evalFail) {
           println("Results don't differ between non-weighted and "
-            + "weighted instance models.");
+            + "weighted instance beans.");
           println("Here are the results:\n");
           println(evaluationB.toSummaryString("\nboth methods\n"));
         } else {

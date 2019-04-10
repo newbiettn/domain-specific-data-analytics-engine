@@ -46,7 +46,7 @@ Features of the KnowledgeFlow:
   executes in its own thread). Alternatively, multiple streams can be
   executed sequentially, in a user-specified order
 * chain filters together
-* view models produced by classifiers for each fold in a cross validation
+* view beans produced by classifiers for each fold in a cross validation
 * visualize performance of incremental classifiers during 
   processing (scrolling plots of classification accuracy, RMS error, 
   predictions etc)
@@ -110,7 +110,7 @@ Visualization:
   TextViewer - step for showing textual data. Can show data sets, 
     classification performance statistics etc.
   GraphViewer - step that can pop up a panel for visualizing tree based
-    models
+    beans
   StripChart - step that can pop up a panel that displays a scrolling
     plot of data (used for viewing the online performance of incremental
     classifiers)

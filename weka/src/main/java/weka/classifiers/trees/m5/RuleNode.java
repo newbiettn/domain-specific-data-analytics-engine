@@ -487,9 +487,9 @@ public class RuleNode extends AbstractClassifier {
   }
 
   /**
-   * print all leaf models
+   * print all leaf beans
    * 
-   * @return the leaf models
+   * @return the leaf beans
    */
   public String printLeafModels() {
     StringBuffer text = new StringBuffer();
@@ -603,7 +603,7 @@ public class RuleNode extends AbstractClassifier {
   }
 
   /**
-   * Traverses the tree and installs linear models at each node. This method
+   * Traverses the tree and installs linear beans at each node. This method
    * must be called if pruning is not to be performed.
    * 
    * @throws Exception if an error occurs
@@ -870,9 +870,9 @@ public class RuleNode extends AbstractClassifier {
   }
 
   /**
-   * Get the number of linear models in the tree
+   * Get the number of linear beans in the tree
    * 
-   * @return the number of linear models
+   * @return the number of linear beans
    */
   public int numberOfLinearModels() {
     if (m_isLeaf) {
@@ -966,7 +966,7 @@ public class RuleNode extends AbstractClassifier {
   }
 
   /**
-   * Print all the linear models at the learf (debugging purposes)
+   * Print all the linear beans at the learf (debugging purposes)
    */
   public void printAllModels() {
     if (m_isLeaf) {

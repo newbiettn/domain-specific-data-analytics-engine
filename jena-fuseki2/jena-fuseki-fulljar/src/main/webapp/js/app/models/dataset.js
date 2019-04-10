@@ -10,7 +10,7 @@ define(
         _ = require( "underscore" ),
         fui = require( "app/fui" ),
         sprintf = require( "sprintf" ),
-        Task = require( "app/models/task" );
+        Task = require( "app/beans/task" );
 
     /**
      * This model represents the core representation of the remote Fuseki

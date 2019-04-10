@@ -39,14 +39,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Step that can save models encapsulated in incoming {@code Data} objects to
+ * Step that can save beans encapsulated in incoming {@code Data} objects to
  * the filesystem.
  * 
  * @author Mark Hall (mhall{[at]}pentaho{[dot]}com)
  * @version $Revision: $
  */
 @KFStep(name = "SerializedModelSaver", category = "DataSinks",
-  toolTipText = "A step that saves models to the file system",
+  toolTipText = "A step that saves beans to the file system",
   iconPath = KFGUIConsts.BASE_ICON_PATH + "SerializedModelSaver.gif")
 public class SerializedModelSaver extends BaseStep {
 
@@ -88,7 +88,7 @@ public class SerializedModelSaver extends BaseStep {
   @FilePropertyMetadata(fileChooserDialogType = KFGUIConsts.SAVE_DIALOG,
     directoriesOnly = true)
   @OptionMetadata(displayName = "Output directory",
-    description = "The directory to save models to", displayOrder = 0)
+    description = "The directory to save beans to", displayOrder = 0)
   public void setOutputDirectory(File directory) {
     m_directory = directory;
   }

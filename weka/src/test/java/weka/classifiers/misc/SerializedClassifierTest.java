@@ -45,7 +45,7 @@ import weka.test.Regression;
  */
 public class SerializedClassifierTest extends TestCase {
 
-  /** the filename for temporary serialized models */
+  /** the filename for temporary serialized beans */
   public final static String MODEL_FILENAME = System.getProperty("user.dir")
     + "/" + "temp.model";
 

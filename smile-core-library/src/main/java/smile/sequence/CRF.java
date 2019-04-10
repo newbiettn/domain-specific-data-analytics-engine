@@ -49,7 +49,7 @@ import smile.util.MulticoreExecutor;
  * <h2>References</h2>
  * <ol>
  * <li> J. Lafferty, A. McCallum and F. Pereira.
- * Conditional random fields: Probabilistic models for segmenting and labeling
+ * Conditional random fields: Probabilistic beans for segmenting and labeling
  * sequence data. ICML, 2001.</li>
  * <li> Thomas G. Dietterich, Guohua Hao, and
  * Adam Ashenfelter. Gradient Tree Boosting for Training Conditional Random

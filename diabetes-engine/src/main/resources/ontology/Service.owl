@@ -35,11 +35,11 @@
 		  OWL SERVICES
 
 Class Service provides a simple means of organizing the parts of a Web
-planner description.  Services are described by profiles, models, and
+planner description.  Services are described by profiles, beans, and
 groundings, which are briefly described below.  Each instance of
 Service can be thought of as an API declaration for a planner entry
 point that a planner provider wants to make accessible.  Each instance
-of Service refers to 0 or more profiles, and 0 or 1 models.  In
+of Service refers to 0 or more profiles, and 0 or 1 beans.  In
 addition, if there's a model, it must be accompanied by 1 or more
 groundings.
 
@@ -147,7 +147,7 @@ agent to make use of the selected planner.
 
 <owl:Class rdf:about="#Service">
   <rdfs:comment> 
-    A planner has 0 or 1 models.  (But note that a planner with 0 models
+    A planner has 0 or 1 beans.  (But note that a planner with 0 beans
     does not provide automated online access; it exists only for
     discovery purposes; that is, it exists so as to provide a Profile.)
   </rdfs:comment>

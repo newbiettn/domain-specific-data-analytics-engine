@@ -1030,14 +1030,46 @@ public class Trainer {
                                                     int seed,
                                                     String filePath) {
         TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
-        String wekaOutputFile = propGetter.getProperty("single.weka.output.file");
-        File kfFile = trans.translateToSaveModelForSPARQL(
-                wekaOutputFile,
+        String predictingProcessFP = propGetter.getProperty("sparqlml.dm.training.process.filepath");
+        String trainingProcessFile = predictingProcessFP + modelName +
+                                        "_" + attributeSelection + "_" + classifier + ".kf";
+
+        // train beans
+        File trainingProcess = trans.generateTrainingProcess(
+                trainingProcessFile,
                 trainingFileUrl,
                 modelName,
                 seed,
                 attributeSelection,
                 classifier);
-        Flow flow = executeTranslatedPlan(kfFile);
+        Flow flow = executeTranslatedPlan(trainingProcess);
+
+        // prepare a predicting process for future
+        File predictingProcess = trans.preparePredictingProcess(
+                modelName,
+                seed,
+                attributeSelection,
+                classifier);
+    }
+
+    /**
+     *
+     * @param datasetName
+     * @param modelName
+     * @param classifier
+     * @param attributeSelection
+     * @param seed
+     * @param filePath
+     */
+    public void predictForSPARQL(String datasetName,
+                                    String trainingFileUrl,
+                                    String modelName,
+                                    String classifier,
+                                    String attributeSelection,
+                                    int seed,
+                                    String filePath) {
+        TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
+        String wekaFlowInputFile = propGetter.getProperty("single.weka.output.file");
+
     }
 }

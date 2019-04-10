@@ -72,7 +72,7 @@ public interface DataGenerator {
   void setWeightingValues(double [] vals);
 
   /**
-   * Returns the number of generating models used by this DataGenerator
+   * Returns the number of generating beans used by this DataGenerator
    *
    * @return an <code>int</code> value
    */

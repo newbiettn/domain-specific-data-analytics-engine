@@ -38,7 +38,7 @@ import weka.core.Utils;
 
 /**
  * <!-- globalinfo-start --> A wrapper around a serialized classifier model.
- * This classifier loads a serialized models and uses it to make predictions.<br/>
+ * This classifier loads a serialized beans and uses it to make predictions.<br/>
  * <br/>
  * Warning: since the serialized model doesn't get changed, cross-validation
  * cannot bet used with this classifier.
@@ -84,7 +84,7 @@ public class SerializedClassifier extends AbstractClassifier {
    */
   public String globalInfo() {
     return "A wrapper around a serialized classifier model. This classifier loads "
-      + "a serialized models and uses it to make predictions.\n\n"
+      + "a serialized beans and uses it to make predictions.\n\n"
       + "Warning: since the serialized model doesn't get changed, cross-validation "
       + "cannot bet used with this classifier.";
   }

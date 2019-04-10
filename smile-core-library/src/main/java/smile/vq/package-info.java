@@ -23,7 +23,7 @@
  * point, as in K-Means and some other clustering algorithms.
  * <p>
  * Vector quantization is is based on the competitive learning paradigm,
- * and also closely related to sparse coding models
+ * and also closely related to sparse coding beans
  * used in deep learning algorithms such as autoencoder.
  * <p>
  * Algorithms in this package also support the <code>partition</code>

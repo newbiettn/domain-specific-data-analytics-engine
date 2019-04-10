@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 import weka.gui.Logger;
 
 /**
- * Interface for all PMML models
+ * Interface for all PMML beans
  *
  * @author Mark Hall (mhall{[at]}pentaho{[dot]}com)
  * @version $Revision: 8034 $

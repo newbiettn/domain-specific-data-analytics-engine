@@ -1039,7 +1039,7 @@ public class LogitBoost extends RandomizableIteratedSingleClassifierEnhancer
     // Make space for classifiers
     Classifier[] classifiers = new Classifier[m_NumClasses];
 
-    // Build the new models
+    // Build the new beans
     for (int j = 0; j < m_NumClasses; j++) {
       if (m_Debug) {
         System.err.println("\t...for class " + (j + 1) + " ("
@@ -1200,7 +1200,7 @@ public class LogitBoost extends RandomizableIteratedSingleClassifierEnhancer
   }
 
   /**
-   * Applies models to an instance to get class probabilities.
+   * Applies beans to an instance to get class probabilities.
    */
   protected double[] processInstance(Instance instance) throws Exception {
 

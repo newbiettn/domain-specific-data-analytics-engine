@@ -38,8 +38,8 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 /**
  <!-- globalinfo-start -->
  * Classifier for building linear logistic regression
- * models. LogitBoost with simple regression functions as base learners is used
- * for fitting the logistic models. The optimal number of LogitBoost iterations
+ * beans. LogitBoost with simple regression functions as base learners is used
+ * for fitting the logistic beans. The optimal number of LogitBoost iterations
  * to perform is cross-validated, which leads to automatic attribute selection.
  * For more information see:<br/>
  * Niels Landwehr, Mark Hall, Eibe Frank (2005). Logistic Model Trees.<br/>
@@ -610,7 +610,7 @@ public class SimpleLogistic extends AbstractClassifier implements
   /**
    * Returns the fraction of all attributes in the data that are used in the
    * logistic model (in percent). An attribute is used in the model if it is
-   * used in any of the models for the different classes.
+   * used in any of the beans for the different classes.
    *
    * @return percentage of attributes used in the model
    */
@@ -656,8 +656,8 @@ public class SimpleLogistic extends AbstractClassifier implements
    *         gui
    */
   public String globalInfo() {
-    return "Classifier for building linear logistic regression models. LogitBoost with simple regression "
-      + "functions as base learners is used for fitting the logistic models. The optimal number of LogitBoost "
+    return "Classifier for building linear logistic regression beans. LogitBoost with simple regression "
+      + "functions as base learners is used for fitting the logistic beans. The optimal number of LogitBoost "
       + "iterations to perform is cross-validated, which leads to automatic attribute selection. "
       + "For more information see:\n" + getTechnicalInformation().toString();
   }

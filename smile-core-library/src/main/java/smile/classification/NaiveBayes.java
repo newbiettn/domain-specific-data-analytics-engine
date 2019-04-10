@@ -46,11 +46,11 @@ import smile.math.SparseArray;
  * of the document. The multivariate Bernoulli model or Bernoulli model
  * generates an indicator for each term of the vocabulary, either indicating
  * presence of the term in the document or indicating absence.
- * Of the two models, the Bernoulli model is particularly sensitive to noise
+ * Of the two beans, the Bernoulli model is particularly sensitive to noise
  * features. A Bernoulli naive Bayes classifier requires some form of feature
  * selection or else its accuracy will be low.
  * <p>
- * The different generation models imply different estimation strategies and
+ * The different generation beans imply different estimation strategies and
  * different classification rules. The Bernoulli model estimates as the
  * fraction of documents of class that contain term. In contrast, the
  * multinomial model estimates as the fraction of tokens or fraction of
@@ -61,10 +61,10 @@ import smile.math.SparseArray;
  * makes many mistakes when classifying long documents. However, it was reported
  * that the Bernoulli model works better in sentiment analysis.
  * <p>
- * The models also differ in how non-occurring terms are used in classification.
+ * The beans also differ in how non-occurring terms are used in classification.
  * They do not affect the classification decision in the multinomial model;
  * but in the Bernoulli model the probability of nonoccurrence is factored
- * in when computing. This is because only the Bernoulli model models
+ * in when computing. This is because only the Bernoulli model beans
  * absence of terms explicitly.
  *
  * @see Distribution
@@ -83,7 +83,7 @@ public class NaiveBayes implements OnlineClassifier<double[]>, SoftClassifier<do
     private static final long serialVersionUID = 1L;
 
     /**
-     * The generation models of naive Bayes classifier.
+     * The generation beans of naive Bayes classifier.
      * For document classification in NLP, there are two different ways we can set
      * up an naive Bayes classifier: multinomial model and Bernoulli model. The
      * multinomial model generates one term from the vocabulary in each position
@@ -597,7 +597,7 @@ public class NaiveBayes implements OnlineClassifier<double[]>, SoftClassifier<do
      * Predict the class of an instance.
      * 
      * @param x the instance to be classified.
-     * @return the predicted class label. For MULTINOMIAL and BERNOULLI models,
+     * @return the predicted class label. For MULTINOMIAL and BERNOULLI beans,
      * returns -1 if the instance does not contain any feature words.
      */
     @Override
@@ -610,7 +610,7 @@ public class NaiveBayes implements OnlineClassifier<double[]>, SoftClassifier<do
      * 
      * @param x the instance to be classified.
      * @param posteriori the array to store a posteriori probabilities on output.
-     * @return the predicted class label. For MULTINOMIAL and BERNOULLI models,
+     * @return the predicted class label. For MULTINOMIAL and BERNOULLI beans,
      * returns -1 if the instance does not contain any feature words.
      */
     @Override
@@ -680,7 +680,7 @@ public class NaiveBayes implements OnlineClassifier<double[]>, SoftClassifier<do
      * Predict the class of an instance.
      *
      * @param x the instance to be classified.
-     * @return the predicted class label. For MULTINOMIAL and BERNOULLI models,
+     * @return the predicted class label. For MULTINOMIAL and BERNOULLI beans,
      * returns -1 if the instance does not contain any feature words.
      */
     public int predict(SparseArray x) {
@@ -692,7 +692,7 @@ public class NaiveBayes implements OnlineClassifier<double[]>, SoftClassifier<do
      *
      * @param x the instance to be classified.
      * @param posteriori the array to store a posteriori probabilities on output.
-     * @return the predicted class label. For MULTINOMIAL and BERNOULLI models,
+     * @return the predicted class label. For MULTINOMIAL and BERNOULLI beans,
      * returns -1 if the instance does not contain any feature words.
      */
     public int predict(SparseArray x, double[] posteriori) {

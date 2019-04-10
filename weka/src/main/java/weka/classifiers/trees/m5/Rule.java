@@ -370,7 +370,7 @@ public class Rule implements Serializable, RevisionHandler {
       + ((m_regressionTree) ? "regression " : "model ") + "tree:\n");
 
     if (m_smoothPredictions == true) {
-      text.append("(using smoothed linear models)\n");
+      text.append("(using smoothed linear beans)\n");
     }
 
     text.append(m_topOfTree.treeToString(0));

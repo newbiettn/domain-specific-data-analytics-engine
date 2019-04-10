@@ -64,7 +64,7 @@ import org.junit.Test;
 public class TestParseURISchemeBases {
 
 	/**
-	 * Run with -Ddebug=true to log all parsed models to System.out
+	 * Run with -Ddebug=true to log all parsed beans to System.out
 	 */
 	private static boolean DEBUG = Boolean.getBoolean("debug");
 	private static Path DIR = Paths.get("testing/RIOT/URISchemes/");

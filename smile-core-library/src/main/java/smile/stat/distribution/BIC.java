@@ -17,7 +17,7 @@ package smile.stat.distribution;
 
 /**
  * Bayesian information criterion (BIC) or Schwarz Criterion is a criterion for
- * model selection among a class of parametric models with different numbers
+ * model selection among a class of parametric beans with different numbers
  * of parameters. Choosing a model to optimize BIC is a form of regularization.
  * <p>
  * When estimating model parameters using maximum likelihood estimation, it
@@ -31,7 +31,7 @@ package smile.stat.distribution;
  * log-likelihood of estimated model, v is the number of free parameters
  * to be estimated in the model, and n is the number of samples.
  * <p>
- * Given any two estimated models, the model with the larger value of BIC is
+ * Given any two estimated beans, the model with the larger value of BIC is
  * the one to be preferred.
  * 
  * @author Haifeng Li

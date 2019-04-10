@@ -32,7 +32,7 @@ import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
 /**
- * Base/helper class for building logistic regression models with the LogitBoost
+ * Base/helper class for building logistic regression beans with the LogitBoost
  * algorithm. Used for building logistic model trees
  * (weka.classifiers.trees.lmt.LMT) and standalone logistic regression
  * (weka.classifiers.functions.SimpleLogistic).
@@ -1107,7 +1107,7 @@ public class LogisticBase extends AbstractClassifier implements
   /**
    * Returns the fraction of all attributes in the data that are used in the
    * logistic model (in percent). An attribute is used in the model if it is
-   * used in any of the models for the different classes.
+   * used in any of the beans for the different classes.
    * 
    * @return the fraction of all attributes that are used
    */

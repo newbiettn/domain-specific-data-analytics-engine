@@ -605,7 +605,7 @@ public class QueryExecutionBase implements QueryExecution
     private void insertPrefixesInto(Model model) {
         try {
             if ( dataset != null ) {
-                // Load the models prefixes first
+                // Load the beans prefixes first
                 PrefixMapping m = dataset.getDefaultModel();
                 model.setNsPrefixes(m);
             }

@@ -575,7 +575,7 @@ public class CheckClassifier extends CheckScheme {
   }
 
   /**
-   * Checks whether the scheme can build models incrementally.
+   * Checks whether the scheme can build beans incrementally.
    * 
    * @return index 0 is true if the classifier can train incrementally
    */
@@ -822,7 +822,7 @@ public class CheckClassifier extends CheckScheme {
   }
 
   /**
-   * Checks whether the scheme correctly initialises models when buildClassifier
+   * Checks whether the scheme correctly initialises beans when buildClassifier
    * is called. This test calls buildClassifier with one training dataset and
    * records performance on a test set. buildClassifier is then called on a
    * training set with different structure, and then again with the original
@@ -1046,7 +1046,7 @@ public class CheckClassifier extends CheckScheme {
   /**
    * Checks whether an updateable scheme produces the same model when trained
    * incrementally as when batch trained. The model itself cannot be compared,
-   * so we compare the evaluation on test data for both models. It is possible
+   * so we compare the evaluation on test data for both beans. It is possible
    * to get a false positive on this test (likelihood depends on the
    * classifier).
    * 
@@ -1118,7 +1118,7 @@ public class CheckClassifier extends CheckScheme {
         if (m_Debug) {
           println("\n=== Full Report ===");
           println("Results differ between batch and "
-            + "incrementally built models.\n"
+            + "incrementally built beans.\n"
             + "Depending on the classifier, this may be OK");
           println("Here are the results:\n");
           println(evaluationB.toSummaryString("\nbatch built results\n", true));
@@ -1355,7 +1355,7 @@ public class CheckClassifier extends CheckScheme {
 
         if (evalFail) {
           println("Results don't differ between non-weighted and "
-            + "weighted instance models.");
+            + "weighted instance beans.");
           println("Here are the results:\n");
           println(evaluationB.toSummaryString("\nboth methods\n", true));
         } else {

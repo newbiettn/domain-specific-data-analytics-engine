@@ -49,7 +49,7 @@ public abstract class ParallelMultipleClassifiersCombiner extends
   /** The number of threads to have executing at any one time */
   protected int m_numExecutionSlots = 1;
 
-  /** Pool of threads to train models with */
+  /** Pool of threads to train beans with */
   protected transient ThreadPoolExecutor m_executorPool;
 
   /** The number of classifiers completed so far */

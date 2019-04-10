@@ -1589,7 +1589,7 @@ public class SGDText extends RandomizableClassifier implements
 
     if (m_numModels == 0) {
       throw new Exception("Unable to finalize aggregation - "
-        + "haven't seen any models to aggregate");
+        + "haven't seen any beans to aggregate");
     }
     
     pruneDictionary(true);

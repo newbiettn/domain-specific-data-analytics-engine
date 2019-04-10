@@ -87,7 +87,7 @@ import java.util.Vector;
  * 
  * <pre>
  * -print
- *  Print the individual models in the output
+ *  Print the individual beans in the output
  * </pre>
  * 
  * <pre>
@@ -191,7 +191,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
   /** Combination Rule variable */
   protected int m_CombinationRule = AVERAGE_RULE;
 
-  /** List of file paths to serialized models to load */
+  /** List of file paths to serialized beans to load */
   protected List<String> m_classifiersToLoad = new ArrayList<String>();
 
   /** List of de-serialized pre-built classifiers to include in the ensemble */
@@ -204,7 +204,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
   /** Structure of the training data */
   protected Instances m_structure;
 
-  /** Print the individual models in the output */
+  /** Print the individual beans in the output */
   protected boolean m_dontPrintModels;
 
   /**
@@ -241,7 +241,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
       + "\t(default: AVG)", "R", 1, "-R " + Tag.toOptionList(TAGS_RULES)));
 
     result.addElement(new Option(
-      "\tSuppress the printing of the individual models in the output",
+      "\tSuppress the printing of the individual beans in the output",
       "do-not-print", 0, "-do-not-print"));
 
     result.addAll(Collections.list(super.listOptions()));
@@ -304,7 +304,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
    * 
    * <pre>
    * -print
-   *  Print the individual models in the output
+   *  Print the individual beans in the output
    * </pre>
    * 
    * <pre>
@@ -496,10 +496,10 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
   }
 
   /**
-   * Load serialized models to include in the ensemble
+   * Load serialized beans to include in the ensemble
    * 
    * @param data training instances (used in a header compatibility check with
-   *          each of the loaded models)
+   *          each of the loaded beans)
    * 
    * @throws Exception if there is a problem de-serializing a model
    */
@@ -1038,14 +1038,14 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
       + "that are built from scratch when this classifier runs. "
       + "Note that it does not make sense to include pre-built "
       + "classifiers in a cross-validation since they are static "
-      + "and their models do not change from fold to fold.";
+      + "and their beans do not change from fold to fold.";
   }
 
   /**
    * Set the paths to pre-built serialized classifiers to load and include in
    * the ensemble
    * 
-   * @param preBuilt an array of File paths to serialized models
+   * @param preBuilt an array of File paths to serialized beans
    */
   public void setPreBuiltClassifiers(File[] preBuilt) {
     m_classifiersToLoad.clear();
@@ -1061,7 +1061,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
    * Get the paths to pre-built serialized classifiers to load and include in
    * the ensemble
    * 
-   * @return an array of File paths to serialized models
+   * @return an array of File paths to serialized beans
    */
   public File[] getPreBuiltClassifiers() {
     File[] result = new File[m_classifiersToLoad.size()];
@@ -1084,18 +1084,18 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
   }
 
   /**
-   * Set whether to print the individual ensemble models in the output
+   * Set whether to print the individual ensemble beans in the output
    * 
-   * @param print true if the individual models are to be printed
+   * @param print true if the individual beans are to be printed
    */
   public void setDoNotPrintModels(boolean print) {
     m_dontPrintModels = print;
   }
 
   /**
-   * Get whether to print the individual ensemble models in the output
+   * Get whether to print the individual ensemble beans in the output
    * 
-   * @return true if the individual models are to be printed
+   * @return true if the individual beans are to be printed
    */
   public boolean getDoNotPrintModels() {
     return m_dontPrintModels;
@@ -1162,7 +1162,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
     StringBuilder resultBuilder = null;
     if (!m_dontPrintModels) {
       resultBuilder = new StringBuilder();
-      resultBuilder.append(result).append("\nAll the models:\n\n");
+      resultBuilder.append(result).append("\nAll the beans:\n\n");
       for (Classifier c : m_Classifiers) {
         resultBuilder.append(c).append("\n");
       }
@@ -1187,7 +1187,7 @@ public class Vote extends RandomizableMultipleClassifiersCombiner implements
 
   /**
    * Set environment variable values to substitute in the paths of serialized
-   * models to load
+   * beans to load
    * 
    * @param env the environment variables to use
    */

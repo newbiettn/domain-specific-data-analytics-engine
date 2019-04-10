@@ -6641,7 +6641,7 @@ public class KnowledgeFlowApp extends JPanel implements PropertyChangeListener,
 
   /**
    * Save the knowledge flow into the OutputStream passed at input. Only
-   * supports saving the layout data (no trained models) to XML.
+   * supports saving the layout data (no trained beans) to XML.
    *
    * @param out the output stream to save the layout in
    */

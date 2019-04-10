@@ -64,9 +64,8 @@ public class ExML1
     
     public static void main(String[] args) throws Exception {
         ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-        File output = new File("output.txt");
         String datasetName = "tmp_sparql_dataset";
-        String filePath = propGetter.getProperty("sparqml.resource.filepath");
+        String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
         int seed = 1;
         MetafeatureGenerator mfGen = new MetafeatureGenerator();
         DbUtils dbUtils = new DbUtils();
@@ -87,12 +86,12 @@ public class ExML1
                 "WHERE {" +
                 "?publish FEATURE vocab:papers_Publish." +
                 "?title FEATURE vocab:papers_Title." +
-                "?year FEATURE vocab:papers_Year." +
+                "?year FEATURE vocab:papers_Year" +
                 "}";
         MLQuery q = MLQueryFactory.create(queryString);
         LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
-        Var tVar = q.getCPMTarget();
-        Var mVar = q.getCPMName();
+        Var tVar = q.setTargetName();
+        Var mVar = q.getModelName();
         String modelName = mVar.getVarName();
 
         StringBuilder whereStr = new StringBuilder();

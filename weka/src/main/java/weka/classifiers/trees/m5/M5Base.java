@@ -585,7 +585,7 @@ public abstract class M5Base extends AbstractClassifier implements
         + ((m_regressionTree == true) ? "regression " : "model ") + "rules ");
 
       if (!m_unsmoothedPredictions) {
-        text.append("\n(using smoothed linear models) ");
+        text.append("\n(using smoothed linear beans) ");
       }
 
       text.append(":\n");
@@ -637,7 +637,7 @@ public abstract class M5Base extends AbstractClassifier implements
   /**
    * return the number of rules
    * 
-   * @return the number of rules (same as # linear models & # leaves in the
+   * @return the number of rules (same as # linear beans & # leaves in the
    *         tree)
    */
   public double measureNumRules() {

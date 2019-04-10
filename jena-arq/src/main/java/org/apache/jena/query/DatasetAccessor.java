@@ -20,7 +20,7 @@ package org.apache.jena.query;
 
 import org.apache.jena.rdf.model.Model ;
 
-/** Accessor to a dataset as a collection of models, providing 
+/** Accessor to a dataset as a collection of beans, providing
  * whole model operations. Models can be added, removed and replaced.   
  *  This interface provides a uniform interface to local and remote datasets and is based on 
  *  <a href="http://www.w3.org/TR/sparql11-http-rdf-update/">SPARQL 1.1 Graph Store HTTP Protocol</a>.
@@ -55,7 +55,7 @@ public interface DatasetAccessor
     /** Delete a named model of a Dataset */
     public void deleteModel(String graphUri) ;
 
-//    /** Clear the default graph, delete all the named models */
+//    /** Clear the default graph, delete all the named beans */
 //    public void reset() ;
 
     /** Add statements to the default model of a Dataset */

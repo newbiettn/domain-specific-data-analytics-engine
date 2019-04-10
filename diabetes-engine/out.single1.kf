@@ -1,5 +1,5 @@
 {
-	"flow_name" : "out.single",
+	"flow_name" : "out.single1",
 	"steps" : [
 		{
 			"class" : "weka.knowledgeflow.steps.Loader",
@@ -27,22 +27,10 @@
 			},
 			"connections" : {
 				"dataSet" : [
-					"TrainingSetMaker"
+					"TestSetMaker"
 				]
 			},
 			"coordinates" : "321,46"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
-			"properties" : {
-				"name" : "TrainingSetMaker"
-			},
-			"connections" : {
-				"trainingSet" : [
-					"AttributeSelection"
-				]
-			},
-			"coordinates" : "478,36"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.Filter",
@@ -55,44 +43,68 @@
 				"name" : "AttributeSelection"
 			},
 			"connections" : {
-				"trainingSet" : [
-					"J48"
+				"testSet" : [
+					"RandomForest"
 				]
 			},
-			"coordinates" : "645,41"
+			"coordinates" : "646,49"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TestSetMaker",
+			"properties" : {
+				"name" : "TestSetMaker"
+			},
+			"connections" : {
+				"testSet" : [
+					"AttributeSelection"
+				]
+			},
+			"coordinates" : "473,42"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.Classifier",
 			"properties" : {
 				"classifier" : {
 					"type" : "optionHandler",
-					"class" : "weka.classifiers.trees.J48",
-					"options" : "-C 0.25 -M 2"
+					"class" : "weka.classifiers.trees.RandomForest",
+					"options" : "-P 100 -I 100 -num-slots 1 -K 0 -M 1.0 -V 0.001 -S 1"
 				},
-				"loadClassifierFileName" : "",
-				"name" : "J48",
+				"loadClassifierFileName" : "/Users/newbiettn/Dropbox/Swinburne/Github/codes/DiabetesDiscoveryV2/resources/serialized_models/m_1_1_RandomForest.model",
+				"name" : "RandomForest",
 				"resetIncrementalClassifier" : false,
 				"updateIncrementalClassifier" : true
 			},
 			"connections" : {
 				"batchClassifier" : [
-					"SerializedModelSaver"
+					"ClassifierPerformanceEvaluator"
 				]
 			},
-			"coordinates" : "796,42"
+			"coordinates" : "779,56"
 		},
 		{
-			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"class" : "weka.knowledgeflow.steps.TextViewer",
 			"properties" : {
-				"filenamePrefix" : "",
-				"includeRelationNameInFilename" : false,
-				"incrementalSaveSchedule" : 0,
-				"name" : "SerializedModelSaver",
-				"outputDirectory" : "/Users/newbiettn/Downloads"
+				"name" : "TextViewer"
 			},
 			"connections" : {
 			},
-			"coordinates" : "975,49"
+			"coordinates" : "1137,61"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "968,60"
 		}
 	]
 }

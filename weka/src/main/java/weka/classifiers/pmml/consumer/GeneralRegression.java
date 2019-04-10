@@ -303,11 +303,11 @@ public class GeneralRegression extends PMMLClassifier
   protected double m_distParameter = Double.NaN;
 
   // if present, this variable is used during scoring generalizedLinear/generalLinear or
-  // ordinalMultinomial models
+  // ordinalMultinomial beans
   protected String m_offsetVariable;
 
   // if present, this variable is used during scoring generalizedLinear/generalLinear or
-  // ordinalMultinomial models. It works like a user-specified intercept.
+  // ordinalMultinomial beans. It works like a user-specified intercept.
   // At most, only one of offsetVariable or offsetValue may be specified.
   protected double m_offsetValue = Double.NaN;
 

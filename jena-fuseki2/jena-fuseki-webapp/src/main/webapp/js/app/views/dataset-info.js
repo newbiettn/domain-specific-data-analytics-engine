@@ -7,7 +7,7 @@ define(
         fui = require( "app/fui" ),
         DatasetInfoTpl = require( "plugins/text!app/templates/dataset-info.tpl" ),
         DatasetStatsView = require( "app/views/dataset-stats" ),
-        DatasetStatsModel = require( "app/models/dataset-stats" );
+        DatasetStatsModel = require( "app/beans/dataset-stats" );
 
     var DatasetInfo = Backbone.Marionette.ItemView.extend( {
 

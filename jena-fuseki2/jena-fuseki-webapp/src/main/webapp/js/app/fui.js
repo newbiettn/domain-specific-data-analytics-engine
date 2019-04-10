@@ -9,7 +9,7 @@ define( ['require', 'backbone', 'marionette'],
 
     // define some Marionette modules, because they have a lifecycle component
     // see https://github.com/marionettejs/backbone.marionette/wiki/AMD-Modules-vs-Marionette%27s-Modules
-    fui.module( "models" );
+    fui.module( "beans" );
     fui.module( "views" );
     fui.module( "layouts" );
     fui.module( "controllers" );

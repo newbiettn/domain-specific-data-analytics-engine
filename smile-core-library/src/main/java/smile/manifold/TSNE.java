@@ -31,7 +31,7 @@ import smile.util.MulticoreExecutor;
  * dimensionality reduction technique that is particularly well suited
  * for embedding high-dimensional data into a space of two or three
  * dimensions, which can then be visualized in a scatter plot. Specifically,
- * it models each high-dimensional object by a two- or three-dimensional
+ * it beans each high-dimensional object by a two- or three-dimensional
  * point in such a way that similar objects are modeled by nearby points
  * and dissimilar objects are modeled by distant points.
  * <p>

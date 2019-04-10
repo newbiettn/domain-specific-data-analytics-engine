@@ -246,9 +246,9 @@ public class ExplorerDefaults implements Serializable {
   }
 
   /**
-   * returns whether the models built for the training set are output
+   * returns whether the beans built for the training set are output
    *
-   * @return true if the models built for the training set are output
+   * @return true if the beans built for the training set are output
    */
   public static boolean getClassifierOutputModelsForTrainingSplits() {
     return Boolean.parseBoolean(get("ClassifierOutputModelsForTrainingSplits", "false"));

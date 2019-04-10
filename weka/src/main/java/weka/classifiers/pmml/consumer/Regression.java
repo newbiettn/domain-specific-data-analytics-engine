@@ -771,7 +771,7 @@ public class Regression extends PMMLClassifier
           preds[i] = Math.exp(preds[i]);
         }
         if (preds.length == 1) {
-          // hack for those models that do binary logistic regression as
+          // hack for those beans that do binary logistic regression as
           // a numeric prediction model
           preds[0] = preds[0] / (preds[0] + 1.0);
         } else {

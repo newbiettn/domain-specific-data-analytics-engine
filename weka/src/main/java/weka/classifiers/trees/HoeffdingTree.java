@@ -148,7 +148,7 @@ import weka.core.WeightedInstancesHandler;
  * 
  * <pre>
  * -P
- *  Print leaf models when using naive Bayes at the leaves.
+ *  Print leaf beans when using naive Bayes at the leaves.
  * </pre>
  * 
  <!-- options-end -->
@@ -222,7 +222,7 @@ public class HoeffdingTree extends AbstractClassifier implements
       new Tag(LEAF_NB_ADAPTIVE, "Naive Bayes adaptive") };
 
   /**
-   * Print out leaf models in the case of naive Bayes or naive Bayes adaptive
+   * Print out leaf beans in the case of naive Bayes or naive Bayes adaptive
    * leaves
    */
   protected boolean m_printLeafModels;
@@ -338,7 +338,7 @@ public class HoeffdingTree extends AbstractClassifier implements
             + "should observe before allowing naive Bayes to make "
             + "predictions (NB or NB adaptive only)\n\t(default = 0)", "N", 1,
             "-N"));
-    newVector.add(new Option("\tPrint leaf models when using naive Bayes "
+    newVector.add(new Option("\tPrint leaf beans when using naive Bayes "
         + "at the leaves.", "P", 0, "-P"));
 
     return newVector.elements();
@@ -396,7 +396,7 @@ public class HoeffdingTree extends AbstractClassifier implements
    * 
    * <pre>
    * -P
-   *  Print leaf models when using naive Bayes at the leaves.
+   *  Print leaf beans when using naive Bayes at the leaves.
    * </pre>
    * 
    <!-- options-end -->
@@ -493,7 +493,7 @@ public class HoeffdingTree extends AbstractClassifier implements
    *         explorer/experimenter gui
    */
   public String printLeafModelsTipText() {
-    return "Print leaf models (naive bayes leaves only)";
+    return "Print leaf beans (naive bayes leaves only)";
   }
 
   public void setPrintLeafModels(boolean p) {

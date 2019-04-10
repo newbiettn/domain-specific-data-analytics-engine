@@ -31,9 +31,9 @@
  * characteristic.
  * <p>
  * Feature selection is the technique of selecting a subset of relevant
- * features for building robust learning models. By removing most irrelevant
+ * features for building robust learning beans. By removing most irrelevant
  * and redundant features from the data, feature selection helps improve the
- * performance of learning models by alleviating the effect of the curse of
+ * performance of learning beans by alleviating the effect of the curse of
  * dimensionality, enhancing generalization capability, speeding up learning
  * process, etc. More importantly, feature selection also helps researchers
  * to acquire better understanding about the data.

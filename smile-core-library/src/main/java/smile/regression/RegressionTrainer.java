@@ -47,7 +47,7 @@ public abstract class RegressionTrainer <T> {
     }
     
     /**
-     * Sets feature attributes. This is optional since most regression models
+     * Sets feature attributes. This is optional since most regression beans
      * can only work on real-valued attributes.
      * 
      * @param attributes the feature attributes.

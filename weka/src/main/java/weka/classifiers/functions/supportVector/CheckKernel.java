@@ -739,7 +739,7 @@ public class CheckKernel extends CheckScheme {
   }
 
   /**
-   * Checks whether the scheme correctly initialises models when buildKernel is
+   * Checks whether the scheme correctly initialises beans when buildKernel is
    * called. This test calls buildKernel with one training dataset. buildKernel
    * is then called on a training set with different structure, and then again
    * with the original training set. If the equals method of the
@@ -990,7 +990,7 @@ public class CheckKernel extends CheckScheme {
 
         if (evalFail) {
           println("Results don't differ between non-weighted and "
-            + "weighted instance models.");
+            + "weighted instance beans.");
           println("Here are the results:\n");
           println(evaluationB.toSummaryString("\nboth methods\n"));
         } else {

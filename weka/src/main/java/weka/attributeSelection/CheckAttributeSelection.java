@@ -937,7 +937,7 @@ public class CheckAttributeSelection extends CheckScheme {
   }
 
   /**
-   * Checks whether the scheme correctly initialises models when ASSearch.search
+   * Checks whether the scheme correctly initialises beans when ASSearch.search
    * is called. This test calls search with one training dataset. ASSearch is
    * then called on a training set with different structure, and then again with
    * the original training set. If the equals method of the ASEvaluation class
@@ -1186,7 +1186,7 @@ public class CheckAttributeSelection extends CheckScheme {
 
         if (evalFail) {
           println("Results don't differ between non-weighted and "
-            + "weighted instance models.");
+            + "weighted instance beans.");
           println("Here are the results:\n");
           println("\nboth methods\n");
           println(evaluationB.toString());

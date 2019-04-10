@@ -52,7 +52,7 @@ public class NBTreeSplit extends ClassifierSplitModel {
 
   /**
    * The weight of the instances incorrectly classified by the naive bayes
-   * models arising from this split
+   * beans arising from this split
    */
   protected double m_errors;
 
@@ -385,7 +385,7 @@ public class NBTreeSplit extends ClassifierSplitModel {
   }
 
   /**
-   * Return the errors made by the naive bayes models arising from this split.
+   * Return the errors made by the naive bayes beans arising from this split.
    * 
    * @return a <code>double</code> value
    */

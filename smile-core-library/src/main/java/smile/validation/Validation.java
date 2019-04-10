@@ -22,7 +22,7 @@ import smile.regression.Regression;
 import smile.regression.RegressionTrainer;
 
 /**
- * A utility class for validating predictive models on test data.
+ * A utility class for validating predictive beans on test data.
  * 
  * @author Haifeng
  */

@@ -24,7 +24,7 @@ import smile.math.matrix.DenseMatrix;
 import smile.math.special.Beta;
 
 /**
- * Ridge Regression. Coefficient estimates for multiple linear regression models rely on
+ * Ridge Regression. Coefficient estimates for multiple linear regression beans rely on
  * the independence of the model terms. When terms are correlated and
  * the columns of the design matrix X have an approximate linear dependence,
  * the matrix <code>X'X</code> becomes close to singular. As a result, the least-squares estimate

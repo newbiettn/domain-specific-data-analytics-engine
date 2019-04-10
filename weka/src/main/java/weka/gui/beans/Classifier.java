@@ -148,7 +148,7 @@ public class Classifier extends JPanel implements BeanCommon, Visible,
   private final IncrementalClassifierEvent m_ie =
     new IncrementalClassifierEvent(this);
 
-  /** the extension for serialized models (binary Java serialization) */
+  /** the extension for serialized beans (binary Java serialization) */
   public final static String FILE_EXTENSION = "model";
 
   private transient JFileChooser m_fileChooser = null;
@@ -191,19 +191,19 @@ public class Classifier extends JPanel implements BeanCommon, Visible,
   private InstanceEvent m_incrementalEvent;
 
   /**
-   * Number of threads to use to train models with
+   * Number of threads to use to train beans with
    */
   protected int m_executionSlots = 2;
 
   // protected int m_queueSize = 5;
 
   /**
-   * Pool of threads to train models on incoming data
+   * Pool of threads to train beans on incoming data
    */
   protected transient ThreadPoolExecutor m_executorPool;
 
   /**
-   * Stores completed models and associated data sets.
+   * Stores completed beans and associated data sets.
    */
   protected transient BatchClassifierEvent[][] m_outputQueues;
 
@@ -311,7 +311,7 @@ public class Classifier extends JPanel implements BeanCommon, Visible,
   }
 
   /**
-   * Get the number of execution slots (threads) used to train models.
+   * Get the number of execution slots (threads) used to train beans.
    * 
    * @return the number of execution slots.
    */
@@ -320,7 +320,7 @@ public class Classifier extends JPanel implements BeanCommon, Visible,
   }
 
   /**
-   * Set the number of execution slots (threads) to use to train models with.
+   * Set the number of execution slots (threads) to use to train beans with.
    * 
    * @param slots the number of execution slots to use.
    */

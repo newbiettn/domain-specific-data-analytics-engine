@@ -54,7 +54,7 @@ import weka.core.Utils;
 import weka.gui.Logger;
 
 /**
- * This class is a factory class for reading/writing PMML models
+ * This class is a factory class for reading/writing PMML beans
  * 
  * @author Mark Hall (mhall{[at]}pentaho{[dot]}com)
  * @version $Revision: 10203 $

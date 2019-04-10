@@ -1137,7 +1137,7 @@ public class Logistic extends AbstractClassifier implements OptionHandler,
 
     if (m_numModels == 0) {
       throw new Exception("Unable to finalize aggregation - "
-        + "haven't seen any models to aggregate");
+        + "haven't seen any beans to aggregate");
     }
 
     for (int i = 0; i < m_Par.length; i++) {

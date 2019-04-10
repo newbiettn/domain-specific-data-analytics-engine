@@ -30,7 +30,7 @@ import java.io.Serializable;
  * restrictions. The sequences are "warped" non-linearly in the time dimension
  * to determine a measure of their similarity independent of certain non-linear
  * variations in the time dimension. This sequence alignment method is often
- * used in the context of hidden Markov models.
+ * used in the context of hidden Markov beans.
  * <p>
  * One example of the restrictions imposed on the matching of the sequences
  * is on the monotonicity of the mapping in the time dimension. Continuity

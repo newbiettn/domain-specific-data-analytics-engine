@@ -335,7 +335,7 @@ public class CostMatrixEditor implements PropertyEditor {
     }
 
     /**
-     * Prompts the user to open a matrix, and attemps to load it.
+     * Prompts the user to open a matrix, and demos to load it.
      * 
      */
     private void openMatrix() {
@@ -359,7 +359,7 @@ public class CostMatrixEditor implements PropertyEditor {
     }
 
     /**
-     * Prompts the user to save a matrix, and attemps to save it.
+     * Prompts the user to save a matrix, and demos to save it.
      * 
      */
     private void saveMatrix() {

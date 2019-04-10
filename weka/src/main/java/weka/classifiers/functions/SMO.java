@@ -64,7 +64,7 @@ import java.util.Vector;
  <br>
  Multi-class problems are solved using pairwise classification (aka 1-vs-1).<br>
  <br>
- To obtain proper probability estimates, use the option that fits calibration models to the outputs of the support vector machine. In the multi-class case, the predicted probabilities are coupled using Hastie and Tibshirani's pairwise coupling method.<br>
+ To obtain proper probability estimates, use the option that fits calibration beans to the outputs of the support vector machine. In the multi-class case, the predicted probabilities are coupled using Hastie and Tibshirani's pairwise coupling method.<br>
  <br>
  Note: for improved speed normalization should be turned off when operating on SparseInstances.<br>
  <br>
@@ -143,7 +143,7 @@ import java.util.Vector;
   The epsilon for round-off error. (default 1.0e-12)</pre>
  
  <pre> -M
-  Fit calibration models to SVM outputs. </pre>
+  Fit calibration beans to SVM outputs. </pre>
  
  <pre> -V &lt;double&gt;
   The number of folds for the internal
@@ -250,7 +250,7 @@ public class SMO
       + "original data --- this is important for interpreting the classifier.)\n\n"
       + "Multi-class problems are solved using pairwise classification (aka 1-vs-1).\n\n"
       + "To obtain proper probability estimates, use the option that fits "
-      + "calibration models to the outputs of the support vector "
+      + "calibration beans to the outputs of the support vector "
       + "machine. In the multi-class case, the predicted probabilities "
       + "are coupled using Hastie and Tibshirani's pairwise coupling "
       + "method.\n\n"
@@ -1258,7 +1258,7 @@ public class SMO
   /** Precision constant for updating sets */
   protected static double m_Del = 1000 * Double.MIN_VALUE;
 
-  /** Whether calibrator models are to be fit */
+  /** Whether calibrator beans are to be fit */
   protected boolean m_fitCalibratorModels = false;
 
   /** Determines the calibrator model to use for probability estimate */
@@ -1686,7 +1686,7 @@ public class SMO
             "P", 1, "-P <double>"));
 
     result.addElement(new Option(
-            "\tFit calibration models to SVM outputs. ",
+            "\tFit calibration beans to SVM outputs. ",
             "M", 0, "-M"));
 
     result.addElement(new Option(
@@ -1757,7 +1757,7 @@ public class SMO
     The epsilon for round-off error. (default 1.0e-12)</pre>
    
    <pre> -M
-    Fit calibration models to SVM outputs. </pre>
+    Fit calibration beans to SVM outputs. </pre>
    
    <pre> -V &lt;double&gt;
     The number of folds for the internal
@@ -2162,7 +2162,7 @@ public class SMO
    * displaying in the explorer/experimenter gui
    */
   public String buildCalibrationModelsTipText() {
-    return "Whether to fit calibration models to the SVM's outputs (for proper probability estimates).";
+    return "Whether to fit calibration beans to the SVM's outputs (for proper probability estimates).";
   }
 
   /**
@@ -2192,7 +2192,7 @@ public class SMO
    */
   public String numFoldsTipText() {
     return "The number of folds for cross-validation used to generate "
-      + "training data for calibration models (-1 means use training data).";
+      + "training data for calibration beans (-1 means use training data).";
   }
   
   /**

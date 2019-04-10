@@ -41,7 +41,6 @@ public class PatientNodeSkin extends CustomFlowNodeSkin {
                     log(Level.SEVERE, null, ex);
         }
 
-//        getNode().getStyleClass().setAll("patient-node-window");
         getModel().setTitle("Patient Node");
         getNode().getLeftIcons().clear();
 

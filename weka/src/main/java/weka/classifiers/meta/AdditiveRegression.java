@@ -579,7 +579,7 @@ public class AdditiveRegression extends IteratedSingleClassifierEnhancer impleme
   /**
    * return the number of iterations (base classifiers) completed
    * @return the number of iterations (same as number of base classifier
-   * models)
+   * beans)
    */
   public double measureNumIterations() {
     return m_Classifiers.size();
@@ -614,7 +614,7 @@ public class AdditiveRegression extends IteratedSingleClassifierEnhancer impleme
     text.append("Base classifier " 
 		+ getClassifier().getClass().getName()
 		+ "\n\n");
-    text.append("" + m_Classifiers.size() + " models generated.\n");
+    text.append("" + m_Classifiers.size() + " beans generated.\n");
 
     for (int i = 0; i < m_Classifiers.size(); i++) {
       text.append("\nModel number " + i + "\n\n" +

@@ -31,7 +31,7 @@ import org.apache.jena.sparql.core.Quad ;
 import org.apache.jena.sparql.sse.SSE ;
 import org.junit.Test ;
 
-/** Test API use of models, including some union graph cases : see also DatasetGraphTests */
+/** Test API use of beans, including some union graph cases : see also DatasetGraphTests */
 
 public abstract class GraphsTests extends BaseTest
 {
