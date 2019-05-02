@@ -17,8 +17,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <HBox prefHeight="680.0" prefWidth="1353.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
     <children>
         <VBox minHeight="600" minWidth="400" prefHeight="680.0" prefWidth="1141.0">
@@ -38,7 +36,7 @@
                                 <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
                             </items>
                         </ToolBar>
-                        <ToolBar prefHeight="39.0" prefWidth="639.0">
+                        <ToolBar prefHeight="39.0" prefWidth="345.0">
                             <items>
                                 <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Variable" />
                             </items>
@@ -46,6 +44,7 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
                       <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="79.0" text="Parse" />
+                        <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="69.0" text="Load" />
                     </items>
                   </ToolBar>
                     </children>
@@ -81,7 +80,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Name" />
-                                    <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" fx:id="connectionName">
+                                    <ChoiceBox fx:id="connectionName" prefWidth="150.0" GridPane.columnIndex="1">
                                     </ChoiceBox>
                                  </children>
                               </GridPane>

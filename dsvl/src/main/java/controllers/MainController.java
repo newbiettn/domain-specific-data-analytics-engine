@@ -4,26 +4,21 @@ import beans.EpisodeNodeBean;
 import beans.PatientNodeBean;
 
 import beans.VariableNodeBean;
-import com.sun.org.apache.bcel.internal.generic.Select;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import eu.mihosoft.vrl.workflow.io.WorkflowIO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import beans.SelectNodeBean;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
-import javafx.scene.text.Text;
-import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
@@ -34,6 +29,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 /**
  * Main controller.
@@ -116,14 +112,24 @@ public class MainController {
             @Override
             public void onChanged(Change<? extends Connection> c) {
                 while (c.next()){
-                    if (c.wasAdded()){
-                        List<? extends Connection> subList = c.getAddedSubList();
+//                    if (c.wasAdded()){
+                        List<? extends Connection> subList = c.getList();
                         logger.info("Connection list has been added by " + subList.size());
                         for (int i = 0; i < subList.size(); i++){
                             Connection conn = subList.get(i);
                             addEventHandlerForConn(conn);
-                        }
+//                        }
                     }
+                }
+            }
+        });
+        flow.getNodes().addListener(new ListChangeListener<VNode>() {
+            @Override
+            public void onChanged(Change<? extends VNode> c) {
+                if (conns.getConnections().size() > 0){
+                    Connection con = conns.getConnections().get(0);
+                    conns.getConnections().remove(con);
+                    conns.getConnections().add(con);
                 }
             }
         });
@@ -138,6 +144,7 @@ public class MainController {
             p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    System.out.println(p);
                     selectedConnection = con;
                     String t = selectedConnection.getConnectionText().getText();
                     logger.info("Click on:" + con);
@@ -158,7 +165,6 @@ public class MainController {
                             connectionName.getSelectionModel().select(t);
                         }
                     }
-
                 }
             });
         connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -176,8 +182,8 @@ public class MainController {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean());
         n.setMainOutput(n.addOutput("data"));
-        n.getMainOutput("data").setMaxNumberOfConnections(1);
-        flow.setSkinFactoriesNewbiettn(skinFactory);
+        n.getMainOutput("data").setMaxNumberOfConnections(10);
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -196,12 +202,11 @@ public class MainController {
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new PatientNodeBean(cns));
-        n.getValueObject().setValue(new EpisodeNodeBean(cns));
         n.setMainInput(n.addInput("data"));
         n.setMainOutput(n.addOutput("data"));
         n.getMainInput("data").setMaxNumberOfConnections(10);
-        n.getMainOutput("data").setMaxNumberOfConnections(1);
-        flow.setSkinFactoriesNewbiettn(skinFactory);
+        n.getMainOutput("data").setMaxNumberOfConnections(10);
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -214,9 +219,9 @@ public class MainController {
         n.getValueObject().setValue(new EpisodeNodeBean(cns));
         n.setMainInput(n.addInput("data"));
         n.setMainOutput(n.addOutput("data"));
-        n.getMainInput("data").setMaxNumberOfConnections(1);
-        n.getMainOutput("data").setMaxNumberOfConnections(1);
-        flow.setSkinFactoriesNewbiettn(skinFactory);
+        n.getMainInput("data").setMaxNumberOfConnections(10);
+        n.getMainOutput("data").setMaxNumberOfConnections(10);
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -224,8 +229,8 @@ public class MainController {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new VariableNodeBean());
         n.setMainInput(n.addInput("data"));
-        n.getMainInput("data").setMaxNumberOfConnections(1);
-        flow.setSkinFactoriesNewbiettn(skinFactory);
+        n.getMainInput("data").setMaxNumberOfConnections(10);
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -236,7 +241,26 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    @FXML
+    public void loadFlow() {
+        System.out.print(" >> loading workflow from xml");
+
+        try {
+            flow = WorkflowIO.loadFromXML(Paths.get("flow01.xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(" [done]");
+        updateUI();
+    }
+
+    private void updateUI() {
+        rootPane.getChildren().clear();
+        flow.getModel().setVisible(true);
+        flow.setSkinFactories(skinFactory);
     }
 
 }

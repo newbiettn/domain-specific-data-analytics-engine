@@ -8,6 +8,7 @@ import eu.mihosoft.vrl.workflow.fx.FXSkinFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import jfxtras.scene.control.window.CloseIcon;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -37,8 +38,7 @@ public class SelectNodeSkin extends CustomFlowNodeSkin {
             Logger.getLogger(SelectNodeSkin.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
-        getModel().setTitle("SELECT Node");
-        getNode().getLeftIcons().clear();
+        getModel().setTitle("Select Node");
         getNode().setPrefSize(30, 80);
 
         SelectNodeController controller = fxmlLoader.getController();

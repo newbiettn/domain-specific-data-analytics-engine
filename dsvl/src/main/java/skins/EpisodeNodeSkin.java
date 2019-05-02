@@ -42,7 +42,6 @@ public class EpisodeNodeSkin extends CustomFlowNodeSkin {
         }
 
         getModel().setTitle("Episode Node");
-        getNode().getLeftIcons().clear();
         getNode().setPrefSize(100, 80);
 
         EpisodeNodeController controller = fxmlLoader.getController();

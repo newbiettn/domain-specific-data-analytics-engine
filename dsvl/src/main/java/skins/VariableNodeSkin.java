@@ -43,8 +43,6 @@ public class VariableNodeSkin extends CustomFlowNodeSkin {
 
 //        getNode().getStyleClass().setAll("patient-node-window");
         getModel().setTitle("Variable Node");
-        getNode().getLeftIcons().clear();
-
         getNode().setPrefSize(100, 80);
 
         VariableNodeController controller = fxmlLoader.getController();
