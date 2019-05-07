@@ -1,6 +1,8 @@
 package beans;
 
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 
 /**
@@ -12,7 +14,7 @@ import java.util.ArrayList;
  */
 public class EpisodeNodeBean extends ObjectBean{
 
-    public EpisodeNodeBean(ArrayList<String> cns) {
-        super(cns);
+    public EpisodeNodeBean(ArrayList<Pair<String, Class>> outputs) {
+        super(outputs);
     }
 }

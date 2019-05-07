@@ -2,6 +2,7 @@ package beans;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -12,16 +13,17 @@ import java.util.ArrayList;
  * @since 2019-04-08
  */
 public class ObjectBean {
-    private String variable;
-    private ObservableList<String> connNames = FXCollections.observableArrayList();
-    private int maxOutputConn;
-    private int maxInputConn;
-    private int minOutputConn;
-    private int minInputConn;
+    protected String variable;
+    protected ObservableList<Pair<String, Class>> outputs = FXCollections.observableArrayList();
 
-    public ObjectBean(ArrayList<String> cns){
-        for (String cn : cns){
-            connNames.add(cn);
+    protected int maxOutputConn;
+    protected int maxInputConn;
+    protected int minOutputConn;
+    protected int minInputConn;
+
+    public ObjectBean(ArrayList<Pair<String, Class>> outputs){
+        for (Pair<String, Class> o: outputs){
+            this.outputs.add(o);
         }
     }
 
@@ -33,12 +35,12 @@ public class ObjectBean {
         this.variable = variable;
     }
 
-    public ObservableList<String> getConnNames() {
-        return connNames;
+    public ObservableList<Pair<String, Class>> getOutputs() {
+        return outputs;
     }
 
-    public void setConnNames(ObservableList<String> connNames) {
-        this.connNames = connNames;
+    public void setOutputs(ObservableList<Pair<String, Class>> outputs) {
+        this.outputs = outputs;
     }
 
     public int getMaxOutputConn() {

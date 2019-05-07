@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public abstract class CustomFlowNodeSkin extends FXFlowNodeSkinBase {
+public abstract class CustomFlowNodeSkin extends CustomFXFlowNodeSkinBase {
 
     private static Logger logger = LoggerFactory.getLogger(CustomFlowNodeSkin.class);
     public CustomFlowNodeSkin(FXSkinFactory skinFactory, VNode model, VFlow controller) {

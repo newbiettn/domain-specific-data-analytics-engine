@@ -11,7 +11,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,14 +21,13 @@ import javafx.scene.shape.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
-
+import javafx.util.Pair;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 
 /**
  * Main controller.
@@ -40,13 +38,14 @@ import java.util.logging.Level;
  */
 public class MainController {
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
-    private FXValueSkinFactory skinFactory;
+    private CustomFXValueSkinFactory skinFactory;
     private ObservableList<VNode> nodes;
     private VFlow flow;
     private VCanvas canvas;
     private Pane rootPane;
     private Connection selectedConnection;
     private VFlow cloneFlow;
+    private Connections conns;
 
     @FXML
     private Pane contentPane;
@@ -90,9 +89,9 @@ public class MainController {
         rootPane.getChildren().clear();
 
         // Node flow
-        flow = FlowFactory.newFlow();
+        flow = CustomFlowFactory.newFlow();
         flow.setVisible(true);
-        cloneFlow = FlowFactory.newFlow();
+        cloneFlow = CustomFlowFactory.newFlow();
         cloneFlow.setVisible(false);
 
         // Create skin factory for flow visualization
@@ -107,82 +106,89 @@ public class MainController {
         rightAccordion.setExpandedPane(propertiesTitledPane);
 
         // add event handler for new connection when added
-        Connections conns = flow.getConnections("data");
-        conns.getConnections().addListener(new ListChangeListener<Connection>() {
+        ListChangeListener<Connection> listener = new ListChangeListener<Connection>() {
             @Override
             public void onChanged(Change<? extends Connection> c) {
-                while (c.next()){
-//                    if (c.wasAdded()){
+                while (c.next()) {
+                    if (c.wasAdded()) {
                         List<? extends Connection> subList = c.getList();
                         logger.info("Connection list has been added by " + subList.size());
-                        for (int i = 0; i < subList.size(); i++){
+                        for (int i = 0; i < subList.size(); i++) {
                             Connection conn = subList.get(i);
-                            addEventHandlerForConn(conn);
+//                            addEventHandlerForConn(conn);
+                        }
+                    }
+                }
+            }
+        };
+
+        flow.getConnections("main").getConnections().addListener(listener);
+        flow.getConnections("second").getConnections().addListener(listener);
+//        conns.getConnections().addListener(listener);
+//        flow.getNodes().addListener(new ListChangeListener<VNode>() {
+//            @Override
+//            public void onChanged(Change<? extends VNode> c) {
+//                if (conns.getConnections().size() > 0){
+//                    Connection con = conns.getConnections().get(0);
+//                    conns.getConnections().remove(con);
+//                    conns.getConnections().add(con);
+//                }
+//            }
+//        });
+    }
+
+//    /**
+//     *
+//     * @param con
+//     */
+//    public void addEventHandlerForConn(Connection con){
+//            Path p = con.getConnectionPath();
+//            p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    System.out.println(p);
+//                    selectedConnection = con;
+//                    String t = selectedConnection.getConnectionText().getText();
+//                    logger.info("Click on:" + con);
+//
+//                    VNode sender = con.getSender().getNode();
+//                    Object obj = sender.getValueObject().getValue();
+//                    if (obj.getClass().equals(PatientNodeBean.class)){
+//                        PatientNodeBean bean = (PatientNodeBean) obj;
+//                        connectionName.setItems(bean.getConnNames());
+//                        if (!t.isEmpty()){
+//                            connectionName.getSelectionModel().select(t);
 //                        }
-                    }
-                }
-            }
-        });
-        flow.getNodes().addListener(new ListChangeListener<VNode>() {
-            @Override
-            public void onChanged(Change<? extends VNode> c) {
-                if (conns.getConnections().size() > 0){
-                    Connection con = conns.getConnections().get(0);
-                    conns.getConnections().remove(con);
-                    conns.getConnections().add(con);
-                }
-            }
-        });
-    }
-
-    /**
-     *
-     * @param con
-     */
-    public void addEventHandlerForConn(Connection con){
-            Path p = con.getConnectionPath();
-            p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    System.out.println(p);
-                    selectedConnection = con;
-                    String t = selectedConnection.getConnectionText().getText();
-                    logger.info("Click on:" + con);
-
-                    VNode sender = con.getSender().getNode();
-                    Object obj = sender.getValueObject().getValue();
-                    if (obj.getClass().equals(PatientNodeBean.class)){
-                        PatientNodeBean bean = (PatientNodeBean) obj;
-                        connectionName.setItems(bean.getConnNames());
-                        if (!t.isEmpty()){
-                            connectionName.getSelectionModel().select(t);
-                        }
-
-                    } else if (obj.getClass().equals(EpisodeNodeBean.class)){
-                        EpisodeNodeBean bean = (EpisodeNodeBean) obj;
-                        connectionName.setItems(bean.getConnNames());
-                        if (!t.isEmpty()){
-                            connectionName.getSelectionModel().select(t);
-                        }
-                    }
-                }
-            });
-        connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    String newName = newValue;
-                    selectedConnection.getConnectionText().setText(newName);
-                    selectedConnection.setName(newName);
-            }
-        });
-    }
+//
+//                    } else if (obj.getClass().equals(EpisodeNodeBean.class)){
+//                        EpisodeNodeBean bean = (EpisodeNodeBean) obj;
+//                        connectionName.setItems(bean.getConnNames());
+//                        if (!t.isEmpty()){
+//                            connectionName.getSelectionModel().select(t);
+//                        }
+//                    }
+//                }
+//            });
+//        connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                    String newName = newValue;
+//                    selectedConnection.getConnectionText().setText(newName);
+//                    selectedConnection.setName(newName);
+//            }
+//        });
+//    }
 
     @FXML
     private void addSelectNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        Pair<String, Class> p1 = new Pair<>("", EpisodeNodeBean.class);
+        outputs.add(p1);
+
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new SelectNodeBean());
+        n.getValueObject().setValue(new SelectNodeBean(outputs));
         n.setMainOutput(n.addOutput("data"));
-        n.getMainOutput("data").setMaxNumberOfConnections(10);
+
         flow.setSkinFactories(skinFactory);
     }
 
@@ -196,31 +202,38 @@ public class MainController {
 
     @FXML
     private void addPatientNode() {
-        ArrayList<String> cns = new ArrayList<>();
-        cns.add("hasURN");
-        cns.add("hasEpisode");
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        Pair<String, Class> p1 = new Pair<>("hasURN", VariableNodeBean.class);
+        Pair<String, Class> p2 = new Pair<>("hasEpisode", EpisodeNodeBean.class);
+        outputs.add(p1);
+        outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new PatientNodeBean(cns));
+        n.getValueObject().setValue(new PatientNodeBean(outputs));
         n.setMainInput(n.addInput("data"));
         n.setMainOutput(n.addOutput("data"));
-        n.getMainInput("data").setMaxNumberOfConnections(10);
-        n.getMainOutput("data").setMaxNumberOfConnections(10);
+
         flow.setSkinFactories(skinFactory);
     }
 
     @FXML
     private void addEpisodeNode() {
-        ArrayList<String> cns = new ArrayList<>();
-        cns.add("hasAge");
-        cns.add("hasDiabetesTestScore");
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        Pair<String, Class> p1 = new Pair<>("hasAge", VariableNodeBean.class);
+        Pair<String, Class> p2 = new Pair<>("hasDiabetesTestScore", VariableNodeBean.class);
+        outputs.add(p1);
+        outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new EpisodeNodeBean(cns));
+        n.getValueObject().setValue(new EpisodeNodeBean(outputs));
         n.setMainInput(n.addInput("data"));
         n.setMainOutput(n.addOutput("data"));
-        n.getMainInput("data").setMaxNumberOfConnections(10);
-        n.getMainOutput("data").setMaxNumberOfConnections(10);
+        n.getMainInput("data").addClickEventListener(new EventHandler<ClickEvent>() {
+            @Override
+            public void handle(ClickEvent event) {
+                System.out.println("AAAAAAAAAA");
+            }
+        });
         flow.setSkinFactories(skinFactory);
     }
 
@@ -228,8 +241,7 @@ public class MainController {
     private void addVariableNode() {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new VariableNodeBean());
-        n.setMainInput(n.addInput("data"));
-        n.getMainInput("data").setMaxNumberOfConnections(10);
+        n.setMainInput(n.addInput("variable")).setMaxNumberOfConnections(10);
         flow.setSkinFactories(skinFactory);
     }
 
