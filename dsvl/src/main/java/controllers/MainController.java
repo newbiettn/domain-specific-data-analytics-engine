@@ -65,7 +65,7 @@ public class MainController {
     private TitledPane propertiesTitledPane;
 
     @FXML
-    private ChoiceBox<String> connectionName;
+    private ChoiceBox<String> connectionNameChoiceBox;
 
     public MainController(){}
 
@@ -142,22 +142,24 @@ public class MainController {
             p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    System.out.println(p);
                     selectedConnection = con;
                     String t = selectedConnection.getConnectionText().getText();
                     logger.info("Click on:" + con);
 
                     VNode sender = con.getSender().getNode();
-                    ObjectBean obj = (ObjectBean) sender.getValueObject().getValue();
-                    ObservableList<Pair<String, Class>> outputs = obj.getOutputs();
+                    VNode receiver = con.getReceiver().getNode();
+                    ObjectBean senderObj = (ObjectBean) sender.getValueObject().getValue();
+                    ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
+                    ObservableList<Pair<String, Class>> outputs = senderObj.getOutputs();
                     ObservableList<String> connNames = FXCollections.observableArrayList();
                     for (Pair<String, Class> o : outputs){
-                        connNames.add(o.getKey());
+                        if (o.getValue() == receiverObj.getClass())
+                            connNames.add(o.getKey());
                     }
-                    connectionName.setItems(connNames);
+                    connectionNameChoiceBox.setItems(connNames);
                 }
             });
-        connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        connectionNameChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     String newName = newValue;

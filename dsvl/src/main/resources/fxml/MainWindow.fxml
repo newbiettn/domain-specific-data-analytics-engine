@@ -80,7 +80,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Name" />
-                                    <ChoiceBox fx:id="connectionName" prefWidth="150.0" GridPane.columnIndex="1">
+                                    <ChoiceBox fx:id="connectionNameChoiceBox" prefWidth="150.0" GridPane.columnIndex="1">
                                     </ChoiceBox>
                                  </children>
                               </GridPane>
