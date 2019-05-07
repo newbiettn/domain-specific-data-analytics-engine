@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
@@ -110,17 +111,16 @@ public class MainController {
             @Override
             public void onChanged(Change<? extends Connection> c) {
                 while (c.next()){
-//                    if (c.wasAdded()){
                     List<? extends Connection> subList = c.getList();
                     logger.info("Connection list has been added by " + subList.size());
                     for (int i = 0; i < subList.size(); i++){
                         Connection conn = subList.get(i);
                         addEventHandlerForConn(conn);
-//                        }
                     }
                 }
             }
         });
+
         flow.getNodes().addListener(new ListChangeListener<VNode>() {
             @Override
             public void onChanged(Change<? extends VNode> c) {
@@ -173,7 +173,9 @@ public class MainController {
     private void addSelectNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
         Pair<String, Class> p1 = new Pair<>("", EpisodeNodeBean.class);
+        Pair<String, Class> p2 = new Pair<>("", PatientNodeBean.class);
         outputs.add(p1);
+        outputs.add(p2);
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean(outputs));

@@ -1,12 +1,16 @@
 package controllers;
 
+import beans.ObjectBean;
 import eu.mihosoft.vrl.workflow.Connection;
 import eu.mihosoft.vrl.workflow.ConnectionResult;
 import eu.mihosoft.vrl.workflow.VFlow;
 import eu.mihosoft.vrl.workflow.VNode;
 import eu.mihosoft.vrl.workflow.fx.*;
 import eu.mihosoft.vrl.workflow.skin.VNodeSkin;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.util.Pair;
 
 import java.util.List;
 
@@ -43,6 +47,7 @@ public class CustomConnectionListener implements ConnectionListener {
     public void onConnectionIncompatible() {
 //        System.out.println("onConnectionIncompatible");
         FXConnectorUtil.incompatibleAnim(receiverConnectorUI);
+
     }
 
     @Override
@@ -54,6 +59,7 @@ public class CustomConnectionListener implements ConnectionListener {
     public void onCreateNewConnectionReleased(ConnectionResult connResult) {
 //        System.out.println("onCreateNewConnectionReleased");
         newConnectionAnim(connResult);
+        updateConnectionName(connResult.getConnection());
     }
 
     @Override
@@ -88,6 +94,23 @@ public class CustomConnectionListener implements ConnectionListener {
                     skinFactory, connResult.getConnection());
 
             FXConnectorUtil.connnectionEstablishedAnim(connectionSkin.getSenderShape().getNode());
+        }
+    }
+
+    private void updateConnectionName(Connection conn){
+        VNode sender = conn.getSender().getNode();
+        VNode receiver = conn.getReceiver().getNode();
+        ObjectBean senderObj = (ObjectBean) sender.getValueObject().getValue();
+        ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
+        ObservableList<javafx.util.Pair<String, Class>> outputs = senderObj.getOutputs();
+        ObservableList<String> connNames = FXCollections.observableArrayList();
+        for (Pair<String, Class> o : outputs){
+            if (o.getValue() == receiverObj.getClass())
+                connNames.add(o.getKey());
+        }
+        if (connNames.size() == 1){
+            conn.getConnectionText().setText(connNames.get(0));
+            conn.setName(connNames.get(0));
         }
     }
 
