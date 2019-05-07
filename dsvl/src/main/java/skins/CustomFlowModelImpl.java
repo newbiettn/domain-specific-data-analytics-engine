@@ -119,8 +119,6 @@ public class CustomFlowModelImpl implements FlowModel {
             @Override
             public boolean isCompatible() {
                 boolean isReceiverCompatible = false;
-//        System.out.println(s.getNode().getValueObject().getValue());
-//        System.out.println(r.getNode().getValueObject().getValue());
                 ObjectBean senderBean = (ObjectBean) s.getNode().getValueObject().getValue();
                 ObjectBean receiverBean = (ObjectBean) r.getNode().getValueObject().getValue();
                 ObservableList<Pair<String, Class>> senderOutputs = senderBean.getOutputs();

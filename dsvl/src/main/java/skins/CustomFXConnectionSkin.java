@@ -74,7 +74,6 @@ public class CustomFXConnectionSkin extends DefaultFXConnectionSkin {
 
     @Override
     protected void initConnectionListener() {
-        System.out.println("initConnectionListener");
         connectionListener
                 = new CustomConnectionListener(
                 skinFactory, controller, receiverConnectorUI);
