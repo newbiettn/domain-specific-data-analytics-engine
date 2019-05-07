@@ -1,20 +1,19 @@
 package controllers;
 
-import beans.EpisodeNodeBean;
-import beans.PatientNodeBean;
+import beans.*;
 
-import beans.VariableNodeBean;
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXUIFactory;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import eu.mihosoft.vrl.workflow.io.WorkflowIO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import beans.SelectNodeBean;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
@@ -46,7 +45,6 @@ public class MainController {
     private Pane rootPane;
     private Connection selectedConnection;
     private VFlow cloneFlow;
-    private Connections conns;
 
     @FXML
     private Pane contentPane;
@@ -107,78 +105,67 @@ public class MainController {
         rightAccordion.setExpandedPane(propertiesTitledPane);
 
         // add event handler for new connection when added
-        ListChangeListener<Connection> listener = new ListChangeListener<Connection>() {
+        Connections conns = flow.getConnections(CONNECTION_NAME);
+        conns.getConnections().addListener(new ListChangeListener<Connection>() {
             @Override
             public void onChanged(Change<? extends Connection> c) {
-                while (c.next()) {
-                    if (c.wasAdded()) {
-                        List<? extends Connection> subList = c.getList();
-                        logger.info("Connection list has been added by " + subList.size());
-                        for (int i = 0; i < subList.size(); i++) {
-                            Connection conn = subList.get(i);
-//                            addEventHandlerForConn(conn);
-                        }
+                while (c.next()){
+//                    if (c.wasAdded()){
+                    List<? extends Connection> subList = c.getList();
+                    logger.info("Connection list has been added by " + subList.size());
+                    for (int i = 0; i < subList.size(); i++){
+                        Connection conn = subList.get(i);
+                        addEventHandlerForConn(conn);
+//                        }
                     }
                 }
             }
-        };
-
-        flow.getConnections("main").getConnections().addListener(listener);
-        flow.getConnections("second").getConnections().addListener(listener);
-//        conns.getConnections().addListener(listener);
-//        flow.getNodes().addListener(new ListChangeListener<VNode>() {
-//            @Override
-//            public void onChanged(Change<? extends VNode> c) {
-//                if (conns.getConnections().size() > 0){
-//                    Connection con = conns.getConnections().get(0);
-//                    conns.getConnections().remove(con);
-//                    conns.getConnections().add(con);
-//                }
-//            }
-//        });
+        });
+        flow.getNodes().addListener(new ListChangeListener<VNode>() {
+            @Override
+            public void onChanged(Change<? extends VNode> c) {
+                if (conns.getConnections().size() > 0){
+                    Connection con = conns.getConnections().get(0);
+                    conns.getConnections().remove(con);
+                    conns.getConnections().add(con);
+                }
+            }
+        });
     }
 
-//    /**
-//     *
-//     * @param con
-//     */
-//    public void addEventHandlerForConn(Connection con){
-//            Path p = con.getConnectionPath();
-//            p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    System.out.println(p);
-//                    selectedConnection = con;
-//                    String t = selectedConnection.getConnectionText().getText();
-//                    logger.info("Click on:" + con);
-//
-//                    VNode sender = con.getSender().getNode();
-//                    Object obj = sender.getValueObject().getValue();
-//                    if (obj.getClass().equals(PatientNodeBean.class)){
-//                        PatientNodeBean bean = (PatientNodeBean) obj;
-//                        connectionName.setItems(bean.getConnNames());
-//                        if (!t.isEmpty()){
-//                            connectionName.getSelectionModel().select(t);
-//                        }
-//
-//                    } else if (obj.getClass().equals(EpisodeNodeBean.class)){
-//                        EpisodeNodeBean bean = (EpisodeNodeBean) obj;
-//                        connectionName.setItems(bean.getConnNames());
-//                        if (!t.isEmpty()){
-//                            connectionName.getSelectionModel().select(t);
-//                        }
-//                    }
-//                }
-//            });
-//        connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                    String newName = newValue;
-//                    selectedConnection.getConnectionText().setText(newName);
-//                    selectedConnection.setName(newName);
-//            }
-//        });
-//    }
+    /**
+     *
+     * @param con
+     */
+    public void addEventHandlerForConn(Connection con){
+            Path p = con.getConnectionPath();
+            p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println(p);
+                    selectedConnection = con;
+                    String t = selectedConnection.getConnectionText().getText();
+                    logger.info("Click on:" + con);
+
+                    VNode sender = con.getSender().getNode();
+                    ObjectBean obj = (ObjectBean) sender.getValueObject().getValue();
+                    ObservableList<Pair<String, Class>> outputs = obj.getOutputs();
+                    ObservableList<String> connNames = FXCollections.observableArrayList();
+                    for (Pair<String, Class> o : outputs){
+                        connNames.add(o.getKey());
+                    }
+                    connectionName.setItems(connNames);
+                }
+            });
+        connectionName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    String newName = newValue;
+                    selectedConnection.getConnectionText().setText(newName);
+                    selectedConnection.setName(newName);
+            }
+        });
+    }
 
     @FXML
     private void addSelectNode() {
@@ -229,7 +216,7 @@ public class MainController {
         n.getValueObject().setValue(new EpisodeNodeBean(outputs));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
-        n.getMainInput("data").addClickEventListener(new EventHandler<ClickEvent>() {
+        n.getMainInput(CONNECTION_NAME).addClickEventListener(new EventHandler<ClickEvent>() {
             @Override
             public void handle(ClickEvent event) {
                 System.out.println("AAAAAAAAAA");
