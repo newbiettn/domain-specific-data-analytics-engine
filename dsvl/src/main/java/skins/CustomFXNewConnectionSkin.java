@@ -119,7 +119,6 @@ public class CustomFXNewConnectionSkin extends AbstractFXConnectionSkin {
 //                        return;
 //                    }
                 ConnectionResult connResult = null;
-                System.out.println(flow);
 
                 if (getSender().isInput() && receiverConnectorModel.isOutput()) {
 
@@ -193,25 +192,8 @@ public class CustomFXNewConnectionSkin extends AbstractFXConnectionSkin {
                                     onCreateNewConnectionReverseReleased(connResult);
 
                         } else {
-//                            boolean isReceiverCompatible = false;
-//                            System.out.println(getSender().getNode().getValueObject().getValue().getClass());
-//                            System.out.println(receiverConnector.getNode().getValueObject().getValue().getClass());
-//                            ObjectBean senderBean = (ObjectBean) getSender().getNode().getValueObject().getValue();
-//                            ObjectBean receiverBean = (ObjectBean) receiverConnector.getNode().getValueObject().getValue();
-//                            ObservableList<Pair<String, Class>> senderOutputs = senderBean.getOutputs();
-//                            System.out.println(receiverBean.getClass());
-//                            for (Pair<String, Class> o : senderOutputs){
-//                                if (o.getValue() == receiverBean.getClass()){
-//                                    isReceiverCompatible = true;
-//                                }
-//                            }
-//                            if (isReceiverCompatible) {
-//                                System.out.println("true");
-                                connResult = flow.connect(getSender(), receiverConnector, getName());
-                                connectionListener.onCreateNewConnectionReleased(connResult);
-//                            } else {
-//                                connectionListener.onConnectionIncompatibleReleased(n);
-//                            }
+                            connResult = flow.connect(getSender(), receiverConnector, getName());
+                            connectionListener.onCreateNewConnectionReleased(connResult);
                         }
 
                         if (!connResult.getStatus().isCompatible()) {
