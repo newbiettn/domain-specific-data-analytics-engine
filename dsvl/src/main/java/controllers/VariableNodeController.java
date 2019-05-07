@@ -40,7 +40,7 @@ public class VariableNodeController {
             node.setWidth(desireWidth+30);
             nodeHboxContainer.setPrefWidth(desireWidth+20);
             nodeBorderPaneContainer.setPrefWidth(desireWidth);
-            variableNodeBean.setValue(variableNodeTextField.getText());
+            variableNodeBean.setVariable(variableNodeTextField.getText());
         };
         variableNodeTextField.addEventFilter(KeyEvent.KEY_PRESSED, typingHandler);
     }

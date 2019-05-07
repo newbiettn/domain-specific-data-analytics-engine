@@ -27,6 +27,9 @@ public class ObjectBean {
         }
     }
 
+    public ObjectBean() {
+    }
+
     public String getVariable() {
         return variable;
     }

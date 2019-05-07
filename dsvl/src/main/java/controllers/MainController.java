@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
  *
  */
 public class MainController {
+    private final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
     private CustomFXValueSkinFactory skinFactory;
     private ObservableList<VNode> nodes;
@@ -187,7 +188,7 @@ public class MainController {
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean(outputs));
-        n.setMainOutput(n.addOutput("data"));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
     }
@@ -210,8 +211,8 @@ public class MainController {
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new PatientNodeBean(outputs));
-        n.setMainInput(n.addInput("data"));
-        n.setMainOutput(n.addOutput("data"));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
     }
@@ -226,8 +227,8 @@ public class MainController {
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new EpisodeNodeBean(outputs));
-        n.setMainInput(n.addInput("data"));
-        n.setMainOutput(n.addOutput("data"));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
         n.getMainInput("data").addClickEventListener(new EventHandler<ClickEvent>() {
             @Override
             public void handle(ClickEvent event) {
@@ -241,7 +242,7 @@ public class MainController {
     private void addVariableNode() {
         VNode n = flow.newNode();
         n.getValueObject().setValue(new VariableNodeBean());
-        n.setMainInput(n.addInput("variable")).setMaxNumberOfConnections(10);
+        n.setMainInput(n.addInput(CONNECTION_NAME));
         flow.setSkinFactories(skinFactory);
     }
 
