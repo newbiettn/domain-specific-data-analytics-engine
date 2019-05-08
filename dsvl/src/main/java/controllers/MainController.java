@@ -2,10 +2,10 @@ package controllers;
 
 import beans.*;
 
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXUIFactory;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import eu.mihosoft.vrl.workflow.io.WorkflowIO;
+import io.CustomWorkflowIO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
-import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skins.*;
@@ -45,7 +44,6 @@ public class MainController {
     private VCanvas canvas;
     private Pane rootPane;
     private Connection selectedConnection;
-    private VFlow cloneFlow;
 
     @FXML
     private Pane contentPane;
@@ -91,8 +89,6 @@ public class MainController {
         // Node flow
         flow = CustomFlowFactory.newFlow();
         flow.setVisible(true);
-        cloneFlow = CustomFlowFactory.newFlow();
-        cloneFlow.setVisible(false);
 
         // Create skin factory for flow visualization
         skinFactory = new CustomFXValueSkinFactory(canvas);
@@ -240,7 +236,7 @@ public class MainController {
     @FXML
     private void parseFlow(){
         try {
-            WorkflowIO.saveToXML(Paths.get("flow01.xml"), flow.getModel());
+            CustomWorkflowIO.saveToXML(Paths.get("flow01.xml"), flow.getModel());
             logger.info("Parsed the flow");
         } catch (IOException e) {
             e.printStackTrace();
@@ -252,7 +248,7 @@ public class MainController {
         System.out.print(" >> loading workflow from xml");
 
         try {
-            flow = WorkflowIO.loadFromXML(Paths.get("flow01.xml"));
+            flow = CustomWorkflowIO.loadFromXML(Paths.get("flow01.xml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
