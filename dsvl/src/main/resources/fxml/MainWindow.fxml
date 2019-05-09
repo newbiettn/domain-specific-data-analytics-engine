@@ -36,15 +36,16 @@
                                 <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
                             </items>
                         </ToolBar>
-                        <ToolBar prefHeight="39.0" prefWidth="345.0">
+                        <ToolBar prefHeight="39.0" prefWidth="239.0">
                             <items>
                                 <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Variable" />
                             </items>
                         </ToolBar>
-                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                  <ToolBar prefHeight="39.0" prefWidth="243.0">
                     <items>
                       <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="79.0" text="Parse" />
                         <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="69.0" text="Load" />
+                        <Button mnemonicParsing="false" text="Find" onAction="#testFlow"/>
                     </items>
                   </ToolBar>
                     </children>

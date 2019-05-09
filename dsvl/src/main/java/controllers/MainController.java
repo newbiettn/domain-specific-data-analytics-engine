@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import parsing.ParseTree;
 import skins.*;
 import javafx.util.Pair;
 import java.io.IOException;
@@ -36,7 +37,7 @@ import java.util.ResourceBundle;
  *
  */
 public class MainController {
-    private final String CONNECTION_NAME = "data";
+    public static final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
     private CustomFXValueSkinFactory skinFactory;
     private ObservableList<VNode> nodes;
@@ -261,6 +262,13 @@ public class MainController {
         rootPane.getChildren().clear();
         flow.getModel().setVisible(true);
         flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void testFlow(){
+        ParseTree pt = new ParseTree();
+        pt.parse(flow);
+        pt.printPreorder();
     }
 
 }
