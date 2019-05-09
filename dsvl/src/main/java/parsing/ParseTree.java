@@ -22,7 +22,7 @@ public class ParseTree {
      * Print tree in preorder.
      * @param node
      */
-    public void printPreorder(Node node) {
+    public void printPreorder(Node node, int depth) {
         if (node == null)
             return;
 
@@ -31,8 +31,13 @@ public class ParseTree {
 
         if (node.getChildren().size() > 0) {
             System.out.print(" -> [");
+            depth++;
             for(Node each : node.getChildren()){
-                printPreorder(each);
+                System.out.print("\n");
+                for (int i = 0; i<depth; i++){
+                    System.out.print("\t");
+                }
+                printPreorder(each, depth);
             }
             System.out.print(" ] ");
         }
@@ -42,7 +47,7 @@ public class ParseTree {
      * Wrapper method for printing the parse tree.
      */
     public void printPreorder(){
-        printPreorder(root);
+        printPreorder(root, 0);
     }
 
     /**

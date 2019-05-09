@@ -25,11 +25,11 @@
   <connections/>
   <nodes>
     <node>
-      <x>480.0</x>
-      <y>135.0</y>
-      <width>169.0</width>
+      <x>228.33333333333334</x>
+      <y>143.33333333333334</y>
+      <width>162.0</width>
       <height>80.0</height>
-      <title>Patient Node</title>
+      <title>Select Node</title>
       <vReq class="eu.mihosoft.vrl.workflow.VisualizationRequestImpl">
         <map class="com.sun.javafx.collections.ObservableMapWrapper">
           <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$Generic">
@@ -49,30 +49,17 @@
         <connector>
           <type>data</type>
           <localId>0</localId>
-          <input>true</input>
-          <output>false</output>
-          <passthru>false</passthru>
-          <maxNumConnections>2147483647</maxNumConnections>
-        </connector>
-        <connector>
-          <type>data</type>
-          <localId>1</localId>
           <input>false</input>
           <output>true</output>
           <passthru>false</passthru>
           <maxNumConnections>2147483647</maxNumConnections>
         </connector>
       </connectors>
-      <mainInputs>
-        <entry>
-          <string>data</string>
-          <string>0</string>
-        </entry>
-      </mainInputs>
+      <mainInputs/>
       <mainOutputs>
         <entry>
           <string>data</string>
-          <string>1</string>
+          <string>0</string>
         </entry>
       </mainOutputs>
     </node>
