@@ -1,6 +1,7 @@
 package parsing;
 
 import eu.mihosoft.vrl.workflow.VNode;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Node {
     private String id;
     private VNode vNode;
-    private ArrayList<Node> children;
+    private ArrayList<Pair<String, Node>> children;
 
     public Node(VNode vNode){
         this.id = vNode.getId();
@@ -37,11 +38,11 @@ public class Node {
         this.vNode = vNode;
     }
 
-    public ArrayList<Node> getChildren() {
+    public ArrayList<Pair<String, Node>> getChildren() {
         return children;
     }
 
-    public void setChildren(ArrayList<Node> children) {
+    public void setChildren(ArrayList<Pair<String, Node>> children) {
         this.children = children;
     }
 }

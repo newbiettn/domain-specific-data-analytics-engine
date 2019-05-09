@@ -2,6 +2,7 @@ package parsing;
 
 import controllers.MainController;
 import eu.mihosoft.vrl.workflow.*;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,12 +33,15 @@ public class ParseTree {
         if (node.getChildren().size() > 0) {
             System.out.print(" -> [");
             depth++;
-            for(Node each : node.getChildren()){
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                String connectionName = p.getKey();
                 System.out.print("\n");
                 for (int i = 0; i<depth; i++){
                     System.out.print("\t");
                 }
-                printPreorder(each, depth);
+                System.out.print(connectionName + "->");
+                printPreorder(child, depth);
             }
             System.out.print(" ] ");
         }
@@ -48,6 +52,7 @@ public class ParseTree {
      */
     public void printPreorder(){
         printPreorder(root, 0);
+        System.out.print("\n");
     }
 
     /**
@@ -61,9 +66,10 @@ public class ParseTree {
                 vRoot = v;
             }
         }
-
+        /* If not appropriate head root*/
         if (vRoot == null)
             return;
+
         root = new Node(vRoot);
         Connections connections = flow.getConnections(MainController.CONNECTION_NAME);
         addChild(connections, root, vRoot);
@@ -78,21 +84,24 @@ public class ParseTree {
      */
     private void addChild(Connections connections, Node parent, VNode vParent){
         Connector outputConnector = vParent.getMainOutput(MainController.CONNECTION_NAME);
+        /* If reaching no output nodes */
         if (outputConnector == null)
             return;
 
+        /* If reaching nodes having output connectors but no output connections */
         Collection<Connection> connectionCollection = connections.getAllWith(outputConnector);
         if (connectionCollection.size() == 0 || connectionCollection == null)
             return;
 
-        ArrayList<Node> children = new ArrayList<>();
+        ArrayList<Pair<String, Node>> children = new ArrayList<>();
         parent.setChildren(children);
         for (Connection c : connectionCollection){
             /* Add children*/
             VNode vChild = c.getReceiver().getNode();
+            String connectionName = c.getName();
             Node child = new Node(vChild);
             addChild(connections, child, vChild);
-            children.add(child);
+            children.add(new Pair(connectionName, child));
         }
     }
 
