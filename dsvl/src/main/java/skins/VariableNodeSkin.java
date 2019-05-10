@@ -48,6 +48,7 @@ public class VariableNodeSkin extends CustomFlowNodeSkin {
         VariableNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());
         controller.setVariableNodeBean((VariableNodeBean) getModel().getValueObject().getValue());
+        controller.reloadVariable();
 
         Pane root = (Pane) fxmlLoader.getRoot();
         return root;

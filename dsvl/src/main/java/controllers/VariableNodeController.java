@@ -49,6 +49,11 @@ public class VariableNodeController {
         variableNodeTextField.addEventFilter(KeyEvent.KEY_PRESSED, typingHandler);
     }
 
+    public void reloadVariable(){
+        variableNodeTextField.setText(variableNodeBean.getVariable());
+
+    }
+
     public VNode getNode() { return node; }
     public void setNode(VNode node) { this.node = node; }
     public VariableNodeBean getVariableNodeBean() { return variableNodeBean; }

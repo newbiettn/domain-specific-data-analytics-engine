@@ -11,6 +11,7 @@ public class VariableNodeBean extends ObjectBean{
 
     public VariableNodeBean(int id) {
         this.id = id;
+        this.variable = "";
         this.outputs = null;
         this.sparqlValue = null;
         this.maxOutputConn = 0;
