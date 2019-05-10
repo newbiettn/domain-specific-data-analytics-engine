@@ -13,15 +13,17 @@ import java.util.ArrayList;
  * @since 2019-04-08
  */
 public class ObjectBean {
-    protected String variable;
-    protected ObservableList<Pair<String, Class>> outputs = FXCollections.observableArrayList();
-
+    protected int id;
+    protected String sparqlValue;
+    protected ObservableList<Pair<String, Class>> outputs;
     protected int maxOutputConn;
     protected int maxInputConn;
     protected int minOutputConn;
     protected int minInputConn;
 
-    public ObjectBean(ArrayList<Pair<String, Class>> outputs){
+    public ObjectBean(int id, ArrayList<Pair<String, Class>> outputs){
+        this.id = id;
+        this.outputs = FXCollections.observableArrayList();
         for (Pair<String, Class> o: outputs){
             this.outputs.add(o);
         }
@@ -30,12 +32,12 @@ public class ObjectBean {
     public ObjectBean() {
     }
 
-    public String getVariable() {
-        return variable;
+    public String getSparqlValue() {
+        return sparqlValue;
     }
 
-    public void setVariable(String variable) {
-        this.variable = variable;
+    public void setSparqlValue(String sparqlValue) {
+        this.sparqlValue = sparqlValue;
     }
 
     public ObservableList<Pair<String, Class>> getOutputs() {

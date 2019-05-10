@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * @since 2019-March-01
  */
 public class PatientNodeBean extends ObjectBean{
-    public PatientNodeBean(ArrayList<Pair<String, Class>> outputs) {
-        super(outputs);
-        this.variable = null;
+    public PatientNodeBean(int id, ArrayList<Pair<String, Class>> outputs) {
+        super(id, outputs);
+        this.sparqlValue = "?patient" + id;
         this.maxOutputConn = 1;
         this.maxInputConn = 0;
         this.minOutputConn = 1;

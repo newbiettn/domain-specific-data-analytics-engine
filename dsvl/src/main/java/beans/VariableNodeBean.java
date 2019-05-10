@@ -1,9 +1,5 @@
 package beans;
 
-import javafx.util.Pair;
-
-import java.util.ArrayList;
-
 /**
  * Represent the Variable node.
  *
@@ -11,11 +7,24 @@ import java.util.ArrayList;
  * @since 2019-03-26
  */
 public class VariableNodeBean extends ObjectBean{
-    public VariableNodeBean() {
-        this.variable = null;
+    private String variable;
+
+    public VariableNodeBean(int id) {
+        this.id = id;
+        this.outputs = null;
+        this.sparqlValue = null;
         this.maxOutputConn = 0;
         this.maxInputConn = 1;
         this.minOutputConn = 0;
         this.minInputConn = 1;
+    }
+
+    public String getVariable() {
+        return variable;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+        this.sparqlValue = variable;
     }
 }

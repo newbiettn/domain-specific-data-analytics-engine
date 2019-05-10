@@ -4,7 +4,6 @@ import beans.*;
 
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
-import eu.mihosoft.vrl.workflow.io.WorkflowIO;
 import io.CustomWorkflowIO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,6 +36,7 @@ import java.util.ResourceBundle;
  *
  */
 public class MainController {
+    public static int nodeCount = 0;
     public static final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
     private CustomFXValueSkinFactory skinFactory;
@@ -175,7 +175,7 @@ public class MainController {
         outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new SelectNodeBean(outputs));
+        n.getValueObject().setValue(new SelectNodeBean(++nodeCount, outputs));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
@@ -198,7 +198,7 @@ public class MainController {
         outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new PatientNodeBean(outputs));
+        n.getValueObject().setValue(new PatientNodeBean(++nodeCount, outputs));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
@@ -214,7 +214,7 @@ public class MainController {
         outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new EpisodeNodeBean(outputs));
+        n.getValueObject().setValue(new EpisodeNodeBean(++nodeCount, outputs));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
         n.getMainInput(CONNECTION_NAME).addClickEventListener(new EventHandler<ClickEvent>() {
@@ -229,7 +229,7 @@ public class MainController {
     @FXML
     private void addVariableNode() {
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new VariableNodeBean());
+        n.getValueObject().setValue(new VariableNodeBean(++nodeCount));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         flow.setSkinFactories(skinFactory);
     }
@@ -268,7 +268,8 @@ public class MainController {
     private void testFlow(){
         ParseTree pt = new ParseTree();
         pt.parse(flow);
-        pt.printPreorder();
+//        pt.printPreorder();
+        pt.printSPARQL();
     }
 
 }

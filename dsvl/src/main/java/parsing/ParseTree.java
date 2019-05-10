@@ -1,8 +1,12 @@
 package parsing;
 
+import beans.ObjectBean;
+import beans.SelectNodeBean;
 import controllers.MainController;
 import eu.mihosoft.vrl.workflow.*;
 import javafx.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,9 +18,71 @@ import java.util.Collection;
  * @since 2019-05-09
  */
 public class ParseTree {
+    private static Logger logger = LoggerFactory.getLogger(ParseTree.class);
     Node root;
     public ParseTree(){
         root = null;
+    }
+
+    /**
+     * Print to SPARQL format.
+     *
+     * @param node
+     */
+    public void printSPARQL(Node node, int depth){
+        if (node == null)
+            return;
+
+        /* first print data of node */
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        System.out.print(objectBean.getSparqlValue());
+
+        if (node.getChildren().size() > 0) {
+            depth++;
+            if (depth == 1){
+                for(Pair<String, Node> p : node.getChildren()){
+                    Node child = p.getValue();
+                    System.out.print(" ");
+                    printSPARQL(child, depth);
+                }
+            } else {
+                System.out.print(" { ");
+                for(Pair<String, Node> p : node.getChildren()){
+                    Node child = p.getValue();
+                    VNode vChild = child.getVNode();
+                    String connectionName = p.getKey();
+
+                    System.out.print("\n");
+                    System.out.print(objectBean.getSparqlValue());
+                    System.out.print(" " + connectionName + " ");
+                    printSPARQL(child, depth);
+                }
+                System.out.print(" } ");
+            }
+        }
+
+    }
+
+    /**
+     * Wrapper function for printSPARQL.
+     */
+    public boolean printSPARQL(){
+        /* If not appropriate root to parse to SPARQL (e.g., SELECT, ASK, ...) */
+        if (root == null) {
+            logger.error("Require appropriate root nodes (SELECT, ASK, ...) to parse to SPARQL");
+            return false;
+        }
+
+        ObjectBean objectBean = (ObjectBean) root.getVNode().getValueObject().getValue();
+        if (objectBean.getClass() != SelectNodeBean.class){
+            logger.error("Require appropriate root nodes (SELECT, ASK, ...) to parse to SPARQL");
+            return false;
+        }
+
+        printSPARQL(root, 0);
+        System.out.print("\n");
+        return true;
     }
 
     /**
@@ -66,8 +132,13 @@ public class ParseTree {
                 vRoot = v;
             }
         }
-        /* If not appropriate head root*/
+        /* If no head root*/
         if (vRoot == null)
+            return;
+
+        /* If not appropriate root (i.e., SELECT, ASK, ...) */
+        ObjectBean objectBean = (ObjectBean) vRoot.getValueObject().getValue();
+        if (objectBean.getClass() != SelectNodeBean.class)
             return;
 
         root = new Node(vRoot);

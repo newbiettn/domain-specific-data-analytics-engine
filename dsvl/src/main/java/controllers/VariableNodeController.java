@@ -1,6 +1,5 @@
 package controllers;
 
-
 import beans.VariableNodeBean;
 import eu.mihosoft.vrl.workflow.VNode;
 import javafx.event.EventHandler;
@@ -10,11 +9,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import utils.TextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Controller for sparql nodes.
  */
 public class VariableNodeController {
+    private static Logger logger = LoggerFactory.getLogger(VariableNodeController.class);
     private VNode node;
     private VariableNodeBean variableNodeBean;
 
@@ -32,15 +34,17 @@ public class VariableNodeController {
 
     @FXML
     public void initialize() {
+        StringBuilder variable = new StringBuilder();
         EventHandler<KeyEvent> typingHandler = event -> {
             double desireWidth = TextUtils.computeTextWidth(variableNodeTextField.getFont(),
                     variableNodeTextField.getText(), 0.0D) + 25;
             variableNodeTextField.setPrefWidth(desireWidth);
-            System.out.println(node != null);
             node.setWidth(desireWidth+30);
             nodeHboxContainer.setPrefWidth(desireWidth+20);
             nodeBorderPaneContainer.setPrefWidth(desireWidth);
-            variableNodeBean.setVariable(variableNodeTextField.getText());
+            variable.append(event.getText());
+            variableNodeBean.setVariable(variable.toString());
+            logger.info(variable.toString());
         };
         variableNodeTextField.addEventFilter(KeyEvent.KEY_PRESSED, typingHandler);
     }

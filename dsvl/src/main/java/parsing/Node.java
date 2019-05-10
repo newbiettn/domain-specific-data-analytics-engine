@@ -30,7 +30,7 @@ public class Node {
         this.id = id;
     }
 
-    public VNode getvNode() {
+    public VNode getVNode() {
         return vNode;
     }
 

@@ -13,8 +13,12 @@ import java.util.ArrayList;
  *
  */
 public class EpisodeNodeBean extends ObjectBean{
-
-    public EpisodeNodeBean(ArrayList<Pair<String, Class>> outputs) {
-        super(outputs);
+    public EpisodeNodeBean(int id, ArrayList<Pair<String, Class>> outputs) {
+        super(id, outputs);
+        this.sparqlValue = "?episode" + id;
+        this.maxOutputConn = 1;
+        this.maxInputConn = 0;
+        this.minOutputConn = 1;
+        this.minInputConn = 0;
     }
 }
