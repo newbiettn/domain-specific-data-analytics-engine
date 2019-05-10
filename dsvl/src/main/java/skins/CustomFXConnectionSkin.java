@@ -4,21 +4,15 @@ import controllers.CustomConnectionListener;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import javafx.beans.binding.DoubleBinding;
-import javafx.collections.MapChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
 import jfxtras.labs.util.event.MouseControlUtil;
 
-import javax.swing.event.ChangeEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

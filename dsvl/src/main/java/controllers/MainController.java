@@ -35,6 +35,7 @@ import java.util.ResourceBundle;
  * @since 2019-03-1
  *
  */
+// TODO: Limit connection number for each types only 1
 public class MainController {
     public static int nodeCount = 0;
     public static final String CONNECTION_NAME = "data";
