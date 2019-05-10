@@ -270,7 +270,7 @@ public class MainController {
         ParseTree pt = new ParseTree();
         pt.parse(flow);
 //        pt.printPreorder();
-        pt.printSPARQL();
+        pt.parseToSPARQL();
     }
 
 }

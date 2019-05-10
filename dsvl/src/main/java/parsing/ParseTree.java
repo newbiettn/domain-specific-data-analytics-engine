@@ -19,9 +19,12 @@ import java.util.Collection;
  */
 public class ParseTree {
     private static Logger logger = LoggerFactory.getLogger(ParseTree.class);
-    Node root;
+    private Node root;
+    private StringBuilder sparqlQuery;
+
     public ParseTree(){
-        root = null;
+        this.root = null;
+        this.sparqlQuery = null;
     }
 
     /**
@@ -29,36 +32,40 @@ public class ParseTree {
      *
      * @param node
      */
-    public void printSPARQL(Node node, int depth){
+    public void parseToSPARQL(Node node, int depth){
         if (node == null)
             return;
 
         /* first print data of node */
         VNode vNode = node.getVNode();
         ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
-        System.out.print(objectBean.getSparqlValue());
+        sparqlQuery.append(objectBean.getSparqlValue());
 
         if (node.getChildren().size() > 0) {
             depth++;
             if (depth == 1){
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
-                    System.out.print(" ");
-                    printSPARQL(child, depth);
+                    sparqlQuery.append(" ");
+                    parseToSPARQL(child, depth);
                 }
             } else {
-                System.out.print(" { ");
+                if (depth == 2)
+                    sparqlQuery.append(" WHERE { ");
+
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
                     VNode vChild = child.getVNode();
                     String connectionName = p.getKey();
 
-                    System.out.print("\n");
-                    System.out.print(objectBean.getSparqlValue());
-                    System.out.print(" " + connectionName + " ");
-                    printSPARQL(child, depth);
+                    sparqlQuery.append("\n");
+                    sparqlQuery.append(objectBean.getSparqlValue());
+                    sparqlQuery.append(" " + connectionName + " ");
+                    parseToSPARQL(child, depth);
                 }
-                System.out.print(" } ");
+
+                if (depth == 2)
+                    sparqlQuery.append(" } ");
             }
         }
 
@@ -67,7 +74,8 @@ public class ParseTree {
     /**
      * Wrapper function for printSPARQL.
      */
-    public boolean printSPARQL(){
+    public boolean parseToSPARQL(){
+        sparqlQuery = new StringBuilder();
         /* If not appropriate root to parse to SPARQL (e.g., SELECT, ASK, ...) */
         if (root == null) {
             logger.error("Require appropriate root nodes (SELECT, ASK, ...) to parse to SPARQL");
@@ -80,8 +88,8 @@ public class ParseTree {
             return false;
         }
 
-        printSPARQL(root, 0);
-        System.out.print("\n");
+        parseToSPARQL(root, 0);
+        logger.info("\n" + sparqlQuery.toString());
         return true;
     }
 
