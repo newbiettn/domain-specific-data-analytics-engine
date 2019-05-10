@@ -24,16 +24,12 @@
                 </property>
             </activation>
             <modules>
-                <module>jena-arq</module>
-                <module>jena-tdb</module>
-                <module>apache-jena-libs</module>
                 <module>smile-core-library</module>
                 <module>weka</module>
                 <module>diabetes-engine</module>
                 <module>evaluation-engine</module>
                 <module>jshop2</module>
                 <module>autoweka-2.6</module>
-                <module>jena-fuseki2</module>
                 <module>dsvl</module>
             </modules>
         </profile>
