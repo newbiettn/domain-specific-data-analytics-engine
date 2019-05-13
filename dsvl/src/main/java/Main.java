@@ -26,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage){
-        URL fxmlUrl = this.getClass().getClassLoader().getResource("fxml/MainWindow.fxml");
+        URL fxmlUrl = this.getClass().getClassLoader().getResource("fxml/MainWindowNew.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
 
         StackPane canvas = new StackPane();

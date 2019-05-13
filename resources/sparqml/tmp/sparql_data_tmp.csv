@@ -1,8 +1,26 @@
-publish,title,year
-false,"Integrating Vocabularies: Discovering and Representing Vocabulary Maps",2003
-true,"Trusting Information Sources One Citizen at a Time",2002
-true,"Automatic Generation of Java/SQL based Inference Engines from RDF Schema and RuleML",2002
-true,"Three Implementations of SquishQL, a Simple RDF Query Language",2003
-true,"A Data Integration Framework for E-commerce Product Classification",2002
-true,"The Semantic Web Revisited",2006
-true,"D2R Server - Publishing Relational Databases on the Web as SPARQL Endpoints",2006
+subject	predicate	object
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#containsAdmissionReport>	<http://localhost:2020/AdmissionReport/22967>
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasHbA1cTestRequestEvent>	"2015-08-02T00:00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasEpisodeKey>	"IP03015388"
+<http://localhost:2020/Episode22967>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#Episode>
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSex>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#Male>
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasAge>	63
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasHbA1cTestResult>	"5.4E0"^^<http://www.w3.org/2001/XMLSchema#float>
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#containsSeparationReport>	<http://localhost:2020/SeparationReport/22967>
+<http://localhost:2020/Episode22967>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasAdmissionNumber>	8
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#containsAdmissionReport>	<http://localhost:2020/AdmissionReport/26120>
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasHbA1cTestRequestEvent>	"2015-03-22T00:00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasEpisodeKey>	"IP02958963"
+<http://localhost:2020/Episode26120>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#Episode>
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSex>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#Female>
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasAge>	94
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasHbA1cTestResult>	"5.8E0"^^<http://www.w3.org/2001/XMLSchema#float>
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#containsSeparationReport>	<http://localhost:2020/SeparationReport/26120>
+<http://localhost:2020/Episode26120>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasAdmissionNumber>	1
+<http://localhost:2020/SeparationReport/27109>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSeparationUnit>	"Ortho Surg 3"
+<http://localhost:2020/SeparationReport/27109>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#SeparationReport>
+<http://localhost:2020/SeparationReport/27109>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSeparationMode>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#AdmissionSource_H>
+<http://localhost:2020/SeparationReport/27109>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSeparationWard>	"Austin - Ward 08N"
+<http://localhost:2020/SeparationReport/27282>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSeparationUnit>	"Cardiology"
+<http://localhost:2020/SeparationReport/27282>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#SeparationReport>
+<http://localhost:2020/SeparationReport/27282>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#hasSeparationMode>	<http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#AdmissionSource_H>
