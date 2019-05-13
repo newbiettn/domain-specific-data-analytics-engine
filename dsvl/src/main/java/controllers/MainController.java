@@ -2,25 +2,35 @@ package controllers;
 
 import beans.*;
 
+import common.ProjectPropertiesGetter;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import io.CustomWorkflowIO;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
+import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parsing.ParseTree;
 import skins.*;
 import javafx.util.Pair;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -37,6 +47,10 @@ import java.util.ResourceBundle;
  */
 // TODO: Limit connection number for each types only 1
 public class MainController {
+    static ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
+    static String  filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
+    static String trainingCsv = filePath + "sparql_data_tmp.csv";
+
     public static int nodeCount = 0;
     public static final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -46,9 +60,13 @@ public class MainController {
     private VCanvas canvas;
     private Pane rootPane;
     private Connection selectedConnection;
+    final TableView<ObservableList<StringProperty>> table = new TableView<>();
 
     @FXML
     private Pane contentPane;
+
+    @FXML
+    private Pane tablePane;
 
     @FXML
     private Button selectBtn;
@@ -129,6 +147,16 @@ public class MainController {
                 }
             }
         });
+
+        // Add table to tablePane
+        // Fix top, bottom, left and right to 0 to ensure the table fills the whole pane
+        AnchorPane.setTopAnchor(table, 0.0);
+        AnchorPane.setBottomAnchor(table, 0.0);
+        AnchorPane.setLeftAnchor(table, 0.0);
+        AnchorPane.setRightAnchor(table, 0.0);
+        tablePane.getChildren().add(table);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // No horizontal scroll
+
     }
 
     /**
@@ -271,6 +299,90 @@ public class MainController {
         pt.parse(flow);
 //        pt.printPreorder();
         pt.parseToSPARQL();
+
+        final CheckBox headerCheckBox = new CheckBox("Data has header line");
+        populateTable(table, "",
+                true);
+    }
+
+    private void populateTable(
+            final TableView<ObservableList<StringProperty>> table,
+            final String urlSpec, final boolean hasHeader) {
+        table.getItems().clear();
+        table.getColumns().clear();
+        table.setPlaceholder(new Label("Loading..."));
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                BufferedReader in = new BufferedReader(new FileReader(trainingCsv));
+                // Header line
+                if (hasHeader) {
+                    final String headerLine = in.readLine();
+                    final String[] headerValues = headerLine.split("\t");
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int column = 0; column < headerValues.length; column++) {
+                                table.getColumns().add(
+                                        createColumn(column, headerValues[column]));
+                            }
+                        }
+                    });
+                }
+
+                // Data:
+                String dataLine;
+                while ((dataLine = in.readLine()) != null) {
+                    final String[] dataValues = dataLine.split("\t");
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Add additional columns if necessary:
+                            for (int columnIndex = table.getColumns().size(); columnIndex < dataValues.length; columnIndex++) {
+                                table.getColumns().add(createColumn(columnIndex, ""));
+                            }
+                            // Add data to table:
+                            ObservableList<StringProperty> data = FXCollections
+                                    .observableArrayList();
+                            for (String value : dataValues) {
+                                data.add(new SimpleStringProperty(value));
+                            }
+                            table.getItems().add(data);
+                        }
+                    });
+                }
+                return null;
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    private TableColumn<ObservableList<StringProperty>, String> createColumn(
+            final int columnIndex, String columnTitle) {
+        TableColumn<ObservableList<StringProperty>, String> column = new TableColumn<>();
+        String title;
+        if (columnTitle == null || columnTitle.trim().length() == 0) {
+            title = "Column " + (columnIndex + 1);
+        } else {
+            title = columnTitle;
+        }
+        column.setText(title);
+        column
+                .setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList<StringProperty>, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(
+                            TableColumn.CellDataFeatures<ObservableList<StringProperty>, String> cellDataFeatures) {
+                        ObservableList<StringProperty> values = cellDataFeatures.getValue();
+                        if (columnIndex >= values.size()) {
+                            return new SimpleStringProperty("");
+                        } else {
+                            return cellDataFeatures.getValue().get(columnIndex);
+                        }
+                    }
+                });
+        return column;
     }
 
 }
