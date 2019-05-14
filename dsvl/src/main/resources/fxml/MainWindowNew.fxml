@@ -20,13 +20,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="887.0" prefWidth="1469.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <right>
-      <Accordion fx:id="rightAccordion" prefHeight="782.0" prefWidth="210.0" BorderPane.alignment="CENTER">
+      <Accordion fx:id="rightAccordion" prefHeight="859.0" prefWidth="252.0" BorderPane.alignment="CENTER">
         <panes>
           <TitledPane fx:id="propertiesTitledPane" animated="false" text="Properties">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="255.0">
                      <children>
-                        <GridPane layoutX="16.0" prefHeight="90.0" prefWidth="178.0">
+                        <GridPane layoutX="16.0" prefHeight="90.0" prefWidth="216.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="73.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="121.0" />
@@ -38,7 +38,7 @@
                            </rowConstraints>
                            <children>
                               <Label text="Name" />
-                              <ChoiceBox fx:id="connectionNameChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ChoiceBox fx:id="connectionNameChoiceBox" prefHeight="27.0" prefWidth="133.0" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
@@ -75,7 +75,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="478.0">
                      <children>
-                        <StackPane fx:id="contentPane" prefHeight="122.0" prefWidth="482.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <StackPane fx:id="contentPane" prefHeight="122.0" prefWidth="1320.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane fx:id="tablePane" minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="478.0" />
@@ -83,17 +83,19 @@
             </SplitPane>
          </center>
          <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ToolBar prefHeight="40.0" prefWidth="1032.0" BorderPane.alignment="CENTER">
               <items>
                   <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
                   <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
                   <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
-                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="69.0" />
+                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
                   <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
-                  <Separator layoutX="244.0" layoutY="10.0" orientation="VERTICAL" prefHeight="28.0" prefWidth="69.0" />
+                  <Button fx:id="admissionBtn" mnemonicParsing="false" onAction="#addAdmissionReportNode" text="Admission Report" />
+                  <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
+                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Variable" />
-                  <Separator layoutX="455.0" layoutY="10.0" orientation="VERTICAL" prefHeight="28.0" prefWidth="446.0" />
+                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="79.0" text="Parse" textAlignment="RIGHT" />
                   <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="69.0" text="Load" />
                   <Button mnemonicParsing="false" onAction="#testFlow" text="Find" textAlignment="RIGHT" />

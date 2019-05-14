@@ -110,6 +110,8 @@ public class MainController {
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
         skinFactory.addSkinClassForValueType(ConditionNodeBean.class, ConditionNodeSkin.class);
         skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
+        skinFactory.addSkinClassForValueType(SeparationReportNodeBean.class, SeparationReportNodeSkin.class);
+
         flow.setSkinFactories(skinFactory);
 
         // config right accordion
@@ -240,10 +242,10 @@ public class MainController {
     @FXML
     private void addEpisodeNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        Pair<String, Class> p1 = new Pair<>("diab:hasAge", ConditionNodeBean.class);
-        Pair<String, Class> p2 = new Pair<>("diab:hasDiabetesTestScore", ConditionNodeBean.class);
-        outputs.add(p1);
-        outputs.add(p2);
+        outputs.add(new Pair<>("diab:hasAge", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasHbA1cTestResult", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSex", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasEpisodeKey", ConditionNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new EpisodeNodeBean(outputs));
@@ -255,6 +257,37 @@ public class MainController {
                 System.out.println("AAAAAAAAAA");
             }
         });
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addAdmissionReportNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("diab:hasAdmissionNumber", ConditionNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new AdmissionReportNodeBean(outputs));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addSeparationReportNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("diab:hasSeparationMode", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSeparationUnit", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new SeparationReportNodeBean(outputs));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
         flow.setSkinFactories(skinFactory);
     }
 
