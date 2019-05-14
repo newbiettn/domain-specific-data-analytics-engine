@@ -97,6 +97,11 @@ public class CustomConnectionListener implements ConnectionListener {
         }
     }
 
+    /**
+     * Automatically update connection name if there is only 1 name choice for the connection.
+     *
+     * @param conn
+     */
     private void updateConnectionName(Connection conn){
         VNode sender = conn.getSender().getNode();
         VNode receiver = conn.getReceiver().getNode();
@@ -113,5 +118,4 @@ public class CustomConnectionListener implements ConnectionListener {
             conn.setName(connNames.get(0));
         }
     }
-
 }
