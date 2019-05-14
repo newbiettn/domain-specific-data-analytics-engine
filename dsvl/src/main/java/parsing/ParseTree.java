@@ -1,6 +1,8 @@
 package parsing;
 
+import beans.EpisodeNodeBean;
 import beans.ObjectBean;
+import beans.PatientNodeBean;
 import beans.SelectNodeBean;
 import controllers.MainController;
 import eu.mihosoft.vrl.workflow.*;
@@ -19,6 +21,10 @@ import java.util.Collection;
  */
 public class ParseTree {
     private static Logger logger = LoggerFactory.getLogger(ParseTree.class);
+    private final String NL = "\n";
+    private final String TAB = "\t";
+    private final String SPACE = " ";
+    private final String DOT = ".";
     private Node root;
     private StringBuilder sparqlQuery;
 
@@ -28,11 +34,11 @@ public class ParseTree {
     }
 
     /**
-     * Print to SPARQL format.
+     * Parse to SPARQL format.
      *
      * @param node
      */
-    public void parseToSPARQL(Node node, int depth){
+    private void interpretToSPARQL(Node node, int depth){
         if (node == null)
             return;
 
@@ -40,28 +46,38 @@ public class ParseTree {
         VNode vNode = node.getVNode();
         ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
         sparqlQuery.append(objectBean.getSparqlValue());
+        if (depth > 1)
+            sparqlQuery.append(DOT);
 
         if (node.getChildren().size() > 0) {
             depth++;
             if (depth == 1){
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
-                    sparqlQuery.append(" ");
-                    parseToSPARQL(child, depth);
+                    sparqlQuery.append(SPACE);
+                    interpretToSPARQL(child, depth);
                 }
             } else {
-                if (depth == 2)
-                    sparqlQuery.append(" WHERE { ");
+                if (depth == 2){
+                    sparqlQuery.append(SPACE)
+                                .append("WHERE {")
+                                .append(NL);
+                    if (objectBean.getClass() == PatientNodeBean.class)
+                        sparqlQuery.append(objectBean.getSparqlValue())
+                                    .append(" rdf:type ").append("diab:Patient.");
 
+                }
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
                     VNode vChild = child.getVNode();
                     String connectionName = p.getKey();
 
-                    sparqlQuery.append("\n");
+                    sparqlQuery.append(NL);
                     sparqlQuery.append(objectBean.getSparqlValue());
-                    sparqlQuery.append(" " + connectionName + " ");
-                    parseToSPARQL(child, depth);
+                    sparqlQuery.append(SPACE)
+                                .append(connectionName)
+                                .append(SPACE);
+                    interpretToSPARQL(child, depth);
                 }
 
                 if (depth == 2)
@@ -72,25 +88,96 @@ public class ParseTree {
     }
 
     /**
-     * Wrapper function for printSPARQL.
+     * To interpret simple flows with only two nodes, such as: SELECT -> Patient
+     *
+     * @param node
      */
-    public boolean parseToSPARQL(){
+    private void interpretToSPARQL(Node node){
+        if (node == null)
+            return;
+
+        /* first print data of node */
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        sparqlQuery.append(objectBean.getSparqlValue());
+        if (node.getChildren().size() > 0) {
+            for(Pair<String, Node> p : node.getChildren()) {
+                Node child = p.getValue();
+                ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
+                sparqlQuery.append(ob.getSparqlValue()).append(" ");
+            }
+            sparqlQuery.append(" WHERE { ");
+            for(Pair<String, Node> p : node.getChildren()) {
+                    Node child = p.getValue();
+                    ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
+                    if (ob.getClass() == PatientNodeBean.class) {
+                        sparqlQuery.append(ob.getSparqlValue())
+                            .append(" rdf:type ").append("diab:Patient.");
+                    } else if (ob.getClass() == EpisodeNodeBean.class) {
+                        sparqlQuery.append(ob.getSparqlValue())
+                            .append(" rdf:type ").append("diab:Episode.");
+                    }
+            }
+            sparqlQuery.append("}");
+        }
+
+    }
+
+    /**
+     * Wrapper function for interpretToSPARQL.
+     */
+    public String interpretToSPARQL(){
         sparqlQuery = new StringBuilder();
         /* If not appropriate root to parse to SPARQL (e.g., SELECT, ASK, ...) */
         if (root == null) {
-            logger.error("Require appropriate root nodes (SELECT, ASK, ...) to parse to SPARQL");
-            return false;
+            logger.error("Require appropriate root nodes (SELECT, ASK, ...) to interpret to SPARQL");
+            return null;
         }
 
         ObjectBean objectBean = (ObjectBean) root.getVNode().getValueObject().getValue();
         if (objectBean.getClass() != SelectNodeBean.class){
-            logger.error("Require appropriate root nodes (SELECT, ASK, ...) to parse to SPARQL");
-            return false;
+            logger.error("Require appropriate root nodes (SELECT, ASK, ...) to interpret to SPARQL");
+            return null;
         }
 
-        parseToSPARQL(root, 0);
+        int treeDepth = getDepth();
+        logger.info("Depth of the tree " + treeDepth);
+
+        if (treeDepth > 1)
+            interpretToSPARQL(root, 0);
+        else
+            interpretToSPARQL(root);
+
         logger.info("\n" + sparqlQuery.toString());
-        return true;
+        return sparqlQuery.toString();
+    }
+
+    /**
+     * A quick tree travel to get the depth of the tree.
+     *
+     * @return
+     */
+    public int getDepth(Node node, int depth){
+        if (node == null)
+            return 0;
+
+        if (node.getChildren().size() > 0) {
+            depth++;
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                depth = getDepth(child, depth);
+            }
+        }
+        return depth;
+    }
+
+    /**
+     * A wrapper for getDepth.
+     *
+     * @return
+     */
+    public int getDepth(){
+        return getDepth(root, 0);
     }
 
     /**

@@ -68,7 +68,6 @@ public class TestCreatingTableDynamically extends Application {
     }
 
     public static void retrieveData(){
-
         String selectQuery = "SELECT ?subject ?predicate ?object " +
                 "WHERE {" +
                 "  ?subject ?predicate ?object" +
