@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Node {
     private String id;
     private VNode vNode;
-    private ArrayList<Pair<String, Node>> children;
+    private ArrayList<Pair<String, Node>> children; // list of children and their associated connections
 
     public Node(VNode vNode){
         this.id = vNode.getId();

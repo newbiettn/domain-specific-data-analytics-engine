@@ -153,6 +153,35 @@ public class ParseTree {
     }
 
     /**
+     * Get all variables to display in the table result.
+     * @return
+     */
+    private ArrayList<String> getVariables(ArrayList<String> variables, Node node, int depth){
+        if (node == null)
+            return variables;
+
+        if (node.getChildren().size() > 0) {
+            depth++;
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                variables.add(child)
+                getVariables(variables, child, depth);
+            }
+        }
+        return variables;
+
+    }
+
+    /**
+     * Get all variables to display in the table result.
+     * @return
+     */
+    private ArrayList<String> getVariables(){
+        ArrayList<String> variables = new ArrayList<>();
+        variables.add(getVariables(root, 0);
+    }
+
+    /**
      * A quick tree travel to get the depth of the tree.
      *
      * @return
