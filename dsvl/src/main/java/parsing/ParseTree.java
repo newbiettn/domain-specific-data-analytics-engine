@@ -1,9 +1,6 @@
 package parsing;
 
-import beans.EpisodeNodeBean;
-import beans.ObjectBean;
-import beans.PatientNodeBean;
-import beans.SelectNodeBean;
+import beans.*;
 import controllers.MainController;
 import eu.mihosoft.vrl.workflow.*;
 import javafx.util.Pair;
@@ -45,9 +42,19 @@ public class ParseTree {
         /* first print data of node */
         VNode vNode = node.getVNode();
         ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
-        sparqlQuery.append(objectBean.getSparqlValue());
-        if (depth > 1)
+        if (depth == 0){
+            sparqlQuery.append(objectBean.getSparqlValue());
+            ArrayList<String> variables = getVariables();
+            for (String v : variables){
+                sparqlQuery.append(SPACE)
+                        .append(v)
+                        .append(SPACE);
+            }
+        }
+        if (depth > 1) {
+            sparqlQuery.append(objectBean.getSparqlValue());
             sparqlQuery.append(DOT);
+        }
 
         if (node.getChildren().size() > 0) {
             depth++;
@@ -69,7 +76,6 @@ public class ParseTree {
                 }
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
-                    VNode vChild = child.getVNode();
                     String connectionName = p.getKey();
 
                     sparqlQuery.append(NL);
@@ -164,8 +170,12 @@ public class ParseTree {
             depth++;
             for(Pair<String, Node> p : node.getChildren()){
                 Node child = p.getValue();
-                variables.add(child)
-                getVariables(variables, child, depth);
+                ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
+                if (ob.getClass() != VariableNodeBean.class) {
+                    String variableName = ob.getSparqlValue();
+                    variables.add(variableName);
+                }
+                variables = getVariables(variables, child, depth);
             }
         }
         return variables;
@@ -173,12 +183,12 @@ public class ParseTree {
     }
 
     /**
-     * Get all variables to display in the table result.
+     * Get all variables to display in the table result (a wrapper).
      * @return
      */
     private ArrayList<String> getVariables(){
         ArrayList<String> variables = new ArrayList<>();
-        variables.add(getVariables(root, 0);
+        return getVariables(variables, root, 0);
     }
 
     /**
