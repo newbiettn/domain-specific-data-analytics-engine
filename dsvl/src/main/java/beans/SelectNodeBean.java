@@ -19,4 +19,9 @@ public class SelectNodeBean extends ObjectBean{
         this.minOutputConn = 1;
         this.minInputConn = 0;
     }
+
+    @Override
+    public String getSparqlValue() {
+        return this.sparqlValue;
+    }
 }

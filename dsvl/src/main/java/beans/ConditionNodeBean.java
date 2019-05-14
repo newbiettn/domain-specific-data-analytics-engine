@@ -7,13 +7,14 @@ package beans;
  * @since 2019-03-26
  */
 public class ConditionNodeBean extends ObjectBean{
+    public static int count = 0;
     private String variable;
 
-    public ConditionNodeBean(int id) {
-        this.id = id;
+    public ConditionNodeBean() {
+        this.id = count++;
         this.variable = "";
         this.outputs = null;
-        this.sparqlValue = "?variable" + id;
+        this.sparqlValue = "condition";
         this.maxOutputConn = 0;
         this.maxInputConn = 1;
         this.minOutputConn = 0;

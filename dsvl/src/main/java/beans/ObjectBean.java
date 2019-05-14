@@ -33,7 +33,7 @@ public class ObjectBean {
     }
 
     public String getSparqlValue() {
-        return sparqlValue;
+        return "?" + sparqlValue + id;
     }
 
     public void setSparqlValue(String sparqlValue) {

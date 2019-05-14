@@ -137,8 +137,10 @@ public class MainControllerService {
                         @Override
                         public void run() {
                             for (int column = 0; column < headerValues.length; column++) {
+                                String colName = headerValues[column];
+                                colName = colName.substring(0, 1).toUpperCase() + colName.substring(1);
                                 table.getColumns().add(
-                                        createColumn(column, headerValues[column]));
+                                        createColumn(column, colName));
                             }
                         }
                     });

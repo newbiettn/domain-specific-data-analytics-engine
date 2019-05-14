@@ -42,10 +42,6 @@ import java.util.ResourceBundle;
  */
 // TODO: Limit connection number for each types only 1
 public class MainController {
-    static ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-    static String  filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
-    static String trainingCsv = filePath + "sparql_data_tmp.csv";
-
     public static int nodeCount = 0;
     public static final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -158,6 +154,7 @@ public class MainController {
     }
 
     /**
+     * Event handler for connections (i.e., allow to select name for them).
      *
      * @param con
      */
@@ -189,6 +186,14 @@ public class MainController {
                     String newName = newValue;
                     selectedConnection.getConnectionText().setText(newName);
                     selectedConnection.setName(newName);
+
+                    // Automatically generate variables names based on connection name
+                    // For example, hasURN -> ?urn
+                    VNode receiver = selectedConnection.getReceiver().getNode();
+                    ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
+                    String pattern = "(diab:has)(\\w+)";
+                    String v = newName.replaceAll(pattern, "$2");
+                    receiverObj.setSparqlValue(v);
             }
         });
     }
@@ -225,7 +230,7 @@ public class MainController {
         outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new PatientNodeBean(++nodeCount, outputs));
+        n.getValueObject().setValue(new PatientNodeBean(outputs));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
@@ -241,7 +246,7 @@ public class MainController {
         outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new EpisodeNodeBean(++nodeCount, outputs));
+        n.getValueObject().setValue(new EpisodeNodeBean(outputs));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
         n.getMainInput(CONNECTION_NAME).addClickEventListener(new EventHandler<ClickEvent>() {
@@ -256,7 +261,7 @@ public class MainController {
     @FXML
     private void addVariableNode() {
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new ConditionNodeBean(++nodeCount));
+        n.getValueObject().setValue(new ConditionNodeBean());
         n.setMainInput(n.addInput(CONNECTION_NAME));
         flow.setSkinFactories(skinFactory);
     }
