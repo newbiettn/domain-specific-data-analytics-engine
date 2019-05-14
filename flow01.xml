@@ -15,9 +15,42 @@
           <null/>
           <null/>
           <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
         </changeListeners>
         <invalidationSize>0</invalidationSize>
-        <changeSize>5</changeSize>
+        <changeSize>29</changeSize>
         <locked>false</locked>
       </listenerHelper>
       <backingMap/>
@@ -30,10 +63,40 @@
   <connections>
     <connection>
       <id>0</id>
+      <senderId>ROOT:5:c:1</senderId>
+      <receiverId>ROOT:6:c:0</receiverId>
+      <type>data</type>
+      <name>hasEpisode</name>
+      <vReq class="eu.mihosoft.vrl.workflow.VisualizationRequestImpl">
+        <map class="com.sun.javafx.collections.ObservableMapWrapper">
+          <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$SingleChange">
+            <listener class="null"/>
+          </listenerHelper>
+          <backingMap/>
+        </map>
+      </vReq>
+    </connection>
+    <connection>
+      <id>0</id>
       <senderId>ROOT:0:c:0</senderId>
-      <receiverId>ROOT:1:c:0</receiverId>
+      <receiverId>ROOT:5:c:0</receiverId>
       <type>data</type>
       <name></name>
+      <vReq class="eu.mihosoft.vrl.workflow.VisualizationRequestImpl">
+        <map class="com.sun.javafx.collections.ObservableMapWrapper">
+          <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$SingleChange">
+            <listener class="null"/>
+          </listenerHelper>
+          <backingMap/>
+        </map>
+      </vReq>
+    </connection>
+    <connection>
+      <id>0</id>
+      <senderId>ROOT:6:c:1</senderId>
+      <receiverId>ROOT:7:c:0</receiverId>
+      <type>data</type>
+      <name>hasAge</name>
       <vReq class="eu.mihosoft.vrl.workflow.VisualizationRequestImpl">
         <map class="com.sun.javafx.collections.ObservableMapWrapper">
           <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$SingleChange">
@@ -46,8 +109,8 @@
   </connections>
   <nodes>
     <node>
-      <x>151.66666666666669</x>
-      <y>141.66666666666669</y>
+      <x>98.33333333333334</x>
+      <y>185.0</y>
       <width>162.0</width>
       <height>80.0</height>
       <title>Select Node</title>
@@ -58,10 +121,17 @@
               <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null"/>
               <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[2]"/>
               <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[4]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[7]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[10]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[14]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[18]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[22]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[26]"/>
+              <null/>
               <null/>
             </changeListeners>
             <invalidationSize>0</invalidationSize>
-            <changeSize>3</changeSize>
+            <changeSize>9</changeSize>
             <locked>false</locked>
           </listenerHelper>
           <backingMap/>
@@ -87,8 +157,8 @@
       </mainOutputs>
     </node>
     <node>
-      <x>561.6666666666667</x>
-      <y>78.33333333333334</y>
+      <x>536.6666666666667</x>
+      <y>186.66666666666669</y>
       <width>169.0</width>
       <height>80.0</height>
       <title>Patient Node</title>
@@ -96,17 +166,19 @@
         <map class="com.sun.javafx.collections.ObservableMapWrapper">
           <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$Generic">
             <changeListeners>
-              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[3]"/>
-              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[5]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[17]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[20]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[23]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[27]"/>
             </changeListeners>
             <invalidationSize>0</invalidationSize>
-            <changeSize>2</changeSize>
+            <changeSize>4</changeSize>
             <locked>false</locked>
           </listenerHelper>
           <backingMap/>
         </map>
       </vReq>
-      <id>ROOT:1</id>
+      <id>ROOT:5</id>
       <connectors>
         <connector>
           <type>data</type>
@@ -137,6 +209,99 @@
           <string>1</string>
         </entry>
       </mainOutputs>
+    </node>
+    <node>
+      <x>921.6666666666667</x>
+      <y>105.0</y>
+      <width>176.0</width>
+      <height>80.0</height>
+      <title>Episode Node</title>
+      <vReq class="eu.mihosoft.vrl.workflow.VisualizationRequestImpl">
+        <map class="com.sun.javafx.collections.ObservableMapWrapper">
+          <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$Generic">
+            <changeListeners>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[21]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[24]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[28]"/>
+              <null/>
+            </changeListeners>
+            <invalidationSize>0</invalidationSize>
+            <changeSize>3</changeSize>
+            <locked>false</locked>
+          </listenerHelper>
+          <backingMap/>
+        </map>
+      </vReq>
+      <id>ROOT:6</id>
+      <connectors>
+        <connector>
+          <type>data</type>
+          <localId>0</localId>
+          <input>true</input>
+          <output>false</output>
+          <passthru>false</passthru>
+          <maxNumConnections>2147483647</maxNumConnections>
+        </connector>
+        <connector>
+          <type>data</type>
+          <localId>1</localId>
+          <input>false</input>
+          <output>true</output>
+          <passthru>false</passthru>
+          <maxNumConnections>2147483647</maxNumConnections>
+        </connector>
+      </connectors>
+      <mainInputs>
+        <entry>
+          <string>data</string>
+          <string>0</string>
+        </entry>
+      </mainInputs>
+      <mainOutputs>
+        <entry>
+          <string>data</string>
+          <string>1</string>
+        </entry>
+      </mainOutputs>
+    </node>
+    <node>
+      <x>1433.3333333333335</x>
+      <y>95.0</y>
+      <width>178.0</width>
+      <height>80.0</height>
+      <title>Variable Node</title>
+      <vReq class="eu.mihosoft.vrl.workflow.VisualizationRequestImpl">
+        <map class="com.sun.javafx.collections.ObservableMapWrapper">
+          <listenerHelper class="com.sun.javafx.collections.MapListenerHelper$Generic">
+            <changeListeners>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[25]"/>
+              <null reference="../../../../../../../vReq/map/listenerHelper/changeListeners/null[29]"/>
+            </changeListeners>
+            <invalidationSize>0</invalidationSize>
+            <changeSize>2</changeSize>
+            <locked>false</locked>
+          </listenerHelper>
+          <backingMap/>
+        </map>
+      </vReq>
+      <id>ROOT:7</id>
+      <connectors>
+        <connector>
+          <type>data</type>
+          <localId>0</localId>
+          <input>true</input>
+          <output>false</output>
+          <passthru>false</passthru>
+          <maxNumConnections>2147483647</maxNumConnections>
+        </connector>
+      </connectors>
+      <mainInputs>
+        <entry>
+          <string>data</string>
+          <string>0</string>
+        </entry>
+      </mainInputs>
+      <mainOutputs/>
     </node>
   </nodes>
   <visible>true</visible>

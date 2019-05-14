@@ -295,8 +295,8 @@ public class MainController {
     private void testFlow(){
         ParseTree pt = new ParseTree();
         pt.parse(flow); // Parse the flow to parse tree
-        String sparqlQuery = pt.interpretToSPARQL(); // Interpret to appropriate SPARQL query
-        if (pt.interpretToSPARQL() != null){
+        String sparqlQuery = pt.interpret(); // Interpret to appropriate SPARQL query
+        if (pt.interpret() != null){
             if (service.executeQuery(sparqlQuery)) { // Run query to retrieve data
                 logger.info("Populating the table...");
                 service.populateTable(table, "",

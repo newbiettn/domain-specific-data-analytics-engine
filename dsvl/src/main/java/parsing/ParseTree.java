@@ -34,11 +34,11 @@ public class ParseTree {
     }
 
     /**
-     * Parse to SPARQL format.
+     * Interpret to SPARQL.
      *
      * @param node
      */
-    private void interpretToSPARQL(Node node, int depth){
+    private void interpret(Node node, int depth){
         if (node == null)
             return;
 
@@ -55,7 +55,7 @@ public class ParseTree {
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
                     sparqlQuery.append(SPACE);
-                    interpretToSPARQL(child, depth);
+                    interpret(child, depth);
                 }
             } else {
                 if (depth == 2){
@@ -77,7 +77,7 @@ public class ParseTree {
                     sparqlQuery.append(SPACE)
                                 .append(connectionName)
                                 .append(SPACE);
-                    interpretToSPARQL(child, depth);
+                    interpret(child, depth);
                 }
 
                 if (depth == 2)
@@ -92,7 +92,7 @@ public class ParseTree {
      *
      * @param node
      */
-    private void interpretToSPARQL(Node node){
+    private void interpret(Node node){
         if (node == null)
             return;
 
@@ -124,9 +124,9 @@ public class ParseTree {
     }
 
     /**
-     * Wrapper function for interpretToSPARQL.
+     * Wrapper function for interpret.
      */
-    public String interpretToSPARQL(){
+    public String interpret(){
         sparqlQuery = new StringBuilder();
         /* If not appropriate root to parse to SPARQL (e.g., SELECT, ASK, ...) */
         if (root == null) {
@@ -144,9 +144,9 @@ public class ParseTree {
         logger.info("Depth of the tree " + treeDepth);
 
         if (treeDepth > 1)
-            interpretToSPARQL(root, 0);
+            interpret(root, 0);
         else
-            interpretToSPARQL(root);
+            interpret(root);
 
         logger.info("\n" + sparqlQuery.toString());
         return sparqlQuery.toString();
