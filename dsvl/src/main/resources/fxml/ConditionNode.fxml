@@ -8,7 +8,7 @@
 <HBox fx:id="nodeHboxContainer"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.VariableNodeController">
+      fx:controller="controllers.ConditionNodeController">
    <children>
       <BorderPane fx:id="nodeBorderPaneContainer" HBox.hgrow="ALWAYS">
          <center>

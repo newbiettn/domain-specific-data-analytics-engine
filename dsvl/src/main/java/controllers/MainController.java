@@ -112,7 +112,7 @@ public class MainController {
         skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
-        skinFactory.addSkinClassForValueType(VariableNodeBean.class, VariableNodeSkin.class);
+        skinFactory.addSkinClassForValueType(ConditionNodeBean.class, ConditionNodeSkin.class);
         skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
         flow.setSkinFactories(skinFactory);
 
@@ -219,7 +219,7 @@ public class MainController {
     @FXML
     private void addPatientNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        Pair<String, Class> p1 = new Pair<>("diab:hasURN", VariableNodeBean.class);
+        Pair<String, Class> p1 = new Pair<>("diab:hasURN", ConditionNodeBean.class);
         Pair<String, Class> p2 = new Pair<>("diab:hasEpisode", EpisodeNodeBean.class);
         outputs.add(p1);
         outputs.add(p2);
@@ -235,8 +235,8 @@ public class MainController {
     @FXML
     private void addEpisodeNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        Pair<String, Class> p1 = new Pair<>("diab:hasAge", VariableNodeBean.class);
-        Pair<String, Class> p2 = new Pair<>("diab:hasDiabetesTestScore", VariableNodeBean.class);
+        Pair<String, Class> p1 = new Pair<>("diab:hasAge", ConditionNodeBean.class);
+        Pair<String, Class> p2 = new Pair<>("diab:hasDiabetesTestScore", ConditionNodeBean.class);
         outputs.add(p1);
         outputs.add(p2);
 
@@ -256,7 +256,7 @@ public class MainController {
     @FXML
     private void addVariableNode() {
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new VariableNodeBean(++nodeCount));
+        n.getValueObject().setValue(new ConditionNodeBean(++nodeCount));
         n.setMainInput(n.addInput(CONNECTION_NAME));
         flow.setSkinFactories(skinFactory);
     }

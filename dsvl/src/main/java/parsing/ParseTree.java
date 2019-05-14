@@ -171,7 +171,7 @@ public class ParseTree {
             for(Pair<String, Node> p : node.getChildren()){
                 Node child = p.getValue();
                 ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
-                if (ob.getClass() != VariableNodeBean.class) {
+                if (ob.getClass() != ConditionNodeBean.class) {
                     String variableName = ob.getSparqlValue();
                     variables.add(variableName);
                 }

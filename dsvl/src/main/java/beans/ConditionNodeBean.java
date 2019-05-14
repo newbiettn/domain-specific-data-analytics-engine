@@ -6,10 +6,10 @@ package beans;
  * @author Ngoc Tran
  * @since 2019-03-26
  */
-public class VariableNodeBean extends ObjectBean{
+public class ConditionNodeBean extends ObjectBean{
     private String variable;
 
-    public VariableNodeBean(int id) {
+    public ConditionNodeBean(int id) {
         this.id = id;
         this.variable = "";
         this.outputs = null;

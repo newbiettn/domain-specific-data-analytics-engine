@@ -1,6 +1,6 @@
 package controllers;
 
-import beans.VariableNodeBean;
+import beans.ConditionNodeBean;
 import eu.mihosoft.vrl.workflow.VNode;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Controller for sparql nodes.
  */
-public class VariableNodeController {
-    private static Logger logger = LoggerFactory.getLogger(VariableNodeController.class);
+public class ConditionNodeController {
+    private static Logger logger = LoggerFactory.getLogger(ConditionNodeController.class);
     private VNode node;
-    private VariableNodeBean variableNodeBean;
+    private ConditionNodeBean conditionNodeBean;
 
     @FXML
     private HBox nodeHboxContainer;
@@ -29,7 +29,7 @@ public class VariableNodeController {
     @FXML
     private TextField variableNodeTextField;
 
-    public VariableNodeController() {
+    public ConditionNodeController() {
     }
 
     @FXML
@@ -43,20 +43,20 @@ public class VariableNodeController {
             nodeHboxContainer.setPrefWidth(desireWidth+20);
             nodeBorderPaneContainer.setPrefWidth(desireWidth);
             variable.append(event.getText());
-            variableNodeBean.setVariable(variable.toString());
+            conditionNodeBean.setVariable(variable.toString());
             logger.info(variable.toString());
         };
         variableNodeTextField.addEventFilter(KeyEvent.KEY_PRESSED, typingHandler);
     }
 
     public void reloadVariable(){
-        variableNodeTextField.setText(variableNodeBean.getVariable());
+        variableNodeTextField.setText(conditionNodeBean.getVariable());
 
     }
 
     public VNode getNode() { return node; }
     public void setNode(VNode node) { this.node = node; }
-    public VariableNodeBean getVariableNodeBean() { return variableNodeBean; }
-    public void setVariableNodeBean(VariableNodeBean variableNodeBean) { this.variableNodeBean = variableNodeBean; }
+    public ConditionNodeBean getConditionNodeBean() { return conditionNodeBean; }
+    public void setConditionNodeBean(ConditionNodeBean conditionNodeBean) { this.conditionNodeBean = conditionNodeBean; }
 
 }

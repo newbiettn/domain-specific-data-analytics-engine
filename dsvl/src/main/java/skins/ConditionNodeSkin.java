@@ -1,9 +1,7 @@
 package skins;
 
-import beans.PatientNodeBean;
-import beans.VariableNodeBean;
-import controllers.PatientNodeController;
-import controllers.VariableNodeController;
+import beans.ConditionNodeBean;
+import controllers.ConditionNodeController;
 import eu.mihosoft.vrl.workflow.VFlow;
 import eu.mihosoft.vrl.workflow.VNode;
 import eu.mihosoft.vrl.workflow.fx.FXSkinFactory;
@@ -22,10 +20,10 @@ import java.util.logging.Logger;
  *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
-public class VariableNodeSkin extends CustomFlowNodeSkin {
+public class ConditionNodeSkin extends CustomFlowNodeSkin {
 
-    public VariableNodeSkin(FXSkinFactory skinFactory,
-                            VNode model, VFlow controller) {
+    public ConditionNodeSkin(FXSkinFactory skinFactory,
+                             VNode model, VFlow controller) {
         super(skinFactory, model, controller);
     }
 
@@ -33,21 +31,21 @@ public class VariableNodeSkin extends CustomFlowNodeSkin {
     protected Node createView() {
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
-                .getClassLoader().getResource("fxml/VariableNode.fxml"));
+                .getClassLoader().getResource("fxml/ConditionNode.fxml"));
         try {
             fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(VariableNodeSkin.class.getName()).
+            Logger.getLogger(ConditionNodeSkin.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
 
 //        getNode().getStyleClass().setAll("patient-node-window");
-        getModel().setTitle("Variable Node");
+        getModel().setTitle("Condition Node");
         getNode().setPrefSize(100, 80);
 
-        VariableNodeController controller = fxmlLoader.getController();
+        ConditionNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());
-        controller.setVariableNodeBean((VariableNodeBean) getModel().getValueObject().getValue());
+        controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
         controller.reloadVariable();
 
         Pane root = (Pane) fxmlLoader.getRoot();
