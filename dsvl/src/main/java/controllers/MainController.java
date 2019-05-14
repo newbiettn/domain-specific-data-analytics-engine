@@ -111,6 +111,7 @@ public class MainController {
         skinFactory.addSkinClassForValueType(ConditionNodeBean.class, ConditionNodeSkin.class);
         skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
         skinFactory.addSkinClassForValueType(SeparationReportNodeBean.class, SeparationReportNodeSkin.class);
+        skinFactory.addSkinClassForValueType(AdmissionReportNodeBean.class, AdmissionReportNodeSkin.class);
 
         flow.setSkinFactories(skinFactory);
 
@@ -246,6 +247,8 @@ public class MainController {
         outputs.add(new Pair<>("diab:hasHbA1cTestResult", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasSex", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasEpisodeKey", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:containsSeparationReport", SeparationReportNodeBean.class));
+        outputs.add(new Pair<>("diab:containsAdmissionReport", AdmissionReportNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new EpisodeNodeBean(outputs));
