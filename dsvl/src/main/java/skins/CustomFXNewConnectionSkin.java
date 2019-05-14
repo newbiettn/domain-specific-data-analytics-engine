@@ -1,7 +1,6 @@
 package skins;
 
-import beans.ObjectBean;
-import controllers.CustomConnectionListener;
+import listener.CustomConnectionListener;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import javafx.event.EventHandler;
