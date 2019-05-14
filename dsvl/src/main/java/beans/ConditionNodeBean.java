@@ -13,7 +13,7 @@ public class ConditionNodeBean extends ObjectBean{
         this.id = id;
         this.variable = "";
         this.outputs = null;
-        this.sparqlValue = null;
+        this.sparqlValue = "?variable" + id;
         this.maxOutputConn = 0;
         this.maxInputConn = 1;
         this.minOutputConn = 0;

@@ -174,6 +174,12 @@ public class ParseTree {
                 if (ob.getClass() != ConditionNodeBean.class) {
                     String variableName = ob.getSparqlValue();
                     variables.add(variableName);
+                } else {
+                    ConditionNodeBean conditionNodeBean = (ConditionNodeBean) ob;
+                    if (conditionNodeBean.getVariable().isEmpty()){
+                        String variableName = ob.getSparqlValue();
+                        variables.add(variableName);
+                    }
                 }
                 variables = getVariables(variables, child, depth);
             }
