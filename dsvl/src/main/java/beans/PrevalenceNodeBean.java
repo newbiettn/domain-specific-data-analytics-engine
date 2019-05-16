@@ -5,10 +5,10 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 /**
- * Describe class purpose here.
+ * Represents a PREVALENCE node in DSVL.
  *
  * @author Ngoc Tran
- * @since 2019-05-16
+ * @since 2019-05-17
  */
 public class PrevalenceNodeBean extends ObjectBean{
     public static int count = 0;
