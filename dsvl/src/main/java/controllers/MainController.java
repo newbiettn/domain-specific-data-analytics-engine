@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parsing.ParseTree;
 import service.MainControllerService;
+import service.ParseTreeService;
 import skins.*;
 import javafx.util.Pair;
 
@@ -107,6 +108,7 @@ public class MainController {
         // Create skin factory for flow visualization
         skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
+        skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
         skinFactory.addSkinClassForValueType(ConditionNodeBean.class, ConditionNodeSkin.class);
         skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
@@ -210,7 +212,19 @@ public class MainController {
         outputs.add(p2);
 
         VNode n = flow.newNode();
-        n.getValueObject().setValue(new SelectNodeBean(++nodeCount, outputs));
+        n.getValueObject().setValue(new SelectNodeBean(outputs));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addPrevalenceNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", PatientNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new PrevalenceNodeBean(outputs));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);

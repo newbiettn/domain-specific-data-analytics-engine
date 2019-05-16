@@ -90,6 +90,7 @@
             <ToolBar prefHeight="40.0" prefWidth="1032.0" BorderPane.alignment="CENTER">
               <items>
                   <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
+                  <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
                   <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
                   <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />

@@ -31,7 +31,7 @@ import java.io.*;
 public class MainControllerService {
     private static Logger logger = LoggerFactory.getLogger(MainControllerService.class);
     ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-    String  filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
+    String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
     String trainingCsv = filePath + "sparql_data_tmp.csv";
     String sparqlEndpoint = "http://localhost:3030/austin/query";
 
@@ -42,15 +42,9 @@ public class MainControllerService {
      */
     public boolean executeQuery(String q){
         try {
-            String prolog = "PREFIX diab: <http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#>\n" +
-                    "PREFIX : <http://localhost:2020/>\n" +
-                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-                    "PREFIX owl: <http://www.w3.org/2002/07/owl#>";
-            String fullQuery = prolog + "\n" + q;
-            Query query = QueryFactory.create(fullQuery);
+            Query query = QueryFactory.create(q);
             query.serialize(new IndentedWriter(System.out,true)) ;
             QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
-            ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
 
             // Execute and write result to file
             ResultSet rs = qexec.execSelect();

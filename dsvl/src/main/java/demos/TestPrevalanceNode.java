@@ -1,11 +1,10 @@
-package controllers;
+package demos;
 
 import org.apache.jena.atlas.io.IndentedWriter;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.apache.jena.sparql.util.FmtUtils;
 
 /**
  * Describe class purpose here.
