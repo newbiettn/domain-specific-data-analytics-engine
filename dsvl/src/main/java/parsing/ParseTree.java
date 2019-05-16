@@ -22,6 +22,9 @@ public class ParseTree {
     private final String TAB = "\t";
     private final String SPACE = " ";
     private final String DOT = ".";
+    private final String LPAREN = "(";
+    private final String RPAREN = ")";
+    private final String AND = "&&";
     private Node root;
     private StringBuilder sparqlQuery;
 
@@ -86,8 +89,27 @@ public class ParseTree {
                     interpret(child, depth);
                 }
 
-                if (depth == 2)
+                // last node of the tree
+                if (depth == 2){ // TODO: not sure why depth == 2 works
+                    // filter condition
+                    ArrayList<Pair<String, String>> conditions = getConditions();
+                    if (conditions.size() > 0 ){
+                        sparqlQuery.append(NL).append("FILTER").append(LPAREN);
+                        for (int i = 0; i<conditions.size(); i++){
+                            Pair<String, String> c = conditions.get(i);
+                            sparqlQuery.append(c.getKey())
+                                        .append(SPACE)
+                                        .append(c.getValue());
+                            if (i < conditions.size()-1) {
+                                sparqlQuery.append(SPACE)
+                                        .append(AND)
+                                        .append(SPACE);
+                            }
+                        }
+                        sparqlQuery.append(RPAREN);
+                    }
                     sparqlQuery.append(" } ");
+                }
             }
         }
 
@@ -159,6 +181,50 @@ public class ParseTree {
     }
 
     /**
+     * Traverse the tree to get all conditions in form of pairs (variableName, its condition)
+     *
+     * @param conditions
+     * @param node
+     * @param depth
+     *
+     * @return a list of condition pairs
+     */
+    private ArrayList<Pair<String, String>> getConditions(ArrayList<Pair<String, String>> conditions,
+                                                          Node node,
+                                                          int depth) {
+        if (node == null)
+            return conditions;
+
+        if (node.getChildren().size() > 0) {
+            depth++;
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
+                if (ob.getClass() == ConditionNodeBean.class){
+                    ConditionNodeBean conditionNodeBean = (ConditionNodeBean) ob;
+                    String c = conditionNodeBean.getCondition();
+                    if (!c.isEmpty()) { // only get if the condition is specified
+                        String v = conditionNodeBean.getSparqlValue();
+                        conditions.add(new Pair<>(v, c));
+                    }
+                }
+                conditions = getConditions(conditions, child, depth);
+            }
+        }
+        return conditions;
+    }
+
+    /**
+     * Wrapper for getConditions()
+     *
+     * @return
+     */
+    private ArrayList<Pair<String, String>> getConditions(){
+        ArrayList<Pair<String, String>> conditions = new ArrayList<>();
+        return getConditions(conditions, root, 0);
+    }
+
+    /**
      * Get all variables to display in the table result.
      * @return
      */
@@ -171,16 +237,8 @@ public class ParseTree {
             for(Pair<String, Node> p : node.getChildren()){
                 Node child = p.getValue();
                 ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
-                if (ob.getClass() != ConditionNodeBean.class) {
-                    String variableName = ob.getSparqlValue();
-                    variables.add(variableName);
-                } else {
-                    ConditionNodeBean conditionNodeBean = (ConditionNodeBean) ob;
-                    if (conditionNodeBean.getVariable().isEmpty()){
-                        String variableName = ob.getSparqlValue();
-                        variables.add(variableName);
-                    }
-                }
+                String variableName = ob.getSparqlValue();
+                variables.add(variableName);
                 variables = getVariables(variables, child, depth);
             }
         }

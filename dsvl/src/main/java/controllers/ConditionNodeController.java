@@ -34,7 +34,6 @@ public class ConditionNodeController {
 
     @FXML
     public void initialize() {
-        StringBuilder variable = new StringBuilder();
         EventHandler<KeyEvent> typingHandler = event -> {
             double desireWidth = TextUtils.computeTextWidth(variableNodeTextField.getFont(),
                     variableNodeTextField.getText(), 0.0D) + 25;
@@ -42,15 +41,14 @@ public class ConditionNodeController {
             node.setWidth(desireWidth+30);
             nodeHboxContainer.setPrefWidth(desireWidth+20);
             nodeBorderPaneContainer.setPrefWidth(desireWidth);
-            variable.append(event.getText());
-            conditionNodeBean.setVariable(variable.toString());
-            logger.info(variable.toString());
+            conditionNodeBean.setCondition(variableNodeTextField.getText());
+            logger.info(variableNodeTextField.getText());
         };
         variableNodeTextField.addEventFilter(KeyEvent.KEY_PRESSED, typingHandler);
     }
 
     public void reloadVariable(){
-        variableNodeTextField.setText(conditionNodeBean.getVariable());
+        variableNodeTextField.setText(conditionNodeBean.getCondition());
 
     }
 

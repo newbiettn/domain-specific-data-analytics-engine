@@ -8,11 +8,11 @@ package beans;
  */
 public class ConditionNodeBean extends ObjectBean{
     public static int count = 0;
-    private String variable;
+    private String condition;
 
     public ConditionNodeBean() {
         this.id = count++;
-        this.variable = "";
+        this.condition = "";
         this.outputs = null;
         this.sparqlValue = "condition";
         this.maxOutputConn = 0;
@@ -21,12 +21,11 @@ public class ConditionNodeBean extends ObjectBean{
         this.minInputConn = 1;
     }
 
-    public String getVariable() {
-        return variable;
+    public String getCondition() {
+        return condition;
     }
 
-    public void setVariable(String variable) {
-        this.variable = variable;
-        this.sparqlValue = variable;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 }
