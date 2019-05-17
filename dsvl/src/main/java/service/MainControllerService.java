@@ -35,20 +35,32 @@ public class MainControllerService {
     String trainingCsv = filePath + "sparql_data_tmp.csv";
     String sparqlEndpoint = "http://localhost:3030/austin/query";
 
+    public boolean execQuery(String q, String type){
+        if (type == "Select")
+            return execSelectQuery(q);
+        else if (type == "Ask")
+            return execAskQuery(q);
+        else
+            return false;
+    }
+
     /**
-     * Execute query, retrieve data and write to file.
+     * Execute ASK query, retrieve data and write to file.
      *
      * @param q
+     * @return
      */
-    public boolean executeQuery(String q){
+    public boolean execAskQuery(String q){
         try {
             Query query = QueryFactory.create(q);
+            logger.info("Print the query: ");
             query.serialize(new IndentedWriter(System.out,true)) ;
             QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
 
             // Execute and write result to file
-            ResultSet rs = qexec.execSelect();
-            return writeResult(rs);
+            boolean rs = qexec.execAsk();
+            String result = prepareResult(rs);
+            return writeResult(result);
         } catch (QueryParseException qpe){
             logger.error(qpe.getMessage());
         }
@@ -56,22 +68,56 @@ public class MainControllerService {
     }
 
     /**
-     * Write ResultSet to file in form of a csv.
+     * Execute SELECT query, retrieve data and write to file.
+     *
+     * @param q
+     */
+    public boolean execSelectQuery(String q){
+        try {
+            Query query = QueryFactory.create(q);
+            logger.info("Print the query: ");
+            query.serialize(new IndentedWriter(System.out,true)) ;
+            QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
+
+            // Execute and write result to file
+            ResultSet rs = qexec.execSelect();
+            String result = prepareResult(rs);
+            return writeResult(result);
+        } catch (QueryParseException qpe){
+            logger.error(qpe.getMessage());
+        }
+        return false;
+    }
+
+    /**
+     * Prepare result for boolean type.
+     * @param result
+     * @return
+     */
+    private String prepareResult(boolean result){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Result").append("\n");
+        stringBuilder.append(result);
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Prepare result for ResultSet type.
      *
      * @param rs ResultSet
      */
-    private boolean writeResult(ResultSet rs){
+    private String prepareResult(ResultSet rs) {
         ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(rs);
         int numCols = resultSetRewindable.getResultVars().size();
         StringBuilder header = new StringBuilder();
         StringBuilder row = new StringBuilder();
         for (int r = 0; resultSetRewindable.hasNext(); r++) {
             QuerySolution rBind = resultSetRewindable.nextSolution();
-            for ( int col = 0 ; col < numCols ; col++ ) {
+            for (int col = 0; col < numCols; col++) {
                 String rVar = rs.getResultVars().get(col);
                 // Print col headers
-                if (r == 0){
-                    if (col < numCols-1)
+                if (r == 0) {
+                    if (col < numCols - 1)
                         header.append(rVar).append("\t");
                     else
                         header.append(rVar).append("\n");
@@ -79,15 +125,23 @@ public class MainControllerService {
                 // Print row
                 RDFNode obj = rBind.get(rVar);
                 String v = FmtUtils.stringForRDFNode(obj);
-                if (col < numCols-1)
+                if (col < numCols - 1)
                     row.append(v).append("\t");
                 else
                     row.append(v).append("\n");
             }
         }
+        return header.toString() + row.toString();
+    }
 
-        // Save to CSV
-        if (!row.toString().isEmpty()) {
+    /**
+     * Write result to csv file.
+     *
+     * @param result
+     * @return
+     */
+    private boolean writeResult(String result){
+        if (!result.isEmpty()) {
             FileWriter fw = null;
             try {
                 fw = new FileWriter(
@@ -98,7 +152,7 @@ public class MainControllerService {
             }
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
-            out.print(header.toString() + row.toString());
+            out.print(result);
             out.close();
             return true;
         }

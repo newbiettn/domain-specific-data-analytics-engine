@@ -21,6 +21,10 @@ public class ParseTree {
     private static Logger logger = LoggerFactory.getLogger(ParseTree.class);
     private Node root;
     private ParseTreeService parseTreeService;
+    public static int INVALID_TREE = -1;
+    public static int SELECT_TREE = 1;
+    public static int PREVALENCE_TREE = 2;
+    public static int ASK_TREE = 3;
 
     public ParseTree(){
         this.root = null;
@@ -35,7 +39,7 @@ public class ParseTree {
      * Parse the flow.
      * @param flow
      */
-    public void parse(VFlow flow){
+    public int parse(VFlow flow){
         VNode vRoot = null;
         for(VNode v : flow.getNodes()){
             if (v.getInputs().size() == 0){
@@ -44,19 +48,27 @@ public class ParseTree {
         }
         /* If no head root*/
         if (vRoot == null)
-            return;
+            return INVALID_TREE;
 
         /* If not appropriate root (i.e., SELECT, ASK, ...) */
         ObjectBean objectBean = (ObjectBean) vRoot.getValueObject().getValue();
-        Class c = objectBean.getClass();
-        System.out.println(c);
-        if (c != SelectNodeBean.class && c != PrevalenceNodeBean.class)
-            return;
-
-        System.out.println(c);
+        Class cl = objectBean.getClass();
+        if (cl != SelectNodeBean.class &&
+                cl != PrevalenceNodeBean.class &&
+                cl != AskNodeBean.class)
+            return INVALID_TREE;
         root = new Node(vRoot);
         Connections connections = flow.getConnections(MainController.CONNECTION_NAME);
         addChild(connections, root, vRoot);
+
+        if (cl == SelectNodeBean.class)
+            return SELECT_TREE;
+        else if (cl == PrevalenceNodeBean.class)
+            return PREVALENCE_TREE;
+        else if (cl == AskNodeBean.class)
+            return ASK_TREE;
+        else
+            return INVALID_TREE;
     }
 
     /**

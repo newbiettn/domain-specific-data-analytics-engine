@@ -40,6 +40,7 @@ public class ParseTreeService {
     public String interpret(Node root){
         sparqlQuery = new StringBuilder();
         sparqlQuery.append(prolog).append(NL);
+
         /* If not appropriate root to parse to SPARQL (e.g., SELECT, ASK, ...) */
         if (root == null) {
             logger.error("Require appropriate root nodes (SELECT, ASK, ...) to interpret to SPARQL");
@@ -56,15 +57,38 @@ public class ParseTreeService {
             else
                 interpretSimple(root);
         }  else if (cl == PrevalenceNodeBean.class) { //Prevalence query
-            interpretPrevalenceGroup(root, root, 0);
+            interpretPrevalence(root, root, 0);
+        } else if (cl == AskNodeBean.class){
+            interpretAsk(root, root, 0);
         } else {
             logger.error("Require appropriate root nodes (SELECT, ASK, ...) to interpret to SPARQL");
             return null;
         }
 
-        logger.info("\n" + sparqlQuery.toString());
+        logger.info("Raw query: \n" + sparqlQuery.toString());
         return sparqlQuery.toString();
     }
+
+    /**
+     * Interpret ASK query.
+     *
+     */
+    private void interpretAsk(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        if (depth == 0){
+            sparqlQuery.append(objectBean.getSparqlValue());
+        }
+        if (node.getChildren().size() > 0) {
+            ++depth;
+            Node child = node.getChildren().get(0).getValue();
+            interpretWHERE(root, child, depth);
+        }
+    }
+
 
     /**
      * Query to calculate a group of poulation that satisfying users' conditions.
@@ -72,7 +96,7 @@ public class ParseTreeService {
      * @param node
      * @param depth
      */
-    private void interpretPrevalenceGroup(Node root, Node node, int depth){
+    private void interpretPrevalence(Node root, Node node, int depth){
         if (node == null)
             return;
 
@@ -184,6 +208,74 @@ public class ParseTreeService {
         }
 //        }
 
+    }
+
+    private void interpretWHERE(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        if (depth == 1){
+            sparqlQuery.append(LCURLYBRACKET);
+            if (objectBean.getClass() == PatientNodeBean.class)
+                sparqlQuery.append(objectBean.getSparqlValue())
+                        .append(" rdf:type ").append("diab:Patient.");
+            if (node.getChildren().size() > 0){
+                for(Pair<String, Node> p : node.getChildren()){
+                    Node child = p.getValue();
+                    VNode vNodeChild = child.getVNode();
+                    ObjectBean objectBeanChild = (ObjectBean) vNodeChild.getValueObject().getValue();
+                    String connectionName = p.getKey();
+
+                    sparqlQuery.append(NL);
+                    sparqlQuery.append(objectBean.getSparqlValue());
+                    sparqlQuery.append(SPACE)
+                            .append(connectionName)
+                            .append(SPACE)
+                            .append(objectBeanChild.getSparqlValue())
+                            .append(DOT);
+                    interpretWHERE(root, child, ++depth);
+                }
+            }
+            sparqlQuery.append(RCURLYBRACKET);
+        } else {
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                VNode vNodeChild = child.getVNode();
+                ObjectBean objectBeanChild = (ObjectBean) vNodeChild.getValueObject().getValue();
+                String connectionName = p.getKey();
+                sparqlQuery.append(NL);
+                sparqlQuery.append(objectBean.getSparqlValue());
+                sparqlQuery.append(SPACE)
+                        .append(connectionName)
+                        .append(SPACE)
+                        .append(objectBeanChild.getSparqlValue())
+                        .append(DOT);
+                interpretWHERE(root, child, ++depth);
+            }
+
+            // last node of the tree
+            if (depth == 2){ // TODO: not sure why depth == 2 works
+                // filter condition
+                ArrayList<Pair<String, String>> conditions = getConditions(root);
+                if (conditions.size() > 0 ){
+                    sparqlQuery.append(NL).append("FILTER").append(LPAREN);
+                    for (int i = 0; i<conditions.size(); i++){
+                        Pair<String, String> c = conditions.get(i);
+                        sparqlQuery.append(c.getKey())
+                                .append(SPACE)
+                                .append(c.getValue());
+                        if (i < conditions.size()-1) {
+                            sparqlQuery.append(SPACE)
+                                    .append(AND)
+                                    .append(SPACE);
+                        }
+                    }
+                    sparqlQuery.append(RPAREN);
+                }
+            }
+        }
     }
 
     /**

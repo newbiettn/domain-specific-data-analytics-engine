@@ -109,6 +109,7 @@ public class MainController {
         skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
+        skinFactory.addSkinClassForValueType(AskNodeBean.class, AskNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
         skinFactory.addSkinClassForValueType(ConditionNodeBean.class, ConditionNodeSkin.class);
         skinFactory.addSkinClassForValueType(EpisodeNodeBean.class, EpisodeNodeSkin.class);
@@ -232,6 +233,15 @@ public class MainController {
 
     @FXML
     private void addAskNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", PatientNodeBean.class));
+        outputs.add(new Pair<>("", EpisodeNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new AskNodeBean(outputs));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -349,17 +359,31 @@ public class MainController {
     @FXML
     private void testFlow(){
         ParseTree pt = new ParseTree();
-        pt.parse(flow); // Parse the flow to parse tree
-        String sparqlQuery = pt.interpret(); // Interpret to appropriate SPARQL query
-        if (pt.interpret() != null){
-            if (service.executeQuery(sparqlQuery)) { // Run query to retrieve data
-                logger.info("Populating the table...");
-                service.populateTable(table, "",
-                        true); // Populate the retrieved data to table
-            } else {
-                logger.info("Retrieved no data");
+        int type = pt.parse(flow); // Parse the flow to parse tree
+        if (type != ParseTree.INVALID_TREE){
+            String sparqlQuery = pt.interpret(); // Interpret to appropriate SPARQL query
+            if (pt.interpret() != null){
+                boolean execResult = false;
+                if (type == ParseTree.SELECT_TREE)
+                    execResult = service.execSelectQuery(sparqlQuery);
+                else if (type == ParseTree.PREVALENCE_TREE)
+                    execResult = service.execSelectQuery(sparqlQuery);
+                else if (type == ParseTree.ASK_TREE)
+                    execResult = service.execAskQuery(sparqlQuery);
+
+                if (execResult) { // Run query to retrieve data
+                    logger.info("Populating the table...");
+                    service.populateTable(table, "",
+                            true); // Populate the retrieved data to table
+                } else {
+                    logger.info("Retrieved no data");
+                }
             }
+        } else {
+            logger.info("Invalid parsing tree");
         }
+
+
     }
 
 }
