@@ -117,9 +117,8 @@ public class ParseTreeService {
             sparqlQuery.append(") as ?group)");
         }
         if (node.getChildren().size() > 0) {
-            ++depth;
             Node child = node.getChildren().get(0).getValue();
-            interpret(root, child, depth);
+            interpretWHERE(root, child, ++depth);
         }
         sparqlQuery.append(RCURLYBRACKET)
                 .append(NL)
@@ -256,7 +255,7 @@ public class ParseTreeService {
             }
 
             // last node of the tree
-            if (depth == 2){ // TODO: not sure why depth == 2 works
+            if (depth == getDepth(root)){ // TODO: not sure why depth == 2 works
                 // filter condition
                 ArrayList<Pair<String, String>> conditions = getConditions(root);
                 if (conditions.size() > 0 ){
