@@ -49,19 +49,19 @@ map:Episode_hasEpisodeKey a d2rq:PropertyBridge;
 	.
 map:Episode_hasSex_F a d2rq:ObjectPropertyBridge;
 	d2rq:belongsToClassMap map:Episode;
-	d2rq:property foaf:gender;
+	d2rq:property diab:hasGender;
 	d2rq:constantValue "Female";
 	d2rq:condition "tblEpisodes.sex = '0'";
 	.
 map:Episode_hasSex_M a d2rq:ObjectPropertyBridge;
 	d2rq:belongsToClassMap map:Episode;
-	d2rq:property foaf:gender;
+	d2rq:property diab:hasGender;
 	d2rq:constantValue "Male";
 	d2rq:condition "tblEpisodes.sex = '1'";
 	.
 map:Episode_hasAge a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Episode;
-	d2rq:property foaf:age;
+	d2rq:property diab:hasAge;
 	d2rq:column "tblEpisodes.age";
 	d2rq:datatype xsd:integer;
 	.
@@ -1016,7 +1016,7 @@ map:Episode_hasDeceasedEvent a d2rq:PropertyBridge;
 	.
 map:Episode_isDeceased a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Episode;
-	d2rq:property diab:isDeceased;
+	d2rq:property diab:hasDeceased;
 	d2rq:column "tblEpisodes.deceased";
 	d2rq:datatype xsd:boolean;
 	.
@@ -1248,13 +1248,13 @@ map:Patient_hasEpisode a d2rq:PropertyBridge;
 # Episode - Admisison Report & SeparationReport
 map:Episode_containsAdmissionReport a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Episode;
-	d2rq:property diab:containsAdmissionReport;
+	d2rq:property diab:hasAdmissionReport;
 	d2rq:refersToClassMap map:AdmissionReport;
     d2rq:join "tblEpisodes.admission_report_id = tblAdmissionReport.row_names";
 	.
 map:Episode_containsSeparationReport a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Episode;
-	d2rq:property diab:containsSeparationReport;
+	d2rq:property diab:hasSeparationReport;
 	d2rq:refersToClassMap map:SeparationReport;
     d2rq:join "tblEpisodes.separation_report_id = tblSeparationReport.row_names";
 	.
