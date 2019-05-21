@@ -1,4 +1,4 @@
-@relation 'sparql_data_tmp_test-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4'
+@relation 'sparql_data_tmp_test-weka.filters.unsupervised.attribute.Reorder-R2,3,4,1'
 
 @attribute age numeric
 @attribute gender {Female}
