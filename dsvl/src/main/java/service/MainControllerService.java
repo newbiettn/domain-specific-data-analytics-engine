@@ -1,8 +1,10 @@
 package service;
 
 import com.opencsv.CSVReader;
+import com.victorlaerte.asynctask.AsyncTask;
 import common.ProjectPropertiesGetter;
 import db.DbUtils;
+import eu.mihosoft.vrl.workflow.VFlow;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -29,6 +31,7 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.sparql.util.FmtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import parsing.ParseTree;
 import planner.Trainer;
 import planner.translator.PlanTranslator;
 import smile.clustering.GMeans;
@@ -55,21 +58,45 @@ import java.util.concurrent.*;
  * @author Ngoc Tran
  * @since 2019-05-13
  */
-public class MainControllerService {
+public class MainControllerService implements Runnable {
     private static Logger logger = LoggerFactory.getLogger(MainControllerService.class);
-    ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-    String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
-    String trainingCsv = filePath + "sparql_data_tmp.csv";
-    String sparqlEndpoint = "http://localhost:3030/austin/query";
+    private ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
+    private String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
+    private String trainingCsv = filePath + "sparql_data_tmp.csv";
+    private String sparqlEndpoint = "http://localhost:3030/austin/query";
+    private VFlow  flow;
+    private TableView<ObservableList<StringProperty>> tableResult;
 
-    public boolean execQuery(String q, String type){
-        if (type == "Select")
-            return execSelectQuery(q);
-        else if (type == "Ask")
-            return execAskQuery(q);
-        else if (type == "Create Prediction Model")
-            return execCreatePredictionModelQuery(q);
+    public boolean execQuery(){
+        ParseTree pt = new ParseTree();
+        int type = pt.parse(flow); // Parse the flow to parse tree
+        if (type != ParseTree.INVALID_TREE){
+            String sparqlQuery = pt.interpret(); // Interpret to appropriate SPARQL query
+            if (pt.interpret() != null){
+                boolean execResult = false;
+                if (type == ParseTree.SELECT_TREE)
+                    execResult = execSelectQuery(sparqlQuery);
+                else if (type == ParseTree.PREVALENCE_TREE)
+                    execResult = execSelectQuery(sparqlQuery);
+                else if (type == ParseTree.ASK_TREE)
+                    execResult = execAskQuery(sparqlQuery);
+                else if (type == ParseTree.CREATEPREDICTIONMODEL_TREE)
+                    execResult = execCreatePredictionModelQuery(sparqlQuery);
+                if (execResult) { // Run query to retrieve data
+                    logger.info("Populating the table...");
+                    populateTable(tableResult, "",
+                            true); // Populate the retrieved data to table
+                    return true;
+                } else {
+                    logger.info("Retrieved no data");
+                    return false;
 
+                }
+            }
+        } else {
+            logger.info("Invalid parsing tree");
+            return false;
+        }
         return false;
     }
 
@@ -613,4 +640,26 @@ public class MainControllerService {
             logger.info( name + " " + line);
         }
     }
+
+    @Override
+    public void run() {
+        execQuery();
+    }
+
+    public VFlow getFlow() {
+        return flow;
+    }
+
+    public void setFlow(VFlow flow) {
+        this.flow = flow;
+    }
+
+    public TableView<ObservableList<StringProperty>> getTableResult() {
+        return tableResult;
+    }
+
+    public void setTableResult(TableView<ObservableList<StringProperty>> tableResult) {
+        this.tableResult = tableResult;
+    }
+
 }

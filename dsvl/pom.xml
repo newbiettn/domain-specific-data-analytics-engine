@@ -50,5 +50,12 @@
             <version>3.11.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.victorlaerte</groupId>
+            <artifactId>jfx-asynctask</artifactId>
+            <version>1.0.1</version>
+            <!--<type>pom</type>-->
+        </dependency>
     </dependencies>
 </project>

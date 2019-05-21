@@ -2,7 +2,6 @@ package controllers;
 
 import beans.*;
 
-import common.ProjectPropertiesGetter;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import io.CustomWorkflowIO;
@@ -23,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parsing.ParseTree;
 import service.MainControllerService;
-import service.ParseTreeService;
 import skins.*;
 import javafx.util.Pair;
 
@@ -33,7 +31,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 /**
  * Main controller.
  *
@@ -52,7 +49,7 @@ public class MainController {
     private VCanvas canvas;
     private Pane rootPane;
     private Connection selectedConnection;
-    final TableView<ObservableList<StringProperty>> table = new TableView<>();
+    private TableView<ObservableList<StringProperty>> table = new TableView<>();
     private MainControllerService service;
 
     @FXML
@@ -202,6 +199,7 @@ public class MainController {
                     ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
                     String pattern = "(diab:has)(\\w+)";
                     String v = newName.replaceAll(pattern, "$2");
+                    v = v.toLowerCase();
                     receiverObj.setSparqlValue(v);
             }
         });
@@ -409,31 +407,9 @@ public class MainController {
 
     @FXML
     private void testFlow(){
-        ParseTree pt = new ParseTree();
-        int type = pt.parse(flow); // Parse the flow to parse tree
-        if (type != ParseTree.INVALID_TREE){
-            String sparqlQuery = pt.interpret(); // Interpret to appropriate SPARQL query
-            if (pt.interpret() != null){
-                boolean execResult = false;
-                if (type == ParseTree.SELECT_TREE)
-                    execResult = service.execSelectQuery(sparqlQuery);
-                else if (type == ParseTree.PREVALENCE_TREE)
-                    execResult = service.execSelectQuery(sparqlQuery);
-                else if (type == ParseTree.ASK_TREE)
-                    execResult = service.execAskQuery(sparqlQuery);
-                else if (type == ParseTree.CREATEPREDICTIONMODEL_TREE)
-                    execResult = service.execCreatePredictionModelQuery(sparqlQuery);
-                if (execResult) { // Run query to retrieve data
-                    logger.info("Populating the table...");
-                    service.populateTable(table, "",
-                            true); // Populate the retrieved data to table
-                } else {
-                    logger.info("Retrieved no data");
-                }
-            }
-        } else {
-            logger.info("Invalid parsing tree");
-        }
+        service.setFlow(flow);
+        service.setTableResult(table);
+        new Thread(service).start();
     }
 
 }
