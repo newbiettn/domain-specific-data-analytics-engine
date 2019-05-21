@@ -57,7 +57,7 @@ parser code
   private Node root;
   
   /**
-   * Sets the variable declarations for the program
+   * Sets the condition declarations for the program
    *
    * @param variables the variables that should be exposed to the program
    */
@@ -198,7 +198,7 @@ expr          ::=
                       RESULT = macros.getMacro(m).evaluate(p.toArray(new Node[0]));
                     :}
 
-                // variable
+                // condition
                 |  IDENTIFIER:v
                     {:
                       if (!variables.hasVariable(v))

@@ -89,7 +89,7 @@
 			"class" : "weka.knowledgeflow.steps.Note",
 			"properties" : {
 				"name" : "Note",
-				"noteText" : "Define some data to \nparameterize the Job's\nsub-flow with. You could \nalso use a Loader step \nto load a file containing \nparamteter/variable values.\nEach instance output by this\nstep contains variable and\nparameter values that are\nset/stored by the SetVariables\nand StorePropertiesInEnvironment\nsteps respectively."
+				"noteText" : "Define some data to \nparameterize the Job's\nsub-flow with. You could \nalso use a Loader step \nto load a file containing \nparamteter/condition values.\nEach instance output by this\nstep contains condition and\nparameter values that are\nset/stored by the SetVariables\nand StorePropertiesInEnvironment\nsteps respectively."
 			},
 			"connections" : {
 			},

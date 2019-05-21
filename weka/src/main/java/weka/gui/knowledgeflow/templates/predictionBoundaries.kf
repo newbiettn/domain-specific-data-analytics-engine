@@ -140,7 +140,7 @@
 			"class" : "weka.knowledgeflow.steps.Note",
 			"properties" : {
 				"name" : "Note7",
-				"noteText" : "Saves each rendered plot\nas a png file named\nbp${image_count}.png,\nwhere the variable image_count\nis incremented for each subsequent\nplot."
+				"noteText" : "Saves each rendered plot\nas a png file named\nbp${image_count}.png,\nwhere the condition image_count\nis incremented for each subsequent\nplot."
 			},
 			"connections" : {
 			},

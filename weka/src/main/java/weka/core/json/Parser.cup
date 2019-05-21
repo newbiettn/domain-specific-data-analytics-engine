@@ -45,7 +45,7 @@ import java.util.*;
  */
 
 parser code {:
-  /** variable - value relation. */
+  /** condition - value relation. */
   protected HashMap m_Symbols;
 
   /** for storing the parsed JSON data structure. */

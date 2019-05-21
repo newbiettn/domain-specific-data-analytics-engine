@@ -60,7 +60,7 @@ Filter=
 Classifier=weka.classifiers.rules.ZeroR
 
 # the default test mode in the classify tab 
-# (according to "testMode" variable in startClassifier method)
+# (according to "testMode" condition in startClassifier method)
 # 1 - cross-validation
 # 2 - percentage split
 # 3 - use training set
@@ -145,7 +145,7 @@ ClassifierErrorsMaximumPlotSizeNumeric=20
 Clusterer=weka.clusterers.EM
 
 # the default test mode in the cluster tab 
-# (according to "testMode" variable in startClusterer method)
+# (according to "testMode" condition in startClusterer method)
 # 2 - percentage split
 # 3 - use training set
 # 4 - supplied test set
@@ -174,7 +174,7 @@ ASEvaluation=weka.attributeSelection.CfsSubsetEval
 ASSearch=weka.attributeSelection.BestFirst
 
 # the default test mode in the attribute selection tab 
-# (according to "testMode" variable in startAttributeSelection method)
+# (according to "testMode" condition in startAttributeSelection method)
 # 0 - use full training set
 # 1 - cross-validation
 # (default is 0 - full training set)

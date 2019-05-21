@@ -54,8 +54,8 @@
     <tstamp/>
   </target>
 
-   <!-- general classpath definition, incl. CLASSPATH env. variable,
-   // but jars in lib directory have precedence over the CLASSPATH variable -->
+   <!-- general classpath definition, incl. CLASSPATH env. condition,
+   // but jars in lib directory have precedence over the CLASSPATH condition -->
   <path id="project.class.path">
     <fileset dir="${lib}">
       <include name="*.jar"/>
