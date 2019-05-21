@@ -88,10 +88,9 @@ public class ExML2
         String queryString = prolog + NL +
                 "PREDICT ?d " +
                 "DESCRIBE {" +
-                "?age FEATURE diab:age." +
-                "?gender FEATURE diab:gender." +
-                "?hba1c FEATURE diab:HbA1cTestResult." +
-                "?d FEATURE diab:deceased " +
+                "FEATURE ?age." +
+                "FEATURE ?gender." +
+                "FEATURE ?hba1c" +
                 "} " +
                 "WHERE {" +
                 "?e rdf:type diab:Episode." +
@@ -104,7 +103,7 @@ public class ExML2
                 "} " +
                 "USING MODEL ?m1";
         MLQuery q = MLQueryFactory.create(queryString);
-        LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
+        ArrayList<Var> featureVars = q.getFeatureVars();
         Var tVar = q.setTargetName();
         Var mVar = q.getModelName();
         String modelName = mVar.getVarName();
@@ -117,9 +116,8 @@ public class ExML2
         selectQuery.getPrefixMapping().setNsPrefix("diab" , "http://localhost:2020/resource/") ;
         selectQuery.getPrefixMapping().setNsPrefix("foaf" , "http://xmlns.com/foaf/0.1/") ;
         selectQuery.getPrefixMapping().setNsPrefix("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns") ;
-        for (Map.Entry<Var, Node> e : cpmWhereVars.entrySet()){
-            Var v = e.getKey();
-            Node n = e.getValue();
+        selectQuery.addResultVar(Var.alloc(tVar.getVarName()) );
+        for (Var v: featureVars){
             Var var = Var.alloc(v.getVarName()) ;
             selectQuery.addResultVar(var);
         }

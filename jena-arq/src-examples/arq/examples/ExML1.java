@@ -48,6 +48,7 @@ import weka.core.Instances;
 import weka.core.WekaException;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
+import weka.core.pmml.Array;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Reorder;
 import weka.knowledgeflow.*;
@@ -67,7 +68,6 @@ public class ExML1
     
     public static void main(String[] args) throws Exception {
         ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-        String datasetName = "tmp_sparql_dataset";
         String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
         int seed = 1;
         MetafeatureGenerator mfGen = new MetafeatureGenerator();
@@ -85,22 +85,13 @@ public class ExML1
                 "PREFIX fo: <http://www.w3.org/1999/XSL/Format#>" ;
 
         // ML query string.
-//        String queryString = prolog + NL +
-//                "CREATE PREDICTION MODEL ?m " +
-//                "TARGET ?publish " +
-//                "WHERE {" +
-//                "?publish FEATURE vocab:papers_Publish." +
-//                "?title FEATURE vocab:papers_Title." +
-//                "?year FEATURE vocab:papers_Year" +
-//                "}";
         String queryString = prolog + NL +
                 "CREATE PREDICTION MODEL ?m2 " +
                 "TARGET ?d " +
                 "DESCRIBE {" +
-                "?age FEATURE diab:age." +
-                "?gender FEATURE diab:gender." +
-                "?hba1c FEATURE diab:HbA1cTestResult." +
-                "?d FEATURE diab:deceased " +
+                "FEATURE ?age." +
+                "FEATURE ?gender." +
+                "FEATURE ?hba1c" +
                 "} " +
                 "WHERE {" +
                 "?e rdf:type diab:Episode." +
@@ -112,7 +103,7 @@ public class ExML1
                 "FILTER (?admissionNumber = 1)." +
                 "} ";
         MLQuery q = MLQueryFactory.create(queryString);
-        LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
+        ArrayList<Var> featureVars = q.getFeatureVars();
         Var tVar = q.setTargetName();
         Var mVar = q.getModelName();
         String modelName = mVar.getVarName();
@@ -123,9 +114,8 @@ public class ExML1
         selectQuery.getPrefixMapping().setNsPrefix("diab" , "http://localhost:2020/resource/") ;
         selectQuery.getPrefixMapping().setNsPrefix("foaf" , "http://xmlns.com/foaf/0.1/") ;
         selectQuery.getPrefixMapping().setNsPrefix("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns") ;
-        for (Map.Entry<Var, Node> e : cpmWhereVars.entrySet()){
-            Var v = e.getKey();
-            Node n = e.getValue();
+        selectQuery.addResultVar(Var.alloc(tVar.getVarName()) );
+        for (Var v: featureVars){
             Var var = Var.alloc(v.getVarName()) ;
             selectQuery.addResultVar(var);
         }

@@ -14,6 +14,7 @@ import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementFilter;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class MLQuery extends Prologue{
@@ -47,7 +48,7 @@ public class MLQuery extends Prologue{
     }
 
     // ---- CREATE PREDICTION MODEL ----------------------------------------
-    private LinkedHashMap<Var, Node> cpmWhereVars = new LinkedHashMap<>();
+    private ArrayList<Var> featureVars = new ArrayList<>();
     private Var modelName;
     private Var targetName;
 
@@ -101,13 +102,12 @@ public class MLQuery extends Prologue{
      *  Those feature descriptions will be used to generate SELECT queries to gather the data
      *
      * @param v corresponding to SPARQL variables that will be made later, such as ?s, ?p
-     * @param n corresponding to OWL classes, such as Patient, Episodes
      */
-    public void addCPMWhereVars(Var v, Node n){
-        if (this.cpmWhereVars.containsKey(v)){
+    public void addFeatureVar(Var v){
+        if (this.featureVars.contains(v)){
             throw new QueryException("Duplicate variable: "+v);
         }
-        this.cpmWhereVars.put(v, n);
+        this.featureVars.add(v);
     }
 
     /**
@@ -115,8 +115,8 @@ public class MLQuery extends Prologue{
      *
      * @return LinkedHashMap of variables and their corresponding graph nodes.
      */
-    public LinkedHashMap<Var, Node> getCPMWhereVars(){
-        return this.cpmWhereVars;
+    public ArrayList<Var> getFeatureVars(){
+        return this.featureVars;
     }
 
     /**

@@ -219,11 +219,10 @@ public class SPARQLParser11 extends SPARQLParser11Base implements SPARQLParser11
   }
 
   final public void TripleFeatureClause() throws ParseException {
-                             Var v; Node n;
-    v = Var();
+                             Var v;
     jj_consume_token(FEATURE);
-    n = GraphTerm();
-          getMLQuery().addCPMWhereVars(v, n);
+    v = Var();
+          getMLQuery().addFeatureVar(v);
   }
 
   final public void WhereMLClause() throws ParseException {

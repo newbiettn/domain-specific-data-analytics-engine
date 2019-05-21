@@ -222,11 +222,10 @@ public class ARQParser extends ARQParserBase implements ARQParserConstants {
   }
 
   final public void TripleFeatureClause() throws ParseException {
-                             Var v; Node n;
-    v = Var();
+                             Var v;
     jj_consume_token(FEATURE);
-    n = GraphTerm();
-          getMLQuery().addCPMWhereVars(v, n);
+    v = Var();
+          getMLQuery().addFeatureVar(v);
   }
 
   final public void WhereMLClause() throws ParseException {
@@ -6788,14 +6787,14 @@ public class ARQParser extends ARQParserBase implements ARQParserConstants {
     return false;
   }
 
-  private boolean jj_3R_129() {
-    if (jj_scan_token(STDEV_POP)) return true;
-    if (jj_scan_token(LPAREN)) return true;
+  private boolean jj_3R_117() {
+    if (jj_3R_137()) return true;
     return false;
   }
 
-  private boolean jj_3R_117() {
-    if (jj_3R_137()) return true;
+  private boolean jj_3R_129() {
+    if (jj_scan_token(STDEV_POP)) return true;
+    if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 

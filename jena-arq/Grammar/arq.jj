@@ -224,13 +224,11 @@ void DescribePredictionModelClause(): { Var v; Node n = null ; }
     )*
   <RBRACE>
 }
-void TripleFeatureClause(): {Var v; Node n; }
+void TripleFeatureClause(): {Var v;}
 {
-     v = Var()
-     <FEATURE>
+     <FEATURE> v = Var()
      (
-        n = GraphTerm()
-        { getMLQuery().addCPMWhereVars(v, n); }
+        { getMLQuery().addFeatureVar(v); }
      )
 }
 void WhereMLClause() : { Element el ; }
