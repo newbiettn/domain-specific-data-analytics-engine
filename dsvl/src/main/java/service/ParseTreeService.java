@@ -132,7 +132,7 @@ public class ParseTreeService {
      *
      * @param node
      */
-    private void interpret(Node root, Node node, int depth){
+    private void interpret(Node root, Node node, int depth){ //TODO: revise the code
         if (node == null)
             return;
 
@@ -255,7 +255,7 @@ public class ParseTreeService {
             }
 
             // last node of the tree
-            if (depth == getDepth(root)){ // TODO: not sure why depth == 2 works
+            if (depth == getDepth(root)){
                 // filter condition
                 ArrayList<Pair<String, String>> conditions = getConditions(root);
                 if (conditions.size() > 0 ){
