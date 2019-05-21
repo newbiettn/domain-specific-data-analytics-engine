@@ -36,6 +36,9 @@ public class MLQuery extends Prologue{
     private MLModel model;
     public MLModel getModel() { return model; }
 
+    // The WHERE clause
+    private Element queryPattern = null ;
+
     /** Create a new empty ML query
      *
      */
@@ -115,6 +118,17 @@ public class MLQuery extends Prologue{
     public LinkedHashMap<Var, Node> getCPMWhereVars(){
         return this.cpmWhereVars;
     }
+
+    /**
+     * WHERE clause
+     *
+     * @param elt
+     */
+    public void setQueryPattern(Element elt) {
+        this.queryPattern = elt ;
+    }
+
+    public Element getQueryPattern() { return queryPattern ; }
 
     /** Visitor pattern for MLQuery
      *

@@ -29,6 +29,7 @@ import org.apache.jena.graph.Node;
 import org.apache.jena.ml.MLQuery;
 import org.apache.jena.ml.MLQueryFactory;
 import org.apache.jena.query.*;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
@@ -40,6 +41,7 @@ import org.apache.jena.sparql.syntax.ElementFilter;
 import org.apache.jena.sparql.util.FmtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import planner.Trainer;
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
@@ -61,29 +63,46 @@ public class ExML2
     public static void main(String[] args) throws Exception {
         ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
         String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
+
+        String modelFilePath = propGetter.getProperty("sparqml.dm.model.filepath");
+        String modelFileNamePrefix = propGetter.getProperty("sparqlml.dm.model.filename.prefix");
+        String predictingProcessFP = propGetter.getProperty("sparqlml.dm.predicting.process.filepath");
+        String processFileNamePrefix = propGetter.getProperty("sparqlml.dm.process.filename.prefix");
+
         int seed = 1;
         MetafeatureGenerator mfGen = new MetafeatureGenerator();
         DbUtils dbUtils = new DbUtils();
         int clockTimeout = 30000;
-        String trainingCsv = filePath + "sparql_data_tmp.csv";
-        String trainingArff = filePath + "sparql_data_tmp.arff";
+        String testCsv = filePath + "sparql_data_tmp_test.csv";
+        String testArff = filePath + "sparql_data_tmp_test.arff";
 
         // Create the data.
         // First part or the query string
-        String prolog = "PREFIX : <file:///Users/newbiettn/Downloads/d2rq-0.8.1/mapping.nt#>\n" +
-                "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                "PREFIX vocab: <file:///Users/newbiettn/Downloads/d2rq-0.8.1/vocab/>" ;
+        String prolog = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+                "PREFIX diab: <http://localhost:2020/resource/>\n" +
+                "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
+                "PREFIX fo: <http://www.w3.org/1999/XSL/Format#>" ;
 
-        // ML query string.
+    // ML query string.
         String queryString = prolog + NL +
-                "PREDICT ?publish " +
-                "WHERE {" +
-                "?publish FEATURE vocab:papers_Publish." +
-                "?title FEATURE vocab:papers_Title." +
-                "?year FEATURE vocab:papers_Year" +
+                "PREDICT ?d " +
+                "DESCRIBE {" +
+                "?age FEATURE diab:age." +
+                "?gender FEATURE diab:gender." +
+                "?hba1c FEATURE diab:HbA1cTestResult." +
+                "?d FEATURE diab:deceased " +
                 "} " +
-                "FILTER (?year > 2001 && ?year < 2015)" +
-                "USING MODEL ?m";
+                "WHERE {" +
+                "?e rdf:type diab:Episode." +
+                "?e foaf:age ?age." +
+                "?e foaf:gender ?gender." +
+                "?e diab:hasHbA1cTestResult ?hba1c." +
+                "?e diab:hasAdmissionNumber ?admissionNumber." +
+                "?e diab:isDeceased ?d." +
+                "FILTER (?age = 94)." +
+                "} " +
+                "USING MODEL ?m1";
         MLQuery q = MLQueryFactory.create(queryString);
         LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
         Var tVar = q.setTargetName();
@@ -92,27 +111,24 @@ public class ExML2
         ElementFilter filterEl = (ElementFilter)q.getFilterEle();
 
         // Create SELECT query
-        StringBuilder whereStr = new StringBuilder();
-        StringBuilder selectStr = new StringBuilder();
+        Query selectQuery = QueryFactory.make() ;
+        selectQuery.setQuerySelectType() ;
+        selectQuery.setQueryPattern(q.getQueryPattern());
+        selectQuery.getPrefixMapping().setNsPrefix("diab" , "http://localhost:2020/resource/") ;
+        selectQuery.getPrefixMapping().setNsPrefix("foaf" , "http://xmlns.com/foaf/0.1/") ;
+        selectQuery.getPrefixMapping().setNsPrefix("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns") ;
         for (Map.Entry<Var, Node> e : cpmWhereVars.entrySet()){
             Var v = e.getKey();
             Node n = e.getValue();
-            selectStr = selectStr.append("?").append(v.getVarName()).append(" ");
-            whereStr = whereStr.append("?s ").append("<").append(n.getURI()).append(">").append(" ").append("?").append(v.getVarName()).append(".").append(NL);
+            Var var = Var.alloc(v.getVarName()) ;
+            selectQuery.addResultVar(var);
         }
 
-        String selectQuery = prolog + NL +
-                "SELECT " + selectStr.toString() +
-                " WHERE { " + NL +
-                whereStr.toString() +
-                filterEl.toString() +
-                " }";
-
-        Query query = QueryFactory.create(selectQuery);
-        query.serialize(new IndentedWriter(System.out,true)) ;
+        selectQuery.serialize(new IndentedWriter(System.out,true)) ;
+        System.out.println() ;
 
         // Gather as a dataset for further ML execution
-        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/D2/query", query) ) {
+        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/austin/query", selectQuery) ) {
             // Set the DBpedia specific timeout.
             ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
 
@@ -136,7 +152,8 @@ public class ExML2
                     }
                     // Print row
                     RDFNode obj = rBind.get(rVar);
-                    String v = FmtUtils.stringForRDFNode(obj);
+                    Literal l = obj.asLiteral();
+                    String v = l.getString();
                     if (col < numCols-1)
                         row.append(v).append(",");
                     else
@@ -145,7 +162,7 @@ public class ExML2
             }
             // Save to CSV
             FileWriter fw = new FileWriter(
-                    trainingCsv,
+                    testCsv,
                     false);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
@@ -158,10 +175,11 @@ public class ExML2
 
         /* Convert CSV file to ARFF */
         CSVLoader csvLoader = new CSVLoader();
-        csvLoader.setSource(new File(trainingCsv));
+        csvLoader.setSource(new File(testCsv));
         Instances data = csvLoader.getDataSet();
 
         // Put the target attribute to the last position to manage easier
+        System.out.println(tVar.getVarName());
         Attribute tAttr = data.attribute(tVar.getVarName());
         int tIndex = tAttr.index() + 1;
         StringBuilder attrIds = new StringBuilder();
@@ -179,8 +197,19 @@ public class ExML2
 
         ArffSaver saver = new ArffSaver();
         saver.setInstances(data);
-        saver.setFile(new File(trainingArff));
+        saver.setFile(new File(testArff));
         saver.writeBatch();
+
+        // Predicting
+        String processFileName = predictingProcessFP + processFileNamePrefix + "_" + modelName + ".kf";
+        logger.info(processFileName);
+        Map<String, Double> results = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
+
+        logger.info(String.valueOf(results.get("weightedAreaUnderROC")));
+        logger.info(String.valueOf(results.get("weightedFMeasure")));
+        logger.info(String.valueOf(results.get("weightedPrecision")));
+        logger.info(String.valueOf(results.get("weightedRecall")));
+        logger.info(String.valueOf(results.get("errorRate")));
     }
 
     public static double[] normalize(double[] mf) throws Exception {

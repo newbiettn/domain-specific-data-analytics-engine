@@ -161,7 +161,13 @@
       <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
-
+    <dependency>
+      <groupId>DiabetesDiscoveryV2</groupId>
+      <artifactId>jshop2</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>/Users/newbiettn/Dropbox/Swinburne/Github/codes/jshop2-master/bin.build/JSHOP2.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>

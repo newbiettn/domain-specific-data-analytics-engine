@@ -34,8 +34,10 @@ import org.apache.jena.rdf.model.* ;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.graph.Node;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
+import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.util.FmtUtils;
 
+import org.apache.jena.vocabulary.DC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import planner.Trainer;
@@ -76,48 +78,63 @@ public class ExML1
 
         // Create the data.
         // First part or the query string
-        String prolog = "PREFIX : <file:///Users/newbiettn/Downloads/d2rq-0.8.1/mapping.nt#>\n" +
-                "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                "PREFIX vocab: <file:///Users/newbiettn/Downloads/d2rq-0.8.1/vocab/>" ;
+        String prolog = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+                "PREFIX diab: <http://localhost:2020/resource/>\n" +
+                "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
+                "PREFIX fo: <http://www.w3.org/1999/XSL/Format#>" ;
 
         // ML query string.
+//        String queryString = prolog + NL +
+//                "CREATE PREDICTION MODEL ?m " +
+//                "TARGET ?publish " +
+//                "WHERE {" +
+//                "?publish FEATURE vocab:papers_Publish." +
+//                "?title FEATURE vocab:papers_Title." +
+//                "?year FEATURE vocab:papers_Year" +
+//                "}";
         String queryString = prolog + NL +
-                "CREATE PREDICTION MODEL ?m " +
-                "TARGET ?publish " +
+                "CREATE PREDICTION MODEL ?m2 " +
+                "TARGET ?d " +
+                "DESCRIBE {" +
+                "?age FEATURE diab:age." +
+                "?gender FEATURE diab:gender." +
+                "?hba1c FEATURE diab:HbA1cTestResult." +
+                "?d FEATURE diab:deceased " +
+                "} " +
                 "WHERE {" +
-                "?publish FEATURE vocab:papers_Publish." +
-                "?title FEATURE vocab:papers_Title." +
-                "?year FEATURE vocab:papers_Year" +
-                "}";
+                "?e rdf:type diab:Episode." +
+                "?e foaf:age ?age." +
+                "?e foaf:gender ?gender." +
+                "?e diab:hasHbA1cTestResult ?hba1c." +
+                "?e diab:hasAdmissionNumber ?admissionNumber." +
+                "?e diab:isDeceased ?d." +
+                "FILTER (?admissionNumber = 1)." +
+                "} ";
         MLQuery q = MLQueryFactory.create(queryString);
         LinkedHashMap<Var, Node> cpmWhereVars = q.getCPMWhereVars();
         Var tVar = q.setTargetName();
         Var mVar = q.getModelName();
         String modelName = mVar.getVarName();
 
-        StringBuilder whereStr = new StringBuilder();
-        StringBuilder selectStr = new StringBuilder();
+        Query selectQuery = QueryFactory.make() ;
+        selectQuery.setQuerySelectType() ;
+        selectQuery.setQueryPattern(q.getQueryPattern());
+        selectQuery.getPrefixMapping().setNsPrefix("diab" , "http://localhost:2020/resource/") ;
+        selectQuery.getPrefixMapping().setNsPrefix("foaf" , "http://xmlns.com/foaf/0.1/") ;
+        selectQuery.getPrefixMapping().setNsPrefix("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns") ;
         for (Map.Entry<Var, Node> e : cpmWhereVars.entrySet()){
             Var v = e.getKey();
             Node n = e.getValue();
-            selectStr = selectStr.append("?").append(v.getVarName()).append(" ");
-            whereStr = whereStr.append("?s ").append("<").append(n.getURI()).append(">").append(" ").append("?").append(v.getVarName()).append(".").append(NL);
+            Var var = Var.alloc(v.getVarName()) ;
+            selectQuery.addResultVar(var);
         }
 
-        logger.info("Successfully parse MLQuery");
-        // Create SELECT query
-        String selectQuery = prolog + NL +
-                "SELECT " + selectStr.toString() +
-                " WHERE { " + NL +
-                whereStr.toString() +
-                " }";
 
-        Query query = QueryFactory.create(selectQuery);
-        logger.info( "Select query");
-        query.serialize(new IndentedWriter(System.out,true)) ;
+        selectQuery.serialize(new IndentedWriter(System.out,true)) ;
+        System.out.println() ;
 
-        // Gather as a dataset for further ML execution
-        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/iswc/query", query) ) {
+        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/austin/query", selectQuery) ) {
             // Set the DBpedia specific timeout.
             ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
 
@@ -141,7 +158,8 @@ public class ExML1
                     }
                     // Print row
                     RDFNode obj = rBind.get(rVar);
-                    String v = FmtUtils.stringForRDFNode(obj);
+                    Literal l = obj.asLiteral();
+                    String v = l.getString();
                     if (col < numCols-1)
                         row.append(v).append(",");
                     else
@@ -160,6 +178,7 @@ public class ExML1
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         /* Convert CSV file to ARFF */
         CSVLoader csvLoader = new CSVLoader();
         csvLoader.setSource(new File(trainingCsv));
@@ -192,7 +211,7 @@ public class ExML1
         GMeans gm = (GMeans) oi.readObject();
         oi.close();
 
-        File trainingset = new File("resources/sparqml/anneal.arff");
+        File trainingset = new File(trainingArff);
         Map<String, Double> mf = mfGen.generate(trainingset);
         mf.remove("NumberOfInstancesWithMissingValues");
         mf.remove("NumberOfMissingValues");
@@ -211,7 +230,7 @@ public class ExML1
         logger.info( "The dataset belongs to the cluster: " + cluster);
 
         /* Data mining */
-        String trainingFileUrl = filePath + "anneal.arff";
+//        String trainingFileUrl = filePath + trainingArff;
         List<Map<String, Object>> workflows = dbUtils.getWorkflowOfDatasetByCluster(cluster);
         logger.info( "The size of workflows: " + workflows);
         String[] classifiers = new String[workflows.size()];
@@ -357,15 +376,14 @@ public class ExML1
         String c = (String)bestFlowResult.get("classifier");
         String a = (String)bestFlowResult.get("attributeSelection");
         logger.info(a + "/" + c);
+        logger.info(filePath);
 
         Trainer.getSingleton().trainModelForSPARQL(
-                datasetName,
-                trainingFileUrl,
+                trainingArff,
                 modelName,
                 c,
                 a,
-                seed,
-                filePath);
+                seed);
 
         boolean everythingIsDone = false;
         while (!everythingIsDone){
