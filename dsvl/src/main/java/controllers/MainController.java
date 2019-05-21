@@ -108,6 +108,7 @@ public class MainController {
         // Create skin factory for flow visualization
         skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
+        skinFactory.addSkinClassForValueType(CreatePredictionModelNodeBean.class, CreatePredictionModelNodeSkin.class);
         skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
         skinFactory.addSkinClassForValueType(AskNodeBean.class, AskNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
@@ -246,6 +247,15 @@ public class MainController {
 
     @FXML
     private void addCreateMLModelNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", PatientNodeBean.class));
+        outputs.add(new Pair<>("", EpisodeNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new CreatePredictionModelNodeBean(outputs));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
     }
 
     @FXML
@@ -382,8 +392,6 @@ public class MainController {
         } else {
             logger.info("Invalid parsing tree");
         }
-
-
     }
 
 }
