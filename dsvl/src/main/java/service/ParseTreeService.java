@@ -25,11 +25,11 @@ public class ParseTreeService {
     private final String LCURLYBRACKET = "{";
     private final String RCURLYBRACKET = "}";
     private final String AND = "&&";
-    private final String prolog = "PREFIX diab: <http://www.semanticweb.org/newbiettn/ontologies/2017/11/diabetes_inpatient_study#>\n" +
-            "PREFIX : <http://localhost:2020/>\n" +
-            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-            "PREFIX owl: <http://www.w3.org/2002/07/owl#>";
     private StringBuilder sparqlQuery;
+    private final String prolog = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+            "PREFIX diab: <http://localhost:2020/resource/>\n" +
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n";
+
 
     public ParseTreeService(){
     }
@@ -58,8 +58,10 @@ public class ParseTreeService {
                 interpretSimple(root);
         }  else if (cl == PrevalenceNodeBean.class) { //Prevalence query
             interpretPrevalence(root, root, 0);
-        } else if (cl == AskNodeBean.class){
+        } else if (cl == AskNodeBean.class) {
             interpretAsk(root, root, 0);
+        } else if (cl == CreatePredictionModelNodeBean.class) {
+            interpretCreatePredictionModel(root, root, 0);
         } else {
             logger.error("Require appropriate root nodes (SELECT, ASK, ...) to interpret to SPARQL");
             return null;
@@ -67,6 +69,152 @@ public class ParseTreeService {
 
         logger.info("Raw query: \n" + sparqlQuery.toString());
         return sparqlQuery.toString();
+    }
+
+    /**
+     * Interpret CreatePredictionModel query.
+     *
+     */
+    private void interpretCreatePredictionModel(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        if (depth == 0){
+            sparqlQuery.append(objectBean.getSparqlValue());
+            sparqlQuery.append(SPACE);
+            sparqlQuery.append("?model");
+            sparqlQuery.append(NL);
+        }
+        if (node.getChildren().size() == 3) {
+            // first child
+            Node firstChild = node.getChildren().get(0).getValue();
+            ObjectBean obFirstChild = (ObjectBean) firstChild.getVNode().getValueObject().getValue();
+            Node secondChild = node.getChildren().get(1).getValue();
+            ObjectBean obSecondChild = (ObjectBean) secondChild.getVNode().getValueObject().getValue();
+            Node thirdChild = node.getChildren().get(2).getValue();
+            ObjectBean obThirdChild = (ObjectBean) thirdChild.getVNode().getValueObject().getValue();
+            if ((obFirstChild.getClass() == PatientNodeBean.class || obFirstChild.getClass() == EpisodeNodeBean.class)
+                && (obSecondChild.getClass() == TargetNodeBean.class)
+                && (obThirdChild.getClass() == FeatureNodeBean.class)) {
+                interpretTargetNode(root, secondChild, ++depth);
+                sparqlQuery.append(NL);
+
+                interpretFeature(root, thirdChild, ++depth);
+                sparqlQuery.append(NL);
+
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, firstChild, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+
+            } else if ((obFirstChild.getClass() == PatientNodeBean.class || obFirstChild.getClass() == EpisodeNodeBean.class)
+                    && (obThirdChild.getClass() == TargetNodeBean.class)
+                    && (obSecondChild.getClass() == FeatureNodeBean.class)) {
+                interpretTargetNode(root, thirdChild, ++depth);
+                sparqlQuery.append(NL);
+
+                interpretFeature(root, secondChild, ++depth);
+                sparqlQuery.append(NL);
+
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, firstChild, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+
+            } else if ((obSecondChild.getClass() == PatientNodeBean.class || obSecondChild.getClass() == EpisodeNodeBean.class)
+                    && (obFirstChild.getClass() == TargetNodeBean.class)
+                    && (obThirdChild.getClass() == FeatureNodeBean.class)) {
+                interpretTargetNode(root, firstChild, ++depth);
+                sparqlQuery.append(NL);
+
+                interpretFeature(root, thirdChild, ++depth);
+                sparqlQuery.append(NL);
+
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, secondChild, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+
+            } else if ((obSecondChild.getClass() == PatientNodeBean.class || obSecondChild.getClass() == EpisodeNodeBean.class)
+                    && (obThirdChild.getClass() == TargetNodeBean.class)
+                    && (obFirstChild.getClass() == FeatureNodeBean.class)) {
+                interpretTargetNode(root, thirdChild, ++depth);
+                sparqlQuery.append(NL);
+
+                interpretFeature(root, firstChild, ++depth);
+                sparqlQuery.append(NL);
+
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, secondChild, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+
+            } else if ((obThirdChild.getClass() == PatientNodeBean.class || obThirdChild.getClass() == EpisodeNodeBean.class)
+                    && (obFirstChild.getClass() == TargetNodeBean.class)
+                    && (obSecondChild.getClass() == FeatureNodeBean.class)) {
+                interpretTargetNode(root, firstChild, ++depth);
+                sparqlQuery.append(NL);
+
+                interpretFeature(root, secondChild, ++depth);
+                sparqlQuery.append(NL);
+
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, thirdChild, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+
+            } else if ((obThirdChild.getClass() == PatientNodeBean.class || obThirdChild.getClass() == EpisodeNodeBean.class)
+                    && (obSecondChild.getClass() == TargetNodeBean.class)
+                    && (obFirstChild.getClass() == FeatureNodeBean.class)) {
+                interpretTargetNode(root, secondChild, ++depth);
+                sparqlQuery.append(NL);
+
+                interpretFeature(root, firstChild, ++depth);
+                sparqlQuery.append(NL);
+
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, thirdChild, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+            }
+        } else {
+            logger.info("Require Target node and describing nodes");
+        }
+    }
+
+    private void interpretTargetNode(Node root, Node node, int depth) {
+        TargetNodeBean targetNodeBean = (TargetNodeBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(targetNodeBean.getSparqlValue());
+
+        if (node.getChildren().size() == 1) {
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                ConditionNodeBean conditionNodeBean = (ConditionNodeBean) child.getVNode().getValueObject().getValue();
+                sparqlQuery.append(SPACE).append(conditionNodeBean.getSparqlValue());
+            }
+        } else {
+
+        }
+    }
+
+    private void interpretFeature(Node root, Node node, int depth) {
+        FeatureNodeBean featureNodeBean = (FeatureNodeBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(featureNodeBean.getSparqlValue());
+        sparqlQuery.append(SPACE);
+        sparqlQuery.append(LCURLYBRACKET);
+        sparqlQuery.append(NL);
+
+        if (node.getChildren().size() > 0) {
+            int count = 0;
+            for(Pair<String, Node> p : node.getChildren()){
+                Node child = p.getValue();
+                ConditionNodeBean conditionNodeBean = (ConditionNodeBean) child.getVNode().getValueObject().getValue();
+                sparqlQuery.append("FEATURE")
+                        .append(SPACE)
+                        .append(conditionNodeBean.getSparqlValue());
+                if (count < node.getChildren().size() - 1)
+                    sparqlQuery.append(DOT);
+                sparqlQuery.append(NL);
+                count++;
+            }
+        }
+        sparqlQuery.append(RCURLYBRACKET);
     }
 
     /**

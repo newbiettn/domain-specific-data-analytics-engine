@@ -109,6 +109,8 @@ public class MainController {
         skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(CreatePredictionModelNodeBean.class, CreatePredictionModelNodeSkin.class);
+        skinFactory.addSkinClassForValueType(TargetNodeBean.class, TargetNodeSkin.class);
+        skinFactory.addSkinClassForValueType(FeatureNodeBean.class, FeatureNodeSkin.class);
         skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
         skinFactory.addSkinClassForValueType(AskNodeBean.class, AskNodeSkin.class);
         skinFactory.addSkinClassForValueType(PatientNodeBean.class, PatientNodeSkin.class);
@@ -250,6 +252,8 @@ public class MainController {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
         outputs.add(new Pair<>("", PatientNodeBean.class));
         outputs.add(new Pair<>("", EpisodeNodeBean.class));
+        outputs.add(new Pair<>("", TargetNodeBean.class));
+        outputs.add(new Pair<>("", FeatureNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new CreatePredictionModelNodeBean(outputs));
@@ -259,12 +263,36 @@ public class MainController {
     }
 
     @FXML
+    private void addTargetNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", ConditionNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new TargetNodeBean(outputs));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addFeatureNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", ConditionNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new FeatureNodeBean(outputs));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
     private void addPatientNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        Pair<String, Class> p1 = new Pair<>("diab:hasURN", ConditionNodeBean.class);
-        Pair<String, Class> p2 = new Pair<>("diab:hasEpisode", EpisodeNodeBean.class);
-        outputs.add(p1);
-        outputs.add(p2);
+        outputs.add(new Pair<>("diab:hasURN", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasEpisode", EpisodeNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new PatientNodeBean(outputs));
@@ -277,12 +305,24 @@ public class MainController {
     @FXML
     private void addEpisodeNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("diab:hasAdmissionReport", AdmissionReportNodeBean.class));
         outputs.add(new Pair<>("diab:hasAge", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasHbA1cTestResult", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasSex", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasCountryOfBirth", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasCountryOfBirthCode", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasDeceased", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasEpisodeKey", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:containsSeparationReport", SeparationReportNodeBean.class));
-        outputs.add(new Pair<>("diab:containsAdmissionReport", AdmissionReportNodeBean.class));
+        outputs.add(new Pair<>("diab:hasGender", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasGp", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasHbA1c", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasHbA1cTestRequestEvent", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasHbA1cTestResult", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasInterpreterRequired", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasLengthOfStay", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasLengthOfStayType", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasMaritalStatus", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasPreferredLanguage", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasReligion", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasSeparationReport", SeparationReportNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new EpisodeNodeBean(outputs));
@@ -300,7 +340,11 @@ public class MainController {
     @FXML
     private void addAdmissionReportNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        outputs.add(new Pair<>("diab:hasAdmissionNumber", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasAdmissionSource", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasAdmissionType", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasAdmissionUnit", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasAdmissionWard", ConditionNodeBean.class));
+        outputs.add(new Pair<>("diab:hasTimestamp", ConditionNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new AdmissionReportNodeBean(outputs));
@@ -314,10 +358,7 @@ public class MainController {
     private void addSeparationReportNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
         outputs.add(new Pair<>("diab:hasSeparationMode", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasSeparationUnit", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasSeparationWard", ConditionNodeBean.class));
 
         VNode n = flow.newNode();
@@ -380,7 +421,8 @@ public class MainController {
                     execResult = service.execSelectQuery(sparqlQuery);
                 else if (type == ParseTree.ASK_TREE)
                     execResult = service.execAskQuery(sparqlQuery);
-
+                else if (type == ParseTree.CREATEPREDICTIONMODEL_TREE)
+                    execResult = service.execCreatePredictionModelQuery(sparqlQuery);
                 if (execResult) { // Run query to retrieve data
                     logger.info("Populating the table...");
                     service.populateTable(table, "",

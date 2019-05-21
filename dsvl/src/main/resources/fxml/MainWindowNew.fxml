@@ -11,8 +11,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -22,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="887.0" prefWidth="1469.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="887.0" prefWidth="1546.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <right>
       <Accordion fx:id="rightAccordion" prefHeight="859.0" prefWidth="252.0" BorderPane.alignment="CENTER">
         <panes>
@@ -93,6 +91,8 @@
                   <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
                   <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
                   <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
+                  <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
+                  <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
                   <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
@@ -100,17 +100,11 @@
                   <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
-                  <Pane HBox.hgrow="ALWAYS" />
+                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
+                  <Pane prefHeight="28.0" prefWidth="7.0" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="79.0" text="Parse" textAlignment="RIGHT" />
                   <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="69.0" text="Load" />
-                  <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="27.0" prefWidth="104.0" text="Run" textAlignment="RIGHT">
-                     <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="file:/fxml/img/play.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
+                  <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="27.0" prefWidth="57.0" text="Run" textAlignment="RIGHT" />
               </items>
             </ToolBar>
          </top>
