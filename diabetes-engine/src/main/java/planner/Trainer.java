@@ -38,6 +38,8 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -617,12 +619,6 @@ public class Trainer {
     /**
      *
      *
-     * @param dataset
-     * @param outputFile
-     * @param classifier
-     * @param attributeSelection
-     * @param seed
-     * @param filePath
      */
     public Map<String, Object>  executeAutoWeka(String datasetName,
                                                      String trainingFileUrl,
@@ -1015,23 +1011,19 @@ public class Trainer {
 
     /**
      *
-     * @param datasetName
      * @param modelName
      * @param classifier
      * @param attributeSelection
      * @param seed
-     * @param filePath
      */
-    public void trainModelForSPARQL(String datasetName,
-                                                    String trainingFileUrl,
-                                                    String modelName,
-                                                    String classifier,
-                                                    String attributeSelection,
-                                                    int seed,
-                                                    String filePath) {
+    public void trainModelForSPARQL(String trainingFileUrl,
+                                    String modelName,
+                                    String classifier,
+                                    String attributeSelection,
+                                    int seed) {
         TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
-        String predictingProcessFP = propGetter.getProperty("sparqlml.dm.training.process.filepath");
-        String trainingProcessFile = predictingProcessFP + modelName +
+        String trainingProcessFP = propGetter.getProperty("sparqlml.dm.training.process.filepath");
+        String trainingProcessFile = trainingProcessFP + modelName +
                                         "_" + attributeSelection + "_" + classifier + ".kf";
 
         // train beans
@@ -1042,8 +1034,9 @@ public class Trainer {
                 seed,
                 attributeSelection,
                 classifier);
-        Flow flow = executeTranslatedPlan(trainingProcess);
+        executeTranslatedPlan(trainingProcess);
 
+        logger.info(modelName);
         // prepare a predicting process for future
         File predictingProcess = trans.preparePredictingProcess(
                 modelName,
@@ -1054,22 +1047,28 @@ public class Trainer {
 
     /**
      *
-     * @param datasetName
-     * @param modelName
-     * @param classifier
-     * @param attributeSelection
-     * @param seed
-     * @param filePath
      */
-    public void predictForSPARQL(String datasetName,
-                                    String trainingFileUrl,
-                                    String modelName,
-                                    String classifier,
-                                    String attributeSelection,
-                                    int seed,
-                                    String filePath) {
-        TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
-        String wekaFlowInputFile = propGetter.getProperty("single.weka.output.file");
+    public Map<String, Double> predictForSPARQL(String predictingProcessFileUrl, String testFileUrl) {
+        String contents = null;
+        try {
+            contents = new String(Files.readAllBytes(Paths.get(predictingProcessFileUrl)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String pattern = "<Test_File_Name>";
+        String updated = contents.replaceAll(pattern, testFileUrl);
+        File f = new File(predictingProcessFileUrl);
+        try {
+            FileWriter fw = new FileWriter(f, false);
+            fw.write(updated);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File predictingFlowFile = new File(predictingProcessFileUrl);
+        Flow flow = executeTranslatedPlan(predictingFlowFile);
+        Map<String, Double> results = getDataMiningResultFromEvaluation(flow);
+        return results;
 
     }
 }

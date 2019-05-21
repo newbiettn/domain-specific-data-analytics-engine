@@ -361,7 +361,7 @@ public class TranslateToKFForSPARQL {
                     "\t\t{\n" +
                     "\t\t\t\"class\" : \"weka.knowledgeflow.steps.ClassAssigner\",\n" +
                     "\t\t\t\"properties\" : {\n" +
-                    "\t\t\t\t\"classColumn\" : \"class\",\n" +
+                    "\t\t\t\t\"classColumn\" : \"last\",\n" +
                     "\t\t\t\t\"name\" : \"ClassAssigner\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
@@ -374,11 +374,11 @@ public class TranslateToKFForSPARQL {
                     "\t\t{\n" +
                     "\t\t\t\"class\" : \"weka.knowledgeflow.steps.SerializedModelSaver\",\n" +
                     "\t\t\t\"properties\" : {\n" +
-                    "\t\t\t\t\"filenamePrefix\" : \"sparql\",\n" +
+                    "\t\t\t\t\"filenamePrefix\" : \"" + modelName + "\",\n" +
                     "\t\t\t\t\"includeRelationNameInFilename\" : false,\n" +
                     "\t\t\t\t\"incrementalSaveSchedule\" : 0,\n" +
                     "\t\t\t\t\"name\" : \"SerializedModelSaver\",\n" +
-                    "\t\t\t\t\"outputDirectory\" : \"/Users/newbiettn/Downloads\"\n" +
+                    "\t\t\t\t\"outputDirectory\" : \"resources/sparqml/models\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t},\n" +
@@ -424,7 +424,7 @@ public class TranslateToKFForSPARQL {
                     "\t\t{\n" +
                     "\t\t\t\"class\" : \"weka.knowledgeflow.steps.ClassAssigner\",\n" +
                     "\t\t\t\"properties\" : {\n" +
-                    "\t\t\t\t\"classColumn\" : \"class\",\n" +
+                    "\t\t\t\t\"classColumn\" : \"last\",\n" +
                     "\t\t\t\t\"name\" : \"ClassAssigner\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
@@ -441,7 +441,7 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t\t\"includeRelationNameInFilename\" : false,\n" +
                     "\t\t\t\t\"incrementalSaveSchedule\" : 0,\n" +
                     "\t\t\t\t\"name\" : \"SerializedModelSaver\",\n" +
-                    "\t\t\t\t\"outputDirectory\" : \"/Users/newbiettn/Downloads\"\n" +
+                    "\t\t\t\t\"outputDirectory\" : \"resources/sparqml/models\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t},\n" +
@@ -501,11 +501,11 @@ public class TranslateToKFForSPARQL {
                                          String attributeSelection,
                                          String classifier){
         ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-        String modelFilePath = propGetter.getProperty("sparqml.dm.model.filepath");
+        String modelFilePath = propGetter.getProperty("sparqlml.dm.model.filepath");
         String modelFileNamePrefix = propGetter.getProperty("sparqlml.dm.model.filename.prefix");
         String predictingProcessFP = propGetter.getProperty("sparqlml.dm.predicting.process.filepath");
         String processFileNamePrefix = propGetter.getProperty("sparqlml.dm.process.filename.prefix");
-        String modelFilename = modelFilePath + modelFileNamePrefix + "_" + modelName;
+        String modelFilename = modelFilePath + modelName;
         String processFileName = predictingProcessFP + processFileNamePrefix + "_" + modelName + ".kf";
         String testFileNamePlaceholder = "<Test_File_Name>";
 
@@ -871,7 +871,7 @@ public class TranslateToKFForSPARQL {
                     "\t\t{\n" +
                     "\t\t\t\"class\" : \"weka.knowledgeflow.steps.ClassAssigner\",\n" +
                     "\t\t\t\"properties\" : {\n" +
-                    "\t\t\t\t\"classColumn\" : \"class\",\n" +
+                    "\t\t\t\t\"classColumn\" : \"last\",\n" +
                     "\t\t\t\t\"name\" : \"ClassAssigner\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
@@ -907,12 +907,12 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t\"coordinates\" : \"968,60\"\n" +
                     "\t\t},\n"+
                     "\t\t{\n" +
-                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.TrainingSetMaker\",\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.TestSetMaker\",\n" +
                     "\t\t\t\"properties\" : {\n" +
-                    "\t\t\t\t\"name\" : \"TrainingSetMaker\"\n" +
+                    "\t\t\t\t\"name\" : \"TestSetMaker\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
-                    "\t\t\t\t\"trainingSet\" : [\n" +
+                    "\t\t\t\t\"testSet\" : [\n" +
                     "\t\t\t\t\t\"Classifier\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
@@ -946,7 +946,7 @@ public class TranslateToKFForSPARQL {
                     "\t\t{\n" +
                     "\t\t\t\"class\" : \"weka.knowledgeflow.steps.ClassAssigner\",\n" +
                     "\t\t\t\"properties\" : {\n" +
-                    "\t\t\t\t\"classColumn\" : \"class\",\n" +
+                    "\t\t\t\t\"classColumn\" : \"last\",\n" +
                     "\t\t\t\t\"name\" : \"ClassAssigner\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
@@ -987,7 +987,7 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t\t\"name\" : \"TestSetMaker\"\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
-                    "\t\t\t\t\"trainingSet\" : [\n" +
+                    "\t\t\t\t\"testSet\" : [\n" +
                     "\t\t\t\t\t\"AttributeSelection\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
