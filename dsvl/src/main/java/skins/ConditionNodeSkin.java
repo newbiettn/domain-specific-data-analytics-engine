@@ -31,7 +31,7 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin {
     protected Node createView() {
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
-                .getClassLoader().getResource("fxml/ConditionNode.fxml"));
+                .getClassLoader().getResource("fxml/ConditionNodeNew.fxml"));
         try {
             fxmlLoader.load();
         } catch (IOException ex) {
@@ -40,13 +40,15 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin {
         }
 
 //        getNode().getStyleClass().setAll("patient-node-window");
-        getModel().setTitle("Condition Node");
-        getNode().setPrefSize(100, 80);
+        String title = getModel().getTitle();
+        if (title.equals("Node"))
+            getModel().setTitle("Condition Node");
+        getNode().setPrefSize(150, 100);
 
         ConditionNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());
         controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
-        controller.reloadVariable();
+        getModel().setController(controller);
 
         Pane root = (Pane) fxmlLoader.getRoot();
         return root;

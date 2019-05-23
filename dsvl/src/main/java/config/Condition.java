@@ -19,13 +19,8 @@ public class Condition {
     @XmlElement(name = "operator")
     private ArrayList<Operator> allowedOperators;
 
-    @XmlElementWrapper(name = "allowedDataTypes")
-    @XmlElement(name = "dataType")
-    private ArrayList<DataType> allowedDataTypes;
-
-    @XmlElementWrapper(name = "allowedValues")
-    @XmlElement(name = "value")
-    private ArrayList<String> allowedValues;
+    @XmlElement(name = "allowedDataTypes")
+    private DataType allowedDataTypes;
 
     public String getName() {
         return name;
@@ -43,20 +38,12 @@ public class Condition {
         this.allowedOperators = allowedOperators;
     }
 
-    public ArrayList<DataType> getAllowedDataTypes() {
+    public DataType getAllowedDataTypes() {
         return allowedDataTypes;
     }
 
-    public void setAllowedDataTypes(ArrayList<DataType> allowedDataTypes) {
+    public void setAllowedDataTypes(DataType allowedDataTypes) {
         this.allowedDataTypes = allowedDataTypes;
-    }
-
-    public ArrayList<String> getAllowedValues() {
-        return allowedValues;
-    }
-
-    public void setAllowedValues(ArrayList<String> allowedValues) {
-        this.allowedValues = allowedValues;
     }
 
 }

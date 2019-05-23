@@ -1,8 +1,6 @@
 package config;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +16,11 @@ public class DataType {
         NUMERIC,
         CATEGORY
     }
+
+    @XmlAttribute
     public Type type;
+
+    @XmlElement(name = "value")
     private ArrayList<String> values;
 
     public Type getType() {

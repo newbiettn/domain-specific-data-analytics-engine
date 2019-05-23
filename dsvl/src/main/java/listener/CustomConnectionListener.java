@@ -1,18 +1,20 @@
 package listener;
 
+import beans.ConditionNodeBean;
 import beans.ObjectBean;
+import controllers.ConditionNodeController;
 import eu.mihosoft.vrl.workflow.Connection;
 import eu.mihosoft.vrl.workflow.ConnectionResult;
 import eu.mihosoft.vrl.workflow.VFlow;
 import eu.mihosoft.vrl.workflow.VNode;
 import eu.mihosoft.vrl.workflow.fx.*;
-import eu.mihosoft.vrl.workflow.skin.VNodeSkin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.util.Pair;
-
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Describe class purpose here.
@@ -21,6 +23,7 @@ import java.util.List;
  * @since 2019-05-04
  */
 public class CustomConnectionListener implements ConnectionListener {
+    private static Logger logger = LoggerFactory.getLogger(CustomConnectionListener.class);
     private final Node receiverConnectorUI;
     private final FXSkinFactory skinFactory;
     private final VFlow flowController;
@@ -33,49 +36,50 @@ public class CustomConnectionListener implements ConnectionListener {
 
     @Override
     public void onConnectionCompatible(Node n) {
+        logger.info("onConnectionCompatible");
         FXConnectorUtil.connectAnim(receiverConnectorUI, n);
-//        System.out.println("onConnectionCompatible");
     }
 
     @Override
     public void onConnectionCompatibleReleased(Node n) {
-//        System.out.println("onConnectionCompatibleReleased");
+        logger.info("onConnectionCompatibleReleased");
         FXConnectorUtil.connectAnim(receiverConnectorUI, n);
     }
 
     @Override
     public void onConnectionIncompatible() {
-//        System.out.println("onConnectionIncompatible");
+        logger.info("onConnectionIncompatible");
         FXConnectorUtil.incompatibleAnim(receiverConnectorUI);
-
     }
 
     @Override
     public void onConnectionIncompatibleReleased(Node n) {
-//        System.out.println("onConnectionIncompatibleReleased");
+        logger.info("onConnectionIncompatibleReleased");
     }
 
     @Override
     public void onCreateNewConnectionReleased(ConnectionResult connResult) {
-//        System.out.println("onCreateNewConnectionReleased");
+        logger.info("onCreateNewConnectionReleased");
         newConnectionAnim(connResult);
         updateConnectionName(connResult.getConnection());
     }
 
     @Override
     public void onCreateNewConnectionReverseReleased(ConnectionResult connResult) {
-//        System.out.println("onCreateNewConnectionReverseReleased");
-
+        logger.info("onCreateNewConnectionReverseReleased");
+        newConnectionReverseAnim(connResult);
     }
 
     @Override
     public void onNoConnection(Node n) {
-//        System.out.println("onNoConnection");
+        logger.info("onNoConnection");
+        FXConnectorUtil.unconnectAnim(receiverConnectorUI);
     }
 
     @Override
     public void onRemoveConnectionReleased() {
-//        System.out.println("onRemoveConnectionReleased");
+        logger.info("onRemoveConnectionReleased");
+        FXConnectorUtil.unconnectAnim(receiverConnectorUI);
     }
     private void newConnectionAnim(ConnectionResult connResult) {
         if (connResult.getConnection() != null) {
@@ -107,7 +111,7 @@ public class CustomConnectionListener implements ConnectionListener {
         VNode receiver = conn.getReceiver().getNode();
         ObjectBean senderObj = (ObjectBean) sender.getValueObject().getValue();
         ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
-        ObservableList<javafx.util.Pair<String, Class>> outputs = senderObj.getOutputs();
+        ObservableList<Pair<String, Class>> outputs = senderObj.getOutputs();
         ObservableList<String> connNames = FXCollections.observableArrayList();
         for (Pair<String, Class> o : outputs){
             if (o.getValue() == receiverObj.getClass())
@@ -116,6 +120,28 @@ public class CustomConnectionListener implements ConnectionListener {
         if (connNames.size() == 1){
             conn.getConnectionText().setText(connNames.get(0));
             conn.setName(connNames.get(0));
+        }
+    }
+
+    /**
+     *
+     * @param conn
+     */
+    private void updateChoiceBox(Connection conn){
+        VNode sender = conn.getSender().getNode();
+        VNode receiver = conn.getReceiver().getNode();
+        ObjectBean senderObj = (ObjectBean) sender.getValueObject().getValue();
+        ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
+        ObservableList<Pair<String, Class>> outputs = senderObj.getOutputs();
+        ObservableList<String> connNames = FXCollections.observableArrayList();
+
+        if (receiverObj.getClass() == ConditionNodeBean.class){
+            ConditionNodeController controller = (ConditionNodeController) receiver.getController();
+            ChoiceBox<String> cbOperator = controller.getCbOperator();
+            ObservableList<String> operators = FXCollections.observableArrayList();
+
+            cbOperator.setItems(operators);
+
         }
     }
 }

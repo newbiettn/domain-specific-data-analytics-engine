@@ -1,5 +1,6 @@
+package controllers;
+
 import config.*;
-import planner.Trainer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,7 +21,7 @@ public class Configuration {
 
     public Configuration(File f){
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Configuration.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             this.project =(Project) jaxbUnmarshaller.unmarshal(f);
         } catch (JAXBException e) {
@@ -51,16 +52,13 @@ public class Configuration {
         allowedOperators.add(Operator.EQUAL);
         c1.setAllowedOperators(allowedOperators);
 
-        ArrayList<DataType> allowedDataTypes = new ArrayList<>();
         DataType dt1 = new DataType();
         dt1.setType(DataType.Type.CATEGORY);
-        allowedDataTypes.add(dt1);
-        c1.setAllowedDataTypes(allowedDataTypes);
-
-        ArrayList<String> allowedValues = new ArrayList<>();
-        allowedValues.add("value 1");
-        allowedValues.add("value 2");
-        c1.setAllowedValues(allowedValues);
+        ArrayList<String> values = new ArrayList<>();
+        values.add("1");
+        values.add("2");
+        dt1.setValues(values);
+        c1.setAllowedDataTypes(dt1);
 
         Project p = new Project();
         p.setPrologs(prologs);
@@ -70,18 +68,31 @@ public class Configuration {
         p.setConditions(conditions);
 
         try {
-            File f = new File("resources/config/dsvl/config.xml");
+            File f = new File("resources/config/dsvl/config1.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             jaxbMarshaller.marshal(p, System.out);
-//            jaxbMarshaller.marshal(p, f);
+            jaxbMarshaller.marshal(p, f);
 
 
-            for (Condition cond : Configuration.getSingleton().getProject().getConditions()){
+//            System.out.println(Configuration.getSingleton().getProject().getPrologs());
+//            for (Condition cond : Configuration.getSingleton().getProject().getConditions()){
 //                System.out.println(cond.getName());
+//            }
+            Condition c = Configuration.getSingleton().getProject().getConditionByName("age");
+            for (Operator cond : c.getAllowedOperators()){
+                System.out.println(cond);
             }
-            System.out.println(Configuration.getSingleton().getProject().getConditionByName("age"));
+            DataType dataType = c.getAllowedDataTypes();
+            for (String val : dataType.getValues()){
+                System.out.println(val);
+            }
+//
+//            for (Condition con : Configuration.getSingleton().getProject().getConditions()){
+//                System.out.println(con.getName());
+//            }
+
 
 
         } catch (JAXBException e) {

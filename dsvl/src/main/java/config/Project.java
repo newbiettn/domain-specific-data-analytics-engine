@@ -40,7 +40,9 @@ public class Project {
 
     public Condition getConditionByName(String name){
         for( Condition c: conditions ){
-            if( c.getName().equals(name) ) return c;
+            if( c.getName().equals(name) ){
+                return c;
+            }
         }
         return null;
     }

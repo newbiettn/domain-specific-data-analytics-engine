@@ -2,6 +2,9 @@ package controllers;
 
 import beans.*;
 
+import config.Condition;
+import config.DataType;
+import config.Operator;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import io.CustomWorkflowIO;
@@ -20,7 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import parsing.ParseTree;
 import service.MainControllerService;
 import skins.*;
 import javafx.util.Pair;
@@ -91,8 +93,8 @@ public class MainController {
 
         canvas = new VCanvas();
         canvas.setTranslateToMinNodePos(false); // avoid panning
-        canvas.setMaxScaleX(0.6);
-        canvas.setMaxScaleY(0.6);
+        canvas.setMaxScaleX(0.7);
+        canvas.setMaxScaleY(0.7);
         Pane root = (Pane) canvas.getContent();
         contentPane.getChildren().add(canvas);
         rootPane = root;
@@ -190,6 +192,7 @@ public class MainController {
         connectionNameChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue != null) {
                     String newName = newValue;
                     selectedConnection.getConnectionText().setText(newName);
                     selectedConnection.setName(newName);
@@ -202,8 +205,49 @@ public class MainController {
                     String v = newName.replaceAll(pattern, "$2");
                     v = v.toLowerCase();
                     receiverObj.setSparqlValue(v);
-                    receiver.setTitle(v.toUpperCase());
 
+                    // Set title node
+                    receiver.setTitle(v.substring(0,1).toUpperCase() + v.substring(1).toLowerCase());
+
+                    // Generate operators and values for condition nodes
+                    if (receiverObj.getClass() == ConditionNodeBean.class){
+                        ConditionNodeController controller = (ConditionNodeController) receiver.getController();
+                        ChoiceBox<String> cbOperator = controller.getCbOperator();
+                        ChoiceBox<String> cbValue = controller.getCbValue();
+
+                        // Clear choice boxes
+                        cbOperator.setItems(FXCollections.observableArrayList());
+                        cbValue.setItems(FXCollections.observableArrayList());
+
+                        // Load predefined operators & data types
+                        Condition c = Configuration.getSingleton().getProject().getConditionByName(v);
+                        if (c != null){
+                            // Operators
+                            ObservableList<String> operatorItems = FXCollections.observableArrayList();
+                            ArrayList<Operator> allowedOperators = c.getAllowedOperators();
+                            if (allowedOperators.size() > 0) {
+                                for (Operator op : c.getAllowedOperators()){
+                                    operatorItems.add(op.getValue());
+                                }
+                                cbOperator.setItems(operatorItems);
+                                cbOperator.setVisible(true);
+                            }
+
+                            // Datatype
+                            ObservableList<String> valueItems = FXCollections.observableArrayList();
+                            DataType dataType = c.getAllowedDataTypes();
+                            ArrayList<String> values = dataType.getValues();
+                            if (values.size() > 0){
+                                for (String val : dataType.getValues()){
+                                    valueItems.add(val);
+                                }
+                                cbValue.setItems(valueItems);
+                                cbValue.setVisible(true);
+                            }
+                        }
+                    }
+
+                }
             }
         });
     }

@@ -1,5 +1,6 @@
 package skins;
 
+import controllers.MainController;
 import listener.CustomConnectionListener;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
@@ -10,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurveTo;
 import jfxtras.labs.util.event.MouseControlUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Describe class purpose here.
@@ -18,6 +21,7 @@ import jfxtras.labs.util.event.MouseControlUtil;
  * @since 2019-05-06
  */
 public class CustomFXNewConnectionSkin extends AbstractFXConnectionSkin {
+    private static Logger logger = LoggerFactory.getLogger(CustomFXNewConnectionSkin.class);
     private CubicCurveTo curveTo = new CubicCurveTo();
     private ConnectorShape senderConnectorUI;
     private VFlowModel flow;
@@ -44,7 +48,7 @@ public class CustomFXNewConnectionSkin extends AbstractFXConnectionSkin {
 
     @Override
     protected void initConnectionListener() {
-        System.out.println("initConnectionListener");
+        logger.info("initConnectionListener");
         connectionListener
                 = new CustomConnectionListener(
                 skinFactory, controller, receiverConnectorUI);

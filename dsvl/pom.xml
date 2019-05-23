@@ -16,14 +16,14 @@
             <groupId>eu.mihosoft.vrl.workflow</groupId>
             <artifactId>vworkflows-core</artifactId>
             <version>0.2.4.4-SNAPSHOT</version>
-            <!--<type>pom</type>-->
+<!--            <type>pom</type>-->
         </dependency>
 
         <dependency>
             <groupId>eu.mihosoft.vrl.workflow</groupId>
             <artifactId>vworkflows-fx</artifactId>
             <version>0.2.4.4-SNAPSHOT</version>
-            <!--<type>pom</type>-->
+<!--            <type>pom</type>-->
         </dependency>
 
         <dependency>
