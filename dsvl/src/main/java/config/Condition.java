@@ -19,7 +19,7 @@ public class Condition {
     @XmlElement(name = "operator")
     private ArrayList<Operator> allowedOperators;
 
-    @XmlElement(name = "allowedDataTypes")
+    @XmlElement(name = "allowedDataType")
     private DataType allowedDataTypes;
 
     public String getName() {
