@@ -106,6 +106,7 @@ public class MainController {
         skinFactory = new CustomFXValueSkinFactory(canvas);
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(CreatePredictionModelNodeBean.class, CreatePredictionModelNodeSkin.class);
+        skinFactory.addSkinClassForValueType(PredictNodeBean.class, PredictNodeSkin.class);
         skinFactory.addSkinClassForValueType(TargetNodeBean.class, TargetNodeSkin.class);
         skinFactory.addSkinClassForValueType(FeatureNodeBean.class, FeatureNodeSkin.class);
         skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
@@ -201,6 +202,8 @@ public class MainController {
                     String v = newName.replaceAll(pattern, "$2");
                     v = v.toLowerCase();
                     receiverObj.setSparqlValue(v);
+                    receiver.setTitle(v.toUpperCase());
+
             }
         });
     }
@@ -282,6 +285,20 @@ public class MainController {
         n.getValueObject().setValue(new FeatureNodeBean(outputs));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
         n.setMainInput(n.addInput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addPredictNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", ConditionNodeBean.class));
+        outputs.add(new Pair<>("", TargetNodeBean.class));
+        outputs.add(new Pair<>("", FeatureNodeBean.class));
+
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new PredictNodeBean(outputs));
+        n.setMainOutput(n.addOutput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
     }
