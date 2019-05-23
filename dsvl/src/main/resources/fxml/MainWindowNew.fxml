@@ -11,6 +11,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -20,9 +22,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="887.0" prefWidth="1546.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1889.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <right>
-      <Accordion fx:id="rightAccordion" prefHeight="859.0" prefWidth="252.0" BorderPane.alignment="CENTER">
+      <Accordion fx:id="rightAccordion" prefHeight="859.0" prefWidth="335.0" BorderPane.alignment="CENTER">
         <panes>
           <TitledPane fx:id="propertiesTitledPane" animated="false" text="Properties">
             <content>
@@ -50,7 +52,7 @@
       </Accordion>
    </right>
    <top>
-      <MenuBar prefWidth="1352.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="29.0" prefWidth="1735.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -91,8 +93,10 @@
                   <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
                   <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
                   <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
+                  <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
                   <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
                   <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
+                  <Button mnemonicParsing="false" text="Using Model" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
                   <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
@@ -101,10 +105,18 @@
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
                   <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
                   <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
-                  <Pane prefHeight="28.0" prefWidth="7.0" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="79.0" text="Parse" textAlignment="RIGHT" />
-                  <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="69.0" text="Load" />
-                  <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="27.0" prefWidth="57.0" text="Run" textAlignment="RIGHT" />
+                  <Pane prefHeight="30.0" prefWidth="76.0" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="65.0" text="Parse" textAlignment="RIGHT" />
+                  <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="58.0" text="Load" />
+                  <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="91.0" text="Run" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="file:/Users/newbiettn/Dropbox/swinburne/Github/codes/DiabetesDiscoveryV2/dsvl/src/main/resources/fxml/img/play.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
               </items>
             </ToolBar>
          </top>
