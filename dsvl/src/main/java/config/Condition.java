@@ -17,7 +17,7 @@ public class Condition {
 
     @XmlElementWrapper(name = "allowedOperators")
     @XmlElement(name = "operator")
-    private ArrayList<String> allowedOperators;
+    private ArrayList<Operator> allowedOperators;
 
     @XmlElementWrapper(name = "allowedDataTypes")
     @XmlElement(name = "dataType")
@@ -35,11 +35,11 @@ public class Condition {
         this.name = name;
     }
 
-    public ArrayList<String> getAllowedOperators() {
+    public ArrayList<Operator> getAllowedOperators() {
         return allowedOperators;
     }
 
-    public void setAllowedOperators(ArrayList<String> allowedOperators) {
+    public void setAllowedOperators(ArrayList<Operator> allowedOperators) {
         this.allowedOperators = allowedOperators;
     }
 

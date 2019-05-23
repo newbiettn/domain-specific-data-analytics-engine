@@ -15,30 +15,17 @@ import java.util.ArrayList;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DataType {
     public enum Type {
-        NUMERIC("numeric"),
-        CATEGORY("category");
-
-        private String value;
-        Type(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
+        NUMERIC,
+        CATEGORY
     }
-    public String type;
+    public Type type;
     private ArrayList<String> values;
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

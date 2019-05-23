@@ -1,4 +1,5 @@
 import config.*;
+import planner.Trainer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,17 +15,27 @@ import java.util.ArrayList;
  * @since 2019-05-23
  */
 public class Configuration {
-    private File f;
+    private static Configuration singleton = new Configuration(new File("resources/config/dsvl/config.xml"));
+    private Project project;
 
     public Configuration(File f){
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Configuration.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            Project p =(Project) jaxbUnmarshaller.unmarshal(f);
+            this.project =(Project) jaxbUnmarshaller.unmarshal(f);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
+
+    public static Configuration getSingleton(){
+        return singleton;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
     public static void main(String[] args){
         ArrayList<Prolog> prologs = new ArrayList<>();
         Prolog p1 = new Prolog();
@@ -34,14 +45,15 @@ public class Configuration {
         prologs.add(p1);
 
         Condition c1 = new Condition();
-        ArrayList<String> allowedOperators = new ArrayList<>();
-        allowedOperators.add(Operator.DIFFERENT.getValue());
-        allowedOperators.add(Operator.EQUAL.getValue());
+        c1.setName("name");
+        ArrayList<Operator> allowedOperators = new ArrayList<>();
+        allowedOperators.add(Operator.DIFFERENT);
+        allowedOperators.add(Operator.EQUAL);
         c1.setAllowedOperators(allowedOperators);
 
         ArrayList<DataType> allowedDataTypes = new ArrayList<>();
         DataType dt1 = new DataType();
-        dt1.setType(DataType.Type.CATEGORY.getValue());
+        dt1.setType(DataType.Type.CATEGORY);
         allowedDataTypes.add(dt1);
         c1.setAllowedDataTypes(allowedDataTypes);
 
@@ -65,11 +77,11 @@ public class Configuration {
             jaxbMarshaller.marshal(p, System.out);
 //            jaxbMarshaller.marshal(p, f);
 
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            Project project =(Project) jaxbUnmarshaller.unmarshal(f);
-            for (Condition cond : project.getConditions()){
-                System.out.println(cond.getName());
+
+            for (Condition cond : Configuration.getSingleton().getProject().getConditions()){
+//                System.out.println(cond.getName());
             }
+            System.out.println(Configuration.getSingleton().getProject().getConditionByName("age"));
 
 
         } catch (JAXBException e) {

@@ -37,4 +37,11 @@ public class Project {
     public void setConditions(ArrayList<Condition> conditions) {
         this.conditions = conditions;
     }
+
+    public Condition getConditionByName(String name){
+        for( Condition c: conditions ){
+            if( c.getName().equals(name) ) return c;
+        }
+        return null;
+    }
 }
