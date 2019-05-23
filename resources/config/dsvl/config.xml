@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project>
+    <prologs>
+        <prolog>
+            <prefix>diab</prefix>
+            <uri>localhost:2020/resource/</uri>
+        </prolog>
+    </prologs>
+
+    <conditions>
+        <condition>
+            <name>age</name>
+            <allowedOperator>
+                <operator> > </operator>
+                <operator>equal</operator>
+                <operator>larger</operator>
+            </allowedOperator>
+            <allowedDataType>
+                <dataType>numeric</dataType>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>sex</name>
+            <allowedOperator>
+                <operator>different</operator>
+                <operator>equal</operator>
+            </allowedOperator>
+            <allowedDataType>
+                <type>category</type>
+                <value>male</value>
+                <value>female</value>
+            </allowedDataType>
+        </condition>
+    </conditions>
+
+</project>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project>
+    <prologs>
+        <prefix>diab</prefix>
+        <uri>localhost:2020/resource/</uri>
+    </prologs>
+</project>
