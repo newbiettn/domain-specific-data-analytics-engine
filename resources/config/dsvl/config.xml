@@ -10,25 +10,225 @@
     <conditions>
         <condition>
             <name>age</name>
-            <allowedOperator>
-                <operator> > </operator>
-                <operator>equal</operator>
-                <operator>larger</operator>
-            </allowedOperator>
-            <allowedDataType>
-                <dataType>numeric</dataType>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
             </allowedDataType>
         </condition>
         <condition>
-            <name>sex</name>
-            <allowedOperator>
-                <operator>different</operator>
-                <operator>equal</operator>
-            </allowedOperator>
-            <allowedDataType>
-                <type>category</type>
-                <value>male</value>
-                <value>female</value>
+            <name>gender</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>Male</value>
+                <value>Female</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>admissionnumber</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+                <operator>SMALLER</operator>
+                <operator>LARGER</operator>
+            </allowedOperators>
+            <allowedDataType type="NUMERIC">
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>countryofbirth</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>Australia</value>
+                <value>Australian External Territories  nec</value>
+                <value>Austria</value>
+                <value>Bangladesh</value>
+                <value>Belarus</value>
+                <value>Belgium</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>countryofbirthcode</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>1101</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>deceased</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>true</value>
+                <value>false</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>episodekey</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>IP02917898</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>gp</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>Y</value>
+                <value>N</value>
+                <value>U</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>hba1c</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>1</value>
+                <value>0</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>hba1ctestrequestevent</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>1</value>
+                <value>0</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>hbA1ctestresult</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+                <operator>SMALLER</operator>
+                <operator>LARGER</operator>
+            </allowedOperators>
+            <allowedDataType type="NUMERIC">
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>interpreterrequired</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>2</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>lengthofstay</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+                <operator>SMALLER</operator>
+                <operator>LARGER</operator>
+            </allowedOperators>
+            <allowedDataType type="NUMERIC">
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>lengthofstaytype</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>0</value>
+                <value>1</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>maritalstatus</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>Married</value>
+                <value>DeFacto</value>
+                <value>Divorced</value>
+                <value>Married</value>
+                <value>NeverMarried</value>
+                <value>NotStated</value>
+                <value>Separated</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>maritalstatus</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>Married</value>
+                <value>DeFacto</value>
+                <value>Divorced</value>
+                <value>Married</value>
+                <value>NeverMarried</value>
+                <value>NotStated</value>
+                <value>Separated</value>
+                <value>Widowed</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>preferredlanguage</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>English</value>
+                <value>Other</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>religion</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>No Religion, nfd</value>
+                <value>Other</value>
+            </allowedDataType>
+        </condition>
+        <condition>
+            <name>religion</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>No Religion, nfd</value>
+                <value>Other</value>
             </allowedDataType>
         </condition>
     </conditions>
