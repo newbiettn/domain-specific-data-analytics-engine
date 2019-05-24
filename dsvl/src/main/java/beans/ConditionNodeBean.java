@@ -1,5 +1,7 @@
 package beans;
 
+import config.DataType;
+
 /**
  * Represent the Variable node.
  *
@@ -9,6 +11,7 @@ package beans;
 public class ConditionNodeBean extends ObjectBean{
     public static int count = 0;
     private String condition;
+    private DataType dataType;
 
     public ConditionNodeBean() {
         this.id = count++;
@@ -27,5 +30,13 @@ public class ConditionNodeBean extends ObjectBean{
 
     public void setCondition(String condition) {
         this.condition = condition;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
     }
 }

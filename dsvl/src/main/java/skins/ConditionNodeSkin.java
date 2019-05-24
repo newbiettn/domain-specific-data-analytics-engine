@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
-public class ConditionNodeSkin extends CustomFlowNodeSkin {
+public class ConditionNodeSkin extends CustomFlowNodeSkin { //TODO: fix condition nodes after refreshing
 
     public ConditionNodeSkin(FXSkinFactory skinFactory,
                              VNode model, VFlow controller) {
@@ -29,7 +29,6 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin {
 
     @Override
     protected Node createView() {
-
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
                 .getClassLoader().getResource("fxml/ConditionNodeNew.fxml"));
         try {
@@ -39,19 +38,16 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin {
                     log(Level.SEVERE, null, ex);
         }
 
-//        getNode().getStyleClass().setAll("patient-node-window");
         String title = getModel().getTitle();
         if (title.equals("Node"))
             getModel().setTitle("Condition Node");
         getNode().setPrefSize(150, 100);
-
         ConditionNodeController controller = fxmlLoader.getController();
         controller.setNode(getModel());
         controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
         getModel().setController(controller);
-
         Pane root = (Pane) fxmlLoader.getRoot();
-        return root;
+        return null;
     }
 
 

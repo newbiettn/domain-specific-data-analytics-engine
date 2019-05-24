@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
 import org.slf4j.Logger;
@@ -211,17 +212,21 @@ public class MainController {
 
                     // Generate operators and values for condition nodes
                     if (receiverObj.getClass() == ConditionNodeBean.class){
+                        ConditionNodeBean conditionBean = (ConditionNodeBean) receiverObj;
                         ConditionNodeController controller = (ConditionNodeController) receiver.getController();
                         ChoiceBox<String> cbOperator = controller.getCbOperator();
                         ChoiceBox<String> cbValue = controller.getCbValue();
+                        TextField textFieldValue = controller.getTextFieldValue();
 
-                        // Clear choice boxes
-                        cbOperator.setItems(FXCollections.observableArrayList());
-                        cbValue.setItems(FXCollections.observableArrayList());
+                        BorderPane borderPane = controller.getConditionNodeBorderPane();
 
                         // Load predefined operators & data types
                         Condition c = Configuration.getSingleton().getProject().getConditionByName(v);
                         if (c != null){
+                            // Data type
+                            DataType dataType = c.getAllowedDataTypes();
+                            conditionBean.setDataType(c.getAllowedDataTypes());
+                            System.out.println(dataType.getType());
                             // Operators
                             ObservableList<String> operatorItems = FXCollections.observableArrayList();
                             ArrayList<Operator> allowedOperators = c.getAllowedOperators();
@@ -233,16 +238,19 @@ public class MainController {
                                 cbOperator.setVisible(true);
                             }
 
-                            // Datatype
+                            // Value
                             ObservableList<String> valueItems = FXCollections.observableArrayList();
-                            DataType dataType = c.getAllowedDataTypes();
-                            ArrayList<String> values = dataType.getValues();
-                            if (values.size() > 0){
-                                for (String val : dataType.getValues()){
-                                    valueItems.add(val);
+                            if (dataType.getType() == DataType.Type.CATEGORY) {
+                                borderPane.setCenter(cbValue);
+                                ArrayList<String> values = dataType.getValues();
+                                if (values.size() > 0){
+                                    for (String val : dataType.getValues()){
+                                        valueItems.add(val);
+                                    }
+                                    cbValue.setItems(valueItems);
                                 }
-                                cbValue.setItems(valueItems);
-                                cbValue.setVisible(true);
+                            } if (dataType.getType() == DataType.Type.NUMERIC) {
+                                borderPane.setCenter(textFieldValue);
                             }
                         }
                     }

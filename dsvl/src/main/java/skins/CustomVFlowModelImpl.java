@@ -575,4 +575,14 @@ public class CustomVFlowModelImpl implements VFlowModel {
 
         return root;
     }
+
+    @Override
+    public void setController(Object c) {
+
+    }
+
+    @Override
+    public Object getController() {
+        return null;
+    }
 }

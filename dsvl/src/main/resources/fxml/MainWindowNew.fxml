@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1889.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1889.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <right>
       <Accordion fx:id="rightAccordion" prefHeight="859.0" prefWidth="335.0" BorderPane.alignment="CENTER">
         <panes>
@@ -52,7 +52,7 @@
       </Accordion>
    </right>
    <top>
-      <MenuBar prefHeight="29.0" prefWidth="1735.0" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1735.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>

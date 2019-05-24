@@ -1,13 +1,17 @@
 package controllers;
 
 import beans.ConditionNodeBean;
+import config.DataType;
 import eu.mihosoft.vrl.workflow.VNode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -15,36 +19,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.TextUtils;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * Controller for sparql nodes.
  */
-public class ConditionNodeController {
+public class ConditionNodeController implements Initializable {
     private static Logger logger = LoggerFactory.getLogger(ConditionNodeController.class);
     private VNode node;
     private ConditionNodeBean conditionNodeBean;
 
     @FXML
-    private HBox nodeHboxContainer;
-
-    @FXML
-    private BorderPane nodeBorderPaneContainer;
+    private BorderPane conditionNodeBorderPane;
 
     @FXML
     private ChoiceBox<String> cbOperator;
 
-    @FXML
     private ChoiceBox<String> cbValue;
+
+    private TextField textFieldValue ;
 
     public ConditionNodeController() {
     }
 
     @FXML
     public void initialize() {
+        cbValue = new ChoiceBox<>();
+        textFieldValue = new TextField();
         cbOperator.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue != null) {
-                    conditionNodeBean.setCondition(newValue + cbValue.getValue());
+                    DataType.Type type = conditionNodeBean.getDataType().getType();
+                    if (type == DataType.Type.NUMERIC)
+                        conditionNodeBean.setCondition(newValue + " " + cbValue.getValue());
+                    else if (type == DataType.Type.CATEGORY)
+                        conditionNodeBean.setCondition(newValue + " \'" + cbValue.getValue() + "\'");
                 }
             }
         });
@@ -52,11 +63,22 @@ public class ConditionNodeController {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue != null) {
-                    conditionNodeBean.setCondition(cbOperator.getValue() + newValue);
+                    DataType.Type type = conditionNodeBean.getDataType().getType();
+                    if (type == DataType.Type.NUMERIC)
+                        conditionNodeBean.setCondition(cbOperator.getValue() + " " + newValue);
+                    else if (type == DataType.Type.CATEGORY)
+                        conditionNodeBean.setCondition(cbOperator.getValue() + " \'" + newValue + "\'");
                 }
             }
         });
-
+        textFieldValue.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    conditionNodeBean.setCondition(textFieldValue.getText());
+                }
+            }
+        });
     }
 
 
@@ -81,4 +103,24 @@ public class ConditionNodeController {
         this.cbValue = cbValue;
     }
 
+    public TextField getTextFieldValue() {
+        return textFieldValue;
+    }
+
+    public void setTextFieldValue(TextField textFieldValue) {
+        this.textFieldValue = textFieldValue;
+    }
+
+    public BorderPane getConditionNodeBorderPane() {
+        return conditionNodeBorderPane;
+    }
+
+    public void setConditionNodeBorderPane(BorderPane conditionNodeBorderPane) {
+        this.conditionNodeBorderPane = conditionNodeBorderPane;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }

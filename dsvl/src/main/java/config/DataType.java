@@ -18,7 +18,7 @@ public class DataType {
     }
 
     @XmlAttribute
-    public Type type;
+    private Type type;
 
     @XmlElement(name = "value")
     private ArrayList<String> values;
