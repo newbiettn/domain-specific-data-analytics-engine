@@ -317,6 +317,15 @@ public class ParseTreeService {
                 if (objectBean.getClass() == PatientNodeBean.class)
                     sparqlQuery.append(objectBean.getSparqlValue())
                             .append(" rdf:type ").append("diab:Patient.");
+                else if (objectBean.getClass() == EpisodeNodeBean.class)
+                    sparqlQuery.append(objectBean.getSparqlValue())
+                            .append(" rdf:type ").append("diab:Episode.");
+                else if (objectBean.getClass() == AdmissionReportNodeBean.class)
+                    sparqlQuery.append(objectBean.getSparqlValue())
+                            .append(" rdf:type ").append("diab:AdmissionReport.");
+                else if (objectBean.getClass() == SeparationReportNodeBean.class)
+                    sparqlQuery.append(objectBean.getSparqlValue())
+                            .append(" rdf:type ").append("diab:SeparationReport.");
 
             }
             for(Pair<String, Node> p : node.getChildren()){
@@ -448,13 +457,18 @@ public class ParseTreeService {
             for(Pair<String, Node> p : node.getChildren()) {
                 Node child = p.getValue();
                 ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
-                if (ob.getClass() == PatientNodeBean.class) {
+                if (ob.getClass() == PatientNodeBean.class)
                     sparqlQuery.append(ob.getSparqlValue())
                             .append(" rdf:type ").append("diab:Patient.");
-                } else if (ob.getClass() == EpisodeNodeBean.class) {
+                else if (ob.getClass() == EpisodeNodeBean.class)
                     sparqlQuery.append(ob.getSparqlValue())
                             .append(" rdf:type ").append("diab:Episode.");
-                }
+                else if (ob.getClass() == AdmissionReportNodeBean.class)
+                    sparqlQuery.append(ob.getSparqlValue())
+                            .append(" rdf:type ").append("diab:AdmissionReport.");
+                else if (ob.getClass() == SeparationReportNodeBean.class)
+                    sparqlQuery.append(ob.getSparqlValue())
+                            .append(" rdf:type ").append("diab:SeparationReport.");
             }
             sparqlQuery.append("}");
         }
