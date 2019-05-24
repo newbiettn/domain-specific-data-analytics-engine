@@ -255,10 +255,10 @@ public class MainController {
     @FXML
     private void addSelectNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        Pair<String, Class> p1 = new Pair<>("", EpisodeNodeBean.class);
-        Pair<String, Class> p2 = new Pair<>("", PatientNodeBean.class);
-        outputs.add(p1);
-        outputs.add(p2);
+        outputs.add(new Pair<>("", EpisodeNodeBean.class));
+        outputs.add(new Pair<>("", PatientNodeBean.class));
+        outputs.add(new Pair<>("", AdmissionReportNodeBean.class));
+        outputs.add(new Pair<>("", SeparationReportNodeBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new SelectNodeBean(outputs));

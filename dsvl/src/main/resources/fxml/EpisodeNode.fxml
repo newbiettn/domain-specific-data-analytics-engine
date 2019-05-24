@@ -12,10 +12,10 @@
       fx:controller="controllers.EpisodeNodeController">
    <children>
       <BorderPane fx:id="nodeBorderPaneContainer" HBox.hgrow="ALWAYS">
-         <center>
-            <TextField fx:id="variableEpisodeNode"
-                       BorderPane.alignment="CENTER" />
-         </center>
+<!--         <center>-->
+<!--            <TextField fx:id="variableEpisodeNode"-->
+<!--                       BorderPane.alignment="CENTER" />-->
+<!--         </center>-->
       </BorderPane>
    </children>
    <padding>

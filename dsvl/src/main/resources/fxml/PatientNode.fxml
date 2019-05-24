@@ -12,10 +12,10 @@
       fx:controller="controllers.PatientNodeController">
    <children>
       <BorderPane fx:id="nodeBorderPaneContainer" HBox.hgrow="ALWAYS">
-         <center>
-            <TextField fx:id="variablePatientNode"
-                       BorderPane.alignment="CENTER" />
-         </center>
+<!--         <center>-->
+<!--            <TextField fx:id="variablePatientNode"-->
+<!--                       BorderPane.alignment="CENTER" />-->
+<!--         </center>-->
       </BorderPane>
    </children>
    <padding>

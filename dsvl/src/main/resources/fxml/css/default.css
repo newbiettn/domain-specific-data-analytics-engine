@@ -61,6 +61,11 @@
     -fx-border-width: 1;
 }
 
+.selected-connection{
+    -fx-stroke: rgb(138, 138, 138);
+    -fx-stroke-width: 20px;
+}
+
 .vnode-connector {
     -fx-background-color: rgba(0,0,0,0.75);
     -fx-stroke: rgba(120, 140, 255, 0.42);
@@ -91,7 +96,7 @@
 
 .vnode-connection {
     -fx-stroke: rgb(138, 138, 138);
-    -fx-stroke-width: 8px;
+    -fx-stroke-width: 10px;
 }
 
 .vnode-new-connection {
