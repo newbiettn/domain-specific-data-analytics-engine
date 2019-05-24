@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project>
     <prologs>
-        <prefix>diab</prefix>
-        <uri>localhost:2020/resource/</uri>
+        <prolog>
+            <prefix>diab</prefix>
+            <uri>localhost:2020/resource/</uri>
+        </prolog>
     </prologs>
+    <conditions>
+        <condition>
+            <name>name</name>
+            <allowedOperators>
+                <operator>DIFFERENT</operator>
+                <operator>EQUAL</operator>
+            </allowedOperators>
+            <allowedDataType type="CATEGORY">
+                <value>1</value>
+                <value>2</value>
+            </allowedDataType>
+        </condition>
+    </conditions>
 </project>
