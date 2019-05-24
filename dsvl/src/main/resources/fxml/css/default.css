@@ -52,7 +52,13 @@
 .window {
     -fx-background-color: rgba(112, 196, 255, 0.91);
     -fx-border-color: rgb(142, 142, 142);
-    -fx-border-width: 2;
+    -fx-border-width: 1;
+}
+
+.selected-window{
+    -fx-background-color: rgba(255, 102, 81, 0.91);
+    -fx-border-color: rgb(142, 142, 142);
+    -fx-border-width: 1;
 }
 
 .vnode-connector {
@@ -81,18 +87,6 @@
     -fx-background-color: rgba(255,255,0,0.75);
     -fx-stroke: rgba(120, 140, 255, 0.42);
     -fx-border-color: rgba(255,255,0,0.75);
-}
-
-.vnode-connector-hasURN {
-    -fx-background-color: rgba(255,100,255,0.75);
-    -fx-stroke: rgb(255, 255, 255);
-    -fx-border-color: rgb(255, 255, 255);
-}
-
-.vnode-connector-hasEpisode {
-    -fx-background-color: rgb(102, 255, 204);
-    -fx-stroke: rgb(255, 255, 255);
-    -fx-border-color: rgb(255, 255, 255);
 }
 
 .vnode-connection {
