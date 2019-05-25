@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
@@ -15,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.TextUtils;
@@ -30,10 +32,10 @@ public class ConditionNodeController implements Initializable {
     private VNode node;
     private ConditionNodeBean conditionNodeBean;
 
-    @FXML
+    private HBox root;
+
     private BorderPane conditionNodeBorderPane;
 
-    @FXML
     private ChoiceBox<String> cbOperator;
 
     private ChoiceBox<String> cbValue;
@@ -41,8 +43,20 @@ public class ConditionNodeController implements Initializable {
     private TextField textFieldValue ;
 
     public ConditionNodeController() {
+        root = new HBox();
+        conditionNodeBorderPane = new BorderPane();
+        HBox.setHgrow(conditionNodeBorderPane, Priority.ALWAYS);
+        conditionNodeBorderPane.setPrefWidth(50);
+        cbOperator = new ChoiceBox<>();
+        cbOperator.setPrefWidth(27);
+        cbOperator.setPrefWidth(75);
+        cbOperator.setVisible(false);
         cbValue = new ChoiceBox<>();
         textFieldValue = new TextField();
+
+        conditionNodeBorderPane.setLeft(cbOperator);
+        root.getChildren().setAll(conditionNodeBorderPane);
+        conditionNodeBorderPane.setPadding(new Insets(10, 0, 0, 0));
     }
 
     @FXML

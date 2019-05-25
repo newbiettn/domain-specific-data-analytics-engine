@@ -7,6 +7,8 @@ import eu.mihosoft.vrl.workflow.VNode;
 import eu.mihosoft.vrl.workflow.fx.FXSkinFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -29,24 +31,23 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin { //TODO: fix conditio
 
     @Override
     protected Node createView() {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass()
-                .getClassLoader().getResource("fxml/ConditionNodeNew.fxml"));
-        try {
-            fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(ConditionNodeSkin.class.getName()).
-                    log(Level.SEVERE, null, ex);
-        }
-
         String title = getModel().getTitle();
         if (title.equals("Node"))
             getModel().setTitle("Condition Node");
         getNode().setPrefSize(150, 100);
-        ConditionNodeController controller = fxmlLoader.getController();
-        controller.setNode(getModel());
-        controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
-        getModel().setController(controller);
-        Pane root = (Pane) fxmlLoader.getRoot();
+
+        ConditionNodeController controller = null;
+        if (getModel().getController() == null) {
+            controller= new ConditionNodeController();
+            getModel().setController(controller);
+            controller.setNode(getModel());
+            controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
+
+        } else {
+            controller = (ConditionNodeController) getModel().getController();
+        }
+        Pane root = (Pane) controller.getConditionNodeBorderPane();
+
         return root;
     }
 
