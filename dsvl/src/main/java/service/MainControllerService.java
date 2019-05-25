@@ -1,7 +1,6 @@
 package service;
 
 import com.opencsv.CSVReader;
-import com.victorlaerte.asynctask.AsyncTask;
 import common.ProjectPropertiesGetter;
 import db.DbUtils;
 import eu.mihosoft.vrl.workflow.VFlow;
@@ -58,14 +57,13 @@ import java.util.concurrent.*;
  * @author Ngoc Tran
  * @since 2019-05-13
  */
-public class MainControllerService implements Runnable {
+public class MainControllerService {
     private static Logger logger = LoggerFactory.getLogger(MainControllerService.class);
     private ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
     private String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
     private String trainingCsv = filePath + "sparql_data_tmp.csv";
     private String sparqlEndpoint = "http://localhost:3030/austin/query";
     private VFlow  flow;
-    private TableView<ObservableList<StringProperty>> tableResult;
 
     public boolean execQuery(){
         ParseTree pt = new ParseTree();
@@ -84,8 +82,8 @@ public class MainControllerService implements Runnable {
                     execResult = execCreatePredictionModelQuery(sparqlQuery);
                 if (execResult) { // Run query to retrieve data
                     logger.info("Populating the table...");
-                    populateTable(tableResult, "",
-                            true); // Populate the retrieved data to table
+//                    populateTable(tableResult, "",
+//                            true); // Populate the retrieved data to table
                     return true;
                 } else {
                     logger.info("Retrieved no data");
@@ -641,10 +639,10 @@ public class MainControllerService implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        execQuery();
-    }
+//    @Override
+//    public void run() {
+//        execQuery();
+//    }
 
     public VFlow getFlow() {
         return flow;
@@ -652,14 +650,6 @@ public class MainControllerService implements Runnable {
 
     public void setFlow(VFlow flow) {
         this.flow = flow;
-    }
-
-    public TableView<ObservableList<StringProperty>> getTableResult() {
-        return tableResult;
-    }
-
-    public void setTableResult(TableView<ObservableList<StringProperty>> tableResult) {
-        this.tableResult = tableResult;
     }
 
 }

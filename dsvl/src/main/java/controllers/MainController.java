@@ -14,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Path;
+import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.MainControllerService;
@@ -34,6 +36,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.*;
+
 /**
  * Main controller.
  *
@@ -54,6 +58,8 @@ public class MainController {
     private Connection selectedConnection;
     private TableView<ObservableList<StringProperty>> table = new TableView<>();
     private MainControllerService service;
+    private ExecutorService executor;
+
 
     @FXML
     private Pane contentPane;
@@ -81,6 +87,7 @@ public class MainController {
 
     public MainController(){
         service = new MainControllerService();
+        executor = Executors.newSingleThreadExecutor();
     }
 
     /**
@@ -475,10 +482,45 @@ public class MainController {
     }
 
     @FXML
-    private void testFlow(){
+    private void testFlow() throws ExecutionException, InterruptedException {
         service.setFlow(flow);
-        service.setTableResult(table);
-        new Thread(service).start();
-    }
 
+        // Loading dialog
+        ProgressBar p = new ProgressBar();
+        p.setPrefWidth(300);
+        Dialog<Boolean> loadingDialog = new Dialog<>();
+        loadingDialog.getDialogPane().setContent(p);
+//        loadingDialog.setHeaderText("Loading");
+        loadingDialog.setGraphic(null);
+        loadingDialog.resizableProperty().set(false);
+        loadingDialog.initStyle(StageStyle.UNDECORATED);
+
+        // here runs the JavaFX thread
+        // Boolean as generic parameter since you want to return it
+        Task<Boolean> task = new Task<Boolean>() {
+            @Override public Boolean call() {
+                // do your operation in here
+                return (service.execQuery());
+            }
+        };
+
+        task.setOnRunning((e) -> loadingDialog.show());
+        task.setOnSucceeded((e) -> {
+            loadingDialog.setResult(Boolean.TRUE);
+            loadingDialog.hide();
+            try {
+                if (task.get())
+                    service.populateTable(table, "", true);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            }
+            // process return value again in JavaFX thread
+        });
+        task.setOnFailed((e) -> {
+            // eventual error handling by catching exceptions from task.get()
+        });
+        new Thread(task).start();
+    }
 }

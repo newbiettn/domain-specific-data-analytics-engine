@@ -80,7 +80,9 @@ public class Configuration {
 //            for (Condition cond : Configuration.getSingleton().getProject().getConditions()){
 //                System.out.println(cond.getName());
 //            }
-            Condition c = Configuration.getSingleton().getProject().getConditionByName("age");
+            Condition c = Configuration.getSingleton()
+                    .getProject()
+                    .getConditionByName("admissionnumber");
             for (Operator cond : c.getAllowedOperators()){
                 System.out.println(cond);
             }
