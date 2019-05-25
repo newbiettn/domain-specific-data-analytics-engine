@@ -41,12 +41,12 @@ public class ConditionNodeController implements Initializable {
     private TextField textFieldValue ;
 
     public ConditionNodeController() {
+        cbValue = new ChoiceBox<>();
+        textFieldValue = new TextField();
     }
 
     @FXML
     public void initialize() {
-        cbValue = new ChoiceBox<>();
-        textFieldValue = new TextField();
         cbOperator.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

@@ -47,7 +47,7 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin { //TODO: fix conditio
         controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
         getModel().setController(controller);
         Pane root = (Pane) fxmlLoader.getRoot();
-        return null;
+        return root;
     }
 
 
