@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
@@ -46,17 +47,24 @@ public class ConditionNodeController implements Initializable {
         root = new HBox();
         conditionNodeBorderPane = new BorderPane();
         HBox.setHgrow(conditionNodeBorderPane, Priority.ALWAYS);
-        conditionNodeBorderPane.setPrefWidth(50);
+
         cbOperator = new ChoiceBox<>();
         cbOperator.setPrefWidth(27);
         cbOperator.setPrefWidth(75);
         cbOperator.setVisible(false);
+        BorderPane.setAlignment(cbOperator, Pos.CENTER);
+
         cbValue = new ChoiceBox<>();
+        cbValue.setPrefWidth(100);
+        BorderPane.setAlignment(cbValue, Pos.CENTER);
+
         textFieldValue = new TextField();
+        textFieldValue.setPrefWidth(100);
+        BorderPane.setAlignment(textFieldValue, Pos.CENTER);
 
         conditionNodeBorderPane.setLeft(cbOperator);
         root.getChildren().setAll(conditionNodeBorderPane);
-        conditionNodeBorderPane.setPadding(new Insets(10, 0, 0, 0));
+        conditionNodeBorderPane.setPadding(new Insets(0, 5, 0, 5));
     }
 
     @FXML

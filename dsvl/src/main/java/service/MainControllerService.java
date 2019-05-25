@@ -414,11 +414,14 @@ public class MainControllerService {
         try {
             Query query = QueryFactory.create(q);
             logger.info("Print the query: ");
-            query.serialize(new IndentedWriter(System.out,true)) ;
+            query.serialize(new IndentedWriter(System.out,false)) ;
             QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
+            ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
+            logger.info("Executing query...");
 
             // Execute and write result to file
             ResultSet rs = qexec.execSelect();
+            logger.info("Executing select...");
             String result = prepareResult(rs);
             return writeResult(result);
         } catch (QueryParseException qpe){

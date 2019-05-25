@@ -248,7 +248,7 @@ public class MainController {
                             // Value
                             ObservableList<String> valueItems = FXCollections.observableArrayList();
                             if (dataType.getType() == DataType.Type.CATEGORY) {
-                                borderPane.setRight(cbValue);
+                                borderPane.setCenter(cbValue);
                                 ArrayList<String> values = dataType.getValues();
                                 if (values.size() > 0){
                                     for (String val : dataType.getValues()){
@@ -257,7 +257,7 @@ public class MainController {
                                     cbValue.setItems(valueItems);
                                 }
                             } if (dataType.getType() == DataType.Type.NUMERIC) {
-                                borderPane.setRight(textFieldValue);
+                                borderPane.setCenter(textFieldValue);
                             }
                         }
                     }
