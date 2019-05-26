@@ -67,7 +67,6 @@ public class ConditionNodeController implements Initializable {
         conditionNodeBorderPane.setPadding(new Insets(0, 5, 0, 5));
     }
 
-    @FXML
     public void initialize() {
         cbOperator.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
