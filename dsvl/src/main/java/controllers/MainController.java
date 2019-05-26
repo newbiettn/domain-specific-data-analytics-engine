@@ -355,7 +355,7 @@ public class MainController {
     @FXML
     private void addPredictNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        outputs.add(new Pair<>("", ConditionNodeBean.class));
+        outputs.add(new Pair<>("", PatientNodeBean.class));
         outputs.add(new Pair<>("", TargetNodeBean.class));
         outputs.add(new Pair<>("", FeatureNodeBean.class));
 
