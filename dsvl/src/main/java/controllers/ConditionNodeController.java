@@ -72,10 +72,18 @@ public class ConditionNodeController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue != null) {
+                    System.out.println(textFieldValue.getText());
+                    System.out.println(textFieldValue.isVisible());
+                    System.out.println(cbValue.isVisible());
                     DataType.Type type = conditionNodeBean.getDataType().getType();
-                    if (type == DataType.Type.NUMERIC)
-                        conditionNodeBean.setCondition(newValue + " " + cbValue.getValue());
-                    else if (type == DataType.Type.CATEGORY)
+                    if (type == DataType.Type.NUMERIC) {
+                        if (cbValue.isVisible()){
+                            conditionNodeBean.setCondition(newValue + " " + cbValue.getValue());
+                        } else if (textFieldValue.isVisible()){
+                            System.out.println(textFieldValue.getText());
+                            conditionNodeBean.setCondition(newValue + " " + textFieldValue.getText());
+                        }
+                    } else if (type == DataType.Type.CATEGORY)
                         conditionNodeBean.setCondition(newValue + " \'" + cbValue.getValue() + "\'");
                 }
             }
@@ -92,12 +100,11 @@ public class ConditionNodeController implements Initializable {
                 }
             }
         });
-        textFieldValue.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        textFieldValue.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    conditionNodeBean.setCondition(textFieldValue.getText());
-                }
+            public void handle(KeyEvent event) {
+                conditionNodeBean.setCondition(cbOperator.getValue() + " " + textFieldValue.getText());
+                System.out.println(cbOperator.getValue() + " " + textFieldValue.getText());
             }
         });
     }
