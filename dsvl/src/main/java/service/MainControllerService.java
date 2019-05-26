@@ -82,8 +82,6 @@ public class MainControllerService {
                     execResult = execCreatePredictionModelQuery(sparqlQuery);
                 if (execResult) { // Run query to retrieve data
                     logger.info("Populating the table...");
-//                    populateTable(tableResult, "",
-//                            true); // Populate the retrieved data to table
                     return true;
                 } else {
                     logger.info("Retrieved no data");
@@ -511,6 +509,31 @@ public class MainControllerService {
         }
         return false;
 
+    }
+
+    public void emptyTable(final TableView<ObservableList<StringProperty>> table) {
+        table.getItems().clear();
+        table.getColumns().clear();
+        table.setPlaceholder(new Label("Retrieve no data for the query"));
+//        Task<Void> task = new Task<Void>() {
+//            @Override
+//            protected Void call() throws Exception {
+//                Platform.runLater(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        table.getColumns().add(createColumn(0, "Result"));
+//                        ObservableList<StringProperty> data = FXCollections
+//                                .observableArrayList();
+//                        data.add(new SimpleStringProperty("Retrieve no data for the query."));
+//                        table.getItems().add(data);
+//                    }
+//                });
+//                return null;
+//            }
+//        };
+//        Thread thread = new Thread(task);
+//        thread.setDaemon(true);
+//        thread.start();
     }
 
     /**
