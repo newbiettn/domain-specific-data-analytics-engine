@@ -382,13 +382,11 @@ public class MainController {
         outputs.add(new Pair<>("diab:hasAdmissionReport", AdmissionReportNodeBean.class));
         outputs.add(new Pair<>("diab:hasAge", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasCountryOfBirth", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasCountryOfBirthCode", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasDeceased", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasEpisodeKey", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasGender", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasGp", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasHbA1c", ConditionNodeBean.class));
-        outputs.add(new Pair<>("diab:hasHbA1cTestRequestEvent", ConditionNodeBean.class));
+//        outputs.add(new Pair<>("diab:hasHbA1cTestRequestEvent", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasHbA1cTestResult", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasInterpreterRequired", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasLengthOfStay", ConditionNodeBean.class));
