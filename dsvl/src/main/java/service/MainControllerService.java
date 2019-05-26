@@ -514,7 +514,7 @@ public class MainControllerService {
     public void emptyTable(final TableView<ObservableList<StringProperty>> table) {
         table.getItems().clear();
         table.getColumns().clear();
-        table.setPlaceholder(new Label("Retrieve no data for the query"));
+        table.setPlaceholder(new Label("There is no retrieved data for the exected query"));
 //        Task<Void> task = new Task<Void>() {
 //            @Override
 //            protected Void call() throws Exception {
