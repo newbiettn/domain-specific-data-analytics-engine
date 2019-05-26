@@ -493,6 +493,8 @@
             <allowedOperators>
                 <operator>DIFFERENT</operator>
                 <operator>EQUAL</operator>
+                <operator>SMALLER</operator>
+                <operator>LARGER</operator>
             </allowedOperators>
             <allowedDataType type="NUMERIC">
             </allowedDataType>
@@ -694,7 +696,7 @@
             </allowedDataType>
         </condition>
         <condition>
-            <name>hbA1ctestresult</name>
+            <name>hba1ctestresult</name>
             <allowedOperators>
                 <operator>DIFFERENT</operator>
                 <operator>EQUAL</operator>
