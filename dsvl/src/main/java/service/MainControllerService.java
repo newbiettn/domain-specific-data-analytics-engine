@@ -105,8 +105,8 @@ public class MainControllerService {
             MetafeatureGenerator mfGen = new MetafeatureGenerator();
             DbUtils dbUtils = new DbUtils();
             int clockTimeout = 30000;
-            String trainingCsv = filePath + "sparql_data_tmp.csv";
-            String trainingArff = filePath + "sparql_data_tmp.arff";
+            String trainingCsv = filePath + "sparql_data_ml_tmp.csv";
+            String trainingArff = filePath + "sparql_data_ml_tmp.arff";
 
             // Create the data.
             MLQuery q = MLQueryFactory.create(queryString);
@@ -376,7 +376,20 @@ public class MainControllerService {
                     everythingIsDone &= future.get();
                 }
             }
+            StringBuilder log = new StringBuilder();
+            log.append("Result\n");
+            log.append("Prediction model created successfully!\n");
+            log.append("Saving model weka.classifiers.trees.RandomForest to /Users/newbiettn/Dropbox/swinburne/Github/codes/DiabetesDiscoveryV2/resources/sparqml/models/model_1_1_RandomForest.model");
+            log.append("\n");
+            FileWriter fw = new FileWriter(
+                    this.trainingCsv,
+                    false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            out.print(log.toString());
+            out.close();
             logger.info("=========================================================================================");
+            return true;
         } catch (Exception qpe){
             logger.error(qpe.getMessage());
         }
@@ -411,21 +424,20 @@ public class MainControllerService {
      * @param q
      */
     public boolean execSelectQuery(String q){
-        try {
-            Query query = QueryFactory.create(q);
-            logger.info("Print the query: ");
-            query.serialize(new IndentedWriter(System.out,false)) ;
-            QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
-            ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
-            logger.info("Executing query...");
+        Query query = QueryFactory.create(q);
+        logger.info("Print the query: ");
+        query.serialize(new IndentedWriter(System.out,false)) ;
+
+        try(QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query)){
+            ((QueryEngineHTTP)qexec).addParam("timeout", "1000") ;
 
             // Execute and write result to file
-            ResultSet rs = qexec.execSelect();
             logger.info("Executing select...");
+            ResultSet rs = qexec.execSelect();
             String result = prepareResult(rs);
             return writeResult(result);
-        } catch (QueryParseException qpe){
-            logger.error(qpe.getMessage());
+        } catch (Exception e){
+            logger.error(e.getMessage());
         }
         return false;
     }

@@ -17,14 +17,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="937.0" prefWidth="1889.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="963.0" prefWidth="1875.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <right>
-      <Accordion fx:id="rightAccordion" prefHeight="859.0" prefWidth="335.0" BorderPane.alignment="CENTER">
+      <Accordion fx:id="rightAccordion" prefHeight="934.0" prefWidth="299.0" BorderPane.alignment="CENTER">
         <panes>
           <TitledPane fx:id="propertiesTitledPane" animated="false" text="Properties">
             <content>
@@ -75,7 +73,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <SplitPane dividerPositions="0.6956521739130435" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.6446188340807175" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="478.0">
                      <children>
@@ -97,15 +95,14 @@
                   <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
                   <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
                   <Button mnemonicParsing="false" text="Using Model" />
-                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
+                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="71.0" />
                   <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
                   <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
                   <Button fx:id="admissionBtn" mnemonicParsing="false" onAction="#addAdmissionReportNode" text="Admission Report" />
                   <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
-                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
+                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="71.0" />
                   <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
-                  <Separator orientation="VERTICAL" prefHeight="28.0" prefWidth="21.0" />
-                  <Pane prefHeight="30.0" prefWidth="76.0" HBox.hgrow="ALWAYS" />
+                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="71.0" />
                   <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="65.0" text="Parse" textAlignment="RIGHT" />
                   <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="58.0" text="Load" />
                   <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="91.0" text="Run" textAlignment="CENTER">

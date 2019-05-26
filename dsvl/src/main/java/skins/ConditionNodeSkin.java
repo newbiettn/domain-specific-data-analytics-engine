@@ -39,6 +39,7 @@ public class ConditionNodeSkin extends CustomFlowNodeSkin { //TODO: fix conditio
         ConditionNodeController controller = null;
         if (getModel().getController() == null) {
             controller= new ConditionNodeController();
+            controller.initialize();
             getModel().setController(controller);
             controller.setNode(getModel());
             controller.setConditionNodeBean((ConditionNodeBean) getModel().getValueObject().getValue());
