@@ -60,7 +60,6 @@ public class MainController {
     private MainControllerService service;
     private ExecutorService executor;
 
-
     @FXML
     private Pane contentPane;
 
@@ -117,6 +116,8 @@ public class MainController {
         skinFactory.addSkinClassForValueType(SelectNodeBean.class, SelectNodeSkin.class);
         skinFactory.addSkinClassForValueType(CreatePredictionModelNodeBean.class, CreatePredictionModelNodeSkin.class);
         skinFactory.addSkinClassForValueType(PredictNodeBean.class, PredictNodeSkin.class);
+        skinFactory.addSkinClassForValueType(UsePredictiveModelBean.class, UsePredictiveModelNodeSkin.class);
+        skinFactory.addSkinClassForValueType(SavePredictiveModelBean.class, SavePredictiveModelNodeSkin.class);
         skinFactory.addSkinClassForValueType(TargetNodeBean.class, TargetNodeSkin.class);
         skinFactory.addSkinClassForValueType(FeatureNodeBean.class, FeatureNodeSkin.class);
         skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
@@ -318,6 +319,7 @@ public class MainController {
         outputs.add(new Pair<>("", EpisodeNodeBean.class));
         outputs.add(new Pair<>("", TargetNodeBean.class));
         outputs.add(new Pair<>("", FeatureNodeBean.class));
+        outputs.add(new Pair<>("", SavePredictiveModelBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new CreatePredictionModelNodeBean(outputs));
@@ -355,13 +357,35 @@ public class MainController {
     @FXML
     private void addPredictNode() {
         ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        outputs.add(new Pair<>("", EpisodeNodeBean.class));
         outputs.add(new Pair<>("", PatientNodeBean.class));
         outputs.add(new Pair<>("", TargetNodeBean.class));
         outputs.add(new Pair<>("", FeatureNodeBean.class));
+        outputs.add(new Pair<>("", UsePredictiveModelBean.class));
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new PredictNodeBean(outputs));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addUsePredictiveModelNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new UsePredictiveModelBean(outputs));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addSavePredictiveModelNode() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new SavePredictiveModelBean(outputs));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
     }
@@ -488,11 +512,11 @@ public class MainController {
         service.setFlow(flow);
 
         // Loading dialog
+        table.setPlaceholder(new Label("Loading..."));
         ProgressBar p = new ProgressBar();
         p.setPrefWidth(300);
         Dialog<Boolean> loadingDialog = new Dialog<>();
         loadingDialog.getDialogPane().setContent(p);
-//        loadingDialog.setHeaderText("Loading");
         loadingDialog.setGraphic(null);
         loadingDialog.resizableProperty().set(false);
         loadingDialog.initStyle(StageStyle.UNDECORATED);
@@ -512,7 +536,9 @@ public class MainController {
             loadingDialog.hide();
             try {
                 if (task.get())
-                    service.populateTable(table, "", true);
+                    service.populateTable(table, true);
+                else
+                    service.emptyTable(table);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             } catch (ExecutionException ex) {
@@ -521,7 +547,12 @@ public class MainController {
             // process return value again in JavaFX thread
         });
         task.setOnFailed((e) -> {
+            loadingDialog.setResult(Boolean.TRUE);
+            loadingDialog.hide();
+            table.setPlaceholder(new Label("Task failed!!!"));
+            logger.error(String.valueOf(task.getException()));
             // eventual error handling by catching exceptions from task.get()
+
         });
         new Thread(task).start();
     }

@@ -2,7 +2,7 @@
 {
 	private static String[] defineConstants()
 	{
-		String[] problemConstants = new String[24];
+		String[] problemConstants = new String[22];
 
 		problemConstants[0] = "tasktype";
 		problemConstants[1] = "data-mining-task-type-instance";
@@ -10,24 +10,22 @@
 		problemConstants[3] = "data-mining-requirement-instance";
 		problemConstants[4] = "targetclass";
 		problemConstants[5] = "target-class-instance";
-		problemConstants[6] = "deceased3";
+		problemConstants[6] = "deceased2";
 		problemConstants[7] = "feature1";
 		problemConstants[8] = "feature-instance";
-		problemConstants[9] = "gender1attr";
+		problemConstants[9] = "gender3attr";
 		problemConstants[10] = "nominal";
 		problemConstants[11] = "has-data-type";
 		problemConstants[12] = "feature2";
-		problemConstants[13] = "gp2attr";
-		problemConstants[14] = "feature3";
-		problemConstants[15] = "age0attr";
-		problemConstants[16] = "numeric";
-		problemConstants[17] = "datatable";
-		problemConstants[18] = "data-table-instance";
-		problemConstants[19] = "sparql_data_tmp";
-		problemConstants[20] = "dataminingmodel";
-		problemConstants[21] = "data-mining-model-instance";
-		problemConstants[22] = "dataminingresult";
-		problemConstants[23] = "data-mining-result-instance";
+		problemConstants[13] = "age0attr";
+		problemConstants[14] = "numeric";
+		problemConstants[15] = "datatable";
+		problemConstants[16] = "data-table-instance";
+		problemConstants[17] = "training_model1";
+		problemConstants[18] = "dataminingmodel";
+		problemConstants[19] = "data-mining-model-instance";
+		problemConstants[20] = "dataminingresult";
+		problemConstants[21] = "data-mining-result-instance";
 
 		return problemConstants;
 	}
@@ -38,264 +36,273 @@
 		s.add(new Predicate(82, 0, new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(88), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(115), new TermList(TermConstant.getConstant(117), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(120), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(118), new TermList(new TermNumber(1.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(118), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(118), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(123), new TermList(TermConstant.getConstant(124), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(123), new TermList(new TermNumber(2.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(123), new TermList(new TermNumber(1.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(123), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(15, 0, new TermList(TermConstant.getConstant(126), new TermList(new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(123), TermList.NIL)), TermList.NIL))));
+		s.add(new Predicate(75, 0, new TermList(TermConstant.getConstant(126), new TermList(TermConstant.getConstant(115), TermList.NIL))));
+		s.add(new Predicate(90, 0, new TermList(TermConstant.getConstant(126), new TermList(TermConstant.getConstant(89), TermList.NIL))));
+		s.add(new Predicate(79, 0, new TermList(TermConstant.getConstant(126), new TermList(new TermNumber(35100.0), TermList.NIL))));
+		s.add(new Predicate(78, 0, new TermList(TermConstant.getConstant(126), new TermList(new TermNumber(2.0), TermList.NIL))));
+		s.add(new Predicate(74, 0, new TermList(TermConstant.getConstant(126), new TermList(TermConstant.getConstant(76), TermList.NIL))));
+		s.add(new Predicate(6, 0, new TermList(TermConstant.getConstant(126), new TermList(TermConstant.getConstant(128), TermList.NIL))));
+		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(131), TermList.NIL)));
+		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(129), TermList.NIL)));
+	}
+
+	public static LinkedList<Plan> getPlans()
+	{
+		LinkedList<Plan> returnedPlans = new LinkedList<Plan>();
+		TermConstant.initialize(133);
+
+		Domain d = new datamining();
+
+		d.setProblemConstants(defineConstants());
+
+		State s = new State(111, d.getAxioms());
+
+		JSHOP2.initialize(d, s);
+
+		TaskList tl;
+		SolverThread thread;
+
+		createState0(s);
+
+		tl = new TaskList(1, true);
+		tl.subtasks[0] = new TaskList(new TaskAtom(new Predicate(7, 0, new TermList(TermConstant.getConstant(111), new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(126), new TermList(TermConstant.getConstant(129), new TermList(TermConstant.getConstant(131), TermList.NIL)))))), false, false));
+
+		thread = new SolverThread(tl, 1);
+		thread.start();
+
+		try {
+			while (thread.isAlive())
+				Thread.sleep(500);
+		} catch (InterruptedException e) {
+		}
+
+		returnedPlans.addAll( thread.getPlans() );
+
+		return returnedPlans;
+	}
+
+	public static LinkedList<Predicate> getFirstPlanOps() {
+		return getPlans().getFirst().getOps();
+	}
+}
+TermList(TermConstant.getConstant(128), new TermList(TermConstant.getConstant(131), new TermList(TermConstant.getConstant(133), TermList.NIL)))))), false, false));
+
+		thread = new SolverThread(tl, 1);
+		thread.start();
+
+		try {
+			while (thread.isAlive())
+				Thread.sleep(500);
+		} catch (InterruptedException e) {
+		}
+
+		returnedPlans.addAll( thread.getPlans() );
+
+		return returnedPlans;
+	}
+
+	public static LinkedList<Predicate> getFirstPlanOps() {
+		return getPlans().getFirst().getOps();
+	}
+}
+);
+	}
+}
+s();
+	}
+}
+stant(113), new TermList(TermConstant.getConstant(130), new TermList(TermConstant.getConstant(133), new TermList(TermConstant.getConstant(135), TermList.NIL)))))), false, false));
+
+		thread = new SolverThread(tl, 1);
+		thread.start();
+
+		try {
+			while (thread.isAlive())
+				Thread.sleep(500);
+		} catch (InterruptedException e) {
+		}
+
+		returnedPlans.addAll( thread.getPlans() );
+
+		return returnedPlans;
+	}
+
+	public static LinkedList<Predicate> getFirstPlanOps() {
+		return getPlans().getFirst().getOps();
+	}
+}
+"sonar";
+		problemConstants[133] = "dataminingmodel";
+		problemConstants[134] = "data-mining-model-instance";
+		problemConstants[135] = "dataminingresult";
+		problemConstants[136] = "data-mining-result-instance";
+
+		return problemConstants;
+	}
+
+	private static void createState0(State s)	{
+		s.add(new Predicate(110, 0, new TermList(TermConstant.getConstant(111), new TermList(TermConstant.getConstant(109), TermList.NIL))));
+		s.add(new Predicate(92, 0, new TermList(TermConstant.getConstant(113), TermList.NIL)));
+		s.add(new Predicate(82, 0, new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(88), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(115), new TermList(TermConstant.getConstant(117), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(120), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(118), new TermList(new TermNumber(37.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(118), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(123), new TermList(TermConstant.getConstant(124), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(123), new TermList(new TermNumber(38.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(123), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(125), new TermList(TermConstant.getConstant(126), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(125), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(125), new TermList(new TermNumber(29.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(125), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(15, 0, new TermList(TermConstant.getConstant(128), new TermList(new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(123), new TermList(TermConstant.getConstant(125), TermList.NIL))), TermList.NIL))));
-		s.add(new Predicate(75, 0, new TermList(TermConstant.getConstant(128), new TermList(TermConstant.getConstant(115), TermList.NIL))));
-		s.add(new Predicate(90, 0, new TermList(TermConstant.getConstant(128), new TermList(TermConstant.getConstant(89), TermList.NIL))));
-		s.add(new Predicate(79, 0, new TermList(TermConstant.getConstant(128), new TermList(new TermNumber(35100.0), TermList.NIL))));
-		s.add(new Predicate(78, 0, new TermList(TermConstant.getConstant(128), new TermList(new TermNumber(3.0), TermList.NIL))));
-		s.add(new Predicate(74, 0, new TermList(TermConstant.getConstant(128), new TermList(TermConstant.getConstant(76), TermList.NIL))));
-		s.add(new Predicate(6, 0, new TermList(TermConstant.getConstant(128), new TermList(TermConstant.getConstant(130), TermList.NIL))));
-		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(133), TermList.NIL)));
-		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(131), TermList.NIL)));
-	}
-
-	public static LinkedList<Plan> getPlans()
-	{
-		LinkedList<Plan> returnedPlans = new LinkedList<Plan>();
-		TermConstant.initialize(135);
-
-		Domain d = new datamining();
-
-		d.setProblemConstants(defineConstants());
-
-		State s = new State(111, d.getAxioms());
-
-		JSHOP2.initialize(d, s);
-
-		TaskList tl;
-		SolverThread thread;
-
-		createState0(s);
-
-		tl = new TaskList(1, true);
-		tl.subtasks[0] = new TaskList(new TaskAtom(new Predicate(7, 0, new TermList(TermConstant.getConstant(111), new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(128), new TermList(TermConstant.getConstant(131), new TermList(TermConstant.getConstant(133), TermList.NIL)))))), false, false));
-
-		thread = new SolverThread(tl, 1);
-		thread.start();
-
-		try {
-			while (thread.isAlive())
-				Thread.sleep(500);
-		} catch (InterruptedException e) {
-		}
-
-		returnedPlans.addAll( thread.getPlans() );
-
-		return returnedPlans;
-	}
-
-	public static LinkedList<Predicate> getFirstPlanOps() {
-		return getPlans().getFirst().getOps();
-	}
-}
-Constant(113), new TermList(TermConstant.getConstant(130), new TermList(TermConstant.getConstant(133), new TermList(TermConstant.getConstant(135), TermList.NIL)))))), false, false));
-
-		thread = new SolverThread(tl, 1);
-		thread.start();
-
-		try {
-			while (thread.isAlive())
-				Thread.sleep(500);
-		} catch (InterruptedException e) {
-		}
-
-		returnedPlans.addAll( thread.getPlans() );
-
-		return returnedPlans;
-	}
-
-	public static LinkedList<Predicate> getFirstPlanOps() {
-		return getPlans().getFirst().getOps();
-	}
-}
-mList(TermConstant.getConstant(128), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(127), new TermList(new TermNumber(8.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(127), new TermList(TermConstant.getConstant(128), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(127), new TermList(new TermNumber(30.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(127), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(130), new TermList(TermConstant.getConstant(131), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(130), new TermList(new TermNumber(14.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(130), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(132), new TermList(TermConstant.getConstant(133), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(132), new TermList(new TermNumber(21.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(132), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(134), new TermList(TermConstant.getConstant(135), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(134), new TermList(new TermNumber(28.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(134), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(136), new TermList(TermConstant.getConstant(137), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(136), new TermList(new TermNumber(16.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(136), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(138), new TermList(TermConstant.getConstant(139), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(138), new TermList(new TermNumber(17.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(138), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(140), new TermList(TermConstant.getConstant(141), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(140), new TermList(new TermNumber(37.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(140), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(142), new TermList(TermConstant.getConstant(143), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(142), new TermList(new TermNumber(12.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(142), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(144), new TermList(TermConstant.getConstant(145), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(144), new TermList(new TermNumber(32.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(144), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(146), new TermList(TermConstant.getConstant(147), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(146), new TermList(new TermNumber(10.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(146), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(148), new TermList(TermConstant.getConstant(149), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(148), new TermList(new TermNumber(15.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(148), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(150), new TermList(TermConstant.getConstant(151), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(150), new TermList(new TermNumber(23.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(150), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(152), new TermList(TermConstant.getConstant(153), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(152), new TermList(new TermNumber(26.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(152), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(154), new TermList(TermConstant.getConstant(155), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(154), new TermList(new TermNumber(35.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(154), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(156), new TermList(TermConstant.getConstant(157), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(156), new TermList(new TermNumber(34.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(156), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(158), new TermList(TermConstant.getConstant(159), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(158), new TermList(new TermNumber(3.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(158), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(160), new TermList(TermConstant.getConstant(161), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(160), new TermList(new TermNumber(9.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(160), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(162), new TermList(TermConstant.getConstant(163), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(162), new TermList(new TermNumber(11.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(162), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(164), new TermList(TermConstant.getConstant(165), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(164), new TermList(new TermNumber(24.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(164), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(166), new TermList(TermConstant.getConstant(167), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(166), new TermList(new TermNumber(1.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(166), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(168), new TermList(TermConstant.getConstant(169), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(168), new TermList(new TermNumber(7.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(168), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(170), new TermList(TermConstant.getConstant(171), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(170), new TermList(new TermNumber(31.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(170), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(172), new TermList(TermConstant.getConstant(173), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(172), new TermList(new TermNumber(20.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(172), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(174), new TermList(TermConstant.getConstant(175), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(174), new TermList(new TermNumber(18.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(174), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(176), new TermList(TermConstant.getConstant(177), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(176), new TermList(new TermNumber(36.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(176), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(178), new TermList(TermConstant.getConstant(179), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(178), new TermList(new TermNumber(19.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(178), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(180), new TermList(TermConstant.getConstant(181), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(180), new TermList(new TermNumber(27.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(180), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(182), new TermList(TermConstant.getConstant(183), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(182), new TermList(new TermNumber(30.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(182), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(184), new TermList(TermConstant.getConstant(185), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(184), new TermList(new TermNumber(4.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(184), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(186), new TermList(TermConstant.getConstant(187), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(186), new TermList(new TermNumber(6.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(186), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(188), new TermList(TermConstant.getConstant(189), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(188), new TermList(new TermNumber(29.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(188), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(190), new TermList(TermConstant.getConstant(191), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(190), new TermList(new TermNumber(33.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(190), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(192), new TermList(TermConstant.getConstant(193), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(192), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(192), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(194), new TermList(TermConstant.getConstant(195), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(194), new TermList(new TermNumber(22.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(194), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(196), new TermList(TermConstant.getConstant(197), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(196), new TermList(new TermNumber(5.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(196), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(15, 0, new TermList(TermConstant.getConstant(198), new TermList(new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(123), new TermList(TermConstant.getConstant(125), new TermList(TermConstant.getConstant(127), new TermList(TermConstant.getConstant(130), new TermList(TermConstant.getConstant(132), new TermList(TermConstant.getConstant(134), new TermList(TermConstant.getConstant(136), new TermList(TermConstant.getConstant(138), new TermList(TermConstant.getConstant(140), new TermList(TermConstant.getConstant(142), new TermList(TermConstant.getConstant(144), new TermList(TermConstant.getConstant(146), new TermList(TermConstant.getConstant(148), new TermList(TermConstant.getConstant(150), new TermList(TermConstant.getConstant(152), new TermList(TermConstant.getConstant(154), new TermList(TermConstant.getConstant(156), new TermList(TermConstant.getConstant(158), new TermList(TermConstant.getConstant(160), new TermList(TermConstant.getConstant(162), new TermList(TermConstant.getConstant(164), new TermList(TermConstant.getConstant(166), new TermList(TermConstant.getConstant(168), new TermList(TermConstant.getConstant(170), new TermList(TermConstant.getConstant(172), new TermList(TermConstant.getConstant(174), new TermList(TermConstant.getConstant(176), new TermList(TermConstant.getConstant(178), new TermList(TermConstant.getConstant(180), new TermList(TermConstant.getConstant(182), new TermList(TermConstant.getConstant(184), new TermList(TermConstant.getConstant(186), new TermList(TermConstant.getConstant(188), new TermList(TermConstant.getConstant(190), new TermList(TermConstant.getConstant(192), new TermList(TermConstant.getConstant(194), new TermList(TermConstant.getConstant(196), TermList.NIL)))))))))))))))))))))))))))))))))))))), TermList.NIL))));
-		s.add(new Predicate(75, 0, new TermList(TermConstant.getConstant(198), new TermList(TermConstant.getConstant(115), TermList.NIL))));
-		s.add(new Predicate(90, 0, new TermList(TermConstant.getConstant(198), new TermList(TermConstant.getConstant(89), TermList.NIL))));
-		s.add(new Predicate(79, 0, new TermList(TermConstant.getConstant(198), new TermList(new TermNumber(898.0), TermList.NIL))));
-		s.add(new Predicate(78, 0, new TermList(TermConstant.getConstant(198), new TermList(new TermNumber(38.0), TermList.NIL))));
-		s.add(new Predicate(74, 0, new TermList(TermConstant.getConstant(198), new TermList(TermConstant.getConstant(76), TermList.NIL))));
-		s.add(new Predicate(6, 0, new TermList(TermConstant.getConstant(198), new TermList(TermConstant.getConstant(200), TermList.NIL))));
-		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(203), TermList.NIL)));
-		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(201), TermList.NIL)));
-	}
-
-	public static LinkedList<Plan> getPlans()
-	{
-		LinkedList<Plan> returnedPlans = new LinkedList<Plan>();
-		TermConstant.initialize(205);
-
-		Domain d = new datamining();
-
-		d.setProblemConstants(defineConstants());
-
-		State s = new State(111, d.getAxioms());
-
-		JSHOP2.initialize(d, s);
-
-		TaskList tl;
-		SolverThread thread;
-
-		createState0(s);
-
-		tl = new TaskList(1, true);
-		tl.subtasks[0] = new TaskList(new TaskAtom(new Predicate(7, 0, new TermList(TermConstant.getConstant(111), new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(198), new TermList(TermConstant.getConstant(201), new TermList(TermConstant.getConstant(203), TermList.NIL)))))), false, false));
-
-		thread = new SolverThread(tl, 1);
-		thread.start();
-
-		try {
-			while (thread.isAlive())
-				Thread.sleep(500);
-		} catch (InterruptedException e) {
-		}
-
-		returnedPlans.addAll( thread.getPlans() );
-
-		return returnedPlans;
-	}
-
-	public static LinkedList<Predicate> getFirstPlanOps() {
-		return getPlans().getFirst().getOps();
-	}
-}
-.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(205), new TermList(new TermNumber(8.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(129), new TermList(TermConstant.getConstant(130), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(129), new TermList(new TermNumber(31.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(129), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(131), new TermList(TermConstant.getConstant(132), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(131), new TermList(new TermNumber(32.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(131), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(133), new TermList(TermConstant.getConstant(134), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(133), new TermList(new TermNumber(33.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(133), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(135), new TermList(TermConstant.getConstant(136), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(135), new TermList(new TermNumber(34.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(135), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(137), new TermList(TermConstant.getConstant(138), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(137), new TermList(new TermNumber(35.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(137), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(139), new TermList(TermConstant.getConstant(140), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(139), new TermList(new TermNumber(36.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(139), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(141), new TermList(TermConstant.getConstant(142), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(141), new TermList(new TermNumber(39.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(141), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(143), new TermList(TermConstant.getConstant(144), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(143), new TermList(new TermNumber(26.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(143), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(145), new TermList(TermConstant.getConstant(146), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(145), new TermList(new TermNumber(27.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(145), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(147), new TermList(TermConstant.getConstant(148), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(147), new TermList(new TermNumber(28.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(147), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(149), new TermList(TermConstant.getConstant(150), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(149), new TermList(new TermNumber(19.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(149), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(151), new TermList(TermConstant.getConstant(152), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(151), new TermList(new TermNumber(20.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(151), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(153), new TermList(TermConstant.getConstant(154), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(153), new TermList(new TermNumber(21.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(153), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(155), new TermList(TermConstant.getConstant(156), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(155), new TermList(new TermNumber(22.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(155), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(157), new TermList(TermConstant.getConstant(158), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(157), new TermList(new TermNumber(23.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(157), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(159), new TermList(TermConstant.getConstant(160), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(159), new TermList(new TermNumber(24.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(159), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(161), new TermList(TermConstant.getConstant(162), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(161), new TermList(new TermNumber(25.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(161), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(163), new TermList(TermConstant.getConstant(164), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(163), new TermList(new TermNumber(15.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(163), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(165), new TermList(TermConstant.getConstant(166), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(165), new TermList(new TermNumber(16.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(165), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(167), new TermList(TermConstant.getConstant(168), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(167), new TermList(new TermNumber(17.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(167), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(169), new TermList(TermConstant.getConstant(170), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(169), new TermList(new TermNumber(18.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(169), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(171), new TermList(TermConstant.getConstant(172), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(171), new TermList(new TermNumber(1.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(171), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(173), new TermList(TermConstant.getConstant(174), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(173), new TermList(new TermNumber(51.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(173), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(175), new TermList(TermConstant.getConstant(176), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(175), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(175), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(177), new TermList(TermConstant.getConstant(178), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(177), new TermList(new TermNumber(52.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(177), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(179), new TermList(TermConstant.getConstant(180), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(179), new TermList(new TermNumber(9.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(179), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(181), new TermList(TermConstant.getConstant(182), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(181), new TermList(new TermNumber(53.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(181), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(183), new TermList(TermConstant.getConstant(184), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(183), new TermList(new TermNumber(10.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(183), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(185), new TermList(TermConstant.getConstant(186), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(185), new TermList(new TermNumber(54.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(185), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(187), new TermList(TermConstant.getConstant(188), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(187), new TermList(new TermNumber(11.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(187), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(189), new TermList(TermConstant.getConstant(190), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(189), new TermList(new TermNumber(55.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(189), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(191), new TermList(TermConstant.getConstant(192), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(191), new TermList(new TermNumber(12.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(191), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(193), new TermList(TermConstant.getConstant(194), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(193), new TermList(new TermNumber(56.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(193), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(195), new TermList(TermConstant.getConstant(196), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(195), new TermList(new TermNumber(13.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(195), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(197), new TermList(TermConstant.getConstant(198), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(197), new TermList(new TermNumber(57.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(197), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(199), new TermList(TermConstant.getConstant(200), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(199), new TermList(new TermNumber(14.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(199), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(201), new TermList(TermConstant.getConstant(202), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(201), new TermList(new TermNumber(58.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(201), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(203), new TermList(TermConstant.getConstant(204), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(203), new TermList(new TermNumber(8.0), TermList.NIL))));
+		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(203), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(205), new TermList(TermConstant.getConstant(206), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(205), new TermList(new TermNumber(7.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(205), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(207), new TermList(TermConstant.getConstant(208), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(207), new TermList(new TermNumber(7.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(207), new TermList(new TermNumber(6.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(207), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(209), new TermList(TermConstant.getConstant(210), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(209), new TermList(new TermNumber(6.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(209), new TermList(new TermNumber(5.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(209), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(211), new TermList(TermConstant.getConstant(212), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(211), new TermList(new TermNumber(5.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(211), new TermList(new TermNumber(4.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(211), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(213), new TermList(TermConstant.getConstant(214), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(213), new TermList(new TermNumber(60.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(213), new TermList(new TermNumber(59.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(213), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(215), new TermList(TermConstant.getConstant(216), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(215), new TermList(new TermNumber(4.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(215), new TermList(new TermNumber(3.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(215), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(217), new TermList(TermConstant.getConstant(218), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(217), new TermList(new TermNumber(3.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(217), new TermList(new TermNumber(2.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(217), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(219), new TermList(TermConstant.getConstant(220), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(219), new TermList(new TermNumber(0.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(219), new TermList(new TermNumber(48.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(219), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(221), new TermList(TermConstant.getConstant(222), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(221), new TermList(new TermNumber(49.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(221), new TermList(new TermNumber(40.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(221), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(223), new TermList(TermConstant.getConstant(224), TermList.NIL))));
 		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(223), new TermList(new TermNumber(41.0), TermList.NIL))));
@@ -319,29 +326,26 @@ mList(TermConstant.getConstant(128), TermList.NIL))));
 		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(235), new TermList(new TermNumber(47.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(235), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(237), new TermList(TermConstant.getConstant(238), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(237), new TermList(new TermNumber(48.0), TermList.NIL))));
+		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(237), new TermList(new TermNumber(49.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(237), new TermList(new TermNumber(0.0), TermList.NIL))));
 		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(239), new TermList(TermConstant.getConstant(240), TermList.NIL))));
 		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(239), new TermList(new TermNumber(50.0), TermList.NIL))));
 		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(239), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(12, 0, new TermList(TermConstant.getConstant(241), new TermList(TermConstant.getConstant(242), TermList.NIL))));
-		s.add(new Predicate(19, 0, new TermList(TermConstant.getConstant(241), new TermList(new TermNumber(51.0), TermList.NIL))));
-		s.add(new Predicate(17, 0, new TermList(TermConstant.getConstant(241), new TermList(new TermNumber(0.0), TermList.NIL))));
-		s.add(new Predicate(15, 0, new TermList(TermConstant.getConstant(243), new TermList(new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(123), new TermList(TermConstant.getConstant(125), new TermList(TermConstant.getConstant(127), new TermList(TermConstant.getConstant(129), new TermList(TermConstant.getConstant(131), new TermList(TermConstant.getConstant(133), new TermList(TermConstant.getConstant(135), new TermList(TermConstant.getConstant(137), new TermList(TermConstant.getConstant(139), new TermList(TermConstant.getConstant(141), new TermList(TermConstant.getConstant(143), new TermList(TermConstant.getConstant(145), new TermList(TermConstant.getConstant(147), new TermList(TermConstant.getConstant(149), new TermList(TermConstant.getConstant(151), new TermList(TermConstant.getConstant(153), new TermList(TermConstant.getConstant(155), new TermList(TermConstant.getConstant(157), new TermList(TermConstant.getConstant(159), new TermList(TermConstant.getConstant(161), new TermList(TermConstant.getConstant(163), new TermList(TermConstant.getConstant(165), new TermList(TermConstant.getConstant(167), new TermList(TermConstant.getConstant(169), new TermList(TermConstant.getConstant(171), new TermList(TermConstant.getConstant(173), new TermList(TermConstant.getConstant(175), new TermList(TermConstant.getConstant(177), new TermList(TermConstant.getConstant(179), new TermList(TermConstant.getConstant(181), new TermList(TermConstant.getConstant(183), new TermList(TermConstant.getConstant(185), new TermList(TermConstant.getConstant(187), new TermList(TermConstant.getConstant(189), new TermList(TermConstant.getConstant(191), new TermList(TermConstant.getConstant(193), new TermList(TermConstant.getConstant(195), new TermList(TermConstant.getConstant(197), new TermList(TermConstant.getConstant(199), new TermList(TermConstant.getConstant(201), new TermList(TermConstant.getConstant(203), new TermList(TermConstant.getConstant(205), new TermList(TermConstant.getConstant(207), new TermList(TermConstant.getConstant(209), new TermList(TermConstant.getConstant(211), new TermList(TermConstant.getConstant(213), new TermList(TermConstant.getConstant(215), new TermList(TermConstant.getConstant(217), new TermList(TermConstant.getConstant(219), new TermList(TermConstant.getConstant(221), new TermList(TermConstant.getConstant(223), new TermList(TermConstant.getConstant(225), new TermList(TermConstant.getConstant(227), new TermList(TermConstant.getConstant(229), new TermList(TermConstant.getConstant(231), new TermList(TermConstant.getConstant(233), new TermList(TermConstant.getConstant(235), new TermList(TermConstant.getConstant(237), new TermList(TermConstant.getConstant(239), new TermList(TermConstant.getConstant(241), TermList.NIL))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))), TermList.NIL))));
-		s.add(new Predicate(75, 0, new TermList(TermConstant.getConstant(243), new TermList(TermConstant.getConstant(115), TermList.NIL))));
-		s.add(new Predicate(90, 0, new TermList(TermConstant.getConstant(243), new TermList(TermConstant.getConstant(89), TermList.NIL))));
-		s.add(new Predicate(79, 0, new TermList(TermConstant.getConstant(243), new TermList(new TermNumber(2552.0), TermList.NIL))));
-		s.add(new Predicate(78, 0, new TermList(TermConstant.getConstant(243), new TermList(new TermNumber(61.0), TermList.NIL))));
-		s.add(new Predicate(74, 0, new TermList(TermConstant.getConstant(243), new TermList(TermConstant.getConstant(76), TermList.NIL))));
-		s.add(new Predicate(6, 0, new TermList(TermConstant.getConstant(243), new TermList(TermConstant.getConstant(245), TermList.NIL))));
-		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(248), TermList.NIL)));
+		s.add(new Predicate(15, 0, new TermList(TermConstant.getConstant(241), new TermList(new TermList(TermConstant.getConstant(118), new TermList(TermConstant.getConstant(123), new TermList(TermConstant.getConstant(125), new TermList(TermConstant.getConstant(127), new TermList(TermConstant.getConstant(129), new TermList(TermConstant.getConstant(131), new TermList(TermConstant.getConstant(133), new TermList(TermConstant.getConstant(135), new TermList(TermConstant.getConstant(137), new TermList(TermConstant.getConstant(139), new TermList(TermConstant.getConstant(141), new TermList(TermConstant.getConstant(143), new TermList(TermConstant.getConstant(145), new TermList(TermConstant.getConstant(147), new TermList(TermConstant.getConstant(149), new TermList(TermConstant.getConstant(151), new TermList(TermConstant.getConstant(153), new TermList(TermConstant.getConstant(155), new TermList(TermConstant.getConstant(157), new TermList(TermConstant.getConstant(159), new TermList(TermConstant.getConstant(161), new TermList(TermConstant.getConstant(163), new TermList(TermConstant.getConstant(165), new TermList(TermConstant.getConstant(167), new TermList(TermConstant.getConstant(169), new TermList(TermConstant.getConstant(171), new TermList(TermConstant.getConstant(173), new TermList(TermConstant.getConstant(175), new TermList(TermConstant.getConstant(177), new TermList(TermConstant.getConstant(179), new TermList(TermConstant.getConstant(181), new TermList(TermConstant.getConstant(183), new TermList(TermConstant.getConstant(185), new TermList(TermConstant.getConstant(187), new TermList(TermConstant.getConstant(189), new TermList(TermConstant.getConstant(191), new TermList(TermConstant.getConstant(193), new TermList(TermConstant.getConstant(195), new TermList(TermConstant.getConstant(197), new TermList(TermConstant.getConstant(199), new TermList(TermConstant.getConstant(201), new TermList(TermConstant.getConstant(203), new TermList(TermConstant.getConstant(205), new TermList(TermConstant.getConstant(207), new TermList(TermConstant.getConstant(209), new TermList(TermConstant.getConstant(211), new TermList(TermConstant.getConstant(213), new TermList(TermConstant.getConstant(215), new TermList(TermConstant.getConstant(217), new TermList(TermConstant.getConstant(219), new TermList(TermConstant.getConstant(221), new TermList(TermConstant.getConstant(223), new TermList(TermConstant.getConstant(225), new TermList(TermConstant.getConstant(227), new TermList(TermConstant.getConstant(229), new TermList(TermConstant.getConstant(231), new TermList(TermConstant.getConstant(233), new TermList(TermConstant.getConstant(235), new TermList(TermConstant.getConstant(237), new TermList(TermConstant.getConstant(239), TermList.NIL)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))), TermList.NIL))));
+		s.add(new Predicate(75, 0, new TermList(TermConstant.getConstant(241), new TermList(TermConstant.getConstant(115), TermList.NIL))));
+		s.add(new Predicate(90, 0, new TermList(TermConstant.getConstant(241), new TermList(TermConstant.getConstant(89), TermList.NIL))));
+		s.add(new Predicate(79, 0, new TermList(TermConstant.getConstant(241), new TermList(new TermNumber(208.0), TermList.NIL))));
+		s.add(new Predicate(78, 0, new TermList(TermConstant.getConstant(241), new TermList(new TermNumber(60.0), TermList.NIL))));
+		s.add(new Predicate(74, 0, new TermList(TermConstant.getConstant(241), new TermList(TermConstant.getConstant(76), TermList.NIL))));
+		s.add(new Predicate(6, 0, new TermList(TermConstant.getConstant(241), new TermList(TermConstant.getConstant(243), TermList.NIL))));
 		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(246), TermList.NIL)));
+		s.add(new Predicate(38, 0, new TermList(TermConstant.getConstant(244), TermList.NIL)));
 	}
 
 	public static LinkedList<Plan> getPlans()
 	{
 		LinkedList<Plan> returnedPlans = new LinkedList<Plan>();
-		TermConstant.initialize(250);
+		TermConstant.initialize(248);
 
 		Domain d = new datamining();
 
@@ -357,7 +361,27 @@ mList(TermConstant.getConstant(128), TermList.NIL))));
 		createState0(s);
 
 		tl = new TaskList(1, true);
-		tl.subtasks[0] = new TaskList(new TaskAtom(new Predicate(7, 0, new TermList(TermConstant.getConstant(111), new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(243), new TermList(TermConstant.getConstant(246), new TermList(TermConstant.getConstant(248), TermList.NIL)))))), false, false));
+		tl.subtasks[0] = new TaskList(new TaskAtom(new Predicate(7, 0, new TermList(TermConstant.getConstant(111), new TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(241), new TermList(TermConstant.getConstant(244), new TermList(TermConstant.getConstant(246), TermList.NIL)))))), false, false));
+
+		thread = new SolverThread(tl, 1);
+		thread.start();
+
+		try {
+			while (thread.isAlive())
+				Thread.sleep(500);
+		} catch (InterruptedException e) {
+		}
+
+		returnedPlans.addAll( thread.getPlans() );
+
+		return returnedPlans;
+	}
+
+	public static LinkedList<Predicate> getFirstPlanOps() {
+		return getPlans().getFirst().getOps();
+	}
+}
+w TermList(TermConstant.getConstant(113), new TermList(TermConstant.getConstant(243), new TermList(TermConstant.getConstant(246), new TermList(TermConstant.getConstant(248), TermList.NIL)))))), false, false));
 
 		thread = new SolverThread(tl, 1);
 		thread.start();

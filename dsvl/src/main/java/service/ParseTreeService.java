@@ -62,13 +62,101 @@ public class ParseTreeService {
             interpretAsk(root, root, 0);
         } else if (cl == CreatePredictionModelNodeBean.class) {
             interpretCreatePredictionModel(root, root, 0);
+        }else if (cl == PredictNodeBean.class){
+            interpretPredict(root, 0);
         } else {
             logger.error("Require appropriate root nodes (SELECT, ASK, ...) to interpret to SPARQL");
             return null;
         }
 
-        logger.info("Raw query: \n" + sparqlQuery.toString());
         return sparqlQuery.toString();
+    }
+
+    /**
+     * Interpret PREDICT query.
+     *
+     */
+    private void interpretPredict(Node root, int depth){
+        VNode vNode = root.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        if (depth == 0){
+            sparqlQuery.append(objectBean.getSparqlValue());
+            sparqlQuery.append(NL);
+        }
+        if (root.getChildren().size() == 4) {
+            Node targetNode = findNode(root, TargetNodeBean.class);
+            if (targetNode != null) {
+                interpretTargetNode(root, targetNode, ++depth);
+                sparqlQuery.append(NL);
+            } else {
+                logger.warn("Require TARGET node");
+            }
+
+            Node featureNode = findNode(root, FeatureNodeBean.class);
+            if (featureNode != null){
+                interpretFeature(root, featureNode, ++depth);
+                sparqlQuery.append(NL);
+            } else {
+                logger.warn("Require FEATURE node");
+            }
+
+            Node whereNode = null;
+            if (findNode(root, PatientNodeBean.class) != null){
+                whereNode = findNode(root, PatientNodeBean.class);
+            } else if (findNode(root, EpisodeNodeBean.class) != null){
+                whereNode = findNode(root, EpisodeNodeBean.class);
+            }
+            if (whereNode != null) {
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, whereNode, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+            } else {
+                logger.info("Require domain-specific objects to predict");
+
+            }
+
+            // USE PREDICTIVE MODEL node
+            Node usePredictiveModelNode = findNode(root, UsePredictiveModelBean.class);
+            if (usePredictiveModelNode != null){
+                interpretUsePredictiveModel(root, usePredictiveModelNode, ++depth);
+            } else {
+                logger.warn("Require USE PREDICTIVE model");
+            }
+
+        } else {
+            logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
+        }
+
+
+    }
+
+    /**
+     * Intepret SAVE PREDICTVE MODEL node
+     * @param root
+     * @param node
+     * @param depth
+     */
+    private void interpretSavePredictiveModel(Node root, Node node, int depth){
+        if (node == null)
+            return;
+        SavePredictiveModelBean savePredictiveModelBean = (SavePredictiveModelBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(NL);
+        sparqlQuery.append(savePredictiveModelBean.getSparqlValue());
+    }
+
+    /**
+     * Intepret USE PREDICTVE MODEL node
+     * @param root
+     * @param node
+     * @param depth
+     */
+    private void interpretUsePredictiveModel(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        UsePredictiveModelBean usePredictiveModelBean = (UsePredictiveModelBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(NL);
+        sparqlQuery.append(usePredictiveModelBean.getSparqlValue());
     }
 
     /**
@@ -83,98 +171,50 @@ public class ParseTreeService {
         ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
         if (depth == 0){
             sparqlQuery.append(objectBean.getSparqlValue());
-            sparqlQuery.append(SPACE);
-            sparqlQuery.append("?model");
             sparqlQuery.append(NL);
         }
-        if (node.getChildren().size() == 3) {
-            // first child
-            Node firstChild = node.getChildren().get(0).getValue();
-            ObjectBean obFirstChild = (ObjectBean) firstChild.getVNode().getValueObject().getValue();
-            Node secondChild = node.getChildren().get(1).getValue();
-            ObjectBean obSecondChild = (ObjectBean) secondChild.getVNode().getValueObject().getValue();
-            Node thirdChild = node.getChildren().get(2).getValue();
-            ObjectBean obThirdChild = (ObjectBean) thirdChild.getVNode().getValueObject().getValue();
-            if ((obFirstChild.getClass() == PatientNodeBean.class || obFirstChild.getClass() == EpisodeNodeBean.class)
-                && (obSecondChild.getClass() == TargetNodeBean.class)
-                && (obThirdChild.getClass() == FeatureNodeBean.class)) {
-                interpretTargetNode(root, secondChild, ++depth);
+        if (root.getChildren().size() == 4) {
+            Node targetNode = findNode(root, TargetNodeBean.class);
+            if (targetNode != null) {
+                interpretTargetNode(root, targetNode, ++depth);
                 sparqlQuery.append(NL);
-
-                interpretFeature(root, thirdChild, ++depth);
-                sparqlQuery.append(NL);
-
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, firstChild, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
-
-            } else if ((obFirstChild.getClass() == PatientNodeBean.class || obFirstChild.getClass() == EpisodeNodeBean.class)
-                    && (obThirdChild.getClass() == TargetNodeBean.class)
-                    && (obSecondChild.getClass() == FeatureNodeBean.class)) {
-                interpretTargetNode(root, thirdChild, ++depth);
-                sparqlQuery.append(NL);
-
-                interpretFeature(root, secondChild, ++depth);
-                sparqlQuery.append(NL);
-
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, firstChild, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
-
-            } else if ((obSecondChild.getClass() == PatientNodeBean.class || obSecondChild.getClass() == EpisodeNodeBean.class)
-                    && (obFirstChild.getClass() == TargetNodeBean.class)
-                    && (obThirdChild.getClass() == FeatureNodeBean.class)) {
-                interpretTargetNode(root, firstChild, ++depth);
-                sparqlQuery.append(NL);
-
-                interpretFeature(root, thirdChild, ++depth);
-                sparqlQuery.append(NL);
-
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, secondChild, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
-
-            } else if ((obSecondChild.getClass() == PatientNodeBean.class || obSecondChild.getClass() == EpisodeNodeBean.class)
-                    && (obThirdChild.getClass() == TargetNodeBean.class)
-                    && (obFirstChild.getClass() == FeatureNodeBean.class)) {
-                interpretTargetNode(root, thirdChild, ++depth);
-                sparqlQuery.append(NL);
-
-                interpretFeature(root, firstChild, ++depth);
-                sparqlQuery.append(NL);
-
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, secondChild, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
-
-            } else if ((obThirdChild.getClass() == PatientNodeBean.class || obThirdChild.getClass() == EpisodeNodeBean.class)
-                    && (obFirstChild.getClass() == TargetNodeBean.class)
-                    && (obSecondChild.getClass() == FeatureNodeBean.class)) {
-                interpretTargetNode(root, firstChild, ++depth);
-                sparqlQuery.append(NL);
-
-                interpretFeature(root, secondChild, ++depth);
-                sparqlQuery.append(NL);
-
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, thirdChild, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
-
-            } else if ((obThirdChild.getClass() == PatientNodeBean.class || obThirdChild.getClass() == EpisodeNodeBean.class)
-                    && (obSecondChild.getClass() == TargetNodeBean.class)
-                    && (obFirstChild.getClass() == FeatureNodeBean.class)) {
-                interpretTargetNode(root, secondChild, ++depth);
-                sparqlQuery.append(NL);
-
-                interpretFeature(root, firstChild, ++depth);
-                sparqlQuery.append(NL);
-
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, thirdChild, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
+            } else {
+                logger.warn("Require TARGET node");
             }
+
+            Node featureNode = findNode(root, FeatureNodeBean.class);
+            if (featureNode != null){
+                interpretFeature(root, featureNode, ++depth);
+                sparqlQuery.append(NL);
+            } else {
+                logger.warn("Require FEATURE node");
+            }
+
+            Node whereNode = null;
+            if (findNode(root, PatientNodeBean.class) != null){
+                whereNode = findNode(root, PatientNodeBean.class);
+            } else if (findNode(root, EpisodeNodeBean.class) != null){
+                whereNode = findNode(root, EpisodeNodeBean.class);
+            }
+            if (whereNode != null) {
+                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                interpretWHERE(root, whereNode, ++depth);
+                sparqlQuery.append(RCURLYBRACKET);
+            } else {
+                logger.info("Require domain-specific objects to predict");
+
+            }
+
+            // SAVE PREDICTIVE MODEL node
+            Node savePredictiveModelNode = findNode(root, SavePredictiveModelBean.class);
+            if (savePredictiveModelNode != null){
+                interpretSavePredictiveModel(root, savePredictiveModelNode, ++depth);
+            } else {
+                logger.warn("Require SAVE PREDICTIVE model");
+            }
+
         } else {
-            logger.info("Require Target node and describing nodes");
+            logger.warn("Require FEATURE/TARGET/OBJECT/SAVE PREDICTIVE MODEL nodes");
         }
     }
 
@@ -578,4 +618,22 @@ public class ParseTreeService {
         return getDepth(root, 0);
     }
 
+    /**
+     * Find node by its class, return the first found node.
+     *
+     * @param root
+     * @param cl
+     * @return
+     */
+    private Node findNode(Node root, Class cl){
+        if (root.getChildren().size() > 0) {
+            for (Pair<String, Node> pair : root.getChildren()){
+                Node child = pair.getValue();
+                ObjectBean objectBean = (ObjectBean) child.getVNode().getValueObject().getValue();
+                if (objectBean.getClass() == cl)
+                    return child;
+            }
+        }
+        return null;
+    }
 }

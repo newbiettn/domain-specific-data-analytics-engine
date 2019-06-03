@@ -26,6 +26,7 @@ public class ParseTree {
     public static int PREVALENCE_TREE = 2;
     public static int ASK_TREE = 3;
     public static int CREATEPREDICTIONMODEL_TREE = 4;
+    public static int PREDICT_TREE = 5;
 
     public ParseTree(){
         this.root = null;
@@ -57,22 +58,26 @@ public class ParseTree {
         if (cl != SelectNodeBean.class &&
                 cl != PrevalenceNodeBean.class &&
                 cl != AskNodeBean.class &&
-                cl != CreatePredictionModelNodeBean.class)
+                cl != CreatePredictionModelNodeBean.class &&
+                cl != PredictNodeBean.class)
             return INVALID_TREE;
+
         root = new Node(vRoot);
         Connections connections = flow.getConnections(MainController.CONNECTION_NAME);
         addChild(connections, root, vRoot);
-
-        if (cl == SelectNodeBean.class)
+        if (cl == SelectNodeBean.class){
             return SELECT_TREE;
-        else if (cl == PrevalenceNodeBean.class)
+        } else if (cl == PrevalenceNodeBean.class) {
             return PREVALENCE_TREE;
-        else if (cl == AskNodeBean.class)
+        } else if (cl == AskNodeBean.class) {
             return ASK_TREE;
-        else if (cl == CreatePredictionModelNodeBean.class)
+        } else if (cl == CreatePredictionModelNodeBean.class) {
             return CREATEPREDICTIONMODEL_TREE;
-        else
+        } else if (cl == PredictNodeBean.class) {
+            return PREDICT_TREE;
+        } else {
             return INVALID_TREE;
+        }
     }
 
     /**

@@ -8,9 +8,9 @@ package demos;
  */
 public class RegexTest {
     public static void main(String[] args){
-        String pattern = "(diab:has)(\\w+)";
-        String example = "diab:hasURN";
-        String updated = example.replaceAll(pattern, "$2");
+        String pattern = "(\\w)(_)(\\w+)(.model)";
+        String example = "model_1_1_RandomForest.model";
+        String updated = example.replaceAll(pattern, "$1");
         System.out.println(updated);
     }
 }

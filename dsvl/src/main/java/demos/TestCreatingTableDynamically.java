@@ -13,11 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.jena.atlas.io.IndentedWriter;
@@ -27,7 +25,6 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.sparql.util.FmtUtils;
 
 import java.io.*;
-import java.time.LocalDate;
 
 /**
  * Describe class purpose here.
@@ -37,7 +34,7 @@ import java.time.LocalDate;
  */
 public class TestCreatingTableDynamically extends Application {
     static ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-    static String  filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
+    static String  filePath = propGetter.getProperty("sparqlml.training.data.filepath");
     static String trainingCsv = filePath + "sparql_data_tmp.csv";
 
     @Override

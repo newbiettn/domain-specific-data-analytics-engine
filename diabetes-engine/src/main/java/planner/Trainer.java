@@ -8,8 +8,10 @@ package planner;
  */
 
 import com.google.common.base.Stopwatch;
+import com.opencsv.CSVReader;
 import common.ProjectPropertiesGetter;
 import db.DbUtils;
+import mf.generator.MetafeatureGenerator;
 import planner.translator.TranslateToKFForSPARQL;
 import planner.translator.TranslateToKFToEvaluateAgainstAutoWeka;
 import javafx.util.Pair;
@@ -17,18 +19,19 @@ import model.DMDataset;
 import model.DMOperator;
 import model.DMParameter;
 import model.DMPlan;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import planner.jshop.ProblemClassLoader;
 import planner.translator.PlanTranslator;
 import planner.translator.ProblemTranslator;
+import smile.clustering.GMeans;
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.WekaException;
 import weka.core.converters.ArffLoader.ArffReader;
 import weka.knowledgeflow.*;
 import weka.knowledgeflow.steps.ClassifierPerformanceEvaluator;
+import weka.knowledgeflow.steps.TextViewer;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -40,10 +43,8 @@ import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 
 
 public class Trainer {
@@ -371,6 +372,7 @@ public class Trainer {
         results.put("errorRate", eval.getM_eval().errorRate());
         return results;
     }
+
     /**
      * Obtain data mining results from the knowledge flow for evaluation against AutoWeka experiment.
      * The result is retrieved from the hardcoded operator "ClassifierPerformanceEvaluator"
@@ -621,9 +623,9 @@ public class Trainer {
      *
      */
     public Map<String, Object>  executeAutoWeka(String datasetName,
-                                                     String trainingFileUrl,
-                                                     String testFileUrl,
-                                                     int seed) {
+                                                String trainingFileUrl,
+                                                String testFileUrl,
+                                                int seed) {
         TranslateToKFToEvaluateAgainstAutoWeka trans = new TranslateToKFToEvaluateAgainstAutoWeka();
         String wekaOutputFile = propGetter.getProperty("single.weka.output.file");
         File kfFile = trans.translateForAutoWeka(
@@ -662,13 +664,13 @@ public class Trainer {
      * @param filePath
      */
     public Map<String, Object>  executeWithoutOptimizationForEvaluation(String datasetName,
-                                                     String trainingFileUrl,
-                                                     String testFileUrl,
-                                                     File outputFile,
-                                                     String classifier,
-                                                     String attributeSelection,
-                                                     int seed,
-                                                     String filePath) {
+                                                                        String trainingFileUrl,
+                                                                        String testFileUrl,
+                                                                        File outputFile,
+                                                                        String classifier,
+                                                                        String attributeSelection,
+                                                                        int seed,
+                                                                        String filePath) {
         TranslateToKFToEvaluateAgainstAutoWeka trans = new TranslateToKFToEvaluateAgainstAutoWeka();
         String wekaOutputFile = propGetter.getProperty("single.weka.output.file");
         File kfFile = trans.transforForMyEngineWithoutOptimization(
@@ -749,10 +751,10 @@ public class Trainer {
      * @throws Exception
      */
     public Map<String, Object> executeWithOptimization(File f,
-                                       int seed,
-                                       String classifier,
-                                       String attributeSelection,
-                                       boolean insertToDb, String filePath) throws Exception {
+                                                       int seed,
+                                                       String classifier,
+                                                       String attributeSelection,
+                                                       boolean insertToDb, String filePath) throws Exception {
         DbUtils dbUtils = new DbUtils();
         Trainer plannerExe = Trainer.getSingleton();
         logger.info(f.getName());
@@ -836,10 +838,10 @@ public class Trainer {
      * @throws Exception
      */
     public Map<String, Object> execute(File f,
-                        int seed,
-                        String classifier,
-                        String attributeSelection,
-                        boolean insertToDb, String filePath) throws Exception {
+                                       int seed,
+                                       String classifier,
+                                       String attributeSelection,
+                                       boolean insertToDb, String filePath) throws Exception {
         DbUtils dbUtils = new DbUtils();
         logger.info(f.getName());
 
@@ -911,10 +913,10 @@ public class Trainer {
         return null;
     }
     public Map<String, Object> executeMultiFlows(File f,
-                                       int seed,
-                                       String[] classifier,
-                                       String[] attributeSelection,
-                                       boolean insertToDb, String filePath) throws Exception {
+                                                 int seed,
+                                                 String[] classifier,
+                                                 String[] attributeSelection,
+                                                 boolean insertToDb, String filePath) throws Exception {
         DbUtils dbUtils = new DbUtils();
         logger.info(f.getName());
 
@@ -956,58 +958,58 @@ public class Trainer {
         return null;
     }
 
-    public static void main (String[] args) throws Exception {
-        ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-        Trainer trainer = new Trainer();
-        String[] classifiers = new String[]{
-                "j48",
-//                "adaboostm1",
-                "randomforest"};
-//                "neuralnetwork",
-//                "logistic"};
-//                "smo",
-//                "kstar",
-//                "ibk",
-//                "lwl",
-//                "bagging",
-//                "logitboost",
-//                "randomsubspace",
-//                "stacking",
-//                "vote",
-//                "decisiontable"};
-        String[] attributeSelections = new String[]{
-                "no-attribute-selection"};
-//                "cfs-subset-eval",
-//                "correlation-attribute-eval",
-//                "gain-ratio-attribute-eval",
-//                "info-gain-attribute-eval",
-//                "relieff-attribute-eval",
-//                "symmetrical-uncert-attribute-eval",
-//                "wrapper-subset-eval-with-adaboost-operator"};
-
-        //-- Sequentially read all files from the data repository
-        File folder = new File(propGetter.getProperty("multithread.testing.dataset.collection"));
-        File[] files = folder.listFiles();
-        String filePath = propGetter.getProperty("multithread.testing.dataset.collection");
-        for (String c : classifiers){
-            for (String a : attributeSelections){
-                for(File f : files){
-                    //-- MacOS always have DS_Store file, have to handle it
-                    if (FilenameUtils.getExtension(f.getName()).equals("DS_Store"))
-                        continue;
-
-                    //-- Execution
-//                    String classifier = "decisiontable";
-//                    String attributeSelection = "relieff-attribute-eval";
-                    if (c.equals("neuralnetwork"))
-                        a = "no-attribute-selection";
-                    for (int seed = 1; seed<=1; seed++){
-                        trainer.execute(f, seed, c, a, false, filePath);
-                    }
-                }
-            }
-        }
-    }
+//    public static void main (String[] args) throws Exception {
+//        ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
+//        Trainer trainer = new Trainer();
+//        String[] classifiers = new String[]{
+//                "j48",
+////                "adaboostm1",
+//                "randomforest"};
+////                "neuralnetwork",
+////                "logistic"};
+////                "smo",
+////                "kstar",
+////                "ibk",
+////                "lwl",
+////                "bagging",
+////                "logitboost",
+////                "randomsubspace",
+////                "stacking",
+////                "vote",
+////                "decisiontable"};
+//        String[] attributeSelections = new String[]{
+//                "no-attribute-selection"};
+////                "cfs-subset-eval",
+////                "correlation-attribute-eval",
+////                "gain-ratio-attribute-eval",
+////                "info-gain-attribute-eval",
+////                "relieff-attribute-eval",
+////                "symmetrical-uncert-attribute-eval",
+////                "wrapper-subset-eval-with-adaboost-operator"};
+//
+//        //-- Sequentially read all files from the data repository
+//        File folder = new File(propGetter.getProperty("multithread.testing.dataset.collection"));
+//        File[] files = folder.listFiles();
+//        String filePath = propGetter.getProperty("multithread.testing.dataset.collection");
+//        for (String c : classifiers){
+//            for (String a : attributeSelections){
+//                for(File f : files){
+//                    //-- MacOS always have DS_Store file, have to handle it
+//                    if (FilenameUtils.getExtension(f.getName()).equals("DS_Store"))
+//                        continue;
+//
+//                    //-- Execution
+////                    String classifier = "decisiontable";
+////                    String attributeSelection = "relieff-attribute-eval";
+//                    if (c.equals("neuralnetwork"))
+//                        a = "no-attribute-selection";
+//                    for (int seed = 1; seed<=1; seed++){
+//                        trainer.execute(f, seed, c, a, false, filePath);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     /**
      *
@@ -1022,33 +1024,23 @@ public class Trainer {
                                     String attributeSelection,
                                     int seed) {
         TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
-        String trainingProcessFP = propGetter.getProperty("sparqlml.dm.training.process.filepath");
-        String trainingProcessFile = trainingProcessFP + modelName +
-                                        "_" + attributeSelection + "_" + classifier + ".kf";
+        String trainingProcessFP = propGetter.getProperty("sparqlml.dm.process.filepath");
+        String trainingProcessFile = trainingProcessFP + "process_" + modelName + ".kf";
 
-        // train beans
-        File trainingProcess = trans.generateTrainingProcess(
+        trans.generateTrainingProcess(
                 trainingProcessFile,
                 trainingFileUrl,
-                modelName,
-                seed,
-                attributeSelection,
-                classifier);
-        executeTranslatedPlan(trainingProcess);
-
-        logger.info(modelName);
-        // prepare a predicting process for future
-        File predictingProcess = trans.preparePredictingProcess(
-                modelName,
                 seed,
                 attributeSelection,
                 classifier);
     }
 
     /**
+     * Predict
      *
      */
-    public Map<String, Double> predictForSPARQL(String predictingProcessFileUrl, String testFileUrl) {
+    public Instances predictForSPARQL(String predictingProcessFileUrl,
+                                      String testFileUrl) {
         String contents = null;
         try {
             contents = new String(Files.readAllBytes(Paths.get(predictingProcessFileUrl)));
@@ -1067,8 +1059,258 @@ public class Trainer {
         }
         File predictingFlowFile = new File(predictingProcessFileUrl);
         Flow flow = executeTranslatedPlan(predictingFlowFile);
-        Map<String, Double> results = getDataMiningResultFromEvaluation(flow);
-        return results;
 
+        String opName = "TextViewer"; // because I've hardcoded the name of the operator for i = 0,..
+        StepManager stepManager = flow.findStep(opName);
+        TextViewer textViewer = (TextViewer)stepManager.getManagedStep();
+        Map<String, String> m = textViewer.getResults();
+        for (String key : m.keySet()){
+            String val = m.get(key);
+            try {
+                ArffReader arffLoader = new ArffReader(new StringReader(val));
+                if (arffLoader.getData() != null)
+                    return arffLoader.getData();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
+
+    /**
+     * Handle machine learning pipeline construction for trainingArffPath.
+     *
+     * @param trainingArffPath
+     * @param modelName
+     * @return
+     * @throws Exception
+     */
+    public boolean executeForSPARQLML(String trainingArffPath,
+                                      String modelName) throws Exception {
+        MetafeatureGenerator mfGen = new MetafeatureGenerator();
+        DbUtils dbUtils = new DbUtils();
+        String filePath = propGetter.getProperty("sparqlml.training.data.filepath");
+        int clockTimeout = 30000;
+        File trainingset = new File(trainingArffPath);
+        int seed = 1;
+
+        /* Learn ML from the new generated dataset */
+        FileInputStream fi = new FileInputStream(new File("diabetes-engine/clustering_model_using_gmeans.ser"));
+        ObjectInputStream oi = new ObjectInputStream(fi);
+        GMeans gm = (GMeans) oi.readObject();
+        oi.close();
+
+        Map<String, Double> mf = mfGen.generate(trainingset);
+        mf.remove("NumberOfInstancesWithMissingValues");
+        mf.remove("NumberOfMissingValues");
+        mf.remove("PercentageOfMissingValues");
+        mf.remove("PercentageOfInstancesWithMissingValues");
+        double[] x = new double[mf.size()];
+        int i = 0;
+        for (String k : mf.keySet()){
+            x[i] = mf.get(k);
+            i++;
+        }
+
+        double[] normalizedX = normalize(x);
+        System.out.println(normalizedX.length);
+        int cluster = gm.predict(normalizedX);
+        logger.info( "The dataset belongs to the cluster: " + cluster);
+
+        /* Data mining */
+        List<Map<String, Object>> workflows = dbUtils.getWorkflowOfDatasetByCluster(cluster);
+        logger.info( "The size of workflows: " + workflows);
+        String[] classifiers = new String[workflows.size()];
+        String[] attributeSelections = new String[workflows.size()];
+
+        int flowIndex = 0;
+        int lastIndex = (workflows.size())-1;
+        List<Map<String, Object>> multiFlowResult = new ArrayList();
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        Runnable clockRun = () -> {
+            try {
+                Thread.sleep(clockTimeout);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+        Future<?> clockFuture = executor.submit(clockRun);
+
+        List<Future<Boolean>> futures = new ArrayList<>();
+        for (Map<String, Object> wk : workflows){
+            int finalFlowIndex = flowIndex;
+
+            Map<String, Object> results = new HashMap<>();
+            multiFlowResult.add(results);
+
+            /*Extract the workflow details*/
+            String c = (String) wk.get("classifier");
+            String a = (String) wk.get("attributeSelection");
+            //-- Execution
+            Trainer trainer = Trainer.getSingleton();
+            boolean compiledResult = trainer.generateProblemFile(trainingset, c, a);
+            if (compiledResult) {
+                //-- Generate the plan
+                DMPlan plan = trainer.generatePlan();
+                File f = new File("diabetes-engine/out.single." + finalFlowIndex + ".kf");
+                PlanTranslator planTranslator = new PlanTranslator(seed, filePath);
+                planTranslator.setTheComponent(plan);
+                String json = planTranslator.translate();
+                FileWriter fw = new FileWriter(f, false);
+                fw.write(json);
+                fw.close();
+
+                Callable flowCallable = () -> {
+                    JSONFlowLoader loader = new JSONFlowLoader();
+                    Flow flow = null;
+                    try {
+                        flow = loader.readFlow(f);
+                    } catch (WekaException e) {
+                        e.printStackTrace();
+                    }
+                    BaseExecutionEnvironment execE = new BaseExecutionEnvironment();
+                    FlowExecutor flowExecutor = execE.getDefaultFlowExecutor();
+                    flowExecutor.setFlow(flow);
+                    try {
+                        flowExecutor.runSequentially();
+                    } catch (WekaException e) {
+                        e.printStackTrace();
+                    }
+                    flowExecutor.waitUntilFinished();
+
+                    int lastIndx = plan.getOperators().size() - 2; //-- the index of ClassifierEvaluation component
+                    DMOperator lastOp = plan.getOperators().get(lastIndx);
+                    StepManager stepManager = flow.findStep(lastOp.getName());
+                    ClassifierPerformanceEvaluator eval = (ClassifierPerformanceEvaluator)stepManager.getManagedStep();
+
+                    results.put("classifier", c);
+                    results.put("attributeSelection", a);
+                    results.put("seed", seed);
+                    if (eval.getM_eval() != null) {
+                        results.put("weightedAreaUnderROC", eval.getM_eval().weightedAreaUnderROC());
+                        results.put("weightedFMeasure", eval.getM_eval().weightedFMeasure());
+                        results.put("weightedPrecision", eval.getM_eval().weightedPrecision());
+                        results.put("weightedRecall", eval.getM_eval().weightedRecall());
+                        results.put("errorRate", eval.getM_eval().errorRate());
+                        logger.info(eval.getM_eval().errorRate() + "==================");
+                    }
+                    return true;
+                };
+                Future<Boolean> future = executor.submit(flowCallable);
+                futures.add(future);
+                Trainer.reset();
+            } else {
+                logger.warn("Compilation of problem.java failed!");
+            }
+            flowIndex++;
+        }
+
+        boolean isOneDone = false;
+        while(!isOneDone){
+            for(Future<Boolean> future : futures){
+                if (!isOneDone){
+                    isOneDone = future.isDone();
+                }
+            }
+        }
+        boolean clockDone = false;
+        if (isOneDone) {
+            while (!clockDone){
+                boolean allDone = true;
+                clockDone = clockFuture.isDone();
+                for(Future<Boolean> future : futures){
+                    allDone &= future.isDone();
+                }
+                if (allDone)
+                    clockDone = true;
+            }
+        }
+        logger.info( "Shutdown now!!");
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.NANOSECONDS);
+
+        //-- Get the best flow based on AUC/ErrorRate
+        double bestErrorRate= 1;
+        int bestFlowIndex = -1;
+        int j = 0;
+        for (Map<String, Object> r : multiFlowResult){
+            if (r.get("errorRate") != null) {
+                double errorRate = (Double)r.get("errorRate");
+                if (bestErrorRate > errorRate){
+                    bestErrorRate = errorRate;
+                    bestFlowIndex = j;
+                }
+            }
+            j++;
+        }
+
+        Map<String, Object> bestFlowResult = multiFlowResult.get(bestFlowIndex);
+
+        //-- Optimize the best wf and retrieve the result
+        String c = (String)bestFlowResult.get("classifier");
+        String a = (String)bestFlowResult.get("attributeSelection");
+        logger.info(a + "/" + c);
+        logger.info(filePath);
+
+        Trainer.getSingleton().trainModelForSPARQL(
+                trainingArffPath,
+                modelName,
+                c,
+                a,
+                seed);
+
+        boolean everythingIsDone = false;
+        while (!everythingIsDone){
+            everythingIsDone = true;
+            for(Future<Boolean> future : futures){
+                everythingIsDone &= future.get();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Normalize metafeatures.
+     *
+     * @param mf
+     * @return
+     * @throws Exception
+     */
+    public double[] normalize(double[] mf) throws Exception {
+        /*Export to csv*/
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int j = 0; j < mf.length; j++){
+            if (j == mf.length - 1)
+                stringBuilder.append(mf[j]);
+            else
+                stringBuilder.append(mf[j]).append(",");
+        }
+        stringBuilder.append("\n");
+
+        FileWriter fw = new FileWriter(
+                "resources/R-utilities/new.item.csv",
+                false);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        out.print(stringBuilder.toString());
+        out.close();
+
+        /*Normalize by R*/
+        logger.info( "Running Rscript to perform normalization...");
+        runProcess("R CMD BATCH normalize.test.set.R");
+
+        /*Read back and convert to 2D array*/
+        String fname = ProjectPropertiesGetter.getSingleton().getProperty("R.utilities") + "normalized.new.item.csv";
+        CSVReader reader = new CSVReader(new FileReader(fname));
+        String[] line;
+        double[] normalizedMf = new double[mf.length];
+        while ((line = reader.readNext()) != null) {
+            for (int col = 0; col < mf.length; col++){
+                normalizedMf[col] = Double.parseDouble(line[col]);
+            }
+        }
+        return normalizedMf;
+    }
+
+
 }
