@@ -28,13 +28,17 @@ import org.slf4j.LoggerFactory;
 import parsing.ParseTree;
 import planner.Trainer;
 import weka.core.*;
+import weka.core.converters.ArffLoader;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
+import weka.core.converters.CSVSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Reorder;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Services for MainController.
@@ -46,8 +50,9 @@ public class MainControllerService {
     private static Logger logger = LoggerFactory.getLogger(MainControllerService.class);
     private ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
     private String sparqlEndpoint = "http://localhost:3030/austin/query";
+    private String filePath = propGetter.getProperty("sparqlml.result.filepath");
+    private String trainingCsv = filePath + "result.csv";
     private VFlow  flow;
-    private String[] tableResultCsv; // [0] header, [1] rows
 
     public boolean execQuery(){
         ParseTree pt = new ParseTree();
@@ -151,29 +156,36 @@ public class MainControllerService {
             saver.setFile(new File(testArff));
             saver.writeBatch();
 
-            // Predicting
-            String processFileName = processFilePath + "process_" + modelName + ".kf";
-            Instances instanceResult = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
-            int numCols = instanceResult.numAttributes();
-            for (int col = 0; col < numCols; col++){
-                Attribute attribute = instanceResult.attribute(col);
-                String attributeName = attribute.name();
-                String attributeNewName = null;
-                if (col < numCols - 3){
-                    attributeNewName = attributeName.substring(0,1).toUpperCase() + attributeName.substring(1).toLowerCase();
-                } else {
-                    if (col == numCols - 3) {
-                        attributeNewName = attributeName + " (Actual)";
-                    } else if (col == numCols - 2) {
-                        attributeNewName =  "False Probability (Predicted)";
-                    } else if (col == numCols - 1){
-                        attributeNewName =  "True Probability (Predicted)";
+            if (compareTestAndTraining(modelName)){
+                // Predicting
+                String processFileName = processFilePath + "process_" + modelName + ".kf";
+                Instances instanceResult = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
+                int numCols = instanceResult.numAttributes();
+                for (int col = 0; col < numCols; col++){
+                    Attribute attribute = instanceResult.attribute(col);
+                    String attributeName = attribute.name();
+                    String attributeNewName = null;
+                    if (col < numCols - 3){
+                        attributeNewName = attributeName.substring(0,1).toUpperCase() + attributeName.substring(1).toLowerCase();
+                    } else {
+                        if (col == numCols - 3) {
+                            attributeNewName = attributeName + " (Actual)";
+                        } else if (col == numCols - 2) {
+                            attributeNewName =  "False Probability (Predicted)";
+                        } else if (col == numCols - 1){
+                            attributeNewName =  "True Probability (Predicted)";
+                        }
                     }
+                    instanceResult.renameAttribute(col, attributeNewName);
                 }
-                instanceResult.renameAttribute(col, attributeNewName);
+                CSVSaver csvSaver = new CSVSaver();
+                csvSaver.setFieldSeparator(",");
+                csvSaver.setFile(new File(trainingCsv));
+                csvSaver.setInstances(instanceResult);
+                csvSaver.writeBatch();
+                return true;
             }
-            this.tableResultCsv = instancesToString(instanceResult);
-            return true;
+            return false;
 
         } catch (Exception qpe){
             qpe.printStackTrace();
@@ -260,6 +272,32 @@ public class MainControllerService {
     }
 
     /**
+     * Write result to csv file.
+     *
+     * @param result
+     * @return
+     */
+    private boolean writeResult(String result){
+        if (!result.isEmpty()) {
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(
+                        trainingCsv,
+                        false);
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+            }
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            out.print(result);
+            out.close();
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
      * Execute ASK query, retrieve data and write to file.
      *
      * @param q
@@ -274,8 +312,8 @@ public class MainControllerService {
 
             // Execute and write result to file
             boolean rs = qexec.execAsk();
-            this.tableResultCsv = prepareResult(rs);
-            return true;
+            String result = prepareResult(rs);
+            return writeResult(result);
         } catch (QueryParseException qpe){
             logger.error(qpe.getMessage());
         }
@@ -298,9 +336,8 @@ public class MainControllerService {
             // Execute and write result to file
             logger.info("Executing select...");
             ResultSet rs = qexec.execSelect();
-            String[] result = prepareResult(rs);
-            this.tableResultCsv = result;
-            return true;
+            String result = prepareResult(rs);
+            return writeResult(result);
         } catch (Exception e){
             logger.error(e.getMessage());
         }
@@ -312,26 +349,22 @@ public class MainControllerService {
      * @param result
      * @return
      */
-    private String[] prepareResult(boolean result){
-        StringBuilder rows = new StringBuilder();
-        StringBuilder header = new StringBuilder();
-        header.append("Result");
-        rows.append(result);
-        String[] r = new String[2];
-        r[0] = header.toString();
-        r[1] = rows.toString();
-        return r;
+    private String prepareResult(boolean result){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Result").append("\n");
+        stringBuilder.append(result);
+        return stringBuilder.toString();
     }
+
 
     /**
      * Prepare result for ResultSet type.
      *
      * @param rs ResultSet
      */
-    private String[] prepareResult(ResultSet rs) {
+    private String prepareResult(ResultSet rs) {
         ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(rs);
         int numCols = resultSetRewindable.getResultVars().size();
-        String[] result = new String[2];
         StringBuilder header = new StringBuilder();
         StringBuilder row = new StringBuilder();
         for (int r = 0; resultSetRewindable.hasNext(); r++) {
@@ -354,9 +387,7 @@ public class MainControllerService {
                     row.append(v).append("\n");
             }
         }
-        result[0] = header.toString();
-        result[1] = row.toString();
-        return result;
+        return header.toString() + row.toString();
     }
 
     public void emptyTable(final TableView<ObservableList<StringProperty>> table) {
@@ -376,12 +407,14 @@ public class MainControllerService {
             final boolean hasHeader) {
         table.getItems().clear();
         table.getColumns().clear();
+        table.setPlaceholder(new Label("Loading..."));
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
+                BufferedReader in = new BufferedReader(new FileReader(trainingCsv));
                 // Header line
                 if (hasHeader) {
-                    final String headerLine = tableResultCsv[0];
+                    final String headerLine = in.readLine();
                     final String[] headerValues = headerLine.split(",");
                     Platform.runLater(new Runnable() {
                         @Override
@@ -397,8 +430,8 @@ public class MainControllerService {
                 }
 
                 // Data:
-                String[] datalines = tableResultCsv[1].split("\n");
-                for (String dataLine : datalines) {
+                String dataLine;
+                while ((dataLine = in.readLine()) != null) {
                     final String[] dataValues = dataLine.split(",");
                     Platform.runLater(new Runnable() {
                         @Override
@@ -424,6 +457,7 @@ public class MainControllerService {
         thread.setDaemon(true);
         thread.start();
     }
+
 
     private TableColumn<ObservableList<StringProperty>, String> createColumn(
             final int columnIndex, String columnTitle) {
@@ -496,6 +530,7 @@ public class MainControllerService {
 
 
     /**
+     * Convert Instances to String (CSV format).
      *
      * @param inst
      * @return
@@ -569,6 +604,89 @@ public class MainControllerService {
         }
 
         return result.toString();
+    }
+
+    /**
+     * Checking if the structure of test dataset identical to of training set.
+     *
+     * @return
+     */
+    private boolean compareTestAndTraining(String modelName){
+        String trainingDataFilePath = propGetter.getProperty("sparqlml.training.data.filepath");
+        String testDatafilePath = propGetter.getProperty("sparqlml.test.data.filepath");
+        String testArff = testDatafilePath + "tmp_test_dataset.arff";
+        String trainingArff = trainingDataFilePath + "training_" + modelName + ".arff";
+
+        ArffLoader arffLoader = new ArffLoader();
+        try {
+            arffLoader.setSource(new File(testArff));
+            Instances testInstances = arffLoader.getDataSet();
+            testInstances.setClassIndex(testInstances.numAttributes() - 1);
+            arffLoader.setSource(new File(trainingArff));
+            Instances trainingInstances = arffLoader.getDataSet();
+            trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);
+
+            // Checking num attributes
+            if (testInstances.numAttributes() != trainingInstances.numAttributes()){
+                System.out.println("11111");
+                return false;
+            }
+
+            // Checking target attribute
+            if (!testInstances.classAttribute().name().equals(trainingInstances.classAttribute().name())){
+                System.out.println("2222");
+                return false;
+            }
+
+            // Compare names of attribute of both after sorting them
+            int numAttr = trainingInstances.numAttributes();
+            List<String> testAttNames = new ArrayList<>();
+            List<String> trainingAttName = new ArrayList<>();
+            List<String> originalTestAttName = new ArrayList<>();
+            for (int i = 0; i < numAttr-1; i++){ // except class attribute
+                testAttNames.add(testInstances.attribute(i).name());
+                originalTestAttName.add(testInstances.attribute(i).name());
+                trainingAttName.add(trainingInstances.attribute(i).name());
+            }
+            System.out.println(testAttNames.toString());
+            Collections.sort(testAttNames);
+            System.out.println(testAttNames.toString());
+            Collections.sort(trainingAttName);
+            String[] newIndex = new String[numAttr];
+            for (int k = 0; k < numAttr-1; k++) {
+                 newIndex[k]= String.valueOf(testAttNames.indexOf(originalTestAttName.get(k)) + 1);
+            }
+            newIndex[numAttr-1] = "last";
+            for (String in : newIndex){
+                System.out.print(in + " ");
+            }
+            if (!testAttNames.equals(trainingAttName)) {
+                System.out.println("3333");
+                return false;
+            } else { // ensure both have attributes in the same order
+                Reorder reorder = new Reorder();
+                String attributeOrder = String.join(",", newIndex);
+                System.out.println(attributeOrder);
+                reorder.setAttributeIndices(attributeOrder);
+                reorder.setInputFormat(testInstances);
+                testInstances = Filter.useFilter(testInstances, reorder);
+
+//                System.out.println(testInstances.toString());
+
+                ArffSaver saver = new ArffSaver();
+                saver.setInstances(testInstances);
+                saver.setFile(new File(testArff));
+                saver.writeBatch();
+                return true;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
 
 }
