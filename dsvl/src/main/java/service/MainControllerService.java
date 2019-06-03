@@ -175,7 +175,7 @@ public class MainControllerService {
             saver.setFile(new File(testArffFilename));
             saver.writeBatch();
 
-            if (compareTestAndTraining(modelName)){
+            if (compareTestAndTraining()){ // Verify if training & test sets are compatible
                 // Predicting
                 processFilename = processFilepath + "process_" + modelName + ".kf";
                 Instances instanceResult = Trainer.getSingleton().predictForSPARQL(processFilename, testArffFilename);
@@ -203,8 +203,10 @@ public class MainControllerService {
                 csvSaver.setInstances(instanceResult);
                 csvSaver.writeBatch();
                 return true;
+            } else {
+                logger.warn("Training and test sets are not compatible");
+                return false;
             }
-            return false;
 
         } catch (Exception qpe){
             qpe.printStackTrace();
@@ -548,7 +550,7 @@ public class MainControllerService {
      *
      * @return
      */
-    private boolean compareTestAndTraining(String modelName){
+    private boolean compareTestAndTraining(){
         ArffLoader arffLoader = new ArffLoader();
         try {
             arffLoader.setSource(new File(testArffFilename));
