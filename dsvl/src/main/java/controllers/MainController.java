@@ -247,7 +247,7 @@ public class MainController {
 
                             // Value
                             ObservableList<String> valueItems = FXCollections.observableArrayList();
-                            if (dataType.getType() == DataType.Type.CATEGORY) {
+                            if (dataType.getType() == DataType.Type.CATEGORY || dataType.getType() == DataType.Type.BOOLEAN) {
                                 cbValue.setVisible(true);
                                 textFieldValue.setVisible(false);
                                 borderPane.setCenter(cbValue);
@@ -413,7 +413,6 @@ public class MainController {
         outputs.add(new Pair<>("diab:hasGender", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasGp", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasHbA1c", ConditionNodeBean.class));
-//        outputs.add(new Pair<>("diab:hasHbA1cTestRequestEvent", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasHbA1cTestResult", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasInterpreterRequired", ConditionNodeBean.class));
         outputs.add(new Pair<>("diab:hasLengthOfStay", ConditionNodeBean.class));

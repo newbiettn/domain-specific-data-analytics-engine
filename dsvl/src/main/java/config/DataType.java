@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class DataType {
     public enum Type {
         NUMERIC,
-        CATEGORY
+        CATEGORY,
+        BOOLEAN
     }
 
     @XmlAttribute
