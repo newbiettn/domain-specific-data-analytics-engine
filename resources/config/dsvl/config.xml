@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project>
+    <endpoint>
+        <uri>http://localhost:3030/austin/query</uri>
+    </endpoint>
+
     <prologs>
         <prolog>
             <prefix>diab</prefix>
             <uri>localhost:2020/resource/</uri>
+        </prolog>
+        <prolog>
+            <prefix>rdf</prefix>
+            <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#</uri>
         </prolog>
     </prologs>
 

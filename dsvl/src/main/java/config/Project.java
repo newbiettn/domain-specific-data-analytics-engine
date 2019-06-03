@@ -13,6 +13,8 @@ import java.util.ArrayList;
 @XmlRootElement(name = "project")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Project {
+    @XmlElement(name = "endpoint")
+    private Endpoint endpoint;
 
     @XmlElementWrapper(name = "prologs")
     @XmlElement(name = "prolog")
@@ -46,4 +48,13 @@ public class Project {
         }
         return null;
     }
+
+    public Endpoint getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(Endpoint endpoint) {
+        this.endpoint = endpoint;
+    }
+
 }

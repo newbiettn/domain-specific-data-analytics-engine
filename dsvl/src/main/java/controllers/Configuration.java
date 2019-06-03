@@ -72,14 +72,21 @@ public class Configuration {
             JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            jaxbMarshaller.marshal(p, System.out);
-            jaxbMarshaller.marshal(p, f);
+//            jaxbMarshaller.marshal(p, System.out);
+//            jaxbMarshaller.marshal(p, f);
 
 
 //            System.out.println(Configuration.getSingleton().getProject().getPrologs());
 //            for (Condition cond : Configuration.getSingleton().getProject().getConditions()){
 //                System.out.println(cond.getName());
 //            }
+            for (Prolog proglog : Configuration.getSingleton().getProject().getPrologs()){
+                System.out.println(proglog.getUri());
+            }
+
+            Endpoint endpoint = Configuration.getSingleton().getProject().getEndpoint();
+            System.out.println(endpoint.getUri());
+
             Condition c = Configuration.getSingleton()
                     .getProject()
                     .getConditionByName("admissionnumber");

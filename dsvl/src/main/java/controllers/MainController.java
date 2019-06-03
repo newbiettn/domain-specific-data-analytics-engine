@@ -234,7 +234,6 @@ public class MainController {
                             // Data type
                             DataType dataType = c.getAllowedDataTypes();
                             conditionBean.setDataType(c.getAllowedDataTypes());
-                            System.out.println(dataType.getType());
                             // Operators
                             ObservableList<String> operatorItems = FXCollections.observableArrayList();
                             ArrayList<Operator> allowedOperators = c.getAllowedOperators();

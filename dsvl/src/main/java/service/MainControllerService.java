@@ -1,6 +1,9 @@
 package service;
 
 import common.ProjectPropertiesGetter;
+import config.Project;
+import config.Prolog;
+import controllers.Configuration;
 import eu.mihosoft.vrl.workflow.VFlow;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -49,11 +52,33 @@ import java.util.List;
 public class MainControllerService {
     private static Logger logger = LoggerFactory.getLogger(MainControllerService.class);
     private ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-    private String sparqlEndpoint = "http://localhost:3030/austin/query";
-    private String filePath = propGetter.getProperty("sparqlml.result.filepath");
-    private String trainingCsv = filePath + "result.csv";
+    private String sparqlEndpoint;
     private VFlow  flow;
+    private Project projectConfig;
 
+    private String testDataFilepath;
+    private String trainingDataFilepath;
+    private String processFilepath;
+    private String trainingArffFilename;
+    private String testArffFilename;
+    private String resultFilename;
+    private String processFilename;
+
+    public MainControllerService(){
+        projectConfig = Configuration.getSingleton().getProject();
+        sparqlEndpoint = projectConfig.getEndpoint().getUri();
+        resultFilename = propGetter.getProperty("sparqlml.result.filepath") + "result.csv";
+        testDataFilepath = propGetter.getProperty("sparqlml.test.data.filepath");
+        trainingDataFilepath = propGetter.getProperty("sparqlml.training.data.filepath");
+        processFilepath = propGetter.getProperty("sparqlml.dm.process.filepath");
+        testArffFilename = testDataFilepath + "test_dataset.arff";
+    }
+
+    /**
+     * Wrapper method for execute all kinds of query.
+     *
+     * @return
+     */
     public boolean execQuery(){
         ParseTree pt = new ParseTree();
         int type = pt.parse(flow); // Parse the flow to parse tree
@@ -79,7 +104,6 @@ public class MainControllerService {
                 } else {
                     logger.info("Retrieved no data");
                     return false;
-
                 }
             }
         } else {
@@ -96,11 +120,6 @@ public class MainControllerService {
      * @return
      */
     public boolean execPredictQuery(String queryString) {
-        String testDatafilePath = propGetter.getProperty("sparqlml.test.data.filepath");
-        String processFilePath = propGetter.getProperty("sparqlml.dm.process.filepath");
-        String testArff = testDatafilePath + "tmp_test_dataset.arff";
-        String resultCsv = testDatafilePath + "tmp_test_result.csv";
-
         // Create the data.
         MLQuery q = MLQueryFactory.create(queryString);
         ArrayList<Var> featureVars = q.getFeatureVars();
@@ -112,10 +131,10 @@ public class MainControllerService {
         Query selectQuery = QueryFactory.make() ;
         selectQuery.setQuerySelectType() ;
         selectQuery.setQueryPattern(q.getQueryPattern());
-        selectQuery.getPrefixMapping().setNsPrefix("diab" , "http://localhost:2020/resource/") ;
-        selectQuery.getPrefixMapping().setNsPrefix("foaf" , "http://xmlns.com/foaf/0.1/") ;
-        selectQuery.getPrefixMapping().setNsPrefix("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns") ;
-        selectQuery.addResultVar(Var.alloc(tVar.getVarName()) );
+        for (Prolog p : projectConfig.getPrologs()){ // Set PREFIX
+            selectQuery.getPrefixMapping().setNsPrefix(p.getPrefix(), p.getUri()) ;
+        }
+        selectQuery.addResultVar(Var.alloc(tVar.getVarName()) ); // Result variable
         for (Var v: featureVars){
             Var var = Var.alloc(v.getVarName()) ;
             selectQuery.addResultVar(var);
@@ -123,7 +142,7 @@ public class MainControllerService {
         selectQuery.serialize(new IndentedWriter(System.out,true)) ;
 
         // Gather as a dataset for further ML execution
-        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/austin/query", selectQuery) ) {
+        try ( QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, selectQuery) ) {
             // Set the DBpedia specific timeout.
             ((QueryEngineHTTP) qexec).addParam("timeout", "10000");
 
@@ -153,13 +172,13 @@ public class MainControllerService {
 
             ArffSaver saver = new ArffSaver();
             saver.setInstances(data);
-            saver.setFile(new File(testArff));
+            saver.setFile(new File(testArffFilename));
             saver.writeBatch();
 
             if (compareTestAndTraining(modelName)){
                 // Predicting
-                String processFileName = processFilePath + "process_" + modelName + ".kf";
-                Instances instanceResult = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
+                processFilename = processFilepath + "process_" + modelName + ".kf";
+                Instances instanceResult = Trainer.getSingleton().predictForSPARQL(processFilename, testArffFilename);
                 int numCols = instanceResult.numAttributes();
                 for (int col = 0; col < numCols; col++){
                     Attribute attribute = instanceResult.attribute(col);
@@ -180,7 +199,7 @@ public class MainControllerService {
                 }
                 CSVSaver csvSaver = new CSVSaver();
                 csvSaver.setFieldSeparator(",");
-                csvSaver.setFile(new File(trainingCsv));
+                csvSaver.setFile(new File(resultFilename));
                 csvSaver.setInstances(instanceResult);
                 csvSaver.writeBatch();
                 return true;
@@ -201,8 +220,6 @@ public class MainControllerService {
      */
     public boolean execCreatePredictionModelQuery(String queryString) {
         try {
-            String filePath = propGetter.getProperty("sparqlml.training.data.filepath");
-
             // Create the data.
             MLQuery q = MLQueryFactory.create(queryString);
             ArrayList<Var> featureVars = q.getFeatureVars();
@@ -212,9 +229,9 @@ public class MainControllerService {
             Query selectQuery = QueryFactory.make() ;
             selectQuery.setQuerySelectType() ;
             selectQuery.setQueryPattern(q.getQueryPattern());
-            selectQuery.getPrefixMapping().setNsPrefix("diab" , "http://localhost:2020/resource/") ;
-            selectQuery.getPrefixMapping().setNsPrefix("foaf" , "http://xmlns.com/foaf/0.1/") ;
-            selectQuery.getPrefixMapping().setNsPrefix("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns") ;
+            for (Prolog p : projectConfig.getPrologs()){ // Set PREFIX
+                selectQuery.getPrefixMapping().setNsPrefix(p.getPrefix(), p.getUri()) ;
+            }
             selectQuery.addResultVar(Var.alloc(tVar.getVarName()) );
             for (Var v: featureVars){
                 Var var = Var.alloc(v.getVarName()) ;
@@ -223,7 +240,7 @@ public class MainControllerService {
             logger.info("SELECT query is as follow: ");
             selectQuery.serialize(new IndentedWriter(System.out,true)) ;
 
-            try ( QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/austin/query", selectQuery) ) {
+            try ( QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, selectQuery) ) {
                 // Set the DBpedia specific timeout.
                 ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
 
@@ -253,13 +270,13 @@ public class MainControllerService {
                 data.setClassIndex(data.numAttributes() - 1);
 
                 // Store training file for further prediction
-                String trainingArff = filePath + "training_" + modelName + ".arff";
+                trainingArffFilename = trainingDataFilepath + "training_" + modelName + ".arff";
                 ArffSaver saver = new ArffSaver();
                 saver.setInstances(data);
-                saver.setFile(new File(trainingArff));
+                saver.setFile(new File(trainingArffFilename));
                 saver.writeBatch();
 
-                Trainer.getSingleton().executeForSPARQLML(trainingArff, modelName);
+                Trainer.getSingleton().executeForSPARQLML(trainingArffFilename, modelName);
 
 
             } catch (Exception e) {
@@ -269,32 +286,6 @@ public class MainControllerService {
             logger.error(qpe.getMessage());
         }
         return false;
-    }
-
-    /**
-     * Write result to csv file.
-     *
-     * @param result
-     * @return
-     */
-    private boolean writeResult(String result){
-        if (!result.isEmpty()) {
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(
-                        trainingCsv,
-                        false);
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-            out.print(result);
-            out.close();
-            return true;
-        }
-        return false;
-
     }
 
     /**
@@ -356,6 +347,31 @@ public class MainControllerService {
         return stringBuilder.toString();
     }
 
+    /**
+     * Write result to csv file.
+     *
+     * @param result
+     * @return
+     */
+    private boolean writeResult(String result){
+        if (!result.isEmpty()) {
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(
+                        resultFilename,
+                        false);
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+            }
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            out.print(result);
+            out.close();
+            return true;
+        }
+        return false;
+
+    }
 
     /**
      * Prepare result for ResultSet type.
@@ -411,7 +427,7 @@ public class MainControllerService {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                BufferedReader in = new BufferedReader(new FileReader(trainingCsv));
+                BufferedReader in = new BufferedReader(new FileReader(resultFilename));
                 // Header line
                 if (hasHeader) {
                     final String headerLine = in.readLine();
@@ -459,6 +475,13 @@ public class MainControllerService {
     }
 
 
+    /**
+     * Create cols for table.
+     *
+     * @param columnIndex
+     * @param columnTitle
+     * @return
+     */
     private TableColumn<ObservableList<StringProperty>, String> createColumn(
             final int columnIndex, String columnTitle) {
         TableColumn<ObservableList<StringProperty>, String> column = new TableColumn<>();
@@ -520,121 +543,30 @@ public class MainControllerService {
         return (header.toString() + row.toString());
     }
 
-    public VFlow getFlow() {
-        return flow;
-    }
-
-    public void setFlow(VFlow flow) {
-        this.flow = flow;
-    }
-
-
-    /**
-     * Convert Instances to String (CSV format).
-     *
-     * @param inst
-     * @return
-     */
-    public String[] instancesToString(Instances inst) {
-        StringBuilder header = new StringBuilder();
-        StringBuilder rows = new StringBuilder();
-        // print out attribute names as first row
-        for (int i = 0; i < inst.numAttributes(); i++) {
-            header.append(Utils.quote(inst.attribute(i).name()));
-            if (i < inst.numAttributes() - 1) {
-                header.append(",");
-            } else {
-                header.append("\n");
-            }
-        }
-
-        for (int i = 0; i < inst.numInstances(); i++) {
-            rows.append(instanceToString((inst.instance(i))));
-        }
-
-        String[] result = new String[2];
-        result[0] = header.toString();
-        result[1] = rows.toString();
-        return result;
-    }
-
-    /**
-     * turns an instance into a string. takes care of sparse instances as well.
-     *
-     * @param inst the instance to turn into a string
-     * @return the generated string
-     */
-    public String instanceToString(Instance inst) {
-        String m_FieldSeparator = ",";
-        String m_MissingValue = "?";
-        StringBuffer result;
-        Instance outInst;
-        int i;
-        String field;
-
-        result = new StringBuffer();
-
-        if (inst instanceof SparseInstance) {
-            outInst = new DenseInstance(inst.weight(), inst.toDoubleArray());
-            outInst.setDataset(inst.dataset());
-        } else {
-            outInst = inst;
-        }
-
-        for (i = 0; i < outInst.numAttributes(); i++) {
-            if (i > 0) {
-                result.append(m_FieldSeparator);
-            }
-
-            if (outInst.isMissing(i)) {
-                field = m_MissingValue;
-            } else {
-                field = outInst.toString(i, AbstractInstance.s_numericAfterDecimalPoint);
-            }
-
-            // make sure that custom field separators, like ";" get quoted correctly
-            // as well (but only for single character field separators)
-            if (m_FieldSeparator.length() == 1
-                    && (field.indexOf(m_FieldSeparator) > -1) && !field.startsWith("'")
-                    && !field.endsWith("'")) {
-                field = "'" + field + "'";
-            }
-
-            result.append(field);
-        }
-
-        return result.toString();
-    }
-
     /**
      * Checking if the structure of test dataset identical to of training set.
      *
      * @return
      */
     private boolean compareTestAndTraining(String modelName){
-        String trainingDataFilePath = propGetter.getProperty("sparqlml.training.data.filepath");
-        String testDatafilePath = propGetter.getProperty("sparqlml.test.data.filepath");
-        String testArff = testDatafilePath + "tmp_test_dataset.arff";
-        String trainingArff = trainingDataFilePath + "training_" + modelName + ".arff";
-
         ArffLoader arffLoader = new ArffLoader();
         try {
-            arffLoader.setSource(new File(testArff));
+            arffLoader.setSource(new File(testArffFilename));
             Instances testInstances = arffLoader.getDataSet();
             testInstances.setClassIndex(testInstances.numAttributes() - 1);
-            arffLoader.setSource(new File(trainingArff));
+            arffLoader.setSource(new File(trainingArffFilename));
             Instances trainingInstances = arffLoader.getDataSet();
             trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);
 
             // Checking num attributes
             if (testInstances.numAttributes() != trainingInstances.numAttributes()){
-                System.out.println("11111");
+                logger.warn("Training and test sets have different number of attributes");
                 return false;
             }
 
             // Checking target attribute
             if (!testInstances.classAttribute().name().equals(trainingInstances.classAttribute().name())){
-                System.out.println("2222");
+                logger.warn("Training and test sets have different target attributes");
                 return false;
             }
 
@@ -648,34 +580,27 @@ public class MainControllerService {
                 originalTestAttName.add(testInstances.attribute(i).name());
                 trainingAttName.add(trainingInstances.attribute(i).name());
             }
-            System.out.println(testAttNames.toString());
             Collections.sort(testAttNames);
-            System.out.println(testAttNames.toString());
             Collections.sort(trainingAttName);
             String[] newIndex = new String[numAttr];
             for (int k = 0; k < numAttr-1; k++) {
                  newIndex[k]= String.valueOf(testAttNames.indexOf(originalTestAttName.get(k)) + 1);
             }
             newIndex[numAttr-1] = "last";
-            for (String in : newIndex){
-                System.out.print(in + " ");
-            }
+
             if (!testAttNames.equals(trainingAttName)) {
-                System.out.println("3333");
+                logger.warn("Training and test sets have different attributes");
                 return false;
             } else { // ensure both have attributes in the same order
                 Reorder reorder = new Reorder();
                 String attributeOrder = String.join(",", newIndex);
-                System.out.println(attributeOrder);
                 reorder.setAttributeIndices(attributeOrder);
                 reorder.setInputFormat(testInstances);
                 testInstances = Filter.useFilter(testInstances, reorder);
 
-//                System.out.println(testInstances.toString());
-
                 ArffSaver saver = new ArffSaver();
                 saver.setInstances(testInstances);
-                saver.setFile(new File(testArff));
+                saver.setFile(new File(testArffFilename));
                 saver.writeBatch();
                 return true;
             }
@@ -686,7 +611,14 @@ public class MainControllerService {
             e.printStackTrace();
         }
         return false;
+    }
 
+    public VFlow getFlow() {
+        return flow;
+    }
+
+    public void setFlow(VFlow flow) {
+        this.flow = flow;
     }
 
 }
