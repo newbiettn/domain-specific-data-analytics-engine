@@ -174,36 +174,35 @@ void CreatePredictionModelQuery(): { }
   TargetClause()
   DescribePredictionModelClause()
   WhereMLClause()
+  SaveModelClause()
 }
 void PredictQuery():{Element el = null ; }
 {
   PredictClause()
+  TargetClause()
   DescribePredictionModelClause()
   //el = Filter() { getMLQuery().setFilterEle(el); }
   WhereMLClause()
-  UsingModelClause()
+  UseModelClause()
 }
-void CreatePredictionModelClause(): { Var v; }
+void CreatePredictionModelClause(): { }
 {
   <CREATE> <PREDICTION> <MODEL>
     { getMLQuery().setQueryCreatePredictionModelType() ;
     }
-  (
-    v = Var()
-    {
-        getMLQuery().setModelName(v);
-    }
-  )
 }
-void PredictClause():{Var v;}
+void PredictClause():{}
 {
   <PREDICT>
   { getMLQuery().setQueryPredictType() ;}
-  (v = Var() { getMLQuery().setTargetName(v);})
 }
-void UsingModelClause(): {Var v;}
+void UseModelClause(): {String modelFileName;}
 {
-  <USING> <MODEL> (v = Var() { getMLQuery().setModelName(v);})
+  <USE> <MODEL> (modelFileName = String() { getMLQuery().setModelFileName(modelFileName);})
+}
+void SaveModelClause(): {String modelFileName;}
+{
+  <SAVE> <MODEL> (modelFileName = String() { getMLQuery().setModelFileName(modelFileName);})
 }
 void TargetClause(): { Var v; }
 {
@@ -2288,6 +2287,8 @@ TOKEN [IGNORE_CASE] :
 |  < TARGET:      "target" >
 |  < FEATURE:     "feature" >
 |  < CONDITION:   "condition" >
+|  < USE:         "use" >
+|  < SAVE:        "save" >
 // ---------------------------------------------------------------------------------------------------------------------
 |  < SELECT:      "select" >
 |  < DISTINCT:    "distinct" >

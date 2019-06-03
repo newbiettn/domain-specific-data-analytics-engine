@@ -25,7 +25,6 @@ import common.ProjectPropertiesGetter;
 import db.DbUtils;
 import mf.generator.MetafeatureGenerator;
 import org.apache.jena.atlas.io.IndentedWriter;
-import org.apache.jena.graph.Node;
 import org.apache.jena.ml.MLQuery;
 import org.apache.jena.ml.MLQueryFactory;
 import org.apache.jena.query.*;
@@ -33,12 +32,7 @@ import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.apache.jena.sparql.expr.Expr;
-import org.apache.jena.sparql.expr.ExprVar;
-import org.apache.jena.sparql.expr.ExprVars;
-import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementFilter;
-import org.apache.jena.sparql.util.FmtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import planner.Trainer;
@@ -46,10 +40,14 @@ import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
+import weka.core.converters.CSVSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Reorder;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /** Example 1 : Execute a simple SELECT query on a model
@@ -62,19 +60,12 @@ public class ExML2
     
     public static void main(String[] args) throws Exception {
         ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
-        String filePath = propGetter.getProperty("sparqlml.tmp.data.filepath");
+        String testDatafilePath = propGetter.getProperty("sparqlml.test.data.filepath");
+        String processFilePath = propGetter.getProperty("sparqlml.dm.process.filepath");
 
-        String modelFilePath = propGetter.getProperty("sparqml.dm.model.filepath");
-        String modelFileNamePrefix = propGetter.getProperty("sparqlml.dm.model.filename.prefix");
-        String predictingProcessFP = propGetter.getProperty("sparqlml.dm.predicting.process.filepath");
-        String processFileNamePrefix = propGetter.getProperty("sparqlml.dm.process.filename.prefix");
 
-        int seed = 1;
-        MetafeatureGenerator mfGen = new MetafeatureGenerator();
-        DbUtils dbUtils = new DbUtils();
-        int clockTimeout = 30000;
-        String testCsv = filePath + "sparql_data_tmp_test.csv";
-        String testArff = filePath + "sparql_data_tmp_test.arff";
+        String testArff = testDatafilePath + "tmp_test_dataset.arff";
+        String resultCsv = testDatafilePath + "tmp_test_result.csv";
 
         // Create the data.
         // First part or the query string
@@ -86,7 +77,8 @@ public class ExML2
 
     // ML query string.
         String queryString = prolog + NL +
-                "PREDICT ?d " +
+                "PREDICT " +
+                "TARGET ?d " +
                 "DESCRIBE {" +
                 "FEATURE ?age." +
                 "FEATURE ?gender." +
@@ -94,19 +86,18 @@ public class ExML2
                 "} " +
                 "WHERE {" +
                 "?e rdf:type diab:Episode." +
-                "?e foaf:age ?age." +
-                "?e foaf:gender ?gender." +
+                "?e diab:hasAge ?age." +
+                "?e diab:hasGender ?gender." +
                 "?e diab:hasHbA1cTestResult ?hba1c." +
                 "?e diab:hasAdmissionNumber ?admissionNumber." +
-                "?e diab:isDeceased ?d." +
-                "FILTER (?age = 94)." +
+                "?e diab:hasDeceased ?d." +
+                "FILTER (?age = 80)." +
                 "} " +
-                "USING MODEL ?m1";
+                "USE MODEL 'modelName'";
         MLQuery q = MLQueryFactory.create(queryString);
         ArrayList<Var> featureVars = q.getFeatureVars();
         Var tVar = q.setTargetName();
-        Var mVar = q.getModelName();
-        String modelName = mVar.getVarName();
+        String modelName = q.getModelFileName();
         ElementFilter filterEl = (ElementFilter)q.getFilterEle();
 
         // Create SELECT query
@@ -132,82 +123,66 @@ public class ExML2
 
             // Execute.
             ResultSet rs = qexec.execSelect();
-            ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(rs);
-            int numCols = resultSetRewindable.getResultVars().size();
+            String selectResult = convertResultSet(rs);
 
-            StringBuilder header = new StringBuilder();
-            StringBuilder row = new StringBuilder();
-            for (int r = 0; resultSetRewindable.hasNext(); r++) {
-                QuerySolution rBind = resultSetRewindable.nextSolution();
-                for ( int col = 0 ; col < numCols ; col++ ) {
-                    String rVar = rs.getResultVars().get(col);
-                    // Print col headers
-                    if (r == 0){
-                        if (col < numCols-1)
-                            header.append(rVar).append(",");
-                        else
-                            header.append(rVar).append("\n");
-                    }
-                    // Print row
-                    RDFNode obj = rBind.get(rVar);
-                    Literal l = obj.asLiteral();
-                    String v = l.getString();
-                    if (col < numCols-1)
-                        row.append(v).append(",");
-                    else
-                        row.append(v).append("\n");
+            // Create Instances type from string
+            CSVLoader csvLoader = new CSVLoader();
+            csvLoader.setSource(new ByteArrayInputStream(selectResult.getBytes()));
+            Instances data = csvLoader.getDataSet();
+
+            // Put the target attribute to the last position to manage easier
+            Attribute tAttr = data.attribute(tVar.getVarName());
+            int tIndex = tAttr.index() + 1;
+            StringBuilder attrIds = new StringBuilder();
+            for (int i = 1; i <= data.numAttributes(); i++) {
+                if (i != tIndex) {
+                    attrIds.append(i).append(",");
                 }
             }
-            // Save to CSV
-            FileWriter fw = new FileWriter(
-                    testCsv,
-                    false);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-            out.print(header.toString() + row.toString());
-            out.close();
+            attrIds.append(tIndex);
+            Reorder reorder = new Reorder();
+            reorder.setAttributeIndices(attrIds.toString());
+            reorder.setInputFormat(data);
+            data = Filter.useFilter(data, reorder);
+            data.setClassIndex(data.numAttributes() - 1);
 
+            ArffSaver saver = new ArffSaver();
+            saver.setInstances(data);
+            saver.setFile(new File(testArff));
+            saver.writeBatch();
+
+            // Predicting
+            String processFileName = processFilePath + "process_" + modelName + ".kf";
+            Instances result = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
+            int numCols = result.numAttributes();
+            for (int col = 0; col < numCols; col++){
+                Attribute attribute = result.attribute(col);
+                String attributeName = attribute.name();
+                String attributeNewName = null;
+                if (col < numCols - 3){
+                    attributeNewName = attributeName.substring(0,1).toUpperCase() + attributeName.substring(1).toLowerCase();
+                } else {
+                    if (col == numCols - 3) {
+                        attributeNewName = attributeName + " (Actual)";
+                    } else if (col == numCols - 2) {
+                        attributeNewName =  "False Probability (Predicted)";
+                    } else if (col == numCols - 1){
+                        attributeNewName =  "True Probability (Predicted)";
+                    }
+                }
+                result.renameAttribute(col, attributeNewName);
+            }
+            CSVSaver csvSaver = new CSVSaver();
+            csvSaver.setFile(new File(resultCsv));
+            csvSaver.setFieldSeparator("\t");
+            csvSaver.setInstances(result);
+            csvSaver.writeBatch();
+
+            String fileString = new String(Files.readAllBytes(Paths.get(resultCsv)), StandardCharsets.UTF_8);
+            logger.info(fileString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /* Convert CSV file to ARFF */
-        CSVLoader csvLoader = new CSVLoader();
-        csvLoader.setSource(new File(testCsv));
-        Instances data = csvLoader.getDataSet();
-
-        // Put the target attribute to the last position to manage easier
-        System.out.println(tVar.getVarName());
-        Attribute tAttr = data.attribute(tVar.getVarName());
-        int tIndex = tAttr.index() + 1;
-        StringBuilder attrIds = new StringBuilder();
-        for (int i = 1; i <= data.numAttributes(); i++){
-            if (i != tIndex){
-                attrIds.append(i).append(",");
-            }
-        }
-        attrIds.append(tIndex);
-        Reorder reorder = new Reorder();
-        reorder.setAttributeIndices(attrIds.toString());
-        reorder.setInputFormat(data);
-        data = Filter.useFilter(data, reorder);
-        data.setClassIndex(data.numAttributes() - 1);
-
-        ArffSaver saver = new ArffSaver();
-        saver.setInstances(data);
-        saver.setFile(new File(testArff));
-        saver.writeBatch();
-
-        // Predicting
-        String processFileName = predictingProcessFP + processFileNamePrefix + "_" + modelName + ".kf";
-        logger.info(processFileName);
-        Map<String, Double> results = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
-
-        logger.info(String.valueOf(results.get("weightedAreaUnderROC")));
-        logger.info(String.valueOf(results.get("weightedFMeasure")));
-        logger.info(String.valueOf(results.get("weightedPrecision")));
-        logger.info(String.valueOf(results.get("weightedRecall")));
-        logger.info(String.valueOf(results.get("errorRate")));
     }
 
     public static double[] normalize(double[] mf) throws Exception {
@@ -260,5 +235,40 @@ public class ExML2
         while ((line = in.readLine()) != null) {
             logger.info( name + " " + line);
         }
+    }
+
+    /**
+     * Convert ResultSet to a string of CSV format for further manipulation.
+     *
+     * @param rs
+     * @return
+     */
+    public static String convertResultSet(ResultSet rs){
+        ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(rs);
+        int numCols = resultSetRewindable.getResultVars().size();
+        StringBuilder header = new StringBuilder();
+        StringBuilder row = new StringBuilder();
+        for (int r = 0; resultSetRewindable.hasNext(); r++) {
+            QuerySolution rBind = resultSetRewindable.nextSolution();
+            for ( int col = 0 ; col < numCols ; col++ ) {
+                String rVar = rs.getResultVars().get(col);
+                // Print col headers
+                if (r == 0){
+                    if (col < numCols-1)
+                        header.append(rVar).append(",");
+                    else
+                        header.append(rVar).append("\n");
+                }
+                // Print row
+                RDFNode obj = rBind.get(rVar);
+                Literal l = obj.asLiteral();
+                String v = l.getString();
+                if (col < numCols-1)
+                    row.append(v).append(",");
+                else
+                    row.append(v).append("\n");
+            }
+        }
+        return (header.toString() + row.toString());
     }
 }

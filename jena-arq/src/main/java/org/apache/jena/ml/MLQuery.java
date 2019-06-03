@@ -49,7 +49,7 @@ public class MLQuery extends Prologue{
 
     // ---- CREATE PREDICTION MODEL ----------------------------------------
     private ArrayList<Var> featureVars = new ArrayList<>();
-    private Var modelName;
+    private String modelFileName;
     private Var targetName;
 
     // ---- PREDICT --------------------------------------------------------
@@ -63,21 +63,18 @@ public class MLQuery extends Prologue{
         this.filterEle = filterEle;
     }
 
-    /** Set variable model name.
+    /** Set model file name
      *
-     * @param v corresponding to SPARQL variables, such as ?s, ?p
+     * @param modelFileName
      */
-    public void setModelName(Var v) {
-        if ( !v.isVariable() )
-            throw new QueryException("Not a variable: "+v) ;
-//        model.setName(v.getName());
-        this.modelName = v;
+    public void setModelFileName(String modelFileName) {
+        this.modelFileName = modelFileName;
     }
 
     /** Get name variable.
      */
-    public Var getModelName(){
-        return this.modelName;
+    public String getModelFileName(){
+        return this.modelFileName;
     }
 
     /** Set target variable.
