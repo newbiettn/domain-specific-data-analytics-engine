@@ -12,9 +12,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import org.apache.jena.atlas.io.IndentedWriter;
 import org.apache.jena.ml.MLQuery;
@@ -38,7 +37,10 @@ import weka.core.converters.CSVSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Reorder;
 
+import java.awt.*;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -440,8 +442,13 @@ public class MainControllerService {
                             for (int column = 0; column < headerValues.length; column++) {
                                 String colName = headerValues[column];
                                 colName = colName.substring(0, 1).toUpperCase() + colName.substring(1);
-                                table.getColumns().add(
-                                        createColumn(column, colName));
+                                if (colName.equals("Patient") || colName.equals("Episode") || colName.equals("AdmissionReport")) {
+                                    table.getColumns().add(
+                                            createColumnForHyperLinkType(column, colName));
+                                } else {
+                                    table.getColumns().add(
+                                            createColumn(column, colName));
+                                }
                             }
                         }
                     });
@@ -507,6 +514,69 @@ public class MainControllerService {
                         }
                     }
                 });
+        return column;
+    }
+
+    private TableColumn<ObservableList<StringProperty>, String> createColumnForHyperLinkType(
+            final int columnIndex, String columnTitle) {
+        TableColumn<ObservableList<StringProperty>, String> column = new TableColumn<>();
+        String title;
+        if (columnTitle == null || columnTitle.trim().length() == 0) {
+            title = "Column " + (columnIndex + 1);
+        } else {
+            title = columnTitle;
+        }
+        column.setText(title);
+        column
+                .setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList<StringProperty>, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(
+                            TableColumn.CellDataFeatures<ObservableList<StringProperty>, String> cellDataFeatures) {
+                        ObservableList<StringProperty> values = cellDataFeatures.getValue();
+                        if (columnIndex >= values.size()) {
+                            return new SimpleStringProperty("");
+                        } else {
+                            return cellDataFeatures.getValue().get(columnIndex);
+                        }
+                    }
+                });
+        Callback<TableColumn<ObservableList<StringProperty>, String>, TableCell<ObservableList<StringProperty>, String>> cellFactory0
+                = (final TableColumn<ObservableList<StringProperty>, String> entry) -> {
+            final TableCell<ObservableList<StringProperty>, String> cell = new TableCell<ObservableList<StringProperty>, String>()
+            {
+
+                Hyperlink hyperlink = new Hyperlink();
+
+                @Override
+                public void updateItem(String item, boolean empty)
+                {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    }
+                    else {
+                        System.out.println("set hyperlink");
+                        item = item.substring(1, item.length()-1);
+                        hyperlink.setText(item);
+                        hyperlink.setOnAction((event) -> {
+                            System.out.println("Go to URL");
+                            try {
+                                Desktop.getDesktop().browse(new URL(hyperlink.getText()).toURI());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        setGraphic(hyperlink);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+        };
+        column.setCellFactory(cellFactory0);
         return column;
     }
 

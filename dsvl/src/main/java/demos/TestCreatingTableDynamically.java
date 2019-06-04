@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -24,7 +26,10 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.sparql.util.FmtUtils;
 
+import java.awt.*;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * Describe class purpose here.
@@ -49,7 +54,7 @@ public class TestCreatingTableDynamically extends Application {
             @Override
             public void handle(ActionEvent event) {
                 populateTable(table, urlTextEntry.getText(),
-                        headerCheckBox.isSelected());
+                        true);
             }
         });
         HBox controls = new HBox();
@@ -102,7 +107,7 @@ public class TestCreatingTableDynamically extends Application {
                     row.append(v).append("\n");
             }
         }
-        System.out.print(row.toString());
+//        System.out.print(row.toString());
         // Save to CSV
         FileWriter fw = null;
         try {
@@ -136,8 +141,15 @@ public class TestCreatingTableDynamically extends Application {
                         @Override
                         public void run() {
                             for (int column = 0; column < headerValues.length; column++) {
-                                table.getColumns().add(
-                                        createColumn(column, headerValues[column]));
+                                String header = headerValues[column];
+                                if (header.equals("subject")) {
+                                    table.getColumns().add(
+                                            createColumn(column, headerValues[column]));
+
+                                } else {
+                                    table.getColumns().add(
+                                            createColumn(column, headerValues[column]));
+                                }
                             }
                         }
                     });
@@ -195,6 +207,44 @@ public class TestCreatingTableDynamically extends Application {
                         }
                     }
                 });
+        Callback<TableColumn<ObservableList<StringProperty>, String>, TableCell<ObservableList<StringProperty>, String>> cellFactory0
+                = (final TableColumn<ObservableList<StringProperty>, String> entry) -> {
+            final TableCell<ObservableList<StringProperty>, String> cell = new TableCell<ObservableList<StringProperty>, String>()
+            {
+
+                Hyperlink hyperlink = new Hyperlink();
+
+                @Override
+                public void updateItem(String item, boolean empty)
+                {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    }
+                    else {
+                        System.out.println("set hyperlink");
+                        item = item.substring(1, item.length()-1);
+                        hyperlink.setText(item);
+                        hyperlink.setOnAction((event) -> {
+                            System.out.println("Go to URL");
+                            getHostServices().showDocument(hyperlink.getText());
+                            try {
+                                Desktop.getDesktop().browse(new URL(hyperlink.getText()).toURI());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        setGraphic(hyperlink);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+        };
+        column.setCellFactory(cellFactory0);
         return column;
     }
 
