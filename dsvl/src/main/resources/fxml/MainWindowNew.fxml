@@ -1,123 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1084.0" prefWidth="2090.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
-   <right>
-      <Accordion fx:id="rightAccordion" prefHeight="934.0" prefWidth="299.0" BorderPane.alignment="CENTER">
-        <panes>
-          <TitledPane fx:id="propertiesTitledPane" animated="false" text="Properties">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="255.0">
-                     <children>
-                        <GridPane layoutX="16.0" layoutY="7.0" prefHeight="130.0" prefWidth="216.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="73.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="121.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label text="Name" />
-                              <ChoiceBox fx:id="connectionNameChoiceBox" prefHeight="27.0" prefWidth="133.0" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                     </children></AnchorPane>
-            </content>
-          </TitledPane>
-        </panes>
-      </Accordion>
-   </right>
-   <top>
-      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1735.0" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <center>
-            <SplitPane dividerPositions="0.6446188340807175" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="478.0">
-                     <children>
-                        <StackPane fx:id="contentPane" prefHeight="122.0" prefWidth="1320.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane fx:id="tablePane" minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="478.0" />
-              </items>
-            </SplitPane>
-         </center>
-         <top>
-            <ToolBar prefHeight="40.0" prefWidth="1032.0" BorderPane.alignment="CENTER">
-              <items>
-                  <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
-                  <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
-                  <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
-                  <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
-                  <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
-                  <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
-                  <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
-                  <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" text="Save Predictive Model" onAction="#addSavePredictiveModelNode"/>
-                  <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />
-                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="71.0" />
-                  <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
-                  <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
-                  <Button fx:id="admissionBtn" mnemonicParsing="false" onAction="#addAdmissionReportNode" text="Admission Report" />
-                  <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
-                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="71.0" />
-                  <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
-                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="71.0" />
-                  <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="65.0" text="Parse" textAlignment="RIGHT" />
-                  <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="58.0" text="Load" />
-                  <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="91.0" text="Run" textAlignment="CENTER">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="file:/Users/newbiettn/Dropbox/swinburne/Github/codes/DiabetesDiscoveryV2/dsvl/src/main/resources/fxml/img/play.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-              </items>
-            </ToolBar>
-         </top>
-      </BorderPane>
-   </center>
-</BorderPane>
+<AnchorPane fx:id="anchorPane" prefHeight="846.0" prefWidth="1674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+    <BorderPane fx:id="mainBorderPane" prefHeight="1084.0" prefWidth="1747.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <top>
+            <MenuBar fx:id="menuBar" prefHeight="0.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
+                <menus>
+                    <Menu mnemonicParsing="false" text="File">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+        </top>
+        <center>
+            <BorderPane prefHeight="975.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
+                <center>
+                    <SplitPane dividerPositions="0.6132542037586548" orientation="VERTICAL" prefHeight="918.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
+                        <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="478.0">
+                                <children>
+                                    <StackPane fx:id="contentPane" prefHeight="616.0" prefWidth="1732.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                </children>
+                            </AnchorPane>
+                            <AnchorPane fx:id="tablePane" minHeight="0.0" minWidth="0.0" prefHeight="418.0" prefWidth="1745.0" />
+                        </items>
+                    </SplitPane>
+                </center>
+                <top>
+                    <ToolBar prefHeight="40.0" prefWidth="1786.0" BorderPane.alignment="CENTER">
+                        <items>
+                            <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
+                            <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
+                            <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
+                            <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
+                            <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
+                            <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
+                            <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
+                            <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" onAction="#addSavePredictiveModelNode" text="Save Predictive Model" />
+                            <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />
+                            <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="34.0" />
+                            <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
+                            <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
+                            <Button fx:id="admissionBtn" mnemonicParsing="false" onAction="#addAdmissionReportNode" text="Admission Report" />
+                            <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
+                            <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="29.0" />
+                            <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
+                            <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="37.0" />
+                            <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="65.0" text="Parse" textAlignment="RIGHT" />
+                            <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="58.0" text="Load" />
+                            <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="91.0" text="Run" textAlignment="CENTER">
+                                <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="file:/Users/newbiettn/Dropbox/swinburne/Github/codes/DiabetesDiscoveryV2/dsvl/src/main/resources/fxml/img/play.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </items>
+                    </ToolBar>
+                </top>
+            </BorderPane>
+        </center>
+    </BorderPane>
+</AnchorPane>

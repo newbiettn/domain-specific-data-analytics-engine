@@ -47,7 +47,6 @@ import java.util.concurrent.*;
  */
 // TODO: Limit connection number for each types only 1
 public class MainController {
-    public static int nodeCount = 0;
     public static final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
     private CustomFXValueSkinFactory skinFactory;
@@ -58,16 +57,12 @@ public class MainController {
     private Connection selectedConnection;
     private TableView<ObservableList<StringProperty>> table = new TableView<>();
     private MainControllerService service;
-    private ExecutorService executor;
 
     @FXML
     private Pane contentPane;
 
     @FXML
     private Pane tablePane;
-
-    @FXML
-    private Button selectBtn;
 
     @FXML
     private URL location;
@@ -86,7 +81,6 @@ public class MainController {
 
     public MainController(){
         service = new MainControllerService();
-        executor = Executors.newSingleThreadExecutor();
     }
 
     /**
@@ -130,36 +124,6 @@ public class MainController {
 
         flow.setSkinFactories(skinFactory);
 
-        // config right accordion
-        rightAccordion.setExpandedPane(propertiesTitledPane);
-
-        // add event handler for new connection when added
-        Connections conns = flow.getConnections(CONNECTION_NAME);
-        conns.getConnections().addListener(new ListChangeListener<Connection>() {
-            @Override
-            public void onChanged(Change<? extends Connection> c) {
-                while (c.next()){
-                    List<? extends Connection> subList = c.getList();
-                    logger.info("Connection list has been added by " + subList.size());
-                    for (int i = 0; i < subList.size(); i++){
-                        Connection conn = subList.get(i);
-                        addEventHandlerForConn(conn);
-                    }
-                }
-            }
-        });
-
-        flow.getNodes().addListener(new ListChangeListener<VNode>() {
-            @Override
-            public void onChanged(Change<? extends VNode> c) {
-                if (conns.getConnections().size() > 0){
-                    Connection con = conns.getConnections().get(0);
-                    conns.getConnections().remove(con);
-                    conns.getConnections().add(con);
-                }
-            }
-        });
-
         // Add table to tablePane
         // Fix top, bottom, left and right to 0 to ensure the table fills the whole pane
         AnchorPane.setTopAnchor(table, 0.0);
@@ -169,106 +133,6 @@ public class MainController {
         tablePane.getChildren().add(table);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // No horizontal scroll
 
-    }
-
-    /**
-     * Event handler for connections (i.e., allow to select name for them).
-     *
-     * @param con
-     */
-    public void addEventHandlerForConn(Connection con){
-            Path p = con.getConnectionPath();
-            p.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    selectedConnection = con;
-                    String t = selectedConnection.getConnectionText().getText();
-                    logger.info("Click on:" + con);
-
-                    VNode sender = con.getSender().getNode();
-                    VNode receiver = con.getReceiver().getNode();
-                    ObjectBean senderObj = (ObjectBean) sender.getValueObject().getValue();
-                    ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
-                    ObservableList<Pair<String, Class>> outputs = senderObj.getOutputs();
-                    ObservableList<String> connNames = FXCollections.observableArrayList();
-                    for (Pair<String, Class> o : outputs){
-                        if (o.getValue() == receiverObj.getClass())
-                            connNames.add(o.getKey());
-                    }
-                    connectionNameChoiceBox.setItems(connNames);
-                }
-            });
-        connectionNameChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue != null) {
-                    String newName = newValue;
-                    selectedConnection.getConnectionText().setText(newName);
-                    selectedConnection.setName(newName);
-
-                    // Automatically generate variables names based on connection name
-                    // For example, hasURN -> ?urn
-                    VNode receiver = selectedConnection.getReceiver().getNode();
-                    ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
-                    String pattern = "(diab:has)(\\w+)";
-                    String v = newName.replaceAll(pattern, "$2");
-                    v = v.toLowerCase();
-                    receiverObj.setSparqlValue(v);
-
-                    // Set title node
-                    receiver.setTitle(v.substring(0,1).toUpperCase() + v.substring(1).toLowerCase());
-
-                    // Generate operators and values for condition nodes
-                    if (receiverObj.getClass() == ConditionNodeBean.class){
-                        ConditionNodeBean conditionBean = (ConditionNodeBean) receiverObj;
-                        ConditionNodeController controller = (ConditionNodeController) receiver.getController();
-                        ChoiceBox<String> cbOperator = controller.getCbOperator();
-                        ChoiceBox<String> cbValue = controller.getCbValue();
-                        TextField textFieldValue = controller.getTextFieldValue();
-
-                        BorderPane borderPane = controller.getConditionNodeBorderPane();
-
-                        // Load predefined operators & data types
-                        Condition c = Configuration.getSingleton().getProject().getConditionByName(v);
-                        if (c != null){
-                            // Data type
-                            DataType dataType = c.getAllowedDataTypes();
-                            conditionBean.setDataType(c.getAllowedDataTypes());
-                            // Operators
-                            ObservableList<String> operatorItems = FXCollections.observableArrayList();
-                            ArrayList<Operator> allowedOperators = c.getAllowedOperators();
-                            if (allowedOperators.size() > 0) {
-                                for (Operator op : c.getAllowedOperators()){
-                                    operatorItems.add(op.getValue());
-                                }
-                                cbOperator.setItems(operatorItems);
-                                cbOperator.setVisible(true);
-                            }
-
-                            // Value
-                            ObservableList<String> valueItems = FXCollections.observableArrayList();
-                            if (dataType.getType() == DataType.Type.CATEGORY || dataType.getType() == DataType.Type.BOOLEAN) {
-                                cbValue.setVisible(true);
-                                textFieldValue.setVisible(false);
-                                borderPane.setCenter(cbValue);
-                                ArrayList<String> values = dataType.getValues();
-                                if (values.size() > 0){
-                                    for (String val : dataType.getValues()){
-                                        valueItems.add(val);
-                                    }
-                                    cbValue.setItems(valueItems);
-                                }
-                            } if (dataType.getType() == DataType.Type.NUMERIC) {
-                                cbValue.setVisible(false);
-                                textFieldValue.setVisible(true);
-                                borderPane.setCenter(textFieldValue);
-                            }
-                        }
-                    }
-
-                }
-            }
-        });
     }
 
     @FXML

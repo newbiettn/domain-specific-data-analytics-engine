@@ -675,7 +675,7 @@
                 <operator>DIFFERENT</operator>
                 <operator>EQUAL</operator>
             </allowedOperators>
-            <allowedDataType type="CATEGORY">
+            <allowedDataType type="BOOLEAN">
                 <value>true</value>
                 <value>false</value>
             </allowedDataType>

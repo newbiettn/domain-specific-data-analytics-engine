@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,7 +33,9 @@ public class TestTableView extends Application {
         TableColumn<Person, LocalDate> bDateCol =
                 new TableColumn<>("Birth Date");
         bDateCol.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-        table.getColumns().addAll(personIdCol, fNameCol, lastNameCol, bDateCol);
+        TableColumn<Person, String> linkCol = new TableColumn<>("Link");
+        linkCol.setCellValueFactory(new PropertyValueFactory<>("link"));
+        table.getColumns().addAll(personIdCol, fNameCol, lastNameCol, bDateCol, linkCol);
 
         VBox root = new VBox(table);
         root.setStyle("-fx-padding: 10;" +
@@ -48,11 +51,11 @@ public class TestTableView extends Application {
 
     }
     public ObservableList<Person> getPersonList() {
-        Person p1 = new Person("Ashwin", "Sharan", LocalDate.of(2012, 10, 11));
-        Person p2 = new Person("Advik", "Sharan", LocalDate.of(2012, 10, 11));
-        Person p3 = new Person("Layne", "Estes", LocalDate.of(2011, 12, 16));
-        Person p4 = new Person("Mason", "Boyd", LocalDate.of(2003, 4, 20));
-        Person p5 = new Person("Babalu", "Sharan", LocalDate.of(1980, 1, 10));
+        Person p1 = new Person("Ashwin", "Sharan", LocalDate.of(2012, 10, 11), new Hyperlink("asdfdf"));
+        Person p2 = new Person("Advik", "Sharan", LocalDate.of(2012, 10, 11), new Hyperlink("asdfdf"));
+        Person p3 = new Person("Layne", "Estes", LocalDate.of(2011, 12, 16), new Hyperlink("asdfdf"));
+        Person p4 = new Person("Mason", "Boyd", LocalDate.of(2003, 4, 20), new Hyperlink("asdfdf"));
+        Person p5 = new Person("Babalu", "Sharan", LocalDate.of(1980, 1, 10), new Hyperlink("asdfdf"));
         return FXCollections.observableArrayList(p1, p2, p3, p4, p5);
     }
     public class Person{
@@ -60,10 +63,21 @@ public class TestTableView extends Application {
         private String lastName;
         private LocalDate birthday;
 
-        public Person(String fname, String lName, LocalDate bday){
+        public Hyperlink getLink() {
+            return link;
+        }
+
+        public void setLink(Hyperlink link) {
+            this.link = link;
+        }
+
+        private Hyperlink link;
+
+        public Person(String fname, String lName, LocalDate bday, Hyperlink link){
             firstName = fname;
             lastName = lName;
             birthday = bday;
+            this.link = link;
         }
 
         public LocalDate getBirthday() {

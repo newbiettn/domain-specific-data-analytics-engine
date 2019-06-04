@@ -1,5 +1,23 @@
 package skins;
 
+import beans.ConditionNodeBean;
+import beans.ObjectBean;
+import config.Condition;
+import config.DataType;
+import config.Operator;
+import controllers.ConditionNodeController;
+import controllers.Configuration;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Path;
+import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 import listener.CustomConnectionListener;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
@@ -13,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import jfxtras.labs.util.event.MouseControlUtil;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -76,15 +95,106 @@ public class CustomFXConnectionSkin extends DefaultFXConnectionSkin {
     @Override
     protected void initMouseEventHandler() {
         EventHandler<MouseEvent> contextMenuHandler = createContextMenuHandler(createContextMenu());
-//        connectionPath.addEventHandler(MouseEvent.MOUSE_CLICKED, contextMenuHandler);
-        getReceiverUI().addEventHandler(MouseEvent.MOUSE_CLICKED, contextMenuHandler);
+        connectionPath.addEventHandler(MouseEvent.MOUSE_CLICKED, contextMenuHandler);
+        connectionPath.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                connectionPath.getStyleClass().setAll("selected-connection");
+            }
+        });
+//        getReceiverUI().addEventHandler(MouseEvent.MOUSE_CLICKED, contextMenuHandler);
+
     } // end init
 
     @Override
     protected ContextMenu createContextMenu() {
         ContextMenu contextMenu = super.createContextMenu();
-        contextMenu.getItems().addAll(createMenuItem("Foo"));
-        contextMenu.getItems().addAll(createMenuItem("Bar"));
+        contextMenu.setOnHiding(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                connectionPath.getStyleClass().setAll("vnode-connection");
+            }
+        });
+        VNode sender = this.connection.getSender().getNode();
+        VNode receiver = this.connection.getReceiver().getNode();
+        ObjectBean senderObj = (ObjectBean) sender.getValueObject().getValue();
+        ObjectBean receiverObj = (ObjectBean) receiver.getValueObject().getValue();
+        ObservableList<Pair<String, Class>> outputs = senderObj.getOutputs();
+        ObservableList<String> connNames = FXCollections.observableArrayList();
+        for (Pair<String, Class> o : outputs){
+            if (o.getValue() == receiverObj.getClass()){
+                String connName = o.getKey();
+                connNames.add(o.getKey());
+                MenuItem item = new MenuItem(connName);
+                item.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        connection.getConnectionText().setText(connName);
+                        connection.setName(connName);
+
+                        // Automatically generate variables names based on connection name
+                        // For example, hasURN -> ?urn
+
+                        // Generate operators and values for condition nodes
+                        if (receiverObj.getClass() == ConditionNodeBean.class){
+                            String pattern = "(diab:has)(\\w+)";
+                            String v = connName.replaceAll(pattern, "$2");
+                            v = v.toLowerCase();
+                            receiverObj.setSparqlValue(v);
+
+                            // Set title node
+                            receiver.setTitle(v.substring(0,1).toUpperCase() + v.substring(1).toLowerCase());
+
+                            ConditionNodeBean conditionBean = (ConditionNodeBean) receiverObj;
+                            ConditionNodeController controller = (ConditionNodeController) receiver.getController();
+                            ChoiceBox<String> cbOperator = controller.getCbOperator();
+                            ChoiceBox<String> cbValue = controller.getCbValue();
+                            TextField textFieldValue = controller.getTextFieldValue();
+
+                            BorderPane borderPane = controller.getConditionNodeBorderPane();
+
+                            // Load predefined operators & data types
+                            Condition c = Configuration.getSingleton().getProject().getConditionByName(v);
+                            if (c != null){
+                                // Data type
+                                DataType dataType = c.getAllowedDataTypes();
+                                conditionBean.setDataType(c.getAllowedDataTypes());
+                                // Operators
+                                ObservableList<String> operatorItems = FXCollections.observableArrayList();
+                                ArrayList<Operator> allowedOperators = c.getAllowedOperators();
+                                if (allowedOperators.size() > 0) {
+                                    for (Operator op : c.getAllowedOperators()){
+                                        operatorItems.add(op.getValue());
+                                    }
+                                    cbOperator.setItems(operatorItems);
+                                    cbOperator.setVisible(true);
+                                }
+
+                                // Value
+                                ObservableList<String> valueItems = FXCollections.observableArrayList();
+                                if (dataType.getType() == DataType.Type.CATEGORY || dataType.getType() == DataType.Type.BOOLEAN) {
+                                    cbValue.setVisible(true);
+                                    textFieldValue.setVisible(false);
+                                    borderPane.setCenter(cbValue);
+                                    ArrayList<String> values = dataType.getValues();
+                                    if (values.size() > 0){
+                                        for (String val : dataType.getValues()){
+                                            valueItems.add(val);
+                                        }
+                                        cbValue.setItems(valueItems);
+                                    }
+                                } if (dataType.getType() == DataType.Type.NUMERIC) {
+                                    cbValue.setVisible(false);
+                                    textFieldValue.setVisible(true);
+                                    borderPane.setCenter(textFieldValue);
+                                }
+                            }
+                        }
+                    }
+                });
+                contextMenu.getItems().add(item);
+            }
+        }
         return contextMenu;
     }
 

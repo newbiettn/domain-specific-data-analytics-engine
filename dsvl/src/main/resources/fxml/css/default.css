@@ -62,8 +62,8 @@
 }
 
 .selected-connection{
-    -fx-stroke: rgb(138, 138, 138);
-    -fx-stroke-width: 20px;
+    -fx-stroke: rgb(138, 59, 57);
+    -fx-stroke-width: 7px;
 }
 
 .vnode-connector {
@@ -96,12 +96,12 @@
 
 .vnode-connection {
     -fx-stroke: rgb(138, 138, 138);
-    -fx-stroke-width: 5px;
+    -fx-stroke-width: 7px;
 }
 
 .vnode-new-connection {
-    -fx-stroke: rgba(120,140,255,0.2);
-    -fx-stroke-width: 4px;
+    -fx-stroke: rgb(138, 138, 138);
+    -fx-stroke-width: 7px;
 }
 
 .window-titlebar {
