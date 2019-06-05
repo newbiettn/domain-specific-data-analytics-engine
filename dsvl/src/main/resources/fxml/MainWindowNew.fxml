@@ -6,85 +6,114 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="846.0" prefWidth="1674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
-    <BorderPane fx:id="mainBorderPane" prefHeight="1084.0" prefWidth="1747.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
-        <top>
-            <MenuBar fx:id="menuBar" prefHeight="0.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
-                <menus>
-                    <Menu mnemonicParsing="false" text="File">
-                        <items>
-                            <MenuItem mnemonicParsing="false" text="Close" />
-                        </items>
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Edit">
-                        <items>
-                            <MenuItem mnemonicParsing="false" text="Delete" />
-                        </items>
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                            <MenuItem mnemonicParsing="false" text="About" />
-                        </items>
-                    </Menu>
-                </menus>
-            </MenuBar>
-        </top>
-        <center>
-            <BorderPane prefHeight="975.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
-                <center>
-                    <SplitPane dividerPositions="0.6132542037586548" orientation="VERTICAL" prefHeight="918.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
-                        <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="478.0">
-                                <children>
-                                    <StackPane fx:id="contentPane" prefHeight="616.0" prefWidth="1732.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane fx:id="tablePane" minHeight="0.0" minWidth="0.0" prefHeight="418.0" prefWidth="1745.0" />
-                        </items>
-                    </SplitPane>
-                </center>
-                <top>
-                    <ToolBar prefHeight="40.0" prefWidth="1786.0" BorderPane.alignment="CENTER">
-                        <items>
-                            <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
-                            <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
-                            <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
-                            <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
-                            <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
-                            <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
-                            <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
-                            <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" onAction="#addSavePredictiveModelNode" text="Save Predictive Model" />
-                            <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />
-                            <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="34.0" />
-                            <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
-                            <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
-                            <Button fx:id="admissionBtn" mnemonicParsing="false" onAction="#addAdmissionReportNode" text="Admission Report" />
-                            <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
-                            <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="29.0" />
-                            <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
-                            <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="37.0" />
-                            <Button mnemonicParsing="false" onAction="#parseFlow" prefHeight="27.0" prefWidth="65.0" text="Parse" textAlignment="RIGHT" />
-                            <Button mnemonicParsing="false" onAction="#loadFlow" prefHeight="27.0" prefWidth="58.0" text="Load" />
-                            <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="91.0" text="Run" textAlignment="CENTER">
-                                <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="file:/Users/newbiettn/Dropbox/swinburne/Github/codes/DiabetesDiscoveryV2/dsvl/src/main/resources/fxml/img/play.png" />
-                                        </image>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
-                        </items>
-                    </ToolBar>
-                </top>
-            </BorderPane>
-        </center>
-    </BorderPane>
+<AnchorPane fx:id="anchorPane" prefHeight="846.0" prefWidth="1572.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+         <TabPane fx:id="tabPane" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+               <Tab fx:id="tab1" text="Language">
+                  <content>
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <BorderPane fx:id="mainBorderPane" prefHeight="1084.0" prefWidth="1747.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+                           <center>
+                              <BorderPane prefHeight="975.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <SplitPane dividerPositions="0.6132542037586548" orientation="VERTICAL" prefHeight="918.0" prefWidth="1747.0" BorderPane.alignment="CENTER">
+                                       <items>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="478.0">
+                                             <children>
+                                                <StackPane fx:id="contentPane" prefHeight="616.0" prefWidth="1732.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="tablePane" minHeight="0.0" minWidth="0.0" prefHeight="418.0" prefWidth="1745.0" />
+                                       </items>
+                                    </SplitPane>
+                                 </center>
+                                 <top>
+                                    <ToolBar prefHeight="40.0" prefWidth="1786.0" BorderPane.alignment="CENTER">
+                                       <items>
+                                          <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
+                                          <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
+                                          <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
+                                          <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
+                                          <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
+                                          <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
+                                          <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
+                                          <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" onAction="#addSavePredictiveModelNode" text="Save Predictive Model" />
+                                          <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />
+                                          <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="34.0" />
+                                          <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
+                                          <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
+                                          <Button fx:id="admissionBtn" mnemonicParsing="false" onAction="#addAdmissionReportNode" text="Admission Report" />
+                                          <Button fx:id="separationBtn" mnemonicParsing="false" onAction="#addSeparationReportNode" text="Separation Report" />
+                                          <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="29.0" />
+                                          <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
+                                          <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="37.0" />
+                                          <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="110.0" text="Run" textAlignment="CENTER">
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="file:/Users/newbiettn/Dropbox/swinburne/Github/codes/DiabetesDiscoveryV2/dsvl/src/main/resources/fxml/img/play.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </items>
+                                    </ToolBar>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                           <right>
+
+                           </right>
+                        </BorderPane>
+                     </AnchorPane>
+
+                  </content>
+               </Tab>
+               <Tab fx:id="tab2" text="Inspection">
+                  <content>
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                           <WebView fx:id="webView" prefHeight="813.0" prefWidth="1794.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        </children>
+                     </AnchorPane>
+                  </content>
+               </Tab>
+            </tabs>
+         </TabPane>
+      </center>
+      <top>
+         <MenuBar BorderPane.alignment="CENTER">
+           <menus>
+             <Menu mnemonicParsing="false" text="File">
+               <items>
+                 <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+             </Menu>
+             <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                 <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+             </Menu>
+             <Menu mnemonicParsing="false" text="Help">
+               <items>
+                 <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+             </Menu>
+           </menus>
+         </MenuBar>
+      </top>
+   </BorderPane>
+
 </AnchorPane>

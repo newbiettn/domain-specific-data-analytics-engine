@@ -8,12 +8,18 @@ import eu.mihosoft.vrl.workflow.VFlow;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.scene.control.*;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import org.apache.jena.atlas.io.IndentedWriter;
 import org.apache.jena.ml.MLQuery;
@@ -57,6 +63,8 @@ public class MainControllerService {
     private String sparqlEndpoint;
     private VFlow  flow;
     private Project projectConfig;
+    private WebView webView;
+    private TabPane tabPane;
 
     private String testDataFilepath;
     private String trainingDataFilepath;
@@ -66,7 +74,10 @@ public class MainControllerService {
     private String resultFilename;
     private String processFilename;
 
-    public MainControllerService(){
+    public MainControllerService(WebView wv, TabPane tp){
+        webView = wv;
+        tabPane = tp;
+
         projectConfig = Configuration.getSingleton().getProject();
         sparqlEndpoint = projectConfig.getEndpoint().getUri();
         resultFilename = propGetter.getProperty("sparqlml.result.filepath") + "result.csv";
@@ -442,7 +453,8 @@ public class MainControllerService {
                             for (int column = 0; column < headerValues.length; column++) {
                                 String colName = headerValues[column];
                                 colName = colName.substring(0, 1).toUpperCase() + colName.substring(1);
-                                if (colName.equals("Patient") || colName.equals("Episode") || colName.equals("AdmissionReport")) {
+                                if (colName.equals("Patient") || colName.equals("Episode") || colName.equals("AdmissionReport")
+                                || colName.equals("Countryofbirth") || colName.equals("SeparationReport")) {
                                     table.getColumns().add(
                                             createColumnForHyperLinkType(column, colName));
                                 } else {
@@ -556,18 +568,33 @@ public class MainControllerService {
                         setText(null);
                     }
                     else {
-                        System.out.println("set hyperlink");
                         item = item.substring(1, item.length()-1);
                         hyperlink.setText(item);
                         hyperlink.setOnAction((event) -> {
-                            System.out.println("Go to URL");
-                            try {
-                                Desktop.getDesktop().browse(new URL(hyperlink.getText()).toURI());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } catch (URISyntaxException e) {
-                                e.printStackTrace();
-                            }
+                            ProgressBar progress = new ProgressBar();
+                            progress.setPrefWidth(300);
+                            Dialog<Boolean> loadingDialog = new Dialog<>();
+                            loadingDialog.getDialogPane().setContent(progress);
+                            loadingDialog.setGraphic(null);
+                            loadingDialog.resizableProperty().set(false);
+                            loadingDialog.initStyle(StageStyle.UNDECORATED);
+
+                            final WebEngine engine = webView.getEngine();
+                            engine.load(hyperlink.getText());
+                            tabPane.getSelectionModel().select(1);
+                            progress.progressProperty().bind(engine.getLoadWorker().progressProperty());
+                            loadingDialog.show();
+                            engine.getLoadWorker().stateProperty().addListener(
+                                    new ChangeListener<Worker.State>() {
+                                        @Override
+                                        public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
+                                            if (newState == Worker.State.SUCCEEDED) {
+                                                // hide progress bar then page is ready
+                                                loadingDialog.setResult(Boolean.TRUE);
+                                                loadingDialog.hide();
+                                            }
+                                        }
+                                    });
                         });
                         setGraphic(hyperlink);
                         setText(null);

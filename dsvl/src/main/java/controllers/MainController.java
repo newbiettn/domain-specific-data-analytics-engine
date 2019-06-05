@@ -17,13 +17,19 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
+import javafx.scene.web.PopupFeatures;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.MainControllerService;
@@ -50,13 +56,27 @@ public class MainController {
     public static final String CONNECTION_NAME = "data";
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
     private CustomFXValueSkinFactory skinFactory;
-    private ObservableList<VNode> nodes;
     private VFlow flow;
     private VCanvas canvas;
     private Pane rootPane;
-    private Connection selectedConnection;
     private TableView<ObservableList<StringProperty>> table = new TableView<>();
     private MainControllerService service;
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    private Stage stage;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private WebView webView;
 
     @FXML
     private Pane contentPane;
@@ -80,7 +100,7 @@ public class MainController {
     private ChoiceBox<String> connectionNameChoiceBox;
 
     public MainController(){
-        service = new MainControllerService();
+
     }
 
     /**
@@ -133,6 +153,7 @@ public class MainController {
         tablePane.getChildren().add(table);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // No horizontal scroll
 
+        service = new MainControllerService(webView, tabPane);
     }
 
     @FXML
@@ -337,6 +358,12 @@ public class MainController {
         n.getValueObject().setValue(new ConditionNodeBean());
         n.setMainInput(n.addInput(CONNECTION_NAME));
         flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void openPopup(){
+        webView.getEngine().load("https://stackoverflow.com/questions/22166610/how-to-create-a-popup-windows-in-javafx");
+        tabPane.getSelectionModel().select(1);
     }
 
     @FXML

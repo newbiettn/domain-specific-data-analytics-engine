@@ -39,6 +39,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         controller = fxmlLoader.getController();
+        controller.setStage(stage);
         canvas.getChildren().add((Node) fxmlLoader.getRoot());
         scene.setCamera(new PerspectiveCamera());
         scene.getStylesheets().setAll("fxml/css/default.css");
