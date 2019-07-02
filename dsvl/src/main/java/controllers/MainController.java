@@ -133,6 +133,7 @@ public class MainController {
         skinFactory.addSkinClassForValueType(UsePredictiveModelBean.class, UsePredictiveModelNodeSkin.class);
         skinFactory.addSkinClassForValueType(SavePredictiveModelBean.class, SavePredictiveModelNodeSkin.class);
         skinFactory.addSkinClassForValueType(TargetNodeBean.class, TargetNodeSkin.class);
+        skinFactory.addSkinClassForValueType(ContextNodeBean.class, ContextNodeSkin.class);
         skinFactory.addSkinClassForValueType(FeatureNodeBean.class, FeatureNodeSkin.class);
         skinFactory.addSkinClassForValueType(PrevalenceNodeBean.class, PrevalenceNodeSkin.class);
         skinFactory.addSkinClassForValueType(AskNodeBean.class, AskNodeSkin.class);
@@ -240,16 +241,64 @@ public class MainController {
 
     @FXML
     private void addPredictNode() {
-        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
-        outputs.add(new Pair<>("", EpisodeNodeBean.class));
-        outputs.add(new Pair<>("", PatientNodeBean.class));
-        outputs.add(new Pair<>("", TargetNodeBean.class));
-        outputs.add(new Pair<>("", FeatureNodeBean.class));
-        outputs.add(new Pair<>("", UsePredictiveModelBean.class));
+        // Predict node
+        ArrayList<Pair<String, Class>> predictOutputs = new ArrayList<>();
+//        predictOutputs.add(new Pair<>("", EpisodeNodeBean.class));
+//        predictOutputs.add(new Pair<>("", PatientNodeBean.class));
+        predictOutputs.add(new Pair<>("", TargetNodeBean.class));
+        predictOutputs.add(new Pair<>("", FeatureNodeBean.class));
+        predictOutputs.add(new Pair<>("", UsePredictiveModelBean.class));
+        predictOutputs.add(new Pair<>("", ContextNodeBean.class));
+        VNode predictNode = flow.newNode();
+        predictNode.getValueObject().setValue(new PredictNodeBean(predictOutputs));
+        predictNode.setMainOutput(predictNode.addOutput(CONNECTION_NAME));
 
-        VNode n = flow.newNode();
-        n.getValueObject().setValue(new PredictNodeBean(outputs));
-        n.setMainOutput(n.addOutput(CONNECTION_NAME));
+        // Feature node
+        ArrayList<Pair<String, Class>> featureOutputs = new ArrayList<>();
+        featureOutputs.add(new Pair<>("", ConditionNodeBean.class));
+        VNode featureNode = flow.newNode();
+        featureNode.getValueObject().setValue(new FeatureNodeBean(featureOutputs));
+        featureNode.setMainOutput(featureNode.addOutput(CONNECTION_NAME));
+        featureNode.setMainInput(featureNode.addInput(CONNECTION_NAME));
+
+        // Target node
+        ArrayList<Pair<String, Class>> targetOutputs = new ArrayList<>();
+        targetOutputs.add(new Pair<>("", ConditionNodeBean.class));
+        VNode targetNode = flow.newNode();
+        targetNode.getValueObject().setValue(new TargetNodeBean(targetOutputs));
+        targetNode.setMainOutput(targetNode.addOutput(CONNECTION_NAME));
+        targetNode.setMainInput(targetNode.addInput(CONNECTION_NAME));
+
+        // Context node
+        ArrayList<Pair<String, Class>> contextOutputs = new ArrayList<>();
+        contextOutputs.add(new Pair<>("", PatientNodeBean.class));
+        contextOutputs.add(new Pair<>("", EpisodeNodeBean.class));
+        VNode contextNode = flow.newNode();
+        contextNode.getValueObject().setValue(new ContextNodeBean(contextOutputs));
+        contextNode.setMainOutput(contextNode.addOutput(CONNECTION_NAME));
+        contextNode.setMainInput(contextNode.addInput(CONNECTION_NAME));
+
+        // Connect three nodes
+        Connector predictOutputConnector = predictNode.getMainOutput(CONNECTION_NAME);
+        Connector targetInputConnector = targetNode.getMainInput(CONNECTION_NAME);
+        Connector featureInputConnector = featureNode.getMainInput(CONNECTION_NAME);
+        Connector contextInputConnector = contextNode.getMainInput(CONNECTION_NAME);
+        ConnectionResult cr1 = flow.connect(predictOutputConnector, targetInputConnector);
+        ConnectionResult cr2 = flow.connect(predictOutputConnector, featureInputConnector);
+        ConnectionResult cr3 = flow.connect(predictOutputConnector, contextInputConnector);
+
+        cr1.getConnection().setName("hasTarget");
+        cr2.getConnection().setName("hasFeature");
+        cr3.getConnection().setName("hasContext");
+
+        predictNode.setX(100);
+        predictNode.setY(150);
+        contextNode.setX(400);
+        contextNode.setY(50);
+        featureNode.setX(400);
+        featureNode.setY(200);
+        targetNode.setX(400);
+        targetNode.setY(350);
 
         flow.setSkinFactories(skinFactory);
     }

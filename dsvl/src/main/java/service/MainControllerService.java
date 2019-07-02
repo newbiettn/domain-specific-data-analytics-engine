@@ -284,6 +284,26 @@ public class MainControllerService {
                 data = Filter.useFilter(data, reorder);
                 data.setClassIndex(data.numAttributes() - 1);
 
+                // Sort attribute alphabet
+                List<String> trainingAttName = new ArrayList<>();
+                List<String> originalTestAttName = new ArrayList<>();
+                for (int i = 0; i < data.numAttributes()-1; i++){ // except class attribute
+                    trainingAttName.add(data.attribute(i).name());
+                    originalTestAttName.add(data.attribute(i).name());
+                }
+                Collections.sort(trainingAttName);
+                String[] newIndex = new String[data.numAttributes()];
+                for (int k = 0; k < data.numAttributes()-1; k++) {
+                    newIndex[k]= String.valueOf(trainingAttName.indexOf(originalTestAttName.get(k)) + 1);
+                }
+                newIndex[data.numAttributes()-1] = "last";
+
+                Reorder reorderAlphabet = new Reorder();
+                String attributeOrder = String.join(",", newIndex);
+                reorderAlphabet.setAttributeIndices(attributeOrder);
+                reorderAlphabet.setInputFormat(data);
+                data = Filter.useFilter(data, reorderAlphabet);
+
                 // Store training file for further prediction
                 trainingArffFilename = trainingDataFilepath + "training_" + modelName + ".arff";
                 ArffSaver saver = new ArffSaver();
@@ -293,7 +313,12 @@ public class MainControllerService {
 
                 Trainer.getSingleton().executeForSPARQLML(trainingArffFilename, modelName);
 
-
+                // Display result
+                StringBuilder r = new StringBuilder();
+                r.append("Result").append("\n");
+                r.append(modelName).append(" has been saved");
+                writeResult(r.toString());
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
