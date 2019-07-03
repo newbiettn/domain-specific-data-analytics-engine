@@ -109,8 +109,13 @@ public class MainControllerService {
                     execResult = execAskQuery(sparqlQuery);
                 else if (type == ParseTree.CREATEPREDICTIONMODEL_TREE)
                     execResult = execCreatePredictionModelQuery(sparqlQuery);
-                else if (type == ParseTree.PREDICT_TREE)
+                else if (type == ParseTree.PREDICT_TREE) {
+                    ParseTree ptCPM = new ParseTree();
+                    ptCPM.parse(flow);
+                    logger.info("A fabricated query \n"+ ptCPM.fabricateInterpretingCPM());
+                    execCreatePredictionModelQuery(sparqlQuery);
                     execResult = execPredictQuery(sparqlQuery);
+                }
                 if (execResult) { // Run query to retrieve data
                     logger.info("Populating the table...");
                     return true;

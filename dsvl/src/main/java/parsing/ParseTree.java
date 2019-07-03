@@ -37,6 +37,12 @@ public class ParseTree {
         return parseTreeService.interpret(root);
     }
 
+    public String fabricateInterpretingCPM(){
+        return parseTreeService.fabricateCreatePredictionModelQuery(root, 0);
+    }
+
+
+
     /**
      * Parse the flow.
      * @param flow

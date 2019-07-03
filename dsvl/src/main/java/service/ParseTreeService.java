@@ -3,6 +3,7 @@ package service;
 import beans.*;
 import eu.mihosoft.vrl.workflow.VNode;
 import javafx.util.Pair;
+import org.apache.jena.sparql.util.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parsing.Node;
@@ -72,6 +73,58 @@ public class ParseTreeService {
         return sparqlQuery.toString();
     }
 
+
+    /**
+     * JG does not want to have a separate query to create ML model to make PREDICT query.
+     * He just wants to make CreateMLModel be executed behind the scence for PREDICT query.
+     * At the moment, I do not think it is a good idea as it will slow down PREDICT query because
+     * we have to learn a model for every PREDICT query. But let's see...
+     *
+     * Thus, I have to `fabricate` CPM query and execute it behind the scene.
+     */
+    public String fabricateCreatePredictionModelQuery(Node root, int depth){
+        sparqlQuery = new StringBuilder();
+        sparqlQuery.append(prolog).append(NL);
+        if (depth == 0){
+            sparqlQuery.append("CREATE PREDICTION MODEL");
+            sparqlQuery.append(NL);
+        }
+
+        if (root.getChildren().size() == 3) {
+            Node targetNode = findNode(root, TargetNodeBean.class);
+            if (targetNode != null) {
+                interpretTargetNode(root, targetNode, depth + 1);
+                sparqlQuery.append(NL);
+            } else {
+                logger.warn("Require TARGET node");
+            }
+
+            Node featureNode = findNode(root, FeatureNodeBean.class);
+            if (featureNode != null){
+                interpretFeature(root, featureNode, depth + 1);
+                sparqlQuery.append(NL);
+            } else {
+                logger.warn("Require FEATURE node");
+            }
+
+            Node contextNode = findNode(root, ContextNodeBean.class);
+            Node contextChildrenNode =contextNode.getChildren().get(0).getValue();
+            if (contextNode != null) {
+                sparqlQuery.append("WHERE").append(SPACE).append(NL);
+                interpretWHERE(root, contextChildrenNode, depth + 1);
+            } else {
+                logger.info("Require domain-specific objects to predict");
+            }
+
+            sparqlQuery.append(NL).append("SAVE MODEL 'tmp'");
+            return sparqlQuery.toString();
+        } else {
+            logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
+        }
+        return null;
+    }
+
+
     /**
      * Interpret PREDICT query.
      *
@@ -83,10 +136,10 @@ public class ParseTreeService {
             sparqlQuery.append(objectBean.getSparqlValue());
             sparqlQuery.append(NL);
         }
-        if (root.getChildren().size() == 4) {
+        if (root.getChildren().size() == 3) {
             Node targetNode = findNode(root, TargetNodeBean.class);
             if (targetNode != null) {
-                interpretTargetNode(root, targetNode, ++depth);
+                interpretTargetNode(root, targetNode, depth + 1);
                 sparqlQuery.append(NL);
             } else {
                 logger.warn("Require TARGET node");
@@ -94,40 +147,26 @@ public class ParseTreeService {
 
             Node featureNode = findNode(root, FeatureNodeBean.class);
             if (featureNode != null){
-                interpretFeature(root, featureNode, ++depth);
+                interpretFeature(root, featureNode, depth + 1);
                 sparqlQuery.append(NL);
             } else {
                 logger.warn("Require FEATURE node");
             }
 
-            Node whereNode = null;
-            if (findNode(root, PatientNodeBean.class) != null){
-                whereNode = findNode(root, PatientNodeBean.class);
-            } else if (findNode(root, EpisodeNodeBean.class) != null){
-                whereNode = findNode(root, EpisodeNodeBean.class);
-            }
-            if (whereNode != null) {
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
-                interpretWHERE(root, whereNode, ++depth);
-                sparqlQuery.append(RCURLYBRACKET);
+            Node contextNode = findNode(root, ContextNodeBean.class);
+            Node contextChildrenNode =contextNode.getChildren().get(0).getValue();
+            if (contextNode != null) {
+                sparqlQuery.append("WHERE").append(SPACE).append(NL);
+                interpretWHERE(root, contextChildrenNode, depth + 1);
             } else {
                 logger.info("Require domain-specific objects to predict");
-
             }
 
-            // USE PREDICTIVE MODEL node
-            Node usePredictiveModelNode = findNode(root, UsePredictiveModelBean.class);
-            if (usePredictiveModelNode != null){
-                interpretUsePredictiveModel(root, usePredictiveModelNode, ++depth);
-            } else {
-                logger.warn("Require USE PREDICTIVE model");
-            }
+            sparqlQuery.append(NL).append("USE MODEL 'tmp'");
 
         } else {
             logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
         }
-
-
     }
 
     /**
