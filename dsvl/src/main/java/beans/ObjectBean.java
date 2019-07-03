@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ObjectBean {
     protected int id;
     protected String sparqlValue;
+    protected String SPARQLClass;
     protected ObservableList<Pair<String, Class>> outputs;
     protected int maxOutputConn;
     protected int maxInputConn;
@@ -30,6 +31,14 @@ public class ObjectBean {
     }
 
     public ObjectBean() {
+    }
+
+    public String getSPARQLClass() {
+        return SPARQLClass;
+    }
+
+    public void setSPARQLClass(String SPARQLClass) {
+        this.SPARQLClass = SPARQLClass;
     }
 
     public String getSparqlValue() {

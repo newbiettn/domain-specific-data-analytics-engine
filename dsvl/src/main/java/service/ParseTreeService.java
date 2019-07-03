@@ -26,6 +26,10 @@ public class ParseTreeService {
     private final String LCURLYBRACKET = "{";
     private final String RCURLYBRACKET = "}";
     private final String AND = "&&";
+    private final String RDFTYPE = "rdf:type";
+    private final String WHERE = "WHERE";
+    private final String FEATURE = "FEATURE";
+    private final String FILTER = "FILTER";
     private StringBuilder sparqlQuery;
     private final String prolog = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
             "PREFIX diab: <http://localhost:2020/resource/>\n" +
@@ -51,12 +55,7 @@ public class ParseTreeService {
         ObjectBean objectBean = (ObjectBean) root.getVNode().getValueObject().getValue();
         Class cl = objectBean.getClass();
         if (cl == SelectNodeBean.class){ // Select query
-            int treeDepth = getDepth(root);
-            logger.info("Depth of the tree " + treeDepth);
-            if (treeDepth > 1)
-                interpret(root, root, 0);
-            else
-                interpretSimple(root);
+            interpretSELECT(root, root, 0);
         }  else if (cl == PrevalenceNodeBean.class) { //Prevalence query
             interpretPrevalence(root, root, 0);
         } else if (cl == AskNodeBean.class) {
@@ -73,6 +72,88 @@ public class ParseTreeService {
         return sparqlQuery.toString();
     }
 
+    /**
+     * Interpret ASK query.
+     *
+     */
+    private void interpretAsk(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        if (depth == 0){
+            sparqlQuery.append(objectBean.getSparqlValue());
+        }
+        if (node.getChildren().size() > 0) {
+            Node child = node.getChildren().get(0).getValue();
+            interpretWHERE(root, child, ++depth);
+        }
+    }
+
+
+    /**
+     * Query to calculate a group of poulation that satisfying users' conditions.
+     *
+     * @param node
+     * @param depth
+     */
+    private void interpretPrevalence(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        if (depth == 0){
+            sparqlQuery.append("SELECT ?prevalence  {");
+            sparqlQuery.append(NL);
+            sparqlQuery.append(LCURLYBRACKET);
+            sparqlQuery.append("SELECT (COUNT(DISTINCT ?x) as ?population) WHERE {\n" +
+                    "  ?x a diab:Patient\n" +
+                    "}");
+            sparqlQuery.append(NL);
+            sparqlQuery.append(RCURLYBRACKET);
+            sparqlQuery.append(LCURLYBRACKET);
+            sparqlQuery.append("SELECT (COUNT(DISTINCT ");
+            Node child = node.getChildren().get(0).getValue();
+            ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
+            sparqlQuery.append(ob.getSparqlValue());
+            sparqlQuery.append(") as ?group)");
+        }
+        if (node.getChildren().size() > 0) {
+            Node child = node.getChildren().get(0).getValue();
+            interpretWHERE(root, child, ++depth);
+        }
+        sparqlQuery.append(RCURLYBRACKET)
+                .append(NL)
+                .append("BIND (?group/?population*100 as ?prevalence) ")
+                .append(RCURLYBRACKET);
+    }
+
+    /**
+     * Interpret SELECT query.
+     *
+     * @param root
+     * @param node
+     * @param depth
+     */
+    private void interpretSELECT(Node root, Node node, int depth){
+        if (node == null)
+            return;
+        VNode vNode = node.getVNode();
+        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
+        if (depth == 0){
+            sparqlQuery.append(objectBean.getSparqlValue());
+            ArrayList<String> variables = getVariables(root);
+            for (String v : variables){
+                sparqlQuery.append(SPACE)
+                        .append(v)
+                        .append(SPACE);
+            }
+        }
+        if (node.getChildren().size() > 0) {
+            Node child = node.getChildren().get(0).getValue();
+            interpretWHERE(root, child, ++depth);
+        }
+    }
 
     /**
      * JG does not want to have a separate query to create ML model to make PREDICT query.
@@ -110,7 +191,7 @@ public class ParseTreeService {
             Node contextNode = findNode(root, ContextNodeBean.class);
             Node contextChildrenNode =contextNode.getChildren().get(0).getValue();
             if (contextNode != null) {
-                sparqlQuery.append("WHERE").append(SPACE).append(NL);
+                sparqlQuery.append(WHERE).append(SPACE).append(NL);
                 interpretWHERE(root, contextChildrenNode, depth + 1);
             } else {
                 logger.info("Require domain-specific objects to predict");
@@ -156,7 +237,7 @@ public class ParseTreeService {
             Node contextNode = findNode(root, ContextNodeBean.class);
             Node contextChildrenNode =contextNode.getChildren().get(0).getValue();
             if (contextNode != null) {
-                sparqlQuery.append("WHERE").append(SPACE).append(NL);
+                sparqlQuery.append(WHERE).append(SPACE).append(NL);
                 interpretWHERE(root, contextChildrenNode, depth + 1);
             } else {
                 logger.info("Require domain-specific objects to predict");
@@ -167,35 +248,6 @@ public class ParseTreeService {
         } else {
             logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
         }
-    }
-
-    /**
-     * Intepret SAVE PREDICTVE MODEL node
-     * @param root
-     * @param node
-     * @param depth
-     */
-    private void interpretSavePredictiveModel(Node root, Node node, int depth){
-        if (node == null)
-            return;
-        SavePredictiveModelBean savePredictiveModelBean = (SavePredictiveModelBean) node.getVNode().getValueObject().getValue();
-        sparqlQuery.append(NL);
-        sparqlQuery.append(savePredictiveModelBean.getSparqlValue());
-    }
-
-    /**
-     * Intepret USE PREDICTVE MODEL node
-     * @param root
-     * @param node
-     * @param depth
-     */
-    private void interpretUsePredictiveModel(Node root, Node node, int depth){
-        if (node == null)
-            return;
-
-        UsePredictiveModelBean usePredictiveModelBean = (UsePredictiveModelBean) node.getVNode().getValueObject().getValue();
-        sparqlQuery.append(NL);
-        sparqlQuery.append(usePredictiveModelBean.getSparqlValue());
     }
 
     /**
@@ -236,7 +288,7 @@ public class ParseTreeService {
                 whereNode = findNode(root, EpisodeNodeBean.class);
             }
             if (whereNode != null) {
-                sparqlQuery.append("WHERE").append(SPACE).append(LCURLYBRACKET);
+                sparqlQuery.append(WHERE).append(SPACE).append(LCURLYBRACKET);
                 interpretWHERE(root, whereNode, ++depth);
                 sparqlQuery.append(RCURLYBRACKET);
             } else {
@@ -257,6 +309,13 @@ public class ParseTreeService {
         }
     }
 
+    /**
+     * Interpret TARGET clause.
+     *
+     * @param root
+     * @param node
+     * @param depth
+     */
     private void interpretTargetNode(Node root, Node node, int depth) {
         TargetNodeBean targetNodeBean = (TargetNodeBean) node.getVNode().getValueObject().getValue();
         sparqlQuery.append(targetNodeBean.getSparqlValue());
@@ -272,6 +331,42 @@ public class ParseTreeService {
         }
     }
 
+    /**
+     * Intepret SAVE PREDICTVE MODEL node
+     * @param root
+     * @param node
+     * @param depth
+     */
+    private void interpretSavePredictiveModel(Node root, Node node, int depth){
+        if (node == null)
+            return;
+        SavePredictiveModelBean savePredictiveModelBean = (SavePredictiveModelBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(NL);
+        sparqlQuery.append(savePredictiveModelBean.getSparqlValue());
+    }
+
+    /**
+     * Intepret USE PREDICTVE MODEL node
+     * @param root
+     * @param node
+     * @param depth
+     */
+    private void interpretUsePredictiveModel(Node root, Node node, int depth){
+        if (node == null)
+            return;
+
+        UsePredictiveModelBean usePredictiveModelBean = (UsePredictiveModelBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(NL);
+        sparqlQuery.append(usePredictiveModelBean.getSparqlValue());
+    }
+
+    /**
+     * Interpret FEATURE clause.
+     *
+     * @param root
+     * @param node
+     * @param depth
+     */
     private void interpretFeature(Node root, Node node, int depth) {
         FeatureNodeBean featureNodeBean = (FeatureNodeBean) node.getVNode().getValueObject().getValue();
         sparqlQuery.append(featureNodeBean.getSparqlValue());
@@ -284,7 +379,7 @@ public class ParseTreeService {
             for(Pair<String, Node> p : node.getChildren()){
                 Node child = p.getValue();
                 ConditionNodeBean conditionNodeBean = (ConditionNodeBean) child.getVNode().getValueObject().getValue();
-                sparqlQuery.append("FEATURE")
+                sparqlQuery.append(FEATURE)
                         .append(SPACE)
                         .append(conditionNodeBean.getSparqlValue());
                 if (count < node.getChildren().size() - 1)
@@ -297,154 +392,12 @@ public class ParseTreeService {
     }
 
     /**
-     * Interpret ASK query.
+     * Interpret WHERE clause.
      *
-     */
-    private void interpretAsk(Node root, Node node, int depth){
-        if (node == null)
-            return;
-
-        VNode vNode = node.getVNode();
-        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
-        if (depth == 0){
-            sparqlQuery.append(objectBean.getSparqlValue());
-        }
-        if (node.getChildren().size() > 0) {
-            ++depth;
-            Node child = node.getChildren().get(0).getValue();
-            interpretWHERE(root, child, depth);
-        }
-    }
-
-
-    /**
-     * Query to calculate a group of poulation that satisfying users' conditions.
-     *
+     * @param root
      * @param node
      * @param depth
      */
-    private void interpretPrevalence(Node root, Node node, int depth){
-        if (node == null)
-            return;
-
-        if (depth == 0){
-            sparqlQuery.append("SELECT ?prevalence  {");
-            sparqlQuery.append(NL);
-            sparqlQuery.append(LCURLYBRACKET);
-            sparqlQuery.append("SELECT (COUNT(DISTINCT ?x) as ?population) WHERE {\n" +
-                    "  ?x a diab:Patient\n" +
-                    "}");
-            sparqlQuery.append(NL);
-            sparqlQuery.append(RCURLYBRACKET);
-            sparqlQuery.append(LCURLYBRACKET);
-            sparqlQuery.append("SELECT (COUNT(DISTINCT ");
-            Node child = node.getChildren().get(0).getValue();
-            ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
-            sparqlQuery.append(ob.getSparqlValue());
-            sparqlQuery.append(") as ?group)");
-        }
-        if (node.getChildren().size() > 0) {
-            Node child = node.getChildren().get(0).getValue();
-            interpretWHERE(root, child, ++depth);
-        }
-        sparqlQuery.append(RCURLYBRACKET)
-                .append(NL)
-                .append("BIND (?group/?population*100 as ?prevalence) ")
-                .append(RCURLYBRACKET);
-    }
-
-
-    /**
-     * Interpret to SPARQL.
-     *
-     * @param node
-     */
-    private void interpret(Node root, Node node, int depth){ //TODO: revise the code
-        if (node == null)
-            return;
-
-        /* first print data of node */
-        VNode vNode = node.getVNode();
-        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
-        if (depth == 0){
-            sparqlQuery.append(objectBean.getSparqlValue());
-            ArrayList<String> variables = getVariables(root);
-            for (String v : variables){
-                sparqlQuery.append(SPACE)
-                        .append(v)
-                        .append(SPACE);
-            }
-        }
-        if (depth > 1) {
-            sparqlQuery.append(objectBean.getSparqlValue());
-            sparqlQuery.append(DOT);
-        }
-
-//        if (node.getChildren().size() > 0) {
-        depth++;
-        if (depth == 1){
-            for(Pair<String, Node> p : node.getChildren()){
-                Node child = p.getValue();
-                sparqlQuery.append(SPACE);
-                interpret(root, child, depth);
-            }
-        } else {
-            if (depth == 2){
-                sparqlQuery.append(SPACE)
-                        .append("WHERE {")
-                        .append(NL);
-                if (objectBean.getClass() == PatientNodeBean.class)
-                    sparqlQuery.append(objectBean.getSparqlValue())
-                            .append(" rdf:type ").append("diab:Patient.");
-                else if (objectBean.getClass() == EpisodeNodeBean.class)
-                    sparqlQuery.append(objectBean.getSparqlValue())
-                            .append(" rdf:type ").append("diab:Episode.");
-                else if (objectBean.getClass() == AdmissionReportNodeBean.class)
-                    sparqlQuery.append(objectBean.getSparqlValue())
-                            .append(" rdf:type ").append("diab:AdmissionReport.");
-                else if (objectBean.getClass() == SeparationReportNodeBean.class)
-                    sparqlQuery.append(objectBean.getSparqlValue())
-                            .append(" rdf:type ").append("diab:SeparationReport.");
-
-            }
-            for(Pair<String, Node> p : node.getChildren()){
-                Node child = p.getValue();
-                String connectionName = p.getKey();
-
-                sparqlQuery.append(NL);
-                sparqlQuery.append(objectBean.getSparqlValue());
-                sparqlQuery.append(SPACE)
-                        .append(connectionName)
-                        .append(SPACE);
-                interpret(root, child, depth);
-            }
-
-            // last node of the tree
-            if (depth == 2){ // TODO: not sure why depth == 2 works
-                // filter condition
-                ArrayList<Pair<String, String>> conditions = getConditions(root);
-                if (conditions.size() > 0 ){
-                    sparqlQuery.append(NL).append("FILTER").append(LPAREN);
-                    for (int i = 0; i<conditions.size(); i++){
-                        Pair<String, String> c = conditions.get(i);
-                        sparqlQuery.append(c.getKey())
-                                .append(SPACE)
-                                .append(c.getValue());
-                        if (i < conditions.size()-1) {
-                            sparqlQuery.append(SPACE)
-                                    .append(AND)
-                                    .append(SPACE);
-                        }
-                    }
-                    sparqlQuery.append(RPAREN);
-                }
-                sparqlQuery.append(" } ");
-            }
-        }
-//        }
-
-    }
-
     private void interpretWHERE(Node root, Node node, int depth){
         if (node == null)
             return;
@@ -453,9 +406,12 @@ public class ParseTreeService {
         ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
         if (depth == 1){
             sparqlQuery.append(LCURLYBRACKET);
-            if (objectBean.getClass() == PatientNodeBean.class)
-                sparqlQuery.append(objectBean.getSparqlValue())
-                        .append(" rdf:type ").append("diab:Patient.");
+            sparqlQuery.append(objectBean.getSparqlValue())
+                    .append(SPACE)
+                    .append(RDFTYPE)
+                    .append(SPACE)
+                    .append(objectBean.getSPARQLClass())
+                    .append(DOT);
             if (node.getChildren().size() > 0){
                 for(Pair<String, Node> p : node.getChildren()){
                     Node child = p.getValue();
@@ -495,7 +451,7 @@ public class ParseTreeService {
                 // filter condition
                 ArrayList<Pair<String, String>> conditions = getConditions(root);
                 if (conditions.size() > 0 ){
-                    sparqlQuery.append(NL).append("FILTER").append(LPAREN);
+                    sparqlQuery.append(NL).append(FILTER).append(LPAREN);
                     for (int i = 0; i<conditions.size(); i++){
                         Pair<String, String> c = conditions.get(i);
                         sparqlQuery.append(c.getKey())
@@ -511,47 +467,6 @@ public class ParseTreeService {
                 }
             }
         }
-    }
-
-    /**
-     * To interpret simple flows with only two nodes, such as: SELECT -> Patient
-     *
-     * @param node
-     */
-    private void interpretSimple(Node node){
-        if (node == null)
-            return;
-
-        /* first print data of node */
-        VNode vNode = node.getVNode();
-        ObjectBean objectBean = (ObjectBean) vNode.getValueObject().getValue();
-        sparqlQuery.append(objectBean.getSparqlValue());
-        if (node.getChildren().size() > 0) {
-            for(Pair<String, Node> p : node.getChildren()) {
-                Node child = p.getValue();
-                ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
-                sparqlQuery.append(ob.getSparqlValue()).append(" ");
-            }
-            sparqlQuery.append(" WHERE { ");
-            for(Pair<String, Node> p : node.getChildren()) {
-                Node child = p.getValue();
-                ObjectBean ob = (ObjectBean) child.getVNode().getValueObject().getValue();
-                if (ob.getClass() == PatientNodeBean.class)
-                    sparqlQuery.append(ob.getSparqlValue())
-                            .append(" rdf:type ").append("diab:Patient.");
-                else if (ob.getClass() == EpisodeNodeBean.class)
-                    sparqlQuery.append(ob.getSparqlValue())
-                            .append(" rdf:type ").append("diab:Episode.");
-                else if (ob.getClass() == AdmissionReportNodeBean.class)
-                    sparqlQuery.append(ob.getSparqlValue())
-                            .append(" rdf:type ").append("diab:AdmissionReport.");
-                else if (ob.getClass() == SeparationReportNodeBean.class)
-                    sparqlQuery.append(ob.getSparqlValue())
-                            .append(" rdf:type ").append("diab:SeparationReport.");
-            }
-            sparqlQuery.append("}");
-        }
-
     }
 
     /**

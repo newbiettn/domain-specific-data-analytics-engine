@@ -17,6 +17,7 @@ public class EpisodeNodeBean extends ObjectBean{
     public EpisodeNodeBean(ArrayList<Pair<String, Class>> outputs) {
         super(count++, outputs);
         this.sparqlValue = "episode";
+        this.SPARQLClass = "diab:Episode";
         this.maxOutputConn = 1;
         this.maxInputConn = 0;
         this.minOutputConn = 1;

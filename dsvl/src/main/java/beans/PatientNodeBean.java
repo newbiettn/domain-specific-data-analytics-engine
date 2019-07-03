@@ -16,6 +16,7 @@ public class PatientNodeBean extends ObjectBean{
     public PatientNodeBean(ArrayList<Pair<String, Class>> outputs) {
         super(count++, outputs);
         this.sparqlValue = "patient";
+        this.SPARQLClass = "diab:Patient";
         this.maxOutputConn = 1;
         this.maxInputConn = 0;
         this.minOutputConn = 1;

@@ -13,8 +13,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.web.WebView?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane fx:id="anchorPane" prefHeight="846.0" prefWidth="1572.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -45,12 +47,12 @@
                                           <Button fx:id="selectBtn" mnemonicParsing="false" onAction="#addSelectNode" text="Select" />
                                           <Button fx:id="prevalenceBtn" mnemonicParsing="false" onAction="#addPrevalenceNode" text="Prevalence" />
                                           <Button fx:id="askBtn" mnemonicParsing="false" onAction="#addAskNode" text="Ask" />
-                                          <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />
+<!--                                          <Button fx:id="createMLModelBtn" mnemonicParsing="false" onAction="#addCreateMLModelNode" text="Create ML Model" />-->
                                           <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
                                           <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
                                           <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
-                                          <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" onAction="#addSavePredictiveModelNode" text="Save Predictive Model" />
-                                          <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />
+<!--                                          <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" onAction="#addSavePredictiveModelNode" text="Save Predictive Model" />-->
+<!--                                          <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />-->
                                           <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="34.0" />
                                           <Button fx:id="patientBtn" mnemonicParsing="false" onAction="#addPatientNode" text="Patient" />
                                           <Button fx:id="episodeBtn" mnemonicParsing="false" onAction="#addEpisodeNode" text="Episode" />
@@ -59,6 +61,7 @@
                                           <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="29.0" />
                                           <Button fx:id="variableBtn" mnemonicParsing="false" onAction="#addVariableNode" text="Condition" />
                                           <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="37.0" />
+                                          <Pane HBox.hgrow="ALWAYS"/>
                                           <Button mnemonicParsing="false" onAction="#testFlow" prefHeight="30.0" prefWidth="110.0" text="Run" textAlignment="CENTER">
                                              <graphic>
                                                 <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">

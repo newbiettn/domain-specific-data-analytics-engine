@@ -1,0 +1,26 @@
+subject	predicate	object
+<http://localhost:3030/AdmissionReport/23275>	<http://localhost:2020/resource/hasTimestamp>	"2013-07-21T00:00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://localhost:3030/AdmissionReport/23275>	<http://localhost:2020/resource/hasAdmissionSource>	<http://localhost:2020/resource/AdmissionSource_H>
+<http://localhost:3030/AdmissionReport/23275>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://localhost:2020/resource/AdmissionReport>
+<http://localhost:3030/AdmissionReport/23275>	<http://localhost:2020/resource/hasAdmissionType>	<http://localhost:2020/resource/AdmissionType_C>
+<http://localhost:3030/AdmissionReport/23275>	<http://localhost:2020/resource/hasAdmissionUnit>	"Stroke/Gen Med 5"
+<http://localhost:3030/AdmissionReport/23275>	<http://localhost:2020/resource/hasAdmissionWard>	"Austin - Ward 06E"
+<http://localhost:3030/AdmissionReport/14301>	<http://localhost:2020/resource/hasTimestamp>	"2014-10-12T00:00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://localhost:3030/AdmissionReport/14301>	<http://localhost:2020/resource/hasAdmissionSource>	<http://localhost:2020/resource/AdmissionSource_H>
+<http://localhost:3030/AdmissionReport/14301>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://localhost:2020/resource/AdmissionReport>
+<http://localhost:3030/AdmissionReport/14301>	<http://localhost:2020/resource/hasAdmissionType>	<http://localhost:2020/resource/AdmissionType_C>
+<http://localhost:3030/AdmissionReport/14301>	<http://localhost:2020/resource/hasAdmissionUnit>	"General Medicine"
+<http://localhost:3030/AdmissionReport/14301>	<http://localhost:2020/resource/hasAdmissionWard>	"Austin - Ward 07W - Acute Assessment Unit"
+<http://localhost:3030/AdmissionReport/25630>	<http://localhost:2020/resource/hasTimestamp>	"2014-04-05T00:00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://localhost:3030/AdmissionReport/25630>	<http://localhost:2020/resource/hasAdmissionSource>	<http://localhost:2020/resource/AdmissionSource_H>
+<http://localhost:3030/AdmissionReport/25630>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://localhost:2020/resource/AdmissionReport>
+<http://localhost:3030/AdmissionReport/25630>	<http://localhost:2020/resource/hasAdmissionType>	<http://localhost:2020/resource/AdmissionType_C>
+<http://localhost:3030/AdmissionReport/25630>	<http://localhost:2020/resource/hasAdmissionUnit>	"Stroke"
+<http://localhost:3030/AdmissionReport/25630>	<http://localhost:2020/resource/hasAdmissionWard>	"Austin - Ward 06E"
+<http://localhost:3030/AdmissionReport/36767>	<http://localhost:2020/resource/hasTimestamp>	"2014-10-01T00:00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+<http://localhost:3030/AdmissionReport/36767>	<http://localhost:2020/resource/hasAdmissionSource>	<http://localhost:2020/resource/AdmissionSource_H>
+<http://localhost:3030/AdmissionReport/36767>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://localhost:2020/resource/AdmissionReport>
+<http://localhost:3030/AdmissionReport/36767>	<http://localhost:2020/resource/hasAdmissionType>	<http://localhost:2020/resource/AdmissionType_C>
+<http://localhost:3030/AdmissionReport/36767>	<http://localhost:2020/resource/hasAdmissionUnit>	"Colorectal Surgery"
+<http://localhost:3030/AdmissionReport/36767>	<http://localhost:2020/resource/hasAdmissionWard>	"Austin - Ward 08W"
+<http://localhost:3030/Episode15385>	<http://localhost:2020/resource/hasAge>	56

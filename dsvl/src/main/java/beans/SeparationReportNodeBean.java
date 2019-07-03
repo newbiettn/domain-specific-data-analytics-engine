@@ -15,6 +15,7 @@ public class SeparationReportNodeBean extends ObjectBean{
     public SeparationReportNodeBean(ArrayList<Pair<String, Class>> outputs) {
         super(count++, outputs);
         this.sparqlValue = "separationReport";
+        this.SPARQLClass = "diab:SeparationReport";
         this.maxOutputConn = 1;
         this.maxInputConn = 0;
         this.minOutputConn = 1;

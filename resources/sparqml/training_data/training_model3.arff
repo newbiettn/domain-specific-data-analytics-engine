@@ -1,0 +1,7 @@
+@relation 'stream-weka.filters.unsupervised.attribute.Reorder-R2,3,1'
+
+@attribute gender {Male,Female}
+@attribute age numeric
+@attribute deceased {false,true}
+
+@data
