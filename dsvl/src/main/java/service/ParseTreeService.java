@@ -30,6 +30,8 @@ public class ParseTreeService {
     private final String WHERE = "WHERE";
     private final String FEATURE = "FEATURE";
     private final String FILTER = "FILTER";
+    private final String TEMP_PREDICTIVE_MODEL = "tmp";
+    private final String QUOTATION_MARK = "'";
     private StringBuilder sparqlQuery;
     private final String prolog = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
             "PREFIX diab: <http://localhost:2020/resource/>\n" +
@@ -197,7 +199,12 @@ public class ParseTreeService {
                 logger.info("Require domain-specific objects to predict");
             }
 
-            sparqlQuery.append(NL).append("SAVE MODEL 'tmp'");
+            sparqlQuery.append(NL)
+                        .append("SAVE MODEL")
+                        .append(SPACE)
+                        .append(QUOTATION_MARK)
+                        .append(TEMP_PREDICTIVE_MODEL)
+                        .append(QUOTATION_MARK);
             return sparqlQuery.toString();
         } else {
             logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
@@ -208,6 +215,24 @@ public class ParseTreeService {
 
     /**
      * Interpret PREDICT query.
+     *
+     * "PREDICT " +
+     *                 "TARGET ?d " +
+     *                 "DESCRIBE {" +
+     *                 "FEATURE ?age." +
+     *                 "FEATURE ?gender." +
+     *                 "FEATURE ?hba1c" +
+     *                 "} " +
+     *                 "WHERE {" +
+     *                 "?e rdf:type diab:Episode." +
+     *                 "?e diab:hasAge ?age." +
+     *                 "?e diab:hasGender ?gender." +
+     *                 "?e diab:hasHbA1cTestResult ?hba1c." +
+     *                 "?e diab:hasAdmissionNumber ?admissionNumber." +
+     *                 "?e diab:hasDeceased ?d." +
+     *                 "FILTER (?age = 80)." +
+     *                 "} " +
+     *                 "USE MODEL 'modelName'";
      *
      */
     private void interpretPredict(Node root, int depth){
@@ -243,7 +268,12 @@ public class ParseTreeService {
                 logger.info("Require domain-specific objects to predict");
             }
 
-            sparqlQuery.append(NL).append("USE MODEL 'tmp'");
+            sparqlQuery.append(NL)
+                    .append("USE MODEL")
+                    .append(SPACE)
+                    .append(QUOTATION_MARK)
+                    .append(TEMP_PREDICTIVE_MODEL)
+                    .append(QUOTATION_MARK);
 
         } else {
             logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
@@ -252,6 +282,23 @@ public class ParseTreeService {
 
     /**
      * Interpret CreatePredictionModel query.
+     *  "CREATE PREDICTION MODEL" +
+     *                 "TARGET ?d " +
+     *                 "DESCRIBE {" +
+     *                 "FEATURE ?age." +
+     *                 "FEATURE ?gender." +
+     *                 "FEATURE ?hba1c" +
+     *                 "} " +
+     *                 "WHERE {" +
+     *                 "?e rdf:type diab:Episode." +
+     *                 "?e diab:hasAge ?age." +
+     *                 "?e diab:hasGender ?gender." +
+     *                 "?e diab:hasHbA1cTestResult ?hba1c." +
+     *                 "?e diab:hasAdmissionNumber ?admissionNumber." +
+     *                 "?e diab:hasDeceased ?d." +
+     *                 "FILTER (?admissionNumber = 1)." +
+     *                 "} " +
+     *                 "SAVE MODEL 'modelName'";
      *
      */
     private void interpretCreatePredictionModel(Node root, Node node, int depth){
