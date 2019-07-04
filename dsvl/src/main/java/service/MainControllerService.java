@@ -316,7 +316,7 @@ public class MainControllerService {
                 saver.setFile(new File(trainingArffFilename));
                 saver.writeBatch();
 
-                Trainer.getSingleton().executeForSPARQLML(trainingArffFilename, modelName);
+                Trainer.getSingleton().executeForSPARQLML(trainingArffFilename, modelName, "asdfdsf");
 
                 // Display result
                 StringBuilder r = new StringBuilder();

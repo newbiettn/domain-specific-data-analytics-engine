@@ -51,6 +51,7 @@
                                           <Button fx:id="predictBtn" mnemonicParsing="false" onAction="#addPredictNode" text="Predict" />
                                           <Button fx:id="targetBtn" mnemonicParsing="false" onAction="#addTargetNode" text="Target" />
                                           <Button fx:id="featureBtn" mnemonicParsing="false" onAction="#addFeatureNode" text="Feature" />
+                                          <Button fx:id="useLearningAlgorithmBtn" mnemonicParsing="false" onAction="#addUseLearningAlgorithm" text="Use Learning Algorithm" />
 <!--                                          <Button fx:id="savePredictiveModelBtn" mnemonicParsing="false" onAction="#addSavePredictiveModelNode" text="Save Predictive Model" />-->
 <!--                                          <Button fx:id="usePredictiveModelBtn" mnemonicParsing="false" onAction="#addUsePredictiveModelNode" text="Use Predictive Model" />-->
                                           <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="34.0" />

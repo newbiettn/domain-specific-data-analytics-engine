@@ -41,8 +41,6 @@ public class ParseTree {
         return parseTreeService.fabricateCreatePredictionModelQuery(root, 0);
     }
 
-
-
     /**
      * Parse the flow.
      * @param flow

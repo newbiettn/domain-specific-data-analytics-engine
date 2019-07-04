@@ -51,6 +51,7 @@ public class MLQuery extends Prologue{
     private ArrayList<Var> featureVars = new ArrayList<>();
     private String modelFileName;
     private Var targetName;
+    private String learningAlgorithmName;
 
     // ---- PREDICT --------------------------------------------------------
     Element filterEle;
@@ -61,6 +62,22 @@ public class MLQuery extends Prologue{
 
     public void setFilterEle(Element filterEle) {
         this.filterEle = filterEle;
+    }
+
+    /**
+     * Get learning algorithm.
+     * @return
+     */
+    public String getLearningAlgorithmName() {
+        return learningAlgorithmName;
+    }
+
+    /**
+     * Set learning algorithm.
+     * @param learningAlgorithmName
+     */
+    public void setLearningAlgorithmName(String learningAlgorithmName) {
+        this.learningAlgorithmName = learningAlgorithmName;
     }
 
     /** Set model file name

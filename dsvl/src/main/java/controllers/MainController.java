@@ -132,6 +132,7 @@ public class MainController {
         skinFactory.addSkinClassForValueType(PredictNodeBean.class, PredictNodeSkin.class);
         skinFactory.addSkinClassForValueType(UsePredictiveModelBean.class, UsePredictiveModelNodeSkin.class);
         skinFactory.addSkinClassForValueType(SavePredictiveModelBean.class, SavePredictiveModelNodeSkin.class);
+        skinFactory.addSkinClassForValueType(UseLearningAlgorithmBean.class, UseLearningAlgorithmNodeSkin.class);
         skinFactory.addSkinClassForValueType(TargetNodeBean.class, TargetNodeSkin.class);
         skinFactory.addSkinClassForValueType(ContextNodeBean.class, ContextNodeSkin.class);
         skinFactory.addSkinClassForValueType(FeatureNodeBean.class, FeatureNodeSkin.class);
@@ -239,6 +240,7 @@ public class MainController {
         flow.setSkinFactories(skinFactory);
     }
 
+
     @FXML
     private void addPredictNode() {
         // Predict node
@@ -299,6 +301,16 @@ public class MainController {
         featureNode.setY(200);
         targetNode.setX(400);
         targetNode.setY(350);
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addUseLearningAlgorithm() {
+        ArrayList<Pair<String, Class>> outputs = new ArrayList<>();
+        VNode n = flow.newNode();
+        n.getValueObject().setValue(new UseLearningAlgorithmBean(outputs));
+        n.setMainInput(n.addInput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
     }
