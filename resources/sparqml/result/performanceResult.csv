@@ -1,0 +1,6 @@
+Metric,Result
+weightedAreaUnderROC,0.5678519934067688
+weightedFMeasure,0.6754804446033639
+weightedPrecision,0.7142427507795314
+weightedRecall,0.7717663817663818
+errorRate,0.22823361823361824
