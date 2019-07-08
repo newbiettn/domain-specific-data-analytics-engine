@@ -1,5 +1,6 @@
 package skins;
 
+import beans.UseLearningAlgorithmBean;
 import beans.UsePredictiveModelBean;
 import controllers.UseLearningAlgorithmNodeController;
 import eu.mihosoft.vrl.workflow.VFlow;
@@ -34,7 +35,7 @@ public class UseLearningAlgorithmNodeSkin extends CustomFlowNodeSkin {
             controller.initialize();
             getModel().setController(controller);
             controller.setNode(getModel());
-            controller.setUsePredictiveModelBean((UsePredictiveModelBean) getModel().getValueObject().getValue());
+            controller.setUseLearningAlgorithmBean((UseLearningAlgorithmBean) getModel().getValueObject().getValue());
 
         } else {
             controller = (UseLearningAlgorithmNodeController) getModel().getController();

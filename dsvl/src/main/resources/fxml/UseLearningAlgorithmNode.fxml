@@ -14,7 +14,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="USE LEARNING ALGORITHM" textAlignment="CENTER" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
-            <ChoiceBox fx:id="cbModelNames" prefWidth="150.0" BorderPane.alignment="CENTER" />
+            <ChoiceBox fx:id="cbLearningAlgorithmNames" prefWidth="150.0" BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </children>

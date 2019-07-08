@@ -93,6 +93,7 @@ public class ExML2
                 "?e diab:hasDeceased ?d." +
                 "FILTER (?age = 80)." +
                 "} " +
+                "WITH LEARNING ALGORITHM 'j48'" +
                 "USE MODEL 'modelName'";
         MLQuery q = MLQueryFactory.create(queryString);
         ArrayList<Var> featureVars = q.getFeatureVars();
@@ -153,7 +154,8 @@ public class ExML2
 
             // Predicting
             String processFileName = processFilePath + "process_" + modelName + ".kf";
-            Instances result = Trainer.getSingleton().predictForSPARQL(processFileName, testArff);
+            Map<String, Object> r = Trainer.getSingleton().predictForSPARQL(processFileName, testArff, true);
+            Instances result = (Instances)r.get("predictionResults");
             int numCols = result.numAttributes();
             for (int col = 0; col < numCols; col++){
                 Attribute attribute = result.attribute(col);
@@ -179,7 +181,7 @@ public class ExML2
             csvSaver.writeBatch();
 
             String fileString = new String(Files.readAllBytes(Paths.get(resultCsv)), StandardCharsets.UTF_8);
-            logger.info(fileString);
+//            logger.info(fileString);
         } catch (Exception e) {
             e.printStackTrace();
         }

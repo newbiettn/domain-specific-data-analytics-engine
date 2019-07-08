@@ -1,4 +1,5 @@
 package controllers;
+import beans.UseLearningAlgorithmBean;
 import beans.UsePredictiveModelBean;
 import common.ProjectPropertiesGetter;
 import eu.mihosoft.vrl.workflow.VNode;
@@ -24,35 +25,36 @@ public class UseLearningAlgorithmNodeController {
     private ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
     private VNode node;
 
-    private UsePredictiveModelBean usePredictiveModelBean;
+    private UseLearningAlgorithmBean useLearningAlgorithmBean;
 
     private HBox root;
 
     private BorderPane borderPane;
 
-    private ChoiceBox<String> cbModelName;
+    private ChoiceBox<String> cbLearningAlgorithmNames;
 
     public UseLearningAlgorithmNodeController() {
         root = new HBox();
         borderPane = new BorderPane();
         HBox.setHgrow(borderPane, Priority.ALWAYS);
 
-        Text title = new Text("USE LEARNING ALGORITHM");
+        Text title = new Text("WITH LEARNING ALGORITHM");
         borderPane.setCenter(title);
         BorderPane.setAlignment(title, Pos.CENTER);
 
-        cbModelName = new ChoiceBox<>();
-        cbModelName.setPrefWidth(220);
-        borderPane.setBottom(cbModelName);
-        BorderPane.setAlignment(cbModelName, Pos.CENTER);
+        cbLearningAlgorithmNames = new ChoiceBox<>();
+        cbLearningAlgorithmNames.setPrefWidth(220);
+        borderPane.setBottom(cbLearningAlgorithmNames);
+        BorderPane.setAlignment(cbLearningAlgorithmNames, Pos.CENTER);
 
         borderPane.setPadding(new Insets(0, 5, 10, 5));
 
-        cbModelName.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        cbLearningAlgorithmNames.setItems(FXCollections.observableArrayList(listLearningAlgorithmNames()));
+        cbLearningAlgorithmNames.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue != null) {
-                    usePredictiveModelBean.setSparqlValue("USE MODEL '" + newValue + "'");
+                    useLearningAlgorithmBean.setSparqlValue("WITH LEARNING ALGORITHM '" + newValue + "'");
                 }
             }
         });
@@ -60,6 +62,32 @@ public class UseLearningAlgorithmNodeController {
 
     @FXML
     public void initialize() {
+    }
+
+    /**
+     * List all learning algorithm names.
+     *
+     * @return
+     */
+    public ArrayList<String> listLearningAlgorithmNames(){
+        ArrayList<String> learningAlgorithmNames = new ArrayList<>();
+        learningAlgorithmNames.add("j48");
+        learningAlgorithmNames.add("adaboostm1");
+        learningAlgorithmNames.add("randomforest");
+        learningAlgorithmNames.add("neuralnetwork");
+        learningAlgorithmNames.add("logistic");
+        learningAlgorithmNames.add("smo");
+        learningAlgorithmNames.add("kstar");
+        learningAlgorithmNames.add("ibk");
+        learningAlgorithmNames.add("lwl");
+        learningAlgorithmNames.add("bagging");
+        learningAlgorithmNames.add("logitboost");
+        learningAlgorithmNames.add("randomsubspace");
+        learningAlgorithmNames.add("stacking");
+        learningAlgorithmNames.add("vote");
+        learningAlgorithmNames.add("decisiontable");
+
+        return learningAlgorithmNames;
     }
 
     public VNode getNode() {
@@ -70,18 +98,18 @@ public class UseLearningAlgorithmNodeController {
         this.node = node;
     }
 
-    public UsePredictiveModelBean getUsePredictiveModelBean() {
-        return usePredictiveModelBean;
-    }
-
-    public void setUsePredictiveModelBean(UsePredictiveModelBean usePredictiveModelBean) {
-        this.usePredictiveModelBean = usePredictiveModelBean;
-    }
-
     public BorderPane getBorderPane() { return borderPane; }
 
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+
+    public UseLearningAlgorithmBean getUseLearningAlgorithmBean() {
+        return useLearningAlgorithmBean;
+    }
+
+    public void setUseLearningAlgorithmBean(UseLearningAlgorithmBean useLearningAlgorithmBean) {
+        this.useLearningAlgorithmBean = useLearningAlgorithmBean;
     }
 
 }

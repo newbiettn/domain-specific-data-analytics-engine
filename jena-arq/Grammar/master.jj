@@ -187,7 +187,7 @@ void CreatePredictionModelQuery(): { }
   TargetClause()
   DescribePredictionModelClause()
   WhereMLClause()
-  (UseLearningAlgorithmClause())*
+  (UseLearningAlgorithmClause())?
   SaveModelClause()
 }
 void PredictQuery():{Element el = null ; }
@@ -197,6 +197,7 @@ void PredictQuery():{Element el = null ; }
   DescribePredictionModelClause()
   //el = Filter() { getMLQuery().setFilterEle(el); }
   WhereMLClause()
+  (UseLearningAlgorithmClause())?
   UseModelClause()
 }
 void CreatePredictionModelClause(): { }
@@ -216,8 +217,12 @@ void UseModelClause(): {String modelFileName;}
 }
 void UseLearningAlgorithmClause(): {String learningAlgorithmName;}
 {
-  <USE> <LEARNING> <ALGORITHM>
+  <WITH> <LEARNING> <ALGORITHM>
   (learningAlgorithmName = String() { getMLQuery().setLearningAlgorithmName(learningAlgorithmName);})
+}
+void WithInterpretability(): {}
+{
+  <WITH> <INTERPRETABILITY> ({ getMLQuery().setInterpretability(true);})
 }
 void SaveModelClause(): {String modelFileName;}
 {
@@ -2411,6 +2416,7 @@ TOKEN [IGNORE_CASE] :
 |  < SAVE:        "save" >
 |  < LEARNING:    "learning" >
 |  < ALGORITHM:   "algorithm" >
+|  < INTERPRETABILITY: "interpretability" >
 // ---------------------------------------------------------------------------------------------------------------------
 |  < SELECT:      "select" >
 |  < DISTINCT:    "distinct" >

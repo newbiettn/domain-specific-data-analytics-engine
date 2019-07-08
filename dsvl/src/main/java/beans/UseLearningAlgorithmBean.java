@@ -14,7 +14,7 @@ public class UseLearningAlgorithmBean extends ObjectBean{
     public static int count = 0;
     public UseLearningAlgorithmBean(ArrayList<Pair<String, Class>> outputs) {
         super(count++, outputs);
-        this.sparqlValue = "USING LEARNING ALGORITHM";
+        this.sparqlValue = "WITH LEARNING ALGORITHM";
         this.maxOutputConn = 1;
         this.maxInputConn = 0;
         this.minOutputConn = 1;

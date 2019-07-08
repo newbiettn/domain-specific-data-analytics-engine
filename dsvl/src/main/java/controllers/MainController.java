@@ -21,17 +21,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.scene.web.PopupFeatures;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import parsing.ParseTree;
 import service.MainControllerService;
 import skins.*;
 import javafx.util.Pair;
@@ -245,11 +249,9 @@ public class MainController {
     private void addPredictNode() {
         // Predict node
         ArrayList<Pair<String, Class>> predictOutputs = new ArrayList<>();
-//        predictOutputs.add(new Pair<>("", EpisodeNodeBean.class));
-//        predictOutputs.add(new Pair<>("", PatientNodeBean.class));
         predictOutputs.add(new Pair<>("", TargetNodeBean.class));
         predictOutputs.add(new Pair<>("", FeatureNodeBean.class));
-        predictOutputs.add(new Pair<>("", UsePredictiveModelBean.class));
+        predictOutputs.add(new Pair<>("", UseLearningAlgorithmBean.class));
         predictOutputs.add(new Pair<>("", ContextNodeBean.class));
         VNode predictNode = flow.newNode();
         predictNode.getValueObject().setValue(new PredictNodeBean(predictOutputs));
@@ -457,6 +459,21 @@ public class MainController {
         flow.setSkinFactories(skinFactory);
     }
 
+    public void createPerformanceResultPopupTable(){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setResizable(true);
+        dialog.setTitle("Performance Result");
+        dialog.setHeight(250);
+        DialogPane pane = new DialogPane();
+        pane.setPrefWidth(370);
+        pane.getButtonTypes().add(ButtonType.CLOSE);
+        TableView<ObservableList<StringProperty>> table = new TableView<>();
+        service.populateTablePerformanceResult(table, true);
+        pane.setContent(table);
+        dialog.setDialogPane(pane);
+        dialog.showAndWait();
+    }
+
     @FXML
     private void testFlow() throws ExecutionException, InterruptedException {
         service.setFlow(flow);
@@ -485,9 +502,13 @@ public class MainController {
             loadingDialog.setResult(Boolean.TRUE);
             loadingDialog.hide();
             try {
-                if (task.get())
+                if (task.get()) {
                     service.populateTable(table, true);
-                else
+                    int parseTreeType = service.getParseTreeType();
+                    if (parseTreeType == ParseTree.PREDICT_TREE){
+                        createPerformanceResultPopupTable();
+                    }
+                } else
                     service.emptyTable(table);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();

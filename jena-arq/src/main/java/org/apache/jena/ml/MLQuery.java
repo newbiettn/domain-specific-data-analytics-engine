@@ -52,6 +52,7 @@ public class MLQuery extends Prologue{
     private String modelFileName;
     private Var targetName;
     private String learningAlgorithmName;
+    private boolean interpretability;
 
     // ---- PREDICT --------------------------------------------------------
     Element filterEle;
@@ -62,6 +63,22 @@ public class MLQuery extends Prologue{
 
     public void setFilterEle(Element filterEle) {
         this.filterEle = filterEle;
+    }
+
+    /**
+     * Get interpretability.
+     * @return
+     */
+    public boolean isInterpretability() {
+        return interpretability;
+    }
+
+    /**
+     * Set interpretability
+     * @param interpretability
+     */
+    public void setInterpretability(boolean interpretability) {
+        this.interpretability = interpretability;
     }
 
     /**

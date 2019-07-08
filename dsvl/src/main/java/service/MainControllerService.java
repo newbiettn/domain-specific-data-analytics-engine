@@ -29,7 +29,6 @@ import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.apache.jena.sparql.syntax.ElementFilter;
 import org.apache.jena.sparql.util.FmtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,13 +41,8 @@ import weka.core.converters.CSVLoader;
 import weka.core.converters.CSVSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Reorder;
-
-import java.awt.*;
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -73,6 +67,7 @@ public class MainControllerService {
     private String testArffFilename;
     private String resultFilename;
     private String processFilename;
+    private String performanceResultFileName;
 
     public MainControllerService(WebView wv, TabPane tp){
         webView = wv;
@@ -85,8 +80,14 @@ public class MainControllerService {
         trainingDataFilepath = propGetter.getProperty("sparqlml.training.data.filepath");
         processFilepath = propGetter.getProperty("sparqlml.dm.process.filepath");
         testArffFilename = testDataFilepath + "test_dataset.arff";
+        performanceResultFileName = propGetter.getProperty("sparqlml.result.filepath") + "performanceResult.csv";
     }
 
+    public int getParseTreeType(){
+        ParseTree pt = new ParseTree();
+        int type = pt.parse(flow); // Parse the flow to parse tree
+        return type;
+    }
     /**
      * Wrapper method for execute all kinds of query.
      *
@@ -112,8 +113,8 @@ public class MainControllerService {
                 else if (type == ParseTree.PREDICT_TREE) {
                     ParseTree ptCPM = new ParseTree();
                     ptCPM.parse(flow);
-                    logger.info("A fabricated query \n"+ ptCPM.fabricateInterpretingCPM());
-                    execCreatePredictionModelQuery(sparqlQuery);
+                    String queryCPM = ptCPM.fabricateInterpretingCPM();
+                    execCreatePredictionModelQuery(queryCPM);
                     execResult = execPredictQuery(sparqlQuery);
                 }
                 if (execResult) { // Run query to retrieve data
@@ -143,7 +144,13 @@ public class MainControllerService {
         ArrayList<Var> featureVars = q.getFeatureVars();
         Var tVar = q.setTargetName();
         String modelName = q.getModelFileName();
-        ElementFilter filterEl = (ElementFilter)q.getFilterEle();
+        String learningAlgorithmName = q.getLearningAlgorithmName();
+        boolean interpretability = false;
+        if (learningAlgorithmName != null) {
+            if (learningAlgorithmName.equals("j48"))
+                interpretability = true;
+        }
+
 
         // Create SELECT query
         Query selectQuery = QueryFactory.make() ;
@@ -196,7 +203,8 @@ public class MainControllerService {
             if (compareTestAndTraining()){ // Verify if training & test sets are compatible
                 // Predicting
                 processFilename = processFilepath + "process_" + modelName + ".kf";
-                Instances instanceResult = Trainer.getSingleton().predictForSPARQL(processFilename, testArffFilename);
+                Map<String, Object> r = Trainer.getSingleton().predictForSPARQL(processFilename, testArffFilename, interpretability);
+                Instances instanceResult = (Instances)r.get("predictionResults");
                 int numCols = instanceResult.numAttributes();
                 for (int col = 0; col < numCols; col++){
                     Attribute attribute = instanceResult.attribute(col);
@@ -220,6 +228,32 @@ public class MainControllerService {
                 csvSaver.setFile(new File(resultFilename));
                 csvSaver.setInstances(instanceResult);
                 csvSaver.writeBatch();
+
+
+                // Performance results
+                Map<String, Object> performanceResults= (Map<String, Object>) r.get("performanceResults");
+                StringBuilder perfResult = new StringBuilder();
+                perfResult.append("Metric,Result").append("\n");
+                perfResult.append("weightedAreaUnderROC,").append(performanceResults.get("weightedAreaUnderROC")).append("\n");
+                perfResult.append("weightedFMeasure,").append(performanceResults.get("weightedFMeasure")).append("\n");
+                perfResult.append("weightedPrecision,").append(performanceResults.get("weightedPrecision")).append("\n");
+                perfResult.append("weightedRecall,").append(performanceResults.get("weightedRecall")).append("\n");
+                perfResult.append("errorRate,").append(performanceResults.get("errorRate"));
+
+                FileWriter fw = null;
+                try {
+                    fw = new FileWriter(
+                            performanceResultFileName,
+                            false);
+                } catch (IOException e) {
+                    logger.error(e.getMessage());
+                }
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter out = new PrintWriter(bw);
+                out.print(perfResult.toString());
+                out.close();
+
+
                 return true;
             } else {
                 logger.warn("Training and test sets are not compatible");
@@ -245,6 +279,14 @@ public class MainControllerService {
             ArrayList<Var> featureVars = q.getFeatureVars();
             Var tVar = q.setTargetName();
             String modelName = q.getModelFileName();
+            String learningAlgorithmName = q.getLearningAlgorithmName();
+            boolean interpretabiity = false;
+            if (learningAlgorithmName != null){
+                if (learningAlgorithmName.equals("j48")){
+                    interpretabiity = true;
+                }
+            }
+            System.out.println(learningAlgorithmName);
 
             Query selectQuery = QueryFactory.make() ;
             selectQuery.setQuerySelectType() ;
@@ -316,7 +358,10 @@ public class MainControllerService {
                 saver.setFile(new File(trainingArffFilename));
                 saver.writeBatch();
 
-                Trainer.getSingleton().executeForSPARQLML(trainingArffFilename, modelName, "asdfdsf");
+                Trainer.getSingleton().executeForSPARQLML(trainingArffFilename,
+                        modelName,
+                        learningAlgorithmName,
+                        interpretabiity);
 
                 // Display result
                 StringBuilder r = new StringBuilder();
@@ -458,12 +503,40 @@ public class MainControllerService {
     }
 
     /**
-     * Populate the table with data retrieve from urSpec.
+     * Wrapper for populateTable.
      *
      * @param table
      * @param hasHeader
      */
     public void populateTable(
+            final TableView<ObservableList<StringProperty>> table,
+            final boolean hasHeader) {
+        populateTable(resultFilename, table, hasHeader);
+    }
+
+    /**
+     * Wrapper for populateTable.
+     *
+     * @param table
+     * @param hasHeader
+     */
+    public void populateTablePerformanceResult(
+            final TableView<ObservableList<StringProperty>> table,
+            final boolean hasHeader) {
+        populateTable(performanceResultFileName, table, hasHeader);
+    }
+
+
+
+    /**
+     * Populate the table with data retrieved from results.
+     *
+     * @param dataFileName
+     * @param table
+     * @param hasHeader
+     */
+    public void populateTable(
+            String dataFileName,
             final TableView<ObservableList<StringProperty>> table,
             final boolean hasHeader) {
         table.getItems().clear();
@@ -472,7 +545,7 @@ public class MainControllerService {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                BufferedReader in = new BufferedReader(new FileReader(resultFilename));
+                BufferedReader in = new BufferedReader(new FileReader(dataFileName));
                 // Header line
                 if (hasHeader) {
                     final String headerLine = in.readLine();

@@ -82,13 +82,20 @@ public class ExML1 {
                 "?e diab:hasDeceased ?d." +
                 "FILTER (?admissionNumber = 1)." +
                 "} " +
-//                "USE LEARNING ALGORITHM 'j48'" +
+                "WITH LEARNING ALGORITHM 'j48'" +
                 "SAVE MODEL 'modelName'";
         MLQuery q = MLQueryFactory.create(queryString);
         ArrayList<Var> featureVars = q.getFeatureVars();
         Var tVar = q.setTargetName();
         String modelName = q.getModelFileName();
         String learningAlgorithmName = q.getLearningAlgorithmName();
+        boolean interpretabiity = false;
+        if (learningAlgorithmName != null){
+            if (learningAlgorithmName.equals("j48")){
+                interpretabiity = true;
+            }
+        }
+        System.out.println(learningAlgorithmName);
 
         Query selectQuery = QueryFactory.make();
         selectQuery.setQuerySelectType();
@@ -142,7 +149,10 @@ public class ExML1 {
             saver.setFile(new File(trainingArff));
             saver.writeBatch();
 
-            Trainer.getSingleton().executeForSPARQLML(trainingArff, modelName, learningAlgorithmName);
+            Trainer.getSingleton().executeForSPARQLML(trainingArff,
+                                                        modelName,
+                                                        learningAlgorithmName,
+                                                        interpretabiity);
         } catch (Exception e) {
             e.printStackTrace();
         }

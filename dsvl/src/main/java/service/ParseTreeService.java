@@ -173,7 +173,7 @@ public class ParseTreeService {
             sparqlQuery.append(NL);
         }
 
-        if (root.getChildren().size() == 3) {
+        if (root.getChildren().size() == 3 || root.getChildren().size() == 4) {
             Node targetNode = findNode(root, TargetNodeBean.class);
             if (targetNode != null) {
                 interpretTargetNode(root, targetNode, depth + 1);
@@ -197,6 +197,13 @@ public class ParseTreeService {
                 interpretWHERE(root, contextChildrenNode, depth + 1);
             } else {
                 logger.info("Require domain-specific objects to predict");
+            }
+
+            Node useLearningAlgorithmNode = findNode(root, UseLearningAlgorithmBean.class);
+            if (useLearningAlgorithmNode != null) {
+                interpretUseLearningAlgorithmNode(root, useLearningAlgorithmNode, depth + 1);
+            } else {
+                logger.info("No specification for learning algorithm model");
             }
 
             sparqlQuery.append(NL)
@@ -242,7 +249,7 @@ public class ParseTreeService {
             sparqlQuery.append(objectBean.getSparqlValue());
             sparqlQuery.append(NL);
         }
-        if (root.getChildren().size() == 3) {
+        if (root.getChildren().size() == 3 || root.getChildren().size() == 4) {
             Node targetNode = findNode(root, TargetNodeBean.class);
             if (targetNode != null) {
                 interpretTargetNode(root, targetNode, depth + 1);
@@ -268,6 +275,13 @@ public class ParseTreeService {
                 logger.info("Require domain-specific objects to predict");
             }
 
+            Node useLearningAlgorithmNode = findNode(root, UseLearningAlgorithmBean.class);
+            if (useLearningAlgorithmNode != null) {
+                interpretUseLearningAlgorithmNode(root, useLearningAlgorithmNode, depth + 1);
+            } else {
+                logger.info("No specification for learning algorithm model");
+            }
+
             sparqlQuery.append(NL)
                     .append("USE MODEL")
                     .append(SPACE)
@@ -275,6 +289,7 @@ public class ParseTreeService {
                     .append(TEMP_PREDICTIVE_MODEL)
                     .append(QUOTATION_MARK);
 
+        } else if (root.getChildren().size() == 4) {
         } else {
             logger.warn("Require FEATURE/TARGET/OBJECT/USE PREDICTIVE MODEL nodes");
         }
@@ -343,6 +358,14 @@ public class ParseTreeService {
 
             }
 
+            Node useLearningAlgorithmNode = findNode(root, UseLearningAlgorithmBean.class);
+            if (useLearningAlgorithmNode != null) {
+                sparqlQuery.append(NL);
+                interpretUseLearningAlgorithmNode(root, useLearningAlgorithmNode, depth + 1);
+            } else {
+                logger.info("No specification for learning algorithm model");
+            }
+
             // SAVE PREDICTIVE MODEL node
             Node savePredictiveModelNode = findNode(root, SavePredictiveModelBean.class);
             if (savePredictiveModelNode != null){
@@ -354,6 +377,22 @@ public class ParseTreeService {
         } else {
             logger.warn("Require FEATURE/TARGET/OBJECT/SAVE PREDICTIVE MODEL nodes");
         }
+    }
+
+    /**
+     * Interpret TARGET clause.
+     *
+     * @param root
+     * @param node
+     * @param depth
+     */
+    private void interpretUseLearningAlgorithmNode(Node root, Node node, int depth) {
+        if (node == null)
+            return;
+
+        UseLearningAlgorithmBean useLearningAlgorithmBean = (UseLearningAlgorithmBean) node.getVNode().getValueObject().getValue();
+        sparqlQuery.append(NL);
+        sparqlQuery.append(useLearningAlgorithmBean.getSparqlValue());
     }
 
     /**
