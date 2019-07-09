@@ -2,49 +2,30 @@ package controllers;
 
 import beans.*;
 
-import config.Condition;
-import config.DataType;
-import config.Operator;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import io.CustomWorkflowIO;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
-import javafx.scene.text.Text;
-import javafx.scene.web.PopupFeatures;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parsing.ParseTree;
 import service.MainControllerService;
 import skins.*;
 import javafx.util.Pair;
-
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.*;
 
@@ -65,6 +46,7 @@ public class MainController {
     private Pane rootPane;
     private TableView<ObservableList<StringProperty>> table = new TableView<>();
     private MainControllerService service;
+    private final String D2RQ_URL = "http://localhost:2020/directory/Patient";
 
     public Stage getStage() {
         return stage;
@@ -160,6 +142,7 @@ public class MainController {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // No horizontal scroll
 
         service = new MainControllerService(webView, tabPane);
+        webView.getEngine().load(D2RQ_URL);
     }
 
     @FXML
@@ -291,9 +274,9 @@ public class MainController {
         ConnectionResult cr2 = flow.connect(predictOutputConnector, featureInputConnector);
         ConnectionResult cr3 = flow.connect(predictOutputConnector, contextInputConnector);
 
-        cr1.getConnection().setName("hasTarget");
-        cr2.getConnection().setName("hasFeature");
-        cr3.getConnection().setName("hasContext");
+//        cr1.getConnection().setName("hasTarget");
+//        cr2.getConnection().setName("hasFeature");
+//        cr3.getConnection().setName("hasContext");
 
         predictNode.setX(100);
         predictNode.setY(150);
@@ -472,6 +455,20 @@ public class MainController {
         pane.setContent(table);
         dialog.setDialogPane(pane);
         dialog.showAndWait();
+    }
+
+    @FXML
+    public void goBack(){
+        Platform.runLater(() -> {
+            webView.getEngine().executeScript("history.back()");
+        });
+    }
+
+    @FXML
+    public void goNext(){
+        Platform.runLater(() -> {
+            webView.getEngine().executeScript("history.forward()");
+        });
     }
 
     @FXML
