@@ -1,6 +1,6 @@
 Metric,Result
-weightedAreaUnderROC,0.5678519934067688
-weightedFMeasure,0.6754804446033639
-weightedPrecision,0.7142427507795314
-weightedRecall,0.7717663817663818
-errorRate,0.22823361823361824
+weightedAreaUnderROC,0.5936218330707457
+weightedFMeasure,0.6754411625599592
+weightedPrecision,0.7405794381841703
+weightedRecall,0.7723076923076924
+errorRate,0.2276923076923077

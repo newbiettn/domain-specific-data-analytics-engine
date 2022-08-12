@@ -1,0 +1,415 @@
+@startuml
+
+title __MAP's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.ClassMap {
+            - classes : Collection<Resource>
+            - compiledPropertyBridges : Collection<TripleRelation>
+            - database : Database
+            - log : Log
+            - propertyBridges : Collection<PropertyBridge>
+            - resource : Resource
+            + ClassMap()
+            + addClass()
+            + addPropertyBridge()
+            + compiledPropertyBridges()
+            + database()
+            + getClasses()
+            + hasProperties()
+            + propertyBridges()
+            + resource()
+            + setDatabase()
+            + toString()
+            + validate()
+            # buildRelation()
+            - compile()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Configuration {
+            - serveVocabulary : boolean
+            - useAllOptimizations : boolean
+            + Configuration()
+            + Configuration()
+            + getServeVocabulary()
+            + getUseAllOptimizations()
+            + setServeVocabulary()
+            + setUseAllOptimizations()
+            + toString()
+            + validate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Database {
+            {static} + NO_FETCH_SIZE : int
+            {static} + NO_LIMIT : int
+            - columnTypes : Map<String, GenericType>
+            - connection : ConnectedDB
+            - connectionProperties : Properties
+            - fetchSize : int
+            - jdbcDSN : String
+            - jdbcDriver : String
+            - limit : int
+            - password : String
+            - startupSQLScript : String
+            - username : String
+            + Database()
+            + addBinaryColumn()
+            + addBitColumn()
+            + addBooleanColumn()
+            + addDateColumn()
+            + addIntervalColumn()
+            + addNumericColumn()
+            + addTextColumn()
+            + addTimeColumn()
+            + addTimestampColumn()
+            + connectedDB()
+            + getFetchSize()
+            + getJDBCDSN()
+            + getJDBCDriver()
+            + getPassword()
+            + getResultSizeLimit()
+            + getUsername()
+            + setConnectionProperty()
+            + setFetchSize()
+            + setJDBCDSN()
+            + setJDBCDriver()
+            + setPassword()
+            + setResultSizeLimit()
+            + setStartupSQLScript()
+            + setUsername()
+            + toString()
+            + useConnectedDB()
+            + validate()
+            - checkNotConnected()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.DownloadMap {
+            - belongsToClassMap : ClassMap
+            - contentDownloadColumn : Attribute
+            - database : Database
+            {static} - log : Log
+            - mediaType : String
+            + DownloadMap()
+            + getContentDownloadColumn()
+            + getMediaTypeValueMaker()
+            + getRelation()
+            + setBelongsToClassMap()
+            + setContentDownloadColumn()
+            + setDatabase()
+            + setMediaType()
+            + validate()
+            # buildRelation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        abstract class de.fuberlin.wiwiss.d2rq.map.MapObject {
+            - resource : Resource
+            + MapObject()
+            + resource()
+            + toString()
+            {abstract} + validate()
+            # assertArgumentNotNull()
+            # assertHasBeenDefined()
+            # assertNotYetDefined()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Mapping {
+            - classMaps : Map<Resource, ClassMap>
+            - compiledPropertyBridges : Collection<TripleRelation>
+            - configuration : Configuration
+            - connected : boolean
+            - databases : Map<Resource, Database>
+            - downloadMaps : Map<Resource, DownloadMap>
+            {static} - log : Log
+            - mappingResource : Resource
+            - model : Model
+            - prefixes : PrefixMapping
+            - translationTables : Map<Resource, TranslationTable>
+            - vocabularyModel : Model
+            + Mapping()
+            + Mapping()
+            + addClassMap()
+            + addDatabase()
+            + addDownloadMap()
+            + addTranslationTable()
+            + buildVocabularyModel()
+            + classMap()
+            + classMapResources()
+            + close()
+            + compiledPropertyBridges()
+            + configuration()
+            + connect()
+            + database()
+            + databases()
+            + downloadMap()
+            + downloadMapResources()
+            + getPrefixMapping()
+            + getVocabularyModel()
+            + resource()
+            + setConfiguration()
+            + translationTable()
+            + validate()
+            - addDefinitions()
+            - compilePropertyBridges()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Mapping.AttributeTypeValidator {
+            - relation : Relation
+            ~ AttributeTypeValidator()
+            ~ validate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.PropertyBridge {
+            - belongsToClassMap : ClassMap
+            - dynamicPropertyPatterns : Collection<String>
+            - properties : Collection<Resource>
+            - resource : Resource
+            + PropertyBridge()
+            + addDynamicProperty()
+            + addProperty()
+            + getBelongsToClassMap()
+            + getColumn()
+            + getDatatype()
+            + getLang()
+            + getLimit()
+            + getLimitInverse()
+            + getPattern()
+            + getRefersToClassMap()
+            + getSQLExpression()
+            + getUriSQLExpression()
+            + properties()
+            + refersToClassMap()
+            + resource()
+            + setBelongsToClassMap()
+            + setColumn()
+            + setDatatype()
+            + setLang()
+            + setLimit()
+            + setLimitInverse()
+            + setOrder()
+            + setPattern()
+            + setRefersToClassMap()
+            + setSQLExpression()
+            + toString()
+            + toTripleRelations()
+            + validate()
+            # buildRelation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.PropertyMap {
+            - database : Database
+            + PropertyMap()
+            + toString()
+            + validate()
+            # buildRelation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        abstract class de.fuberlin.wiwiss.d2rq.map.ResourceMap {
+            # aliases : Collection<String>
+            # bNodeIdColumns : String
+            # column : String
+            # conditions : Collection<String>
+            # constantValue : RDFNode
+            # containsDuplicates : boolean
+            # datatype : String
+            # joins : Collection<String>
+            # lang : String
+            # limit : Integer
+            # limitInverse : Integer
+            # order : String
+            # orderDesc : Boolean
+            # pattern : String
+            # refersToClassMap : ClassMap
+            # sqlExpression : String
+            # translateWith : TranslationTable
+            # uriColumn : String
+            # uriPattern : String
+            # uriSqlExpression : String
+            # valueContainses : Collection<String>
+            # valueMaxLength : int
+            # valueRegexes : Collection<String>
+            ~ additionalDefinitionProperties : Collection<Resource>
+            ~ definitionComments : Collection<Literal>
+            ~ definitionLabels : Collection<Literal>
+            - cachedNodeMaker : NodeMaker
+            - cachedRelation : Relation
+            + ResourceMap()
+            + addAlias()
+            + addCondition()
+            + addDefinitionComment()
+            + addDefinitionLabel()
+            + addDefinitionProperty()
+            + addJoin()
+            + addValueContains()
+            + addValueRegex()
+            + buildAliasedNodeMaker()
+            + getAdditionalDefinitionProperties()
+            + getDefinitionComments()
+            + getDefinitionLabels()
+            + nodeMaker()
+            + relation()
+            + relationBuilder()
+            + setBNodeIdColumns()
+            + setConstantValue()
+            + setContainsDuplicates()
+            + setTranslateWith()
+            + setURIColumn()
+            + setURIPattern()
+            + setUriSQLExpression()
+            + setValueMaxLength()
+            + wrapValueSource()
+            # assertHasPrimarySpec()
+            {abstract} # buildRelation()
+            - aliases()
+            - buildDatatype()
+            - buildNodeMaker()
+            - buildNodeMaker()
+            - buildValueSourceBase()
+            - hasPrimarySpec()
+            - nodeType()
+            - parseColumnList()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.TranslationTable {
+            - href : String
+            - javaClass : String
+            - translations : Collection<Translation>
+            + TranslationTable()
+            + addTranslation()
+            + setHref()
+            + setJavaClass()
+            + size()
+            + toString()
+            + translator()
+            + validate()
+            - checkTranslatorClassImplementation()
+            - hasConstructorWithArg()
+            - hasConstructorWithoutArg()
+            - implementsTranslator()
+            - instantiateJavaClass()
+            - invokeConstructorWithArg()
+            - invokeConstructorWithoutArg()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.TranslationTable.TableTranslator {
+            - translationsByDBValue : Map<String, Translation>
+            - translationsByRDFValue : Map<String, Translation>
+            + toDBValue()
+            + toRDFValue()
+            ~ TableTranslator()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.TranslationTable.Translation {
+            - dbValue : String
+            - rdfValue : String
+            + Translation()
+            + dbValue()
+            + equals()
+            + hashCode()
+            + rdfValue()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.map.Mapping +-down- de.fuberlin.wiwiss.d2rq.map.Mapping.AttributeTypeValidator
+  de.fuberlin.wiwiss.d2rq.map.TranslationTable +-down- de.fuberlin.wiwiss.d2rq.map.TranslationTable.TableTranslator
+  de.fuberlin.wiwiss.d2rq.map.TranslationTable +-down- de.fuberlin.wiwiss.d2rq.map.TranslationTable.Translation
+  de.fuberlin.wiwiss.d2rq.map.TranslationTable.TableTranslator .up.|> Translator
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

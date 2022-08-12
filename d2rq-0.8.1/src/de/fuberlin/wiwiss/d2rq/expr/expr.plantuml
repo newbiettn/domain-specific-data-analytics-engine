@@ -1,0 +1,391 @@
+@startuml
+
+title __EXPR's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Add {
+            + Add()
+            + equals()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.AttributeExpr {
+            - attribute : Attribute
+            + AttributeExpr()
+            + attributes()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        abstract class de.fuberlin.wiwiss.d2rq.expr.BinaryOperator {
+            # expr1 : Expression
+            # expr2 : Expression
+            # operator : String
+            - columns : Set<Attribute>
+            + attributes()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + toSQL()
+            + toString()
+            # BinaryOperator()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.BooleanToIntegerCaseExpression {
+            - base : Expression
+            + BooleanToIntegerCaseExpression()
+            + attributes()
+            + equals()
+            + getBase()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Concatenation {
+            - attributes : Set<Attribute>
+            - parts : List<Expression>
+            + attributes()
+            {static} + create()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            - Concatenation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Conjunction {
+            - attributes : Set<Attribute>
+            - expressions : Set<Expression>
+            + attributes()
+            {static} + create()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            - Conjunction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Constant {
+            - attributeForTrackingType : Attribute
+            - value : String
+            + Constant()
+            + Constant()
+            + attributes()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            + value()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Disjunction {
+            - attributes : Set<Attribute>
+            - expressions : Set<Expression>
+            + attributes()
+            {static} + create()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            - Disjunction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Divide {
+            + Divide()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Equality {
+            - columns : Set<Attribute>
+            - expr1 : Expression
+            - expr2 : Expression
+            + attributes()
+            {static} + create()
+            {static} + createAttributeEquality()
+            {static} + createAttributeValue()
+            {static} + createExpressionValue()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            - Equality()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        abstract class de.fuberlin.wiwiss.d2rq.expr.Expression {
+            {static} + FALSE : Expression
+            {static} + TRUE : Expression
+            + and()
+            {abstract} + attributes()
+            {abstract} + isFalse()
+            {abstract} + isTrue()
+            + or()
+            {abstract} + renameAttributes()
+            {abstract} + toSQL()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.GreaterThan {
+            + GreaterThan()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.GreaterThanOrEqual {
+            + GreaterThanOrEqual()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.LessThan {
+            + LessThan()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.LessThanOrEqual {
+            + LessThanOrEqual()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Multiply {
+            + Multiply()
+            + equals()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Negation {
+            - base : Expression
+            + Negation()
+            + attributes()
+            + getBase()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.NotNull {
+            - expr : Expression
+            + attributes()
+            {static} + create()
+            + equals()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            - NotNull()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.SQLExpression {
+            - columns : Set<Attribute>
+            - expression : String
+            + attributes()
+            {static} + create()
+            + equals()
+            + getExpression()
+            + hashCode()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+            - SQLExpression()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Subtract {
+            + Subtract()
+            + renameAttributes()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.UnaryMinus {
+            - base : Expression
+            + UnaryMinus()
+            + attributes()
+            + getBase()
+            + isFalse()
+            + isTrue()
+            + renameAttributes()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

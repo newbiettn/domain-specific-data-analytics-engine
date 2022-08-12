@@ -1,0 +1,320 @@
+@startuml
+
+title __NODES's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.DetermineNodeType {
+            - datatype : RDFDatatype
+            - language : String
+            - limitedToBlankNodes : boolean
+            - limitedToLiterals : boolean
+            - limitedToURIs : boolean
+            - logger : Log
+            + getDatatype()
+            + getLanguage()
+            + isLimittedToBlankNodes()
+            + isLimittedToLiterals()
+            + isLimittedToURIs()
+            + limitTo()
+            + limitToBlankNodes()
+            + limitToEmptySet()
+            + limitToLiterals()
+            + limitToURIs()
+            + limitValues()
+            + limitValuesToAttribute()
+            + limitValuesToBlankNodeID()
+            + limitValuesToExpression()
+            + limitValuesToPattern()
+            + setUsesTranslator()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.FixedNodeMaker {
+            - isUnique : boolean
+            - node : Node
+            + FixedNodeMaker()
+            + describeSelf()
+            + isUnique()
+            + makeNode()
+            + orderSpecs()
+            + projectionSpecs()
+            + renameAttributes()
+            + selectNode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        interface de.fuberlin.wiwiss.d2rq.nodes.NodeMaker {
+            {static} + EMPTY : NodeMaker
+            {abstract} + describeSelf()
+            {abstract} + isUnique()
+            {abstract} + makeNode()
+            {abstract} + orderSpecs()
+            {abstract} + projectionSpecs()
+            {abstract} + renameAttributes()
+            {abstract} + selectNode()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.NodeSetConstraintBuilder {
+            {static} - NODE_TYPE_BLANK : int
+            {static} - NODE_TYPE_LITERAL : int
+            {static} - NODE_TYPE_UNKNOWN : int
+            {static} - NODE_TYPE_URI : int
+            - attributes : Collection<Attribute>
+            - blankNodeIDs : Collection<BlankNodeID>
+            - constantDatatype : RDFDatatype
+            - constantLanguage : String
+            - constantValue : String
+            - expressions : Collection<Expression>
+            - fixedNode : Node
+            - isEmpty : boolean
+            {static} - log : Log
+            - patterns : Collection<Pattern>
+            - translators : Set<Translator>
+            - type : int
+            - unsupported : boolean
+            - valueEnd : String
+            - valueStart : String
+            + constraint()
+            + isEmpty()
+            + isUnsupported()
+            + limitTo()
+            + limitToBlankNodes()
+            + limitToEmptySet()
+            + limitToLiterals()
+            + limitToURIs()
+            + limitValues()
+            + limitValuesToAttribute()
+            + limitValuesToBlankNodeID()
+            + limitValuesToExpression()
+            + limitValuesToPattern()
+            + setUsesTranslator()
+            - checkUsesColumnFunctions()
+            - limitToNodeType()
+            - matchBlankNodeIDs()
+            - matchPatterns()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        interface de.fuberlin.wiwiss.d2rq.nodes.NodeSetFilter {
+            {abstract} + limitTo()
+            {abstract} + limitToBlankNodes()
+            {abstract} + limitToEmptySet()
+            {abstract} + limitToLiterals()
+            {abstract} + limitToURIs()
+            {abstract} + limitValues()
+            {abstract} + limitValuesToAttribute()
+            {abstract} + limitValuesToBlankNodeID()
+            {abstract} + limitValuesToExpression()
+            {abstract} + limitValuesToPattern()
+            {abstract} + setUsesTranslator()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker {
+            {static} + BLANK : NodeType
+            {static} + PLAIN_LITERAL : NodeType
+            {static} + URI : NodeType
+            {static} + XSD_BOOLEAN : NodeType
+            {static} + XSD_DATE : NodeType
+            {static} + XSD_DATETIME : NodeType
+            {static} + XSD_TIME : NodeType
+            - isUnique : boolean
+            - valueMaker : ValueMaker
+            + TypedNodeMaker()
+            + describeSelf()
+            + isUnique()
+            {static} + languageLiteral()
+            + makeNode()
+            + orderSpecs()
+            + projectionSpecs()
+            + renameAttributes()
+            + selectNode()
+            + toString()
+            {static} + typedLiteral()
+            + valueMaker()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.BlankNodeType {
+            + extractValue()
+            + makeNode()
+            + matchConstraint()
+            + matches()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.BooleanLiteralNodeType {
+            {static} - FALSE : Node
+            {static} - TRUE : Node
+            + makeNode()
+            + matches()
+            ~ BooleanLiteralNodeType()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.DateLiteralNodeType {
+            + makeNode()
+            + matches()
+            ~ DateLiteralNodeType()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.DateTimeLiteralNodeType {
+            + makeNode()
+            + matches()
+            ~ DateTimeLiteralNodeType()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType {
+            - datatype : RDFDatatype
+            - language : String
+            + extractValue()
+            + makeNode()
+            + matchConstraint()
+            + matches()
+            + toString()
+            ~ LiteralNodeType()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        interface de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType {
+            {abstract} + extractValue()
+            {abstract} + makeNode()
+            {abstract} + matchConstraint()
+            {abstract} + matches()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.TimeLiteralNodeType {
+            + makeNode()
+            + matches()
+            ~ TimeLiteralNodeType()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.URINodeType {
+            + extractValue()
+            + makeNode()
+            + matchConstraint()
+            + matches()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.nodes.DetermineNodeType .up.|> NodeSetFilter
+  de.fuberlin.wiwiss.d2rq.nodes.FixedNodeMaker .up.|> NodeMaker
+  de.fuberlin.wiwiss.d2rq.nodes.NodeSetConstraintBuilder .up.|> NodeSetFilter
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker .up.|> NodeMaker
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker o-- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType : nodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.BlankNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.BooleanLiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.DateLiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.DateTimeLiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.TimeLiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker +-down- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.URINodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.BlankNodeType .up.|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.BooleanLiteralNodeType -up-|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.DateLiteralNodeType -up-|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.DateTimeLiteralNodeType -up-|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType .up.|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.TimeLiteralNodeType -up-|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.LiteralNodeType
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.URINodeType .up.|> de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -1,0 +1,326 @@
+@startuml
+
+title __MAPGEN's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          abstract class de.fuberlin.wiwiss.d2rq.mapgen.Filter {
+              {static} + ALL : Filter
+              {static} + NOTHING : Filter
+              {static} + NULL_MATCHER : IdentifierMatcher
+              {static} + createPatternMatcher()
+              {static} + createStringMatcher()
+              {abstract} + getSingleSchema()
+              + matches()
+              + matches()
+              + matchesAll()
+              {abstract} + matchesColumn()
+              {abstract} + matchesSchema()
+              {abstract} + matchesTable()
+              # sameSchema()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          interface de.fuberlin.wiwiss.d2rq.mapgen.Filter.IdentifierMatcher {
+              {abstract} + getSingleString()
+              {abstract} + matches()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterIncludeExclude {
+              - exclude : Filter
+              - include : Filter
+              + FilterIncludeExclude()
+              + getSingleSchema()
+              + matchesColumn()
+              + matchesSchema()
+              + matchesTable()
+              + toString()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchAny {
+              - elements : Collection<Filter>
+              + FilterMatchAny()
+              {static} + create()
+              + getSingleSchema()
+              + matchesColumn()
+              + matchesSchema()
+              + matchesTable()
+              + toString()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchColumn {
+              - column : IdentifierMatcher
+              - matchParents : boolean
+              - schema : IdentifierMatcher
+              - table : IdentifierMatcher
+              + FilterMatchColumn()
+              + getSingleSchema()
+              + matchesColumn()
+              + matchesSchema()
+              + matchesTable()
+              + toString()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchSchema {
+              - schema : IdentifierMatcher
+              + FilterMatchSchema()
+              + getSingleSchema()
+              + matchesColumn()
+              + matchesSchema()
+              + matchesTable()
+              + toString()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchTable {
+              - matchParents : boolean
+              - schema : IdentifierMatcher
+              - table : IdentifierMatcher
+              + FilterMatchTable()
+              + getSingleSchema()
+              + matchesColumn()
+              + matchesSchema()
+              + matchesTable()
+              + toString()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterParser {
+              - index : int
+              - result : List<List<IdentifierMatcher>>
+              - s : String
+              + FilterParser()
+              + parse()
+              + parseColumnFilter()
+              + parseSchemaFilter()
+              + parseTableFilter()
+              - atEnd()
+              - atFilterTerminator()
+              - atSeparator()
+              - current()
+              - eatSeparators()
+              - inFlags()
+              - inIdentifier()
+              - inRegex()
+              - parseIdentifier()
+              - parseRegex()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterParser.ParseException {
+              + ParseException()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.IRIEncoder {
+              {static} - hexDigits : char[]
+              {static} + encode()
+              {static} - isDigit()
+              {static} - isLetter()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.MappingGenerator {
+              # database : ConnectedDB
+              # instanceNamespaceURI : String
+              # out : PrintWriter
+              # schema : DatabaseSchemaInspector
+              {static} - CREATOR : String
+              {static} - DUMMY_STREAM : OutputStream
+              - assignedNames : Map<String, Object>
+              - driverClass : String
+              - filter : Filter
+              - finished : boolean
+              - generateClasses : boolean
+              - generateDefinitionLabels : boolean
+              - generateLabelBridges : boolean
+              - handleLinkTables : boolean
+              {static} - log : Logger
+              - mapNamespaceURI : String
+              - serveVocabulary : boolean
+              - skipForeignKeyTargetColumns : boolean
+              - startupSQLScript : URI
+              {static} - turtleLocalName : Pattern
+              - vocabModel : Model
+              - vocabNamespaceURI : String
+              + MappingGenerator()
+              + isLinkTable()
+              + mappingModel()
+              + setFilter()
+              + setGenerateClasses()
+              + setGenerateDefinitionLabels()
+              + setGenerateLabelBridges()
+              + setHandleLinkTables()
+              + setInstanceNamespaceURI()
+              + setJDBCDriverClass()
+              + setMapNamespaceURI()
+              + setServeVocabulary()
+              + setSkipForeignKeyTargetColumns()
+              + setStartupSQLScript()
+              + setVocabNamespaceURI()
+              + vocabularyModel()
+              + writeColumn()
+              + writeForeignKey()
+              + writeLabelBridge()
+              + writeMapping()
+              + writeMapping()
+              + writeTable()
+              # filter()
+              # vocabularyIRITurtle()
+              # vocabularyIRITurtle()
+              # vocabularyIRITurtle()
+              # writeEntityIdentifier()
+              # writePseudoEntityIdentifier()
+              - classMapIRITurtle()
+              - classResource()
+              - configIRITurtle()
+              - createDatatypeProperty()
+              - createLinkProperty()
+              - createObjectProperty()
+              - createVocabularyClass()
+              - databaseIRITurtle()
+              - dropTrailingHash()
+              - identifierColumns()
+              - initVocabularyModel()
+              - isInForeignKey()
+              - labelPattern()
+              - ontologyResource()
+              - propertyBridgeIRITurtle()
+              - propertyBridgeIRITurtle()
+              - propertyBridgeIRITurtle()
+              - propertyResource()
+              - propertyResource()
+              - toLabel()
+              - toTurtleIRI()
+              - toUniqueString()
+              - toUniqueString()
+              - toUniqueString()
+              - writeConfiguration()
+              - writeDatabase()
+              - writeLinkTable()
+              - writeWarning()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.W3CMappingGenerator {
+              + W3CMappingGenerator()
+              # vocabularyIRITurtle()
+              # vocabularyIRITurtle()
+              # vocabularyIRITurtle()
+              # writeEntityIdentifier()
+              # writePseudoEntityIdentifier()
+              - encodeColumnName()
+              - encodeTableName()
+          }
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.mapgen.Filter +-down- de.fuberlin.wiwiss.d2rq.mapgen.Filter.IdentifierMatcher
+  de.fuberlin.wiwiss.d2rq.mapgen.FilterParser +-down- de.fuberlin.wiwiss.d2rq.mapgen.FilterParser.ParseException
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -19,7 +19,7 @@ public class MetafeatureGenerator{
 
 	public static void main(String[] args) throws IOException {
 
-		File folder = new File("tmp");
+		File folder = new File("/Users/newbiettn/Dropbox/Swinburne/Github/R/optimizationV4/baseTrainingDatasetsARFF");
 		File[] files = folder.listFiles();
 
 		Path p = Paths.get("metafeatures.csv");

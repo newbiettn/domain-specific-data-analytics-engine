@@ -1,0 +1,256 @@
+@startuml
+
+title __TYPES's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          abstract class de.fuberlin.wiwiss.d2rq.sql.types.DataType {
+              {static} + log : Log
+              - name : String
+              - sqlSyntax : Vendor
+              + DataType()
+              + isIRISafe()
+              + isUnsupported()
+              + name()
+              + rdfType()
+              + supportsDistinct()
+              + toSQLLiteral()
+              + toString()
+              + value()
+              + valueRegex()
+              # syntax()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          enum GenericType {
+            BINARY
+            BIT
+            BOOLEAN
+            CHARACTER
+            DATE
+            INTERVAL
+            NUMERIC
+            TIME
+            TIMESTAMP
+            jdbcType
+            name
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLApproximateNumeric {
+              + SQLApproximateNumeric()
+              + isIRISafe()
+              + rdfType()
+              + toSQLLiteral()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLBinary {
+              {static} - HEX_DIGITS : char[]
+              - supportsDistinct : boolean
+              + SQLBinary()
+              + isIRISafe()
+              + rdfType()
+              + supportsDistinct()
+              + toSQLLiteral()
+              + value()
+              {static} - toHexString()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLBit {
+              + SQLBit()
+              + isIRISafe()
+              + toSQLLiteral()
+              + valueRegex()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLBoolean {
+              + SQLBoolean()
+              + isIRISafe()
+              + rdfType()
+              + toSQLLiteral()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLCharacterString {
+              - supportsDistinct : boolean
+              + SQLCharacterString()
+              + supportsDistinct()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLDate {
+              {static} - DATE_PATTERN : Pattern
+              + SQLDate()
+              + isIRISafe()
+              + rdfType()
+              + toSQLLiteral()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLExactNumeric {
+              - rdfType : String
+              + SQLExactNumeric()
+              + isIRISafe()
+              + rdfType()
+              + toSQLLiteral()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLInterval {
+              + SQLInterval()
+              + isIRISafe()
+              + toSQLLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLTime {
+              {static} - TIME_PATTERN : Pattern
+              + SQLTime()
+              + isIRISafe()
+              + rdfType()
+              + toSQLLiteral()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLTimestamp {
+              {static} - TIMESTAMP_PATTERN : Pattern
+              + SQLTimestamp()
+              + isIRISafe()
+              + rdfType()
+              + toSQLLiteral()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.UnsupportedDataType {
+              - jdbcType : int
+              + UnsupportedDataType()
+              + isUnsupported()
+              + rdfType()
+              + toSQLLiteral()
+              + toString()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.sql.types.DataType +-down- de.fuberlin.wiwiss.d2rq.sql.types.DataType.GenericType
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -1,0 +1,269 @@
+@startuml
+
+title __D2RQ's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.ClassMapLister {
+          - classMapInventoryBridges : Map<String, List<TripleRelation>>
+          - classMapNodeMakers : Map<String, NodeMaker>
+          {static} - log : Log
+          - mapping : Mapping
+          + ClassMapLister()
+          + classMapInventory()
+          + classMapInventory()
+          + classMapNames()
+          + classMapNamesForResource()
+          - groupTripleRelationsByClassMap()
+          - toClassMapName()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      abstract class de.fuberlin.wiwiss.d2rq.CommandLineTool {
+          - cmd : CommandLine
+          - columnsArg : ArgDecl
+          - debugArg : ArgDecl
+          - driverArg : ArgDecl
+          - loader : SystemLoader
+          {static} - log : Log
+          - maxArguments : int
+          - minArguments : int
+          - passArg : ArgDecl
+          - schemasArg : ArgDecl
+          - skipColumnsArg : ArgDecl
+          - skipSchemasArg : ArgDecl
+          - skipTablesArg : ArgDecl
+          - sqlFileArg : ArgDecl
+          - supportImplicitJdbcURL : boolean
+          - tablesArg : ArgDecl
+          - userArg : ArgDecl
+          - verboseArg : ArgDecl
+          - w3cArg : ArgDecl
+          {abstract} + initArgs()
+          + printConnectionOptions()
+          + printStandardArguments()
+          + process()
+          {static} + reportException()
+          + reportException()
+          {abstract} + run()
+          + setMinMaxArguments()
+          + setSupportImplicitJdbcURL()
+          {abstract} + usage()
+          {static} - withIndirection()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.D2RQException {
+          {static} + CLASSMAP_DUPLICATE_DATABASE : int
+          {static} + CLASSMAP_INVALID_CONSTANTVALUE : int
+          {static} + CLASSMAP_INVALID_DATABASE : int
+          {static} + CLASSMAP_NO_DATABASE : int
+          {static} + CLASSMAP_NO_PROPERTYBRIDGES : int
+          {static} + CONFIG_UNKNOWN_CLASS : int
+          {static} + CONFIG_UNKNOWN_PROPERTY : int
+          {static} + D2RQ_DB_CONNECTION_FAILED : int
+          {static} + D2RQ_SQLEXCEPTION : int
+          {static} + DATABASE_ALREADY_CONNECTED : int
+          {static} + DATABASE_DUPLICATE_JDBCDRIVER : int
+          {static} + DATABASE_DUPLICATE_JDBCDSN : int
+          {static} + DATABASE_DUPLICATE_PASSWORD : int
+          {static} + DATABASE_DUPLICATE_STARTUPSCRIPT : int
+          {static} + DATABASE_DUPLICATE_USERNAME : int
+          {static} + DATABASE_JDBCDRIVER_CLASS_NOT_FOUND : int
+          {static} + DATABASE_MISSING_DSN : int
+          {static} + DATABASE_MISSING_JDBCDRIVER : int
+          {static} + DATATYPE_DOES_NOT_SUPPORT_DISTINCT : int
+          {static} + DATATYPE_UNKNOWN : int
+          {static} + DATATYPE_UNMAPPABLE : int
+          {static} + DOWNLOADMAP_DUPLICATE_BELONGSTOCLASSMAP : int
+          {static} + DOWNLOADMAP_DUPLICATE_CONTENTCOLUMN : int
+          {static} + DOWNLOADMAP_DUPLICATE_DATABASE : int
+          {static} + DOWNLOADMAP_DUPLICATE_MEDIATYPE : int
+          {static} + DOWNLOADMAP_INVALID_BELONGSTOCLASSMAP : int
+          {static} + DOWNLOADMAP_INVALID_CONSTANTVALUE : int
+          {static} + DOWNLOADMAP_INVALID_DATABASE : int
+          {static} + DOWNLOADMAP_NO_CONTENTCOLUMN : int
+          {static} + DOWNLOADMAP_NO_DATASTORAGE : int
+          {static} + MAPPING_LITERAL_INSTEADOF_RESOURCE : int
+          {static} + MAPPING_NO_DATABASE : int
+          {static} + MAPPING_RESOURCE_INSTEADOF_LITERAL : int
+          {static} + MAPPING_TURTLE_SYNTAX : int
+          {static} + MAPPING_TYPECONFLICT : int
+          {static} + MAPPING_UNKNOWN_D2RQ_CLASS : int
+          {static} + MAPPING_UNKNOWN_D2RQ_PROPERTY : int
+          {static} + MUST_BE_NUMERIC : int
+          {static} + PROPERTYBRIDGE_CONFLICTING_DATABASES : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_BELONGSTOCLASSMAP : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_COLUMN : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_DATATYPE : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_LANG : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_LIMIT : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_LIMITINVERSE : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_ORDER : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_ORDERDESC : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_PATTERN : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_REFERSTOCLASSMAP : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_SQL_EXPRESSION : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_URI_SQL_EXPRESSION : int
+          {static} + PROPERTYBRIDGE_DUPLICATE_VALUEMAXLENGTH : int
+          {static} + PROPERTYBRIDGE_INVALID_BELONGSTOCLASSMAP : int
+          {static} + PROPERTYBRIDGE_INVALID_REFERSTOCLASSMAP : int
+          {static} + PROPERTYBRIDGE_LANG_AND_DATATYPE : int
+          {static} + PROPERTYBRIDGE_MISSING_PREDICATESPEC : int
+          {static} + PROPERTYBRIDGE_NONLITERAL_WITH_DATATYPE : int
+          {static} + PROPERTYBRIDGE_NONLITERAL_WITH_LANG : int
+          {static} + QUERY_TIMEOUT : int
+          {static} + RESOURCEMAP_DUPLICATE_BNODEIDCOLUMNS : int
+          {static} + RESOURCEMAP_DUPLICATE_CONSTANTVALUE : int
+          {static} + RESOURCEMAP_DUPLICATE_PRIMARYSPEC : int
+          {static} + RESOURCEMAP_DUPLICATE_TRANSLATEWITH : int
+          {static} + RESOURCEMAP_DUPLICATE_URICOLUMN : int
+          {static} + RESOURCEMAP_DUPLICATE_URIPATTERN : int
+          {static} + RESOURCEMAP_ILLEGAL_CONTAINSDUPLICATE : int
+          {static} + RESOURCEMAP_ILLEGAL_URIPATTERN : int
+          {static} + RESOURCEMAP_INVALID_TRANSLATEWITH : int
+          {static} + RESOURCEMAP_MISSING_PRIMARYSPEC : int
+          {static} + SQL_COLUMN_NOT_FOUND : int
+          {static} + SQL_INVALID_ALIAS : int
+          {static} + SQL_INVALID_ATTRIBUTENAME : int
+          {static} + SQL_INVALID_JOIN : int
+          {static} + SQL_INVALID_RELATIONNAME : int
+          {static} + STARTUP_BASE_URI_NOT_ABSOLUTE : int
+          {static} + STARTUP_SQL_SCRIPT_ACCESS : int
+          {static} + STARTUP_SQL_SCRIPT_SYNTAX : int
+          {static} + STARTUP_UNKNOWN_FORMAT : int
+          {static} + TRANSLATIONTABLE_DUPLICATE_HREF : int
+          {static} + TRANSLATIONTABLE_DUPLICATE_JAVACLASS : int
+          {static} + TRANSLATIONTABLE_HREF_AND_JAVACLASS : int
+          {static} + TRANSLATIONTABLE_TRANSLATION_AND_HREF : int
+          {static} + TRANSLATIONTABLE_TRANSLATION_AND_JAVACLASS : int
+          {static} + TRANSLATION_MISSING_DBVALUE : int
+          {static} + TRANSLATION_MISSING_RDFVALUE : int
+          {static} + UNSPECIFIED : int
+          - code : int
+          + D2RQException()
+          + D2RQException()
+          + D2RQException()
+          + D2RQException()
+          + D2RQException()
+          + D2RQException()
+          + errorCode()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.Log4jHelper {
+          {static} + setDebugLogging()
+          {static} + setVerboseLogging()
+          {static} + turnLoggingOff()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.ResourceDescriber {
+          - context : ExecutionContext
+          - executed : boolean
+          - limit : int
+          - mapping : Mapping
+          - node : Node
+          - onlyOutgoing : boolean
+          - result : Graph
+          - timeout : long
+          + ResourceDescriber()
+          + ResourceDescriber()
+          + description()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.SystemLoader {
+          {static} + DEFAULT_BASE_URI : String
+          {static} + DEFAULT_JDBC_URL : String
+          {static} - DEFAULT_HOST : String
+          {static} - DEFAULT_PORT : int
+          {static} - DEFAULT_PROTOCOL : String
+          - baseURI : String
+          - classMapLister : ClassMapLister
+          - connectedDB : ConnectedDB
+          - d2rServer : D2RServer
+          - dataGraph : GraphD2RQ
+          - dataModel : ModelD2RQ
+          - fastMode : boolean
+          - filter : Filter
+          - generateDirectMapping : boolean
+          - generator : MappingGenerator
+          - jdbcDriverClass : String
+          - jdbcURL : String
+          - jettyLauncher : JettyLauncher
+          {static} - log : Log
+          - mapModel : Model
+          - mapping : Mapping
+          - mappingFile : String
+          - password : String
+          - port : int
+          - resourceStem : String
+          - resultSizeLimit : int
+          - serverConfig : ConfigLoader
+          - sqlScript : String
+          - username : String
+          + closeMappingGenerator()
+          + getClassMapLister()
+          + getD2RServer()
+          + getGraphD2RQ()
+          + getJettyLauncher()
+          + getMapping()
+          + getMappingModel()
+          + getModelD2RQ()
+          + getPort()
+          + getResourceBaseURI()
+          + getServerConfig()
+          + getSystemBaseURI()
+          + openMappingGenerator()
+          + resetMappingFile()
+          + setFastMode()
+          + setFilter()
+          + setGenerateW3CDirectMapping()
+          + setJDBCDriverClass()
+          + setJdbcURL()
+          + setMappingFileOrJdbcURL()
+          + setMappingURL()
+          + setPassword()
+          + setPort()
+          + setResourceStem()
+          + setResultSizeLimit()
+          + setStartupSQLScript()
+          + setSystemBaseURI()
+          + setUsername()
+          - getConnectedDB()
+      }
+    }
+  }
+  
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

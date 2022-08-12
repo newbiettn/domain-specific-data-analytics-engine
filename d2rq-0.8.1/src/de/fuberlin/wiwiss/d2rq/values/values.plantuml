@@ -1,0 +1,290 @@
+@startuml
+
+title __VALUES's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.BlankNodeID {
+            {static} - DELIMITER : String
+            - attributes : List<Attribute>
+            - classMapID : String
+            + BlankNodeID()
+            + attributes()
+            + classMapID()
+            + describeSelf()
+            + makeValue()
+            + matches()
+            + orderSpecs()
+            + projectionSpecs()
+            + renameAttributes()
+            + toExpression()
+            + toString()
+            + valueExpression()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Column {
+            - attribute : Attribute
+            - attributeAsSet : Set<ProjectionSpec>
+            + Column()
+            + describeSelf()
+            + makeValue()
+            + orderSpecs()
+            + projectionSpecs()
+            + renameAttributes()
+            + toString()
+            + valueExpression()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.ConstantValueMaker {
+            - value : String
+            + ConstantValueMaker()
+            + describeSelf()
+            + makeValue()
+            + orderSpecs()
+            + projectionSpecs()
+            + renameAttributes()
+            + valueExpression()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Pattern {
+            {static} + DELIMITER : String
+            {static} - ENCODE : ColumnFunction
+            {static} - IDENTITY : ColumnFunction
+            {static} - URLENCODE : ColumnFunction
+            {static} - URLIFY : ColumnFunction
+            - columnFunctions : List<ColumnFunction>
+            - columns : List<Attribute>
+            - columnsAsSet : Set<ProjectionSpec>
+            {static} - embeddedColumnRegex : Pattern
+            - firstLiteralPart : String
+            - literalParts : List<String>
+            - pattern : String
+            - regex : Pattern
+            + Pattern()
+            + attributes()
+            + describeSelf()
+            + equals()
+            + firstLiteralPart()
+            + hashCode()
+            + isEquivalentTo()
+            + lastLiteralPart()
+            + literalPartsMatchRegex()
+            + makeValue()
+            + matches()
+            + orderSpecs()
+            + partsIterator()
+            + projectionSpecs()
+            + renameAttributes()
+            + toExpression()
+            + toString()
+            + usesColumnFunctions()
+            + valueExpression()
+            - getColumnFunction()
+            - parsePattern()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        interface de.fuberlin.wiwiss.d2rq.values.Pattern.ColumnFunction {
+            {abstract} + decode()
+            {abstract} + encode()
+            {abstract} + name()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Pattern.EncodeFunction {
+            + decode()
+            + encode()
+            + name()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Pattern.IdentityFunction {
+            + decode()
+            + encode()
+            + name()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Pattern.URLEncodeFunction {
+            + decode()
+            + encode()
+            + name()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Pattern.URLifyFunction {
+            + decode()
+            + encode()
+            + name()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.SQLExpressionValueMaker {
+            - expression : Expression
+            - projection : ProjectionSpec
+            + SQLExpressionValueMaker()
+            + describeSelf()
+            + equals()
+            + hashCode()
+            + makeValue()
+            + orderSpecs()
+            + projectionSpecs()
+            + renameAttributes()
+            + toString()
+            + valueExpression()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        interface de.fuberlin.wiwiss.d2rq.values.Translator {
+            {static} + IDENTITY : Translator
+            {abstract} + toDBValue()
+            {abstract} + toRDFValue()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.ValueDecorator {
+            - base : ValueMaker
+            - constraints : List<ValueConstraint>
+            - translator : Translator
+            + ValueDecorator()
+            + ValueDecorator()
+            {static} + containsConstraint()
+            + describeSelf()
+            + makeValue()
+            {static} + maxLengthConstraint()
+            + orderSpecs()
+            + projectionSpecs()
+            {static} + regexConstraint()
+            + renameAttributes()
+            + toString()
+            + valueExpression()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        interface de.fuberlin.wiwiss.d2rq.values.ValueDecorator.ValueConstraint {
+            {abstract} + matches()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        interface de.fuberlin.wiwiss.d2rq.values.ValueMaker {
+            {static} + NULL : ValueMaker
+            {abstract} + describeSelf()
+            {abstract} + makeValue()
+            {abstract} + orderSpecs()
+            {abstract} + projectionSpecs()
+            {abstract} + renameAttributes()
+            {abstract} + valueExpression()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.values.BlankNodeID .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.Column .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.ConstantValueMaker .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.Pattern .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.Pattern +-down- de.fuberlin.wiwiss.d2rq.values.Pattern.ColumnFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern +-down- de.fuberlin.wiwiss.d2rq.values.Pattern.EncodeFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern +-down- de.fuberlin.wiwiss.d2rq.values.Pattern.IdentityFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern +-down- de.fuberlin.wiwiss.d2rq.values.Pattern.URLEncodeFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern +-down- de.fuberlin.wiwiss.d2rq.values.Pattern.URLifyFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern.EncodeFunction .up.|> de.fuberlin.wiwiss.d2rq.values.Pattern.ColumnFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern.IdentityFunction .up.|> de.fuberlin.wiwiss.d2rq.values.Pattern.ColumnFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern.URLEncodeFunction .up.|> de.fuberlin.wiwiss.d2rq.values.Pattern.ColumnFunction
+  de.fuberlin.wiwiss.d2rq.values.Pattern.URLifyFunction .up.|> de.fuberlin.wiwiss.d2rq.values.Pattern.ColumnFunction
+  de.fuberlin.wiwiss.d2rq.values.SQLExpressionValueMaker .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.ValueDecorator .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.ValueDecorator +-down- de.fuberlin.wiwiss.d2rq.values.ValueDecorator.ValueConstraint
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

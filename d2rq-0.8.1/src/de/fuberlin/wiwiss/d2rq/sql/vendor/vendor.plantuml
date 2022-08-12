@@ -1,0 +1,306 @@
+@startuml
+
+title __VENDOR's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.HSQLDB {
+              + HSQLDB()
+              + getDataType()
+              + initializeConnection()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.HSQLDB.HSQLDBCompatibilityDoubleDataType {
+              + HSQLDBCompatibilityDoubleDataType()
+              + toSQLLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL {
+              {static} - backtickEscaper : Quoter
+              {static} - singleQuoteEscaperWithBackslash : Quoter
+              + MySQL()
+              + getConcatenationExpression()
+              + getDataType()
+              + getDefaultConnectionProperties()
+              + quoteIdentifier()
+              + quoteStringLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityBitDataType {
+              + MySQLCompatibilityBitDataType()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityDateDataType {
+              + MySQLCompatibilityDateDataType()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityTimeDataType {
+              + MySQLCompatibilityTimeDataType()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityTimestampDataType {
+              + MySQLCompatibilityTimestampDataType()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle {
+              {static} - IGNORED_SCHEMAS : String[]
+              {static} - IGNORED_SCHEMAS_PATTERN : Pattern
+              + Oracle()
+              + booleanExpressionToSimpleExpression()
+              + getDataType()
+              + getRowNumLimitAsExpression()
+              + getRowNumLimitAsQueryAppendage()
+              + initializeConnection()
+              + isIgnoredTable()
+              + quoteBinaryLiteral()
+              {static} - getTimeZoneForSession()
+              - setSessionTimeZone()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle.OracleCompatibilityTimeZoneDataType {
+              + OracleCompatibilityTimeZoneDataType()
+              + value()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle.OracleCompatibilityTimeZoneLocalDataType {
+              + OracleCompatibilityTimeZoneLocalDataType()
+              + value()
+              {static} - formatForSessionTimeZone()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.PostgreSQL {
+              + PostgreSQL()
+              + getDataType()
+              + initializeConnection()
+              + isIgnoredTable()
+              + quoteBinaryLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.SQL92 {
+              {static} - doubleQuoteEscaper : Quoter
+              {static} - singleQuoteEscaper : Quoter
+              - useAS : boolean
+              + SQL92()
+              + booleanExpressionToSimpleExpression()
+              + getConcatenationExpression()
+              + getDataType()
+              + getDefaultConnectionProperties()
+              + getRelationNameAliasExpression()
+              + getRowNumLimitAsExpression()
+              + getRowNumLimitAsQueryAppendage()
+              + getRowNumLimitAsSelectModifier()
+              + initializeConnection()
+              + isIgnoredTable()
+              + quoteAttribute()
+              + quoteBinaryLiteral()
+              + quoteDateLiteral()
+              + quoteIdentifier()
+              + quoteRelationName()
+              + quoteStringLiteral()
+              + quoteTimeLiteral()
+              + quoteTimestampLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.SQLServer {
+              + SQLServer()
+              + getDataType()
+              + getRowNumLimitAsQueryAppendage()
+              + getRowNumLimitAsSelectModifier()
+              + isIgnoredTable()
+              + quoteBinaryLiteral()
+              + quoteDateLiteral()
+              + quoteTimeLiteral()
+              + quoteTimestampLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.SQLServer.SQLServerCompatibilityBitDataType {
+              + SQLServerCompatibilityBitDataType()
+              + toSQLLiteral()
+              + valueRegex()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          interface de.fuberlin.wiwiss.d2rq.sql.vendor.Vendor {
+              {static} + HSQLDB : Vendor
+              {static} + InterbaseOrFirebird : Vendor
+              {static} + MSAccess : Vendor
+              {static} + MySQL : Vendor
+              {static} + Oracle : Vendor
+              {static} + PostgreSQL : Vendor
+              {static} + SQL92 : Vendor
+              {static} + SQLServer : Vendor
+              {abstract} + booleanExpressionToSimpleExpression()
+              {abstract} + getConcatenationExpression()
+              {abstract} + getDataType()
+              {abstract} + getDefaultConnectionProperties()
+              {abstract} + getRelationNameAliasExpression()
+              {abstract} + getRowNumLimitAsExpression()
+              {abstract} + getRowNumLimitAsQueryAppendage()
+              {abstract} + getRowNumLimitAsSelectModifier()
+              {abstract} + initializeConnection()
+              {abstract} + isIgnoredTable()
+              {abstract} + quoteAttribute()
+              {abstract} + quoteBinaryLiteral()
+              {abstract} + quoteDateLiteral()
+              {abstract} + quoteIdentifier()
+              {abstract} + quoteRelationName()
+              {abstract} + quoteStringLiteral()
+              {abstract} + quoteTimeLiteral()
+              {abstract} + quoteTimestampLiteral()
+          }
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.sql.vendor.HSQLDB +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.HSQLDB.HSQLDBCompatibilityDoubleDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityBitDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityDateDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityTimeDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL.MySQLCompatibilityTimestampDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle.OracleCompatibilityTimeZoneDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle.OracleCompatibilityTimeZoneLocalDataType
+  de.fuberlin.wiwiss.d2rq.sql.vendor.SQL92 .up.|> Vendor
+  de.fuberlin.wiwiss.d2rq.sql.vendor.SQLServer +-down- de.fuberlin.wiwiss.d2rq.sql.vendor.SQLServer.SQLServerCompatibilityBitDataType
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

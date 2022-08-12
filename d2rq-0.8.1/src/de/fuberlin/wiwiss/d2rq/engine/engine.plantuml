@@ -1,0 +1,377 @@
+@startuml
+
+title __ENGINE's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.BindingMaker {
+            - condition : ProjectionSpec
+            - nodeMakers : Map<Var, NodeMaker>
+            + BindingMaker()
+            + condition()
+            {static} + createFor()
+            + makeBinding()
+            + makeConditional()
+            + nodeMaker()
+            + toString()
+            + variableNames()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslator {
+            ~ useAllOptimizations : boolean
+            - triplePatterns : List<Triple>
+            - tripleRelations : Collection<TripleRelation>
+            + GraphPatternTranslator()
+            + translate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslator.CandidateList {
+            - candidates : List<NodeRelation>
+            - triplePattern : Triple
+            + compareTo()
+            + toString()
+            ~ CandidateList()
+            ~ all()
+            ~ isEmpty()
+            ~ triplePattern()
+            - findMatchingTripleRelations()
+            - prefixTripleRelations()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.OpTableSQL {
+            - table : NodeRelation
+            + OpTableSQL()
+            {static} + create()
+            + effectiveOp()
+            + equalTo()
+            + eval()
+            + hashCode()
+            + outputArgs()
+            + table()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.OpUnionTableSQL {
+            - effectiveOp : Op
+            - tableOps : List<OpTableSQL>
+            + OpUnionTableSQL()
+            + OpUnionTableSQL()
+            {static} + create()
+            + effectiveOp()
+            + equalTo()
+            + eval()
+            + hashCode()
+            + outputArgs()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.PushDownOpFilterVisitor {
+            - copy : TransformCopy
+            - filterExpr : List<Expr>
+            - stack : Stack<Op>
+            + result()
+            {static} + transform()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            - calcValidFilterExpr()
+            - checkMoveDownFilterExprAndVisitOpDiff()
+            - checkMoveDownFilterExprAndVisitOpJoin()
+            - checkMoveDownFilterExprAndVisitOpLeftJoin()
+            - checkMoveDownFilterExprAndVisitOpUnion()
+            - moveFilterPast()
+            - wrapInCurrentFilter()
+            - wrapInCurrentFilterAndRecurse()
+            - wrapInCurrentFilterAndRecurse()
+            - wrapInCurrentFilterAndRecurse()
+            - wrapInFilter()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.QueryEngineD2RQ {
+            {static} - factory : QueryEngineFactory
+            {static} - log : Log
+            - mapping : Mapping
+            + QueryEngineD2RQ()
+            + QueryEngineD2RQ()
+            + QueryEngineD2RQ()
+            {static} + getFactory()
+            {static} + register()
+            {static} + unregister()
+            # modifyOp()
+            - translate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.QueryEngineD2RQ.QueryEngineFactoryD2RQ {
+            + accept()
+            + accept()
+            + create()
+            + create()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.QueryIterTableSQL {
+            - bindingMakers : Collection<BindingMaker>
+            {static} - log : Log
+            - queue : LinkedList<Binding>
+            - wrapped : SQLIterator
+            {static} + create()
+            {static} + create()
+            # closeIterator()
+            # hasNextBinding()
+            # moveToNextBinding()
+            # requestCancel()
+            - QueryIterTableSQL()
+            - enqueueBindings()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF {
+            + transform()
+            {static} + translateFilterExpressionsToCNF()
+            {static} - applyDeMorganLaw()
+            {static} - applyDistributiveLaw()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF.DeMorganLawApplyer {
+            - resultExpr : Expr
+            + DeMorganLawApplyer()
+            + finishVisit()
+            + result()
+            + startVisit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF.DistributiveLawApplyer {
+            - resultExpr : Expr
+            + DistributiveLawApplyer()
+            + finishVisit()
+            + result()
+            + startVisit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TransformOpBGP {
+            {static} - log : Log
+            - mapping : Mapping
+            - transformFilters : boolean
+            - useAllOptimizations : boolean
+            + TransformOpBGP()
+            + createOpD2RQ()
+            + transform()
+            + transform()
+            - applyFilter()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TripleRelationJoiner {
+            - joinedTriplePatterns : List<Triple>
+            - joinedTripleRelations : List<NodeRelation>
+            - nodeSets : VariableConstraints
+            - useAllOptimizations : boolean
+            {static} + create()
+            + join()
+            + joinAll()
+            + toNodeRelation()
+            - TripleRelationJoiner()
+            - getRelationNames()
+            {static} - isUnique()
+            - joinRelations()
+            - joinedBaseRelation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TripleRelationJoiner.AttributeSet {
+            ~ attributeNames : Set<String>
+            ~ relationName : RelationName
+            {static} ~ createFrom()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.VarCollector {
+            - variables : Set<Var>
+            + mentionedVariables()
+            {static} + mentionedVars()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            + visit()
+            - visit()
+            - visit()
+            - visit()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslator +-down- de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslator.CandidateList
+  de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslator.CandidateList .up.|> Comparable
+  de.fuberlin.wiwiss.d2rq.engine.PushDownOpFilterVisitor .up.|> OpVisitor
+  de.fuberlin.wiwiss.d2rq.engine.QueryEngineD2RQ +-down- de.fuberlin.wiwiss.d2rq.engine.QueryEngineD2RQ.QueryEngineFactoryD2RQ
+  de.fuberlin.wiwiss.d2rq.engine.QueryEngineD2RQ.QueryEngineFactoryD2RQ .up.|> QueryEngineFactory
+  de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF +-down- de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF.DeMorganLawApplyer
+  de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF +-down- de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF.DistributiveLawApplyer
+  de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF.DeMorganLawApplyer .up.|> ExprVisitor
+  de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF.DistributiveLawApplyer .up.|> ExprVisitor
+  de.fuberlin.wiwiss.d2rq.engine.TripleRelationJoiner +-down- de.fuberlin.wiwiss.d2rq.engine.TripleRelationJoiner.AttributeSet
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

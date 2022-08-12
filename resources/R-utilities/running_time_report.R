@@ -1,9 +1,14 @@
 library(dplyr)
+library(xtable)
+
+rm(list = ls())
 ################################################################################
 dt.1 <- read.csv("new_results_backup/myengine_evaluation_result-errorrate-kmeans.csv")
 dt.2 <- read.csv("new_results_backup/myengine_evaluation_result-errorrate-gmeans.csv")
-dt.3 <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_1m.csv")
-dt.4 <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_2m.csv")
+dt.3a <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_1m.csv")
+dt.3b <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_1m_500-950.csv")
+dt.4a <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_2m.csv")
+dt.4b <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_2m_500-950.csv")
 dt.5 <- read.csv("results_backup/autoweka_evaluation_result_errorrate_8000Mb_10threads_15m_seed_1_150.csv")
 
 dt.6 <- read.csv("new_results_backup/myengine_evaluation_result-auc-kmeans.csv", stringsAsFactors=FALSE)
@@ -12,6 +17,9 @@ dt.8 <- read.csv("results_backup/autoweka_evaluation_result_auc_8000Mb_10threads
 dt.9 <- read.csv("results_backup/autoweka_evaluation_result_auc_8000Mb_10threads_2m.csv", stringsAsFactors=FALSE)
 dt.10 <- read.csv("results_backup/autoweka_evaluation_result_auc_8000Mb_10threads_15m_seed_1_150.csv", stringsAsFactors=FALSE)
 ################################################################################
+dt.3 <- rbind(dt.3a, dt.3b)
+dt.4 <- rbind(dt.4a, dt.4b)
+
 dt.1$timeElapsed <- (dt.1$timeElapsed/(1000))
 dt.2$timeElapsed <- (dt.2$timeElapsed/(1000))
 dt.3$timeElapsed <- (dt.3$timeElapsed/(1000))
@@ -25,8 +33,8 @@ dt.10$timeElapsed <- (dt.10$timeElapsed/(1000))
 
 report <- function(dt){
   dt <- dt %>%
-    summarize(meanTime = mean(timeElapsed),
-              stdTime = sd(timeElapsed)) %>%
+    group_by(dataset) %>%
+    summarize(meanTime = round(mean(timeElapsed), digits = 2)) %>%
     as.data.frame()
   return(dt)
 }
@@ -42,6 +50,20 @@ dt.8 <- report(dt.8)
 dt.9 <- report(dt.9)
 dt.10 <- report(dt.10)
 
+dt <- cbind(dt.1, dt.2$meanTime, dt.3$meanTime, dt.4$meanTime, dt.5$meanTime, 
+            dt.6$meanTime, dt.7$meanTime, dt.8$meanTime, dt.9$meanTime, dt.10$meanTime)
 
+colnames(dt) <- c("Dataset", 
+                  "Mk1", "Mg1", "1m1", "2m1", "15m1", 
+                  "Mk2", "Mg2", "1m2", "2m2", "15m2")
+dt <- dt[c(7, 18, 23, 28, 29, 34, 8, 9, 4, 5, 6, 10, 12, 13, 14, 15, 16,
+           24, 26, 2, 17, 21, 25, 27, 32, 33, 3, 30, 1, 11, 19, 20, 22, 31),]
+rownames(dt) <- 1:nrow(dt)
 
-
+q3 <- apply(dt[,-c(1)], 2, function(x) quantile(x, 0.75))
+q1 <- apply(dt[,-c(1)], 2, function(x) quantile(x, 0.25))
+q2 <- apply(dt[,-c(1)], 2, function(x) quantile(x, 0.5))
+q1 <- round(q1, digits = 2)
+q2 <- round(q2, digits = 2)
+q3 <- round(q3, digits = 2)
+paste0(q2, " (", q1, "-", q3, ")")

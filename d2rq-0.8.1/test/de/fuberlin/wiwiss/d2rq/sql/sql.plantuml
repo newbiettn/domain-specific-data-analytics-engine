@@ -1,0 +1,282 @@
+@startuml
+
+title __SQL's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.AllTests {
+            {static} + suite()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        abstract class de.fuberlin.wiwiss.d2rq.sql.DatatypeTestBase {
+            {static} - EX : String
+            {static} - classMapURI : Resource
+            - datatype : String
+            {static} - dbURI : Resource
+            - driver : String
+            - graph : GraphD2RQ
+            - inspector : DatabaseSchemaInspector
+            - jdbcURL : String
+            - password : String
+            {static} - propertyBridgeURI : Resource
+            - schema : String
+            - script : String
+            - user : String
+            {static} - valueProperty : Resource
+            + tearDown()
+            # assertMappedType()
+            # assertValues()
+            # assertValues()
+            # assertValuesNotFindable()
+            # createMapping()
+            # initDB()
+            - allTables()
+            - dropAllTables()
+            - generateMapping()
+            - getGraph()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.DummyDB {
+            - limit : int
+            - nullability : Map<Attribute, Boolean>
+            - vendor : Vendor
+            + DummyDB()
+            + DummyDB()
+            + DummyDB()
+            + equals()
+            + isNullable()
+            + limit()
+            + setLimit()
+            + setNullable()
+            + vendor()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.HSQLDBDatatypeTest {
+            {static} - DOUBLE_VALUES : String[]
+            {static} - NUMERIC_VALUES : String[]
+            {static} - VARBINARY_VALUES : String[]
+            {static} - VARCHAR_VALUES : String[]
+            + setUp()
+            + testArrayInteger()
+            + testBLOB()
+            + testBigInt()
+            + testBinary()
+            + testBinary_4()
+            + testBit()
+            + testBitVarying()
+            + testBit_4()
+            + testBoolean()
+            + testCLOB()
+            + testChar()
+            + testChar_3()
+            + testDate()
+            + testDecimal()
+            + testDecimal_4_2()
+            + testDouble()
+            + testFloat()
+            + testInteger()
+            + testIntervalDay()
+            + testIntervalHourMinute()
+            + testLongVarBinary()
+            + testLongvarchar()
+            + testNumeric()
+            + testOther()
+            + testReal()
+            + testSmallInt()
+            + testTime()
+            + testTimeTZ()
+            + testTimeTZ_4()
+            + testTime_4()
+            + testTimestamp()
+            + testTimestampTZ()
+            + testTimestampTZ_4()
+            + testTimestamp_4()
+            + testTinyInt()
+            + testVarBinary()
+            + testVarchar()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.MySQLDatatypeTest {
+            {static} - CHAR_VALUES : String[]
+            {static} - DECIMAL_VALUE : String[]
+            {static} - DOUBLE_VALUES : String[]
+            {static} - FLOAT_VALUES : String[]
+            {static} - VARBINARY_VALUES : String[]
+            {static} - VARCHAR_VALUES : String[]
+            + setUp()
+            + testBLOB()
+            + testBigInt()
+            + testBigIntUnsigned()
+            + testBinary()
+            + testBinary_4()
+            + testBit()
+            + testBit_4()
+            + testChar()
+            + testChar_3()
+            + testCharacter()
+            + testDate()
+            + testDateTime()
+            + testDec()
+            + testDec_4_2()
+            + testDecimal()
+            + testDecimal_4_2()
+            + testDouble()
+            + testDoublePrecision()
+            + testEnum()
+            + testFloat()
+            + testInt()
+            + testIntUnsigned()
+            + testInteger()
+            + testIntegerUnsigned()
+            + testLongBLOB()
+            + testLongText()
+            + testMediumBLOB()
+            + testMediumInt()
+            + testMediumIntUnsigned()
+            + testMediumText()
+            + testNChar()
+            + testNVarchar()
+            + testNationalCharacter()
+            + testNationalVarchar()
+            + testReal()
+            + testSerial()
+            + testSet()
+            + testSmallInt()
+            + testSmallIntUnsigned()
+            + testText()
+            + testTime()
+            + testTimestamp()
+            + testTinyBLOB()
+            + testTinyInt()
+            + testTinyInt1()
+            + testTinyIntUnsigned()
+            + testTinyText()
+            + testVarBinary()
+            + testVarchar()
+            + testYear()
+            + testYear2()
+            + testYear4()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ResultRowTest {
+            {static} - col1 : Attribute
+            {static} - col2 : Attribute
+            + testEmptyRowToString()
+            + testGetColumnReturnsValue()
+            + testGetUndefinedReturnsNull()
+            + testTwoItemsToString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLBuildingTest {
+            {static} - foo : Attribute
+            + testAttributeQuoting()
+            + testAttributeQuotingMySQL()
+            + testBackticksInRelationsAreEscapedMySQL()
+            + testDoubleQuotesInAttributesAreEscaped()
+            + testLimitStandard()
+            + testNoLimit()
+            + testNoLimitMSSQL()
+            + testNoLimitOracle()
+            + testQuoteIdentifierEscape()
+            + testQuoteIdentifierEscapeMySQL()
+            + testRelationNameQuoting()
+            + testRelationNameQuotingMySQL()
+            + testSingleQuoteEscape()
+            + testSingleQuoteEscapeMySQL()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLSyntaxTest {
+            {static} - bar_col1 : Attribute
+            {static} - bar_col2 : Attribute
+            {static} - baz_col1 : Attribute
+            {static} - fooAsBar : Alias
+            {static} - foo_col1 : Attribute
+            {static} - foo_col2 : Attribute
+            + testFindColumnInColumnName()
+            + testFindColumnInEmptyExpression()
+            + testFindColumnsInExpression()
+            + testFindColumnsInExpression2()
+            + testFindColumnsInExpressionWithSchema()
+            + testFindColumnsInExpressionWithStrings()
+            + testFindColumnsInExpressionWithStrings2()
+            + testNumbersInExpressionsAreNotColumns()
+            + testParseAlias()
+            + testParseAliasIsCaseInsensitive()
+            + testParseInvalidAlias()
+            + testParseInvalidAttributeName()
+            + testParseInvalidJoin()
+            + testParseInvalidRelationName()
+            + testParseJoinOneCondition()
+            + testParseJoinTwoConditionsOnDifferentTables()
+            + testParseJoinTwoConditionsOnSameTables()
+            + testParseRelationNameNoSchema()
+            + testParseRelationNameWithSchema()
+            + testReplaceColumnsInExpressionWithAliasMap()
+            + testReplaceColumnsInExpressionWithColumnReplacer()
+            + testReplaceColumnsWithSchemaInExpressionWithAliasMap()
+        }
+      }
+    }
+  }
+  
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

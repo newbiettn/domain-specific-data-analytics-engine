@@ -25,18 +25,25 @@ import planner.jshop.ProblemClassLoader;
 import planner.translator.PlanTranslator;
 import planner.translator.ProblemTranslator;
 import smile.clustering.GMeans;
+import weka.classifiers.trees.J48;
 import weka.core.Attribute;
 import weka.core.Instances;
+import weka.core.SerializationHelper;
 import weka.core.WekaException;
 import weka.core.converters.ArffLoader.ArffReader;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 import weka.knowledgeflow.*;
+import weka.knowledgeflow.steps.Classifier;
 import weka.knowledgeflow.steps.ClassifierPerformanceEvaluator;
+import weka.knowledgeflow.steps.SerializedModelSaver;
 import weka.knowledgeflow.steps.TextViewer;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
+import java.awt.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -44,6 +51,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.*;
 
 
@@ -1022,7 +1030,9 @@ public class Trainer {
                                     String modelName,
                                     String classifier,
                                     String attributeSelection,
-                                    int seed) {
+                                    int seed,
+                                    boolean interpretability
+                                    ) {
         TranslateToKFForSPARQL trans = new TranslateToKFForSPARQL();
         String trainingProcessFP = propGetter.getProperty("sparqlml.dm.process.filepath");
         String trainingProcessFile = trainingProcessFP + "process_" + modelName + ".kf";
@@ -1032,15 +1042,22 @@ public class Trainer {
                 trainingFileUrl,
                 seed,
                 attributeSelection,
-                classifier);
+                classifier,
+                interpretability);
     }
 
     /**
      * Predict
      *
      */
-    public Instances predictForSPARQL(String predictingProcessFileUrl,
-                                      String testFileUrl) {
+    public Map<String, Object> predictForSPARQL(String predictingProcessFileUrl,
+                                      String testFileUrl,
+                                      boolean interpretability) {
+        Map<String, Object> r = new HashMap<>();
+        ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
+        String modelFilePath = propGetter.getProperty("sparqlml.dm.model.filepath");
+        String modelFileNamePrefix = propGetter.getProperty("sparqlml.dm.model.filename.prefix");
+
         String contents = null;
         try {
             contents = new String(Files.readAllBytes(Paths.get(predictingProcessFileUrl)));
@@ -1060,21 +1077,65 @@ public class Trainer {
         File predictingFlowFile = new File(predictingProcessFileUrl);
         Flow flow = executeTranslatedPlan(predictingFlowFile);
 
+        // Show J48 visualization if it is the case
+        if (interpretability) {
+            try {
+                String modelName = modelFileNamePrefix + "_1_1_J48.model";
+                J48 j48 = (J48) SerializationHelper.read(modelFilePath + modelName);
+
+                // display classifier
+                final javax.swing.JFrame jf =
+                        new javax.swing.JFrame("Weka Classifier Tree Visualizer: J48");
+                jf.setSize(500,400);
+                jf.getContentPane().setLayout(new BorderLayout());
+                TreeVisualizer tv = new TreeVisualizer(null,
+                        j48.graph(),
+                        new PlaceNode2());
+                jf.getContentPane().add(tv, BorderLayout.CENTER);
+                jf.addWindowListener(new java.awt.event.WindowAdapter() {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        jf.dispose();
+                    }
+                });
+
+                jf.setVisible(true);
+                tv.fitToScreen();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Performance results
+        StepManager stepManager2= flow.findStep("ClassifierPerformanceEvaluator");
+        ClassifierPerformanceEvaluator eval = (ClassifierPerformanceEvaluator)stepManager2.getManagedStep();
+        Map<String, Object> performanceResults= new HashMap<>();
+        if (eval.getM_eval() != null) {
+            performanceResults.put("weightedAreaUnderROC", eval.getM_eval().weightedAreaUnderROC());
+            performanceResults.put("weightedFMeasure", eval.getM_eval().weightedFMeasure());
+            performanceResults.put("weightedPrecision", eval.getM_eval().weightedPrecision());
+            performanceResults.put("weightedRecall", eval.getM_eval().weightedRecall());
+            performanceResults.put("errorRate", eval.getM_eval().errorRate());
+        }
+        r.put("performanceResults", performanceResults);
+
+        // Prediction results
         String opName = "TextViewer"; // because I've hardcoded the name of the operator for i = 0,..
-        StepManager stepManager = flow.findStep(opName);
-        TextViewer textViewer = (TextViewer)stepManager.getManagedStep();
-        Map<String, String> m = textViewer.getResults();
+        StepManager stepManager1 = flow.findStep(opName);
+        TextViewer textViewer1 = (TextViewer)stepManager1.getManagedStep();
+        Map<String, String> m = textViewer1.getResults();
         for (String key : m.keySet()){
             String val = m.get(key);
             try {
                 ArffReader arffLoader = new ArffReader(new StringReader(val));
                 if (arffLoader.getData() != null)
-                    return arffLoader.getData();
+                    r.put("predictionResults", arffLoader.getData());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+
+        return r;
     }
 
     /**
@@ -1086,7 +1147,9 @@ public class Trainer {
      * @throws Exception
      */
     public boolean executeForSPARQLML(String trainingArffPath,
-                                      String modelName) throws Exception {
+                                      String modelName,
+                                      String classifier,
+                                      boolean interpretability) throws Exception {
         MetafeatureGenerator mfGen = new MetafeatureGenerator();
         DbUtils dbUtils = new DbUtils();
         String filePath = propGetter.getProperty("sparqlml.training.data.filepath");
@@ -1144,11 +1207,17 @@ public class Trainer {
             multiFlowResult.add(results);
 
             /*Extract the workflow details*/
-            String c = (String) wk.get("classifier");
+            String c;
+            if (classifier != null) // User wanna choose classifier by themselves
+                c = classifier;
+            else
+                c = (String) wk.get("classifier");
+//            String c = (String) wk.get("classifier");
             String a = (String) wk.get("attributeSelection");
             //-- Execution
             Trainer trainer = Trainer.getSingleton();
-            boolean compiledResult = trainer.generateProblemFile(trainingset, c, a);
+
+            boolean compiledResult  = trainer.generateProblemFile(trainingset, c, a);
             if (compiledResult) {
                 //-- Generate the plan
                 DMPlan plan = trainer.generatePlan();
@@ -1257,7 +1326,8 @@ public class Trainer {
                 modelName,
                 c,
                 a,
-                seed);
+                seed,
+                interpretability);
 
         boolean everythingIsDone = false;
         while (!everythingIsDone){

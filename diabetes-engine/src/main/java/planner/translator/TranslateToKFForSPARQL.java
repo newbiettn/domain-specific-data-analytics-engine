@@ -11,9 +11,13 @@ public class TranslateToKFForSPARQL {
                                         String trainingSet,
                                         int seed,
                                         String attributeSelection,
-                                        String classifier){
+                                        String classifier,
+                                        boolean interpretability){
 
+        ProjectPropertiesGetter propGetter = ProjectPropertiesGetter.getSingleton();
+        String modelFilePath = propGetter.getProperty("sparqlml.dm.model.filepath");
         String testFileNamePlaceholder = "<Test_File_Name>";
+        String modelFileNamePrefix = propGetter.getProperty("sparqlml.dm.model.filename.prefix");
 
         StringBuilder stringBuilder = new StringBuilder();
         String attributeSelectionSpec = "";
@@ -57,7 +61,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"486,501\"\n" +
@@ -78,7 +84,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -99,7 +107,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -120,7 +130,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -141,7 +153,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -152,9 +166,13 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t\"properties\" : {\n" +
                     "\t\t\t\t\"classifier\" : {\n" +
                     "\t\t\t\t\t\"type\" : \"optionHandler\",\n" +
-                    "\t\t\t\t\t\"class\" : \"weka.classifiers.trees.J48\",\n" +
-                    "\t\t\t\t\t\"options\" : \"-C 0.25 -M 2 -Q " + seed +"\"\n" +
-                    "\t\t\t\t},\n" +
+                    "\t\t\t\t\t\"class\" : \"weka.classifiers.trees.J48\",\n";
+            if (interpretability) {
+                classifierSpec += "\t\t\t\t\t\"options\" : \"-U -M 2 -Q " + seed +"\"\n";
+            } else {
+                classifierSpec += "\t\t\t\t\t\"options\" : \"-C 0.25 -M 2 -Q " + seed +"\"\n";
+            }
+            classifierSpec += "\t\t\t\t},\n" +
                     "\t\t\t\t\"loadClassifierFileName\" : \"\",\n" +
                     "\t\t\t\t\"name\" : \"Classifier\",\n" +
                     "\t\t\t\t\"resetIncrementalClassifier\" : false,\n" +
@@ -162,7 +180,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -183,7 +203,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -204,7 +226,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"486,501\"\n" +
@@ -225,7 +249,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -246,7 +272,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"486,501\"\n" +
@@ -267,7 +295,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -288,7 +318,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -309,7 +341,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -330,7 +364,9 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t},\n" +
                     "\t\t\t\"connections\" : {\n" +
                     "\t\t\t\t\"batchClassifier\" : [\n" +
-                    "\t\t\t\t\t\"PredictionAppender\"\n" +
+                    "\t\t\t\t\t\"PredictionAppender\",\n" +
+                    "\t\t\t\t\t\"ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\t\t\"SerializedModelSaver\"\n" +
                     "\t\t\t\t]\n" +
                     "\t\t\t},\n" +
                     "\t\t\t\"coordinates\" : \"506,697\"\n" +
@@ -454,6 +490,44 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t\"coordinates\" : \"417,318\"\n" +
                     "\t\t}," +
                     classifierSpec +
+                    "\t\t,{\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.SerializedModelSaver\",\n" +
+                    "\t\t\t\"properties\" : {\n" +
+                    "\t\t\t\t\"filenamePrefix\" : \"" + modelFileNamePrefix +"\",\n" +
+                    "\t\t\t\t\"includeRelationNameInFilename\" : false,\n" +
+                    "\t\t\t\t\"incrementalSaveSchedule\" : 0,\n" +
+                    "\t\t\t\t\"name\" : \"SerializedModelSaver\",\n" +
+                    "\t\t\t\t\"outputDirectory\" : \"" + modelFilePath + "\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"connections\" : {\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"coordinates\" : \"894,250\"\n" +
+                    "\t\t},\n" +
+                    "\t\t{\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.TextViewer\",\n" +
+                    "\t\t\t\"properties\" : {\n" +
+                    "\t\t\t\t\"name\" : \"TextViewer2\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"connections\" : {\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"coordinates\" : \"1229,208\"\n" +
+                    "\t\t},\n" +
+                    "\t\t{\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\"properties\" : {\n" +
+                    "\t\t\t\t\"costMatrixString\" : \"\",\n" +
+                    "\t\t\t\t\"errorPlotPointSizeProportionalToMargin\" : false,\n" +
+                    "\t\t\t\t\"evaluateWithRespectToCosts\" : false,\n" +
+                    "\t\t\t\t\"evaluationMetricsToOutput\" : \"Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area\",\n" +
+                    "\t\t\t\t\"name\" : \"ClassifierPerformanceEvaluator\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"connections\" : {\n" +
+                    "\t\t\t\t\"text\" : [\n" +
+                    "\t\t\t\t\t\"TextViewer2\"\n" +
+                    "\t\t\t\t]\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"coordinates\" : \"1011,207\"\n" +
+                    "\t\t}" +
                     "\t]\n" +
                     "}\n");
         } else {
@@ -593,6 +667,44 @@ public class TranslateToKFForSPARQL {
                     "\t\t\t\"coordinates\" : \"692,81\"\n" +
                     "\t\t},\n" +
                     classifierSpec +
+                    "\t\t,{\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.SerializedModelSaver\",\n" +
+                    "\t\t\t\"properties\" : {\n" +
+                    "\t\t\t\t\"filenamePrefix\" : \"" + modelFileNamePrefix +"\",\n" +
+                    "\t\t\t\t\"includeRelationNameInFilename\" : false,\n" +
+                    "\t\t\t\t\"incrementalSaveSchedule\" : 0,\n" +
+                    "\t\t\t\t\"name\" : \"SerializedModelSaver\",\n" +
+                    "\t\t\t\t\"outputDirectory\" : \"" + modelFilePath + "\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"connections\" : {\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"coordinates\" : \"894,250\"\n" +
+                    "\t\t},\n" +
+                    "\t\t{\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.TextViewer\",\n" +
+                    "\t\t\t\"properties\" : {\n" +
+                    "\t\t\t\t\"name\" : \"TextViewer2\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"connections\" : {\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"coordinates\" : \"1229,208\"\n" +
+                    "\t\t},\n" +
+                    "\t\t{\n" +
+                    "\t\t\t\"class\" : \"weka.knowledgeflow.steps.ClassifierPerformanceEvaluator\",\n" +
+                    "\t\t\t\"properties\" : {\n" +
+                    "\t\t\t\t\"costMatrixString\" : \"\",\n" +
+                    "\t\t\t\t\"errorPlotPointSizeProportionalToMargin\" : false,\n" +
+                    "\t\t\t\t\"evaluateWithRespectToCosts\" : false,\n" +
+                    "\t\t\t\t\"evaluationMetricsToOutput\" : \"Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area\",\n" +
+                    "\t\t\t\t\"name\" : \"ClassifierPerformanceEvaluator\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"connections\" : {\n" +
+                    "\t\t\t\t\"text\" : [\n" +
+                    "\t\t\t\t\t\"TextViewer2\"\n" +
+                    "\t\t\t\t]\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"coordinates\" : \"1011,207\"\n" +
+                    "\t\t}" +
                     "\t]\n" +
                     "}\n");
         }

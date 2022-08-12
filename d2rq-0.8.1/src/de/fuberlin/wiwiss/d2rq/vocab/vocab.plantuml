@@ -1,0 +1,407 @@
+@startuml
+
+title __VOCAB's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.D2RConfig {
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} + Server : Resource
+            {static} + autoReloadMapping : Property
+            {static} + baseURI : Property
+            {static} + datasetMetadataTemplate : Property
+            {static} + documentMetadata : Property
+            {static} + enableMetadata : Property
+            {static} + limitPerClassMap : Property
+            {static} + limitPerPropertyBridge : Property
+            {static} + metadataTemplate : Property
+            {static} + pageTimeout : Property
+            {static} + port : Property
+            {static} + publishes : Property
+            {static} + sparqlTimeout : Property
+            {static} + vocabularyIncludeInstances : Property
+            {static} - m_model : Model
+            {static} + getURI()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.D2RQ {
+            {static} + AdditionalProperty : Resource
+            {static} + ClassMap : Resource
+            {static} + Configuration : Resource
+            {static} + D2RQModel : Resource
+            {static} + Database : Resource
+            {static} + DatatypePropertyBridge : Resource
+            {static} + DownloadMap : Resource
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} + ObjectPropertyBridge : Resource
+            {static} + PropertyBridge : Resource
+            {static} + ResourceMap : Resource
+            {static} + Translation : Resource
+            {static} + TranslationTable : Resource
+            {static} + additionalClassDefinitionProperty : Property
+            {static} + additionalProperty : Property
+            {static} + additionalPropertyDefinitionProperty : Property
+            {static} + alias : Property
+            {static} + allowDistinct : Property
+            {static} + bNodeIdColumns : Property
+            {static} + belongsToClassMap : Property
+            {static} + binaryColumn : Property
+            {static} + bitColumn : Property
+            {static} + booleanColumn : Property
+            {static} + classDefinitionComment : Property
+            {static} + classDefinitionLabel : Property
+            {static} + classMap : Property
+            {static} + class_ : Property
+            {static} + column : Property
+            {static} + condition : Property
+            {static} + constantValue : Property
+            {static} + containsDuplicates : Property
+            {static} + contentDownloadColumn : Property
+            {static} + dataStorage : Property
+            {static} + databaseValue : Property
+            {static} + datatype : Property
+            {static} + dateColumn : Property
+            {static} + dynamicProperty : Property
+            {static} + fetchSize : Property
+            {static} + href : Property
+            {static} + intervalColumn : Property
+            {static} + javaClass : Property
+            {static} + jdbcDSN : Property
+            {static} + jdbcDriver : Property
+            {static} + join : Property
+            {static} + lang : Property
+            {static} + limit : Property
+            {static} + limitInverse : Property
+            {static} + mappingFile : Property
+            {static} + mediaType : Property
+            {static} + numericColumn : Property
+            {static} + odbcDSN : Property
+            {static} + orderAsc : Property
+            {static} + orderDesc : Property
+            {static} + password : Property
+            {static} + pattern : Property
+            {static} + property : Property
+            {static} + propertyBridge : Property
+            {static} + propertyDefinitionComment : Property
+            {static} + propertyDefinitionLabel : Property
+            {static} + propertyName : Property
+            {static} + propertyValue : Property
+            {static} + rdfValue : Property
+            {static} + refersToClassMap : Property
+            {static} + resourceBaseURI : Property
+            {static} + resultSizeLimit : Property
+            {static} + serveVocabulary : Property
+            {static} + sqlExpression : Property
+            {static} + startupSQLScript : Property
+            {static} + textColumn : Property
+            {static} + timeColumn : Property
+            {static} + timestampColumn : Property
+            {static} + translateWith : Property
+            {static} + translation : Property
+            {static} + uriColumn : Property
+            {static} + uriPattern : Property
+            {static} + uriSqlExpression : Property
+            {static} + useAllOptimizations : Property
+            {static} + username : Property
+            {static} + valueContains : Property
+            {static} + valueMaxLength : Property
+            {static} + valueRegex : Property
+            {static} - m_model : Model
+            {static} + getURI()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.ISWC {
+            {static} + AIFB : Resource
+            {static} + Agent_Systems : Resource
+            {static} + Agents : Resource
+            {static} + Algorithm : Resource
+            {static} + Application : Resource
+            {static} + Application_Domain : Resource
+            {static} + Artificial_Intelligence : Resource
+            {static} + Associate_Professor : Resource
+            {static} + Association : Resource
+            {static} + Book : Resource
+            {static} + Business_Engineering : Resource
+            {static} + C : Resource
+            {static} + Conference : Resource
+            {static} + DAML_OIL : Resource
+            {static} + Data_Mining : Resource
+            {static} + Databases : Resource
+            {static} + Department : Resource
+            {static} + Development_of_Knowledge_Management_Systems : Resource
+            {static} + Employee : Resource
+            {static} + Enterprise : Resource
+            {static} + Event : Resource
+            {static} + Faculty_Member : Resource
+            {static} + Formal_Language : Resource
+            {static} + Full_Professor : Resource
+            {static} + Human_Computer_Interaction : Resource
+            {static} + ISWC_2002 : Resource
+            {static} + InProceedings : Resource
+            {static} + Information_Extraction : Resource
+            {static} + Information_Retrieval : Resource
+            {static} + Information_Systems : Resource
+            {static} + Institute : Resource
+            {static} + Java : Resource
+            {static} + KAON : Resource
+            {static} + Knowledge_Discovery : Resource
+            {static} + Knowledge_Management : Resource
+            {static} + Knowledge_Management_Methodology : Resource
+            {static} + Knowledge_Portals : Resource
+            {static} + Knowledge_Reasoning : Resource
+            {static} + Knowledge_Representation_And_Reasoning : Resource
+            {static} + Knowledge_Representation_Languages : Resource
+            {static} + Knowledge_Systems : Resource
+            {static} + Lecturer : Resource
+            {static} + Logic : Resource
+            {static} + Machine_Learning : Resource
+            {static} + Matching : Resource
+            {static} + Method : Resource
+            {static} + Modeling : Resource
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} + Network_Infrastructure : Resource
+            {static} + OXML : Resource
+            {static} + Office_Information_Systems : Resource
+            {static} + Ontology_Engineering : Resource
+            {static} + Ontology_Learning : Resource
+            {static} + Ontology_based_Knowledge_Management_Systems : Resource
+            {static} + Organization : Resource
+            {static} + Person : Resource
+            {static} + PhDStudent : Resource
+            {static} + Proceedings : Resource
+            {static} + Project : Resource
+            {static} + Publication : Resource
+            {static} + Query_Languages : Resource
+            {static} + RDF : Resource
+            {static} + RDFS : Resource
+            {static} + Report : Resource
+            {static} + Research_Funding_Institution : Resource
+            {static} + Researcher : Resource
+            {static} + SQL : Resource
+            {static} + Semantic_Annotation : Resource
+            {static} + Semantic_Web : Resource
+            {static} + Semantic_Web_Iinfrastructure : Resource
+            {static} + Semantic_Web_Languages : Resource
+            {static} + Student : Resource
+            {static} + Text_Mining : Resource
+            {static} + Tool : Resource
+            {static} + Topic : Resource
+            {static} + TowardsSemanticWebMining : Resource
+            {static} + Tutorial : Resource
+            {static} + University : Resource
+            {static} + University_of_Karlsruhe : Resource
+            {static} + Web_Services : Resource
+            {static} + Workshop : Resource
+            {static} + World_Wide_Web : Resource
+            {static} + XML : Resource
+            {static} + address : Property
+            {static} + algorithm : Property
+            {static} + application : Property
+            {static} + application_domain : Property
+            {static} + author : Property
+            {static} + conference : Property
+            {static} + country : Property
+            {static} + date : Property
+            {static} + e_Business : Resource
+            {static} + email : Property
+            {static} + eventTitle : Property
+            {static} + fax : Property
+            {static} + first_Name : Property
+            {static} + formal_language : Property
+            {static} + funding_by : Property
+            {static} + hasSubtopic : Property
+            {static} + has_affiliate : Property
+            {static} + has_affiliation : Property
+            {static} + homepage : Property
+            {static} + involved_in_project : Property
+            {static} + is_about : Property
+            {static} + last_Name : Property
+            {static} + location : Property
+            {static} + method : Property
+            {static} + middle_Initial : Property
+            {static} + name : Property
+            {static} + organizations_involved : Property
+            {static} + persons_involved : Property
+            {static} + phone : Property
+            {static} + photo : Property
+            {static} + project_title : Property
+            {static} + research_topics : Property
+            {static} + title : Property
+            {static} + tool : Property
+            {static} + topic : Property
+            {static} + year : Property
+            {static} - m_model : Model
+            {static} + getURI()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.JDBC {
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} - model : Model
+            {static} + getURI()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.META {
+            {static} + NS : String
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.SD {
+            {static} + Dataset : Resource
+            {static} + Graph : Resource
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} + Service : Resource
+            {static} + defaultDatasetDescription : Property
+            {static} + defaultGraph : Property
+            {static} + resultFormat : Property
+            {static} + url : Property
+            {static} - vocabModel : Model
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.SKOS {
+            {static} + CollectableProperty : Resource
+            {static} + Collection : Resource
+            {static} + Concept : Resource
+            {static} + ConceptScheme : Resource
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} + OrderedCollection : Resource
+            {static} + altLabel : Property
+            {static} + altSymbol : Property
+            {static} + broader : Property
+            {static} + changeNote : Property
+            {static} + definition : Property
+            {static} + editorialNote : Property
+            {static} + example : Property
+            {static} + hasTopConcept : Property
+            {static} + hiddenLabel : Property
+            {static} + historyNote : Property
+            {static} + inScheme : Property
+            {static} + isPrimarySubjectOf : Property
+            {static} + isSubjectOf : Property
+            {static} + member : Property
+            {static} + memberList : Property
+            {static} + narrower : Property
+            {static} + note : Property
+            {static} + prefLabel : Property
+            {static} + prefSymbol : Property
+            {static} + primarySubject : Property
+            {static} + related : Property
+            {static} + scopeNote : Property
+            {static} + semanticRelation : Property
+            {static} + subject : Property
+            {static} + subjectIndicator : Property
+            {static} + symbol : Property
+            {static} - m_model : Model
+            {static} + getURI()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.VoID {
+            {static} + Dataset : Resource
+            {static} + NAMESPACE : Resource
+            {static} + NS : String
+            {static} + classPartition : Property
+            {static} + class_ : Property
+            {static} + feature : Property
+            {static} + homepage : Property
+            {static} + inDataset : Property
+            {static} + property : Property
+            {static} + propertyPartition : Property
+            {static} + rootResource : Property
+            {static} + sparqlEndpoint : Property
+            {static} + uriSpace : Property
+            {static} + vocabulary : Property
+            {static} - vocabModel : Model
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.VocabularySummarizer {
+            - classes : Set<Resource>
+            - namespace : String
+            - properties : Set<Property>
+            - vocabularyJavaClass : Class<? extends Object>
+            + VocabularySummarizer()
+            + assertNoUndefinedTerms()
+            + getAllClasses()
+            + getAllProperties()
+            + getNamespace()
+            + getUndefinedClasses()
+            + getUndefinedProperties()
+            - findAllClasses()
+            - findAllProperties()
+            - findNamespace()
+        }
+      }
+    }
+  }
+  
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

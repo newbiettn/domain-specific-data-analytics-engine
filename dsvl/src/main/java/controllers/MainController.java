@@ -2,11 +2,13 @@ package controllers;
 
 import beans.*;
 
+import config.Operator;
 import eu.mihosoft.vrl.workflow.*;
 import eu.mihosoft.vrl.workflow.fx.*;
 import io.CustomWorkflowIO;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -16,12 +18,16 @@ import javafx.scene.layout.*;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.jena.sparql.util.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parsing.ParseTree;
 import service.MainControllerService;
 import skins.*;
 import javafx.util.Pair;
+import weka.core.Instances;
+import weka.core.converters.CSVLoader;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -47,6 +53,7 @@ public class MainController {
     private TableView<ObservableList<StringProperty>> table = new TableView<>();
     private MainControllerService service;
     private final String D2RQ_URL = "http://localhost:2020/directory/Patient";
+    private final String VIZ_URL = "http://localhost:8000/";
 
     public Stage getStage() {
         return stage;
@@ -63,6 +70,9 @@ public class MainController {
 
     @FXML
     private WebView webView;
+
+    @FXML
+    private WebView vizWebView;
 
     @FXML
     private Pane contentPane;
@@ -85,6 +95,12 @@ public class MainController {
     @FXML
     private ChoiceBox<String> connectionNameChoiceBox;
 
+    @FXML
+    private ChoiceBox<String> vizVar1;
+
+    @FXML
+    private ChoiceBox<String> vizVar2;
+
     public MainController(){
 
     }
@@ -100,8 +116,8 @@ public class MainController {
 
         canvas = new VCanvas();
         canvas.setTranslateToMinNodePos(false); // avoid panning
-        canvas.setMaxScaleX(0.7);
-        canvas.setMaxScaleY(0.7);
+        canvas.setMaxScaleX(1);
+        canvas.setMaxScaleY(1);
         Pane root = (Pane) canvas.getContent();
         contentPane.getChildren().add(canvas);
         rootPane = root;
@@ -143,6 +159,30 @@ public class MainController {
 
         service = new MainControllerService(webView, tabPane);
         webView.getEngine().load(D2RQ_URL);
+
+    }
+
+    @FXML
+    private void updateOnTabSelection(){
+        setupChoiceBoxVariablesForViz();
+    }
+
+    private void setupChoiceBoxVariablesForViz(){
+        ArrayList<String> vars = service.getVizVariables();
+        if (vars != null){
+            ObservableList<String> l = FXCollections.observableArrayList(vars);
+            vizVar1.setItems(l);
+            vizVar2.setItems(l);
+        }
+    }
+
+    @FXML
+    private void visualize(){
+        String v1 = vizVar1.getValue();
+        String v2 = vizVar2.getValue();
+        service.prepareVizData(v1, v2);
+        vizWebView.getEngine().load("http://[::1]:8000/index.html");
+        logger.info("Visualizing......");
     }
 
     @FXML
@@ -193,10 +233,25 @@ public class MainController {
         outputs.add(new Pair<>("", TargetNodeBean.class));
         outputs.add(new Pair<>("", FeatureNodeBean.class));
         outputs.add(new Pair<>("", SavePredictiveModelBean.class));
+        outputs.add(new Pair<>("", ContextNodeBean.class));
+
 
         VNode n = flow.newNode();
         n.getValueObject().setValue(new CreatePredictionModelNodeBean(outputs));
         n.setMainOutput(n.addOutput(CONNECTION_NAME));
+
+        flow.setSkinFactories(skinFactory);
+    }
+
+    @FXML
+    private void addContextNode() {
+        ArrayList<Pair<String, Class>> contextOutputs = new ArrayList<>();
+        contextOutputs.add(new Pair<>("", PatientNodeBean.class));
+        contextOutputs.add(new Pair<>("", EpisodeNodeBean.class));
+        VNode contextNode = flow.newNode();
+        contextNode.getValueObject().setValue(new ContextNodeBean(contextOutputs));
+        contextNode.setMainOutput(contextNode.addOutput(CONNECTION_NAME));
+        contextNode.setMainInput(contextNode.addInput(CONNECTION_NAME));
 
         flow.setSkinFactories(skinFactory);
     }
@@ -232,10 +287,10 @@ public class MainController {
     private void addPredictNode() {
         // Predict node
         ArrayList<Pair<String, Class>> predictOutputs = new ArrayList<>();
-        predictOutputs.add(new Pair<>("", TargetNodeBean.class));
-        predictOutputs.add(new Pair<>("", FeatureNodeBean.class));
-        predictOutputs.add(new Pair<>("", UseLearningAlgorithmBean.class));
-        predictOutputs.add(new Pair<>("", ContextNodeBean.class));
+        predictOutputs.add(new Pair<>("hasTarget", TargetNodeBean.class));
+        predictOutputs.add(new Pair<>("hasFeature", FeatureNodeBean.class));
+        predictOutputs.add(new Pair<>("hasLearningAlgorithm", UseLearningAlgorithmBean.class));
+        predictOutputs.add(new Pair<>("hasContext", ContextNodeBean.class));
         VNode predictNode = flow.newNode();
         predictNode.getValueObject().setValue(new PredictNodeBean(predictOutputs));
         predictNode.setMainOutput(predictNode.addOutput(CONNECTION_NAME));
@@ -274,9 +329,9 @@ public class MainController {
         ConnectionResult cr2 = flow.connect(predictOutputConnector, featureInputConnector);
         ConnectionResult cr3 = flow.connect(predictOutputConnector, contextInputConnector);
 
-//        cr1.getConnection().setName("hasTarget");
-//        cr2.getConnection().setName("hasFeature");
-//        cr3.getConnection().setName("hasContext");
+        cr1.getConnection().setName("");
+        cr2.getConnection().setName("");
+        cr3.getConnection().setName("");
 
         predictNode.setX(100);
         predictNode.setY(150);
@@ -289,6 +344,7 @@ public class MainController {
 
         flow.setSkinFactories(skinFactory);
     }
+
 
     @FXML
     private void addUseLearningAlgorithm() {

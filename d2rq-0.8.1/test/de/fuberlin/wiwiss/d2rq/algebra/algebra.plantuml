@@ -1,0 +1,216 @@
+@startuml
+
+title __ALGEBRA's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AliasMapTest {
+            {static} - abc_col1 : Attribute
+            {static} - bar : RelationName
+            {static} - bar_col1 : Attribute
+            {static} - baz : RelationName
+            - bazAsBar : Alias
+            {static} - baz_col1 : Attribute
+            {static} - foo : RelationName
+            - fooAsBar : Alias
+            - fooAsBarMap : AliasMap
+            - fooAsBaz : Alias
+            {static} - foo_col1 : Attribute
+            {static} - xyz_col1 : Attribute
+            + testAliasEquals()
+            + testAliasIsTranslated()
+            + testAliasNotEquals()
+            + testAliasToString()
+            + testApplyToAlias()
+            + testApplyToAliasEmpty()
+            + testApplyToColumn()
+            + testApplyToJoinSetDoesModifyAliasedJoin()
+            + testApplyToJoinSetDoesNotModifyUnaliasedJoin()
+            + testApplyToSQLExpression()
+            + testEmptyMapDoesIdentityTranslation()
+            + testEmptyMapDoesntEqualPopulatedMap()
+            + testEmptyMapEqualsItself()
+            + testEqualMapsHaveSameHashCode()
+            + testNoAliasesConstantEqualsNewEmptyAliasMap()
+            + testOriginalOfAlias()
+            + testOriginalOfAliasEmpty()
+            + testOriginalOfColumn()
+            + testPopulatedMapDoesNotEqualDifferentMap()
+            + testPopulatedMapDoesntEqualEmptyMap()
+            + testPopulatedMapEqualsItself()
+            + testToStringEmpty()
+            + testToStringOneAlias()
+            + testToStringTwoAliases()
+            + testWithSchema()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AllTests {
+            {static} + suite()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AttributeTest {
+            {static} - barCol1 : Attribute
+            {static} - barCol2 : Attribute
+            {static} - fooCol1 : Attribute
+            {static} - fooCol2 : Attribute
+            {static} - table1 : RelationName
+            {static} - table1b : RelationName
+            {static} - table2 : RelationName
+            {static} - xTable1 : RelationName
+            {static} - xTable2 : RelationName
+            {static} - yTable1 : RelationName
+            + testAttributeEquality()
+            + testAttributeEqualityWithSchema()
+            + testAttributeHashCode()
+            + testAttributeNameWithSchema()
+            + testAttributeNames()
+            + testAttributeToString()
+            + testCompareDifferentAttributeDifferentTable()
+            + testCompareRelationNamesDifferentSchema()
+            + testCompareRelationNamesSameSchema()
+            + testCompareSameAttribute()
+            + testCompareSameAttributeDifferentTable()
+            + testCompareSameRelationName()
+            + testCompareSameTableDifferentAttribute()
+            + testDifferentRelationNamesAreNotEqual()
+            + testDifferentSchemaNamesAreNotEqual()
+            + testNoSchemaAttributeSmallerThanSchemaAttribute()
+            + testNoSchemaRelationNameSmallerSchemaRelationName()
+            + testRelationNameToString()
+            + testRelationNameWithPrefixNoSchema()
+            + testRelationNameWithPrefixWithSchema()
+            + testRelationNameWithSchema()
+            + testRelationNameWithoutSchema()
+            + testSameRelationAndSchemaNameIsEqual()
+            + testSameRelationNameIsEqual()
+            + testSchemaAndNoSchemaAreNotEqual()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.ColumnRenamerTest {
+            {static} - col1 : Attribute
+            - col1ToCol2 : ColumnRenamerMap
+            {static} - col2 : Attribute
+            {static} - col3 : Attribute
+            + setUp()
+            + testApplyToAliasMapReturnsOriginal()
+            + testApplyToExpressionReplacesMappedColumns()
+            + testApplyToMappedColumnReturnsNewName()
+            + testApplyToNewNameReturnsNewName()
+            + testApplyToUnmappedColumnReturnsSameColumn()
+            + testEmptyRenamerToStringEmpty()
+            + testNullRenamerToStringEmpty()
+            + testRenameWithSchema()
+            + testToStringOneAlias()
+            + testToStringTwoAliases()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroupTest {
+            ~ db : DummyDB
+            ~ notUnique : RelationImpl
+            ~ projections1 : Set<ProjectionSpec>
+            ~ projections2 : Set<ProjectionSpec>
+            ~ unique : RelationImpl
+            + setUp()
+            + testCombineConditionAndNoCondition()
+            + testCombineDifferentConditions()
+            + testNotUniqueIsCompatibleIfSameAttributes()
+            + testNotUniqueIsNotCompatible()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.JoinTest {
+            {static} - table1 : RelationName
+            {static} - table1bar : Attribute
+            {static} - table1foo : Attribute
+            {static} - table2 : RelationName
+            {static} - table2bar : Attribute
+            {static} - table2foo : Attribute
+            + testDifferentAttributesNotEqual()
+            + testDifferentDirectionsNotEqual()
+            + testJoinOverSameAttributesIsEqual()
+            + testRenameColumns()
+            + testSideOrderDoesNotAffectEquality1()
+            + testSideOrderDoesNotAffectEquality2()
+            + testTableOrderIsRetained()
+            + testToString()
+            + testToStringRetainsAttributeOrder()
+            + testToStringRetainsTableOrder()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.RelationTest {
+            - db : ConnectedDB
+            - rel1 : Relation
+            + setUp()
+            + testConditionWithNoSelectColumnsIsNotTrivial()
+            + testQueryWithSelectColumnsIsNotTrivial()
+            + testSelectFalseIsEmptyRelation()
+            + testTrueRelationIsTrivial()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.TripleRelationTest {
+            + testWithPrefix()
+        }
+      }
+    }
+  }
+  
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

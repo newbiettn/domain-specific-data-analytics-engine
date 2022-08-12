@@ -194,7 +194,7 @@ public class ParseTreeService {
             Node contextChildrenNode =contextNode.getChildren().get(0).getValue();
             if (contextNode != null) {
                 sparqlQuery.append(WHERE).append(SPACE).append(NL);
-                interpretWHERE(root, contextChildrenNode, depth + 1);
+                interpretWHERE(contextNode, contextChildrenNode, depth+1);
             } else {
                 logger.info("Require domain-specific objects to predict");
             }
@@ -270,7 +270,7 @@ public class ParseTreeService {
             Node contextChildrenNode =contextNode.getChildren().get(0).getValue();
             if (contextNode != null) {
                 sparqlQuery.append(WHERE).append(SPACE).append(NL);
-                interpretWHERE(root, contextChildrenNode, depth + 1);
+                interpretWHERE(contextNode, contextChildrenNode, depth+ 1);
             } else {
                 logger.info("Require domain-specific objects to predict");
             }
@@ -533,7 +533,8 @@ public class ParseTreeService {
             }
 
             // last node of the tree
-            if (depth == getDepth(root)){
+            int maxDepth = getDepth(root);
+            if (depth == maxDepth){
                 // filter condition
                 ArrayList<Pair<String, String>> conditions = getConditions(root);
                 if (conditions.size() > 0 ){

@@ -40,6 +40,7 @@ import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
 import weka.core.converters.CSVSaver;
 import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Remove;
 import weka.filters.unsupervised.attribute.Reorder;
 import java.io.*;
 import java.util.*;
@@ -68,6 +69,7 @@ public class MainControllerService {
     private String resultFilename;
     private String processFilename;
     private String performanceResultFileName;
+    private String visualizationDataFilename;
 
     public MainControllerService(WebView wv, TabPane tp){
         webView = wv;
@@ -81,12 +83,69 @@ public class MainControllerService {
         processFilepath = propGetter.getProperty("sparqlml.dm.process.filepath");
         testArffFilename = testDataFilepath + "test_dataset.arff";
         performanceResultFileName = propGetter.getProperty("sparqlml.result.filepath") + "performanceResult.csv";
+
+        visualizationDataFilename = propGetter.getProperty("sparqlml.visualization.datafile");
     }
 
     public int getParseTreeType(){
         ParseTree pt = new ParseTree();
         int type = pt.parse(flow); // Parse the flow to parse tree
         return type;
+    }
+
+    public void prepareVizData(String v1, String v2){
+        logger.info(v1 + " -----" + v2);
+        try {
+            CSVLoader loader = new CSVLoader();
+            loader.setSource(new File(resultFilename));
+            Instances data = loader.getDataSet();
+
+            Attribute a1 = data.attribute(v1);
+            Attribute a2 = data.attribute(v2);
+            Remove removeFilter = new Remove();
+            int index1 = a1.index() + 1;
+            int index2 = a2.index() + 1;
+            removeFilter.setAttributeIndices(index1 + "," + index2);
+            removeFilter.setInvertSelection(true);
+            removeFilter.setInputFormat(data);
+            Instances newdata = Filter.useFilter(data, removeFilter);
+
+//            Attribute a1 = data.attribute(v1);
+//            Attribute a2 = data.attribute(v2);
+//            if (a1.index() > a2.index()){
+//                Reorder reorder = new Reorder();
+//                reorder.setAttributeIndices("2,1");
+//                reorder.setInputFormat(data);
+//                data = Filter.useFilter(data, reorder);
+//            }
+
+
+            CSVSaver csvSaver = new CSVSaver();
+            csvSaver.setFieldSeparator(",");
+            csvSaver.setFile(new File(visualizationDataFilename));
+            csvSaver.setInstances(newdata);
+            csvSaver.writeBatch();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getVizVariables(){
+        try {
+            ArrayList<String> vars = new ArrayList<>();
+            CSVLoader loader = new CSVLoader();
+            loader.setSource(new File(resultFilename));
+            Instances data = loader.getDataSet();
+            for (int i = 0; i < data.numAttributes(); i++){
+                vars.add(data.attribute(i).name());
+            }
+            return vars;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     /**
      * Wrapper method for execute all kinds of query.
@@ -114,6 +173,7 @@ public class MainControllerService {
                     ParseTree ptCPM = new ParseTree();
                     ptCPM.parse(flow);
                     String queryCPM = ptCPM.fabricateInterpretingCPM();
+                    logger.info(queryCPM);
                     execCreatePredictionModelQuery(queryCPM);
                     execResult = execPredictQuery(sparqlQuery);
                 }
@@ -216,9 +276,11 @@ public class MainControllerService {
                         if (col == numCols - 3) {
                             attributeNewName = attributeName + " (Actual)";
                         } else if (col == numCols - 2) {
-                            attributeNewName =  "False Probability (Predicted)";
+                            attributeNewName =  "TRUE Probability (Predicted)";
+//                            attributeNewName =  attributeName;
                         } else if (col == numCols - 1){
-                            attributeNewName =  "True Probability (Predicted)";
+                            attributeNewName =  "FALSE Probability (Predicted)";
+//                            attributeNewName =  attributeName;
                         }
                     }
                     instanceResult.renameAttribute(col, attributeNewName);

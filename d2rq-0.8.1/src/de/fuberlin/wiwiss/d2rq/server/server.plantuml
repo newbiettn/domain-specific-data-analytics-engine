@@ -1,0 +1,503 @@
+@startuml
+
+title __SERVER's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.AutoReloadableDataset {
+            {static} - RELOAD_FREQUENCY_MS : long
+            - autoReload : boolean
+            - datasetGraph : DatasetGraph
+            - defaultModel : Model
+            - hasTruncatedResults : boolean
+            - lastModified : long
+            - lastReload : long
+            - loader : SystemLoader
+            {static} - log : Log
+            - watchedFile : File
+            + AutoReloadableDataset()
+            + abort()
+            + addNamedModel()
+            + asDatasetGraph()
+            + begin()
+            + checkMappingFileChanged()
+            + close()
+            + commit()
+            + containsNamedModel()
+            + end()
+            + getDefaultModel()
+            + getLock()
+            + getNamedModel()
+            + getPrefixMapping()
+            + hasTruncatedResults()
+            + isInTransaction()
+            + listNames()
+            + removeNamedModel()
+            + replaceNamedModel()
+            + setDefaultModel()
+            + supportsTransactions()
+            - reload()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ClassMapServlet {
+            {static} - serialVersionUID : long
+            # doGet()
+            - classMapListModel()
+            - getClassMapLister()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ConfigLoader {
+            {static} + DEFAULT_LIMIT_PER_CLASS_MAP : int
+            {static} + DEFAULT_LIMIT_PER_PROPERTY_BRIDGE : int
+            - autoReloadMapping : boolean
+            - baseURI : String
+            - configURL : String
+            - datasetMetadataTemplate : Model
+            - documentMetadata : Resource
+            - enableMetadata : boolean
+            - isLocalMappingFile : boolean
+            - limitPerClassMap : int
+            - limitPerPropertyBridge : int
+            {static} - log : Log
+            - mappingFilename : String
+            - model : Model
+            - pageTimeout : double
+            - port : int
+            - resourceMetadataTemplate : Model
+            - serverName : String
+            - sparqlTimeout : double
+            - vocabularyIncludeInstances : boolean
+            + ConfigLoader()
+            + addDocumentMetadata()
+            + baseURI()
+            + getAutoReloadMapping()
+            + getLimitPerClassMap()
+            + getLimitPerPropertyBridge()
+            + getLocalMappingFilename()
+            + getPageTimeout()
+            + getSPARQLTimeout()
+            + getVocabularyIncludeInstances()
+            + isLocalMappingFile()
+            + load()
+            + port()
+            + serverName()
+            {static} + toAbsoluteURI()
+            # findDatabaseResource()
+            # findServerResource()
+            # getDatasetMetadataTemplate()
+            # getResourceMetadataTemplate()
+            # serveMetadata()
+            - loadMetadataTemplate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.D2RQDatasetDesc {
+            - dataset : AutoReloadableDataset
+            + D2RQDatasetDesc()
+            + acquireDataset()
+            + returnDataset()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.D2RServer {
+            {static} - DATASET_SERVICE_NAME : String
+            {static} - DATA_SERVICE_NAME : String
+            {static} - DEFAULT_SERVER_NAME : String
+            {static} - PAGE_SERVICE_NAME : String
+            {static} - RESOURCE_SERVICE_NAME : String
+            {static} - SPARQL_SERVICE_NAME : String
+            {static} - SYSTEM_LOADER : String
+            {static} - VOCABULARY_STEM : String
+            - config : ConfigLoader
+            - dataset : AutoReloadableDataset
+            - loader : SystemLoader
+            {static} - log : Log
+            - overrideBaseURI : String
+            - startupError : boolean
+            + D2RServer()
+            + addDocumentMetadata()
+            + baseURI()
+            + checkMappingFileChanged()
+            + dataURL()
+            + dataset()
+            + errorOnStartup()
+            {static} + fromServletContext()
+            + getConfig()
+            {static} + getDataServiceName()
+            + getDatasetIri()
+            {static} + getDatasetServiceName()
+            + getMapping()
+            {static} + getPageServiceName()
+            + getPrefixes()
+            {static} + getResourceServiceName()
+            {static} + getSparqlServiceName()
+            + getSparqlUrl()
+            {static} + getVersion()
+            + hasTruncatedResults()
+            + isVocabularyResource()
+            + overrideBaseURI()
+            + pageURL()
+            + resourceBaseURI()
+            + resourceBaseURI()
+            {static} + retrieveSystemLoader()
+            + serverName()
+            + shutdown()
+            + start()
+            {static} + storeSystemLoader()
+            # createJosekiServiceRegistry()
+            {static} - getUri()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.DatasetDescriptionServlet {
+            # doGet()
+            {static} - findPrefix()
+            {static} - generatePartitions()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.DirectoryServlet {
+            {static} - serialVersionUID : long
+            # doGet()
+            - getClassMapLister()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.JettyLauncher {
+            - loader : SystemLoader
+            {static} - log : Log
+            - port : int
+            + JettyLauncher()
+            + start()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.MetadataCreator {
+            {static} + subjectSorter : Comparator<Statement>
+            - enable : boolean
+            {static} - log : Log
+            {static} - metadataPlaceholderURIPrefix : String
+            - model : Model
+            - server : D2RServer
+            - tplModel : Model
+            + MetadataCreator()
+            + addMetadataFromTemplate()
+            {static} + findTemplateFile()
+            {static} + loadMetadataTemplate()
+            {static} + loadTemplateFile()
+            - parsePlaceholder()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ModelResponse {
+            - model : Model
+            - request : HttpServletRequest
+            - response : HttpServletResponse
+            + ModelResponse()
+            + serve()
+            - doResponseModel()
+            - getWriter()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        interface de.fuberlin.wiwiss.d2rq.server.ModelResponse.ModelWriter {
+            {abstract} + write()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ModelResponse.N3Writer {
+            + write()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ModelResponse.NTriplesWriter {
+            + write()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ModelResponse.RDFXMLWriter {
+            + write()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ModelResponse.TurtleWriter {
+            + write()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.NamespaceServlet {
+            {static} - serialVersionUID : long
+            # doGet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.PageServlet {
+            - prefixes : PrefixMapping
+            {static} - serialVersionUID : long
+            + doGet()
+            {static} + getBestLabel()
+            - classmapLinks()
+            - collectProperties()
+            - getClassMapLister()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.PageServlet.Property {
+            - isInverse : boolean
+            - property : Node
+            - value : Node
+            + compareTo()
+            + datatypeQName()
+            + isImg()
+            + isInverse()
+            + propertyLocalName()
+            + propertyPrefix()
+            + propertyQName()
+            + propertyURI()
+            + value()
+            + valueQName()
+            ~ Property()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.RequestParamHandler {
+            {static} - ATTRIBUTE_NAME_IS_HANDLED : String
+            {static} - mimeTypes : HashMap<String, String>
+            - request : HttpServletRequest
+            - requestedType : String
+            + RequestParamHandler()
+            + getModifiedRequest()
+            + isMatchingRequest()
+            {static} + removeOutputRequestParam()
+            - identifyRequestedType()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.RequestParamHandler.WrappedRequest {
+            + getHeader()
+            + getHeaderNames()
+            + getHeaders()
+            ~ WrappedRequest()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ResourceDescriptionServlet {
+            # doGet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ResourceServlet {
+            + doGet()
+            - handleDownload()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.RootServlet {
+            {static} - serialVersionUID : long
+            + doGet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.VelocityWrapper {
+            {static} - APPLICATIONXML_CONTENTTYPE : String
+            {static} - TEXTHTML_CONTENTTYPE : String
+            {static} - VELOCITY_DEFAULT_CONTEXT : String
+            {static} - VELOCITY_ENGINE_INSTANCE : String
+            - context : Context
+            - engine : VelocityEngine
+            - request : HttpServletRequest
+            - response : HttpServletResponse
+            {static} - xhtmlNegotiator : ContentTypeNegotiator
+            + VelocityWrapper()
+            + getContext()
+            + getEngine()
+            {static} + initEngine()
+            + mergeTemplateXHTML()
+            + reportError()
+            {static} - initDefaultContext()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.WebappInitListener {
+            {static} - log : Log
+            + contextDestroyed()
+            + contextInitialized()
+            - absolutize()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.server.AutoReloadableDataset .up.|> Dataset
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse +-down- de.fuberlin.wiwiss.d2rq.server.ModelResponse.ModelWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse +-down- de.fuberlin.wiwiss.d2rq.server.ModelResponse.N3Writer
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse +-down- de.fuberlin.wiwiss.d2rq.server.ModelResponse.NTriplesWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse +-down- de.fuberlin.wiwiss.d2rq.server.ModelResponse.RDFXMLWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse +-down- de.fuberlin.wiwiss.d2rq.server.ModelResponse.TurtleWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse.N3Writer .up.|> de.fuberlin.wiwiss.d2rq.server.ModelResponse.ModelWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse.NTriplesWriter .up.|> de.fuberlin.wiwiss.d2rq.server.ModelResponse.ModelWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse.RDFXMLWriter .up.|> de.fuberlin.wiwiss.d2rq.server.ModelResponse.ModelWriter
+  de.fuberlin.wiwiss.d2rq.server.ModelResponse.TurtleWriter .up.|> de.fuberlin.wiwiss.d2rq.server.ModelResponse.ModelWriter
+  de.fuberlin.wiwiss.d2rq.server.PageServlet +-down- de.fuberlin.wiwiss.d2rq.server.PageServlet.Property
+  de.fuberlin.wiwiss.d2rq.server.PageServlet.Property .up.|> Comparable
+  de.fuberlin.wiwiss.d2rq.server.RequestParamHandler +-down- de.fuberlin.wiwiss.d2rq.server.RequestParamHandler.WrappedRequest
+  de.fuberlin.wiwiss.d2rq.server.WebappInitListener .up.|> ServletContextListener
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

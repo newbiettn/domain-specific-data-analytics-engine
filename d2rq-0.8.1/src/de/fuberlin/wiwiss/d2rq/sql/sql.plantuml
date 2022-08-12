@@ -1,0 +1,294 @@
+@startuml
+
+title __SQL's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.BeanCounter {
+            + numberOfExecutedSQLQueries : int
+            + numberOfReturnedFields : int
+            + numberOfReturnedRows : int
+            + timeMillis : long
+            {static} + totalNumberOfExecutedSQLQueries : int
+            {static} + totalNumberOfReturnedFields : int
+            {static} + totalNumberOfReturnedRows : int
+            + BeanCounter()
+            + clone()
+            + div()
+            {static} + instance()
+            {static} + instanceMinus()
+            + minus()
+            + sqlInfoString()
+            + sqlPerformanceString()
+            + subtract()
+            + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ConnectedDB {
+            {static} + DEFAULT_KEEP_ALIVE_INTERVAL : int
+            {static} + DEFAULT_KEEP_ALIVE_QUERY : String
+            {static} + KEEP_ALIVE_PROPERTY : String
+            {static} + KEEP_ALIVE_QUERY_PROPERTY : String
+            - cachedColumnNullability : Map<Attribute, Boolean>
+            - cachedColumnTypes : Map<Attribute, DataType>
+            - connection : Connection
+            - connectionProperties : Properties
+            - defaultFetchSize : int
+            - fetchSize : int
+            - jdbcURL : String
+            - limit : int
+            {static} - log : Log
+            - overriddenColumnTypes : Map<Attribute, GenericType>
+            - password : String
+            - schemaInspector : DatabaseSchemaInspector
+            - uniqueIndexCache : Map<RelationName, Map<String, List<String>>>
+            - username : String
+            - vendor : Vendor
+            - zerofillCache : Map<Attribute, Boolean>
+            + ConnectedDB()
+            + ConnectedDB()
+            + areCompatibleFormats()
+            + close()
+            + columnType()
+            + connection()
+            + equals()
+            + fetchSize()
+            + getJdbcURL()
+            + getPassword()
+            + getUniqueKeyColumns()
+            + getUsername()
+            {static} + guessJDBCDriverClass()
+            + hashCode()
+            + isNullable()
+            + limit()
+            + lowerCaseTableNames()
+            {static} + registerJDBCDriver()
+            {static} + registerJDBCDriverIfPresent()
+            + schemaInspector()
+            + setDefaultFetchSize()
+            + vendor()
+            + vendorIs()
+            # getDatabaseProductType()
+            - connect()
+            - ensureVendorInitialized()
+            - getConnectionProperties()
+            - isZerofillColumn()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ConnectedDB.KeepAliveAgent {
+            ~ shutdown : boolean
+            - interval : int
+            - query : String
+            + KeepAliveAgent()
+            + run()
+            + shutdown()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        interface de.fuberlin.wiwiss.d2rq.sql.Quoter {
+            {abstract} + quote()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.Quoter.PatternDoublingQuoter {
+            - pattern : Pattern
+            - quote : String
+            + PatternDoublingQuoter()
+            + quote()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        interface de.fuberlin.wiwiss.d2rq.sql.ResultRow {
+            {static} + NO_ATTRIBUTES : ResultRow
+            {abstract} + get()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ResultRowMap {
+            - projectionsToValues : Map<ProjectionSpec, String>
+            + ResultRowMap()
+            {static} + fromResultSet()
+            + get()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQL {
+            {static} - HEX_STRING_PATTERN : Pattern
+            {static} - aliasPattern : Pattern
+            {static} - attributeRegexConservative : Pattern
+            {static} - attributeRegexLax : Pattern
+            {static} - relationNameRegex : Pattern
+            {static} + findColumnsInExpression()
+            {static} + isHexString()
+            {static} + parseAlias()
+            {static} + parseAttribute()
+            {static} + parseJoins()
+            {static} + parseRelationName()
+            {static} + quoteColumnsInExpression()
+            {static} + replaceColumnsInExpression()
+            - SQL()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQL.AttributeEqualityCondition {
+            - firstAttribute : Attribute
+            - joinOperator : int
+            - secondAttribute : Attribute
+            + compareTo()
+            + firstAttribute()
+            + joinOperator()
+            {static} + parseJoinCondition()
+            + secondAttribute()
+            ~ AttributeEqualityCondition()
+            ~ sameRelations()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLIterator {
+            - cancelled : boolean
+            - columns : List<ProjectionSpec>
+            - database : ConnectedDB
+            - explicitlyClosed : boolean
+            {static} - log : Log
+            - numCols : int
+            - prefetchedRow : ResultRow
+            - queryExecuted : boolean
+            - resultSet : ResultSet
+            - sql : String
+            - statement : Statement
+            + SQLIterator()
+            + cancel()
+            + close()
+            + hasNext()
+            + next()
+            + nextRow()
+            + remove()
+            - ensureQueryExecuted()
+            - tryFetchNextRow()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLScriptLoader {
+            - conn : Connection
+            - in : BufferedReader
+            {static} - log : Log
+            + SQLScriptLoader()
+            + execute()
+            {static} + loadFile()
+            {static} + loadURI()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SelectStatementBuilder {
+            - aliases : AliasMap
+            - cachedCondition : Expression
+            - conditions : List<Expression>
+            - database : ConnectedDB
+            - eliminateDuplicates : boolean
+            - limit : int
+            {static} - log : Log
+            - mentionedTables : Collection<RelationName>
+            - orderSpecs : List<OrderSpec>
+            - selectSpecs : List<ProjectionSpec>
+            + SelectStatementBuilder()
+            + getColumnSpecs()
+            + getSQLStatement()
+            - addCondition()
+            - addMentionedTablesFromConditions()
+            - addSelectSpec()
+            - condition()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.sql.BeanCounter .up.|> Cloneable
+  de.fuberlin.wiwiss.d2rq.sql.ConnectedDB o-- de.fuberlin.wiwiss.d2rq.sql.ConnectedDB.KeepAliveAgent : keepAliveAgent
+  de.fuberlin.wiwiss.d2rq.sql.ConnectedDB +-down- de.fuberlin.wiwiss.d2rq.sql.ConnectedDB.KeepAliveAgent
+  de.fuberlin.wiwiss.d2rq.sql.Quoter +-down- de.fuberlin.wiwiss.d2rq.sql.Quoter.PatternDoublingQuoter
+  de.fuberlin.wiwiss.d2rq.sql.Quoter.PatternDoublingQuoter .up.|> de.fuberlin.wiwiss.d2rq.sql.Quoter
+  de.fuberlin.wiwiss.d2rq.sql.ResultRowMap .up.|> ResultRow
+  de.fuberlin.wiwiss.d2rq.sql.SQL +-down- de.fuberlin.wiwiss.d2rq.sql.SQL.AttributeEqualityCondition
+  de.fuberlin.wiwiss.d2rq.sql.SQL.AttributeEqualityCondition .up.|> Comparable
+  de.fuberlin.wiwiss.d2rq.sql.SQLIterator .up.|> ClosableIterator
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

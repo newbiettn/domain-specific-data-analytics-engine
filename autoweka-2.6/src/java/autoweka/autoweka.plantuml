@@ -1,0 +1,1449 @@
+@startuml
+
+title __AUTOWEKA's Class Diagram__\n
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ApplicabilityTester {
+          {static} ~ log : Logger
+          {static} + getApplicableAttributeEvaluators()
+          {static} + getApplicableAttributeSearchers()
+          {static} + getApplicableClassifiers()
+          {static} - getApplicable()
+          {static} - isApplicable()
+          {static} - isApplicableAttributeEvaluator()
+          {static} - isApplicableAttributeSearch()
+          {static} - isApplicableClassifier()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ApplicabilityTester.ApplicableClassifiers {
+          + base : List<ClassParams>
+          + ensemble : List<ClassParams>
+          + meta : List<ClassParams>
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      enum Testable {
+        ATTRIBUTE_EVAL
+        ATTRIBUTE_SEARCH
+        CLASSIFIER
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassParams {
+          - mConditionals : ArrayList<Conditional>
+          - mParameterMap : HashMap<String, Parameter>
+          - mParameters : ArrayList<Parameter>
+          - mTargetClass : String
+          {static} - targetClassPattern : Pattern
+          + ClassParams()
+          + filterParams()
+          + getConditionals()
+          + getParameterMap()
+          + getParameters()
+          + getTargetClass()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult {
+          {static} + INFINITY : double
+          - mAttributeSelection : AttributeSelection
+          - mAttributeSelectionTime : double
+          - mClassifier : AbstractClassifier
+          - mCompleted : boolean
+          - mEvaluationTime : double
+          - mMemOut : boolean
+          - mPercentEvaluated : double
+          - mRawScore : double
+          - mRegularizationPlenalty : double
+          - mTrainingTime : double
+          + ClassifierResult()
+          + ClassifierResult()
+          + _setRawScore()
+          + getAttributeSelection()
+          + getAttributeSelectionTime()
+          + getClassifier()
+          + getCompleted()
+          + getDescription()
+          + getEvaluationTime()
+          {static} + getInfinity()
+          + getMemOut()
+          + getNormalizationPenalty()
+          + getPercentEvaluated()
+          + getRawScore()
+          + getScore()
+          + getTime()
+          + getTrainingTime()
+          + setAttributeSelection()
+          + setAttributeSelectionTime()
+          + setClassifier()
+          + setCompleted()
+          + setEvaluationTime()
+          + setMemOut()
+          + setPercentEvaluated()
+          + setPercentEvaluated()
+          + setRegularizationPenalty()
+          + setScoreFromEval()
+          + setTrainingTime()
+          {static} - getMetricFromString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.AreaAboveROCMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.AreaUnderROCMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.AvgCostMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.CorrectMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.CorrelationCoefficientMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.ErrorRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.FMeasureMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.FalseNegativeRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.FalsePositiveRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.IncorrectMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.KBInformationMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.KBMeanInformationMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.KBRelativeInformationMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.KappaMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.MeanAbsoluteErrorMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      interface autoweka.ClassifierResult.Metric {
+          {abstract} + getDefault()
+          {abstract} + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.PctCorrectMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.PctIncorrectMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.PrecisionMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.RelativeAbsoluteErrorMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.RootMeanSquaredErrorMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.RootRelativeSquaredErrorMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedAreaUnderROCMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedFMeasureMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedFalseNegativeRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedFalsePositiveRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedPrecisionMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedRecallMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedTrueNegativeRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult.WeightedTruePositiveRateMetric {
+          + getDefault()
+          + getScore()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierRunner {
+          ~ log : Logger
+          - mDisableOutput : boolean
+          - mInstanceGenerator : InstanceGenerator
+          - mPredictionsFileName : String
+          - mSavedOutput : PrintStream
+          - mTestOnly : boolean
+          + ClassifierRunner()
+          + evaluateClassifierOnTesting()
+          + getInstanceGenerator()
+          + run()
+          # disableOutput()
+          # enableOutput()
+          # saveConfiguration()
+          - _evaluateClassifierOnInstances()
+          - _run()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierRunner.AttributeSelectorThread {
+          - mInstances : Instances
+          - mSelection : AttributeSelection
+          + AttributeSelectorThread()
+          # doWork()
+          # getOpName()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierRunner.BuilderThread {
+          - mClassifier : AbstractClassifier
+          - mTrainInstances : Instances
+          + BuilderThread()
+          # doWork()
+          # getOpName()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierRunner.EvaluatorThread {
+          - mClassifier : AbstractClassifier
+          - mEval : Evaluation
+          - mInstances : Instances
+          - mPredictionsFile : String
+          + EvaluatorThread()
+          + EvaluatorThread()
+          # doWork()
+          # getOpName()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierRunner.RunnerThread {
+          + result : ClassifierResult
+          - args : List<String>
+          - instanceStr : String
+          - mSeed : String
+          - resultMetric : String
+          - timeout : float
+          + RunnerThread()
+          # doWork()
+          # getOpName()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Conditional {
+          + domain : Collection<String>
+          + parameter : Parameter
+          + parent : Parameter
+          {static} - conditionalPattern : Pattern
+          + Conditional()
+          + Conditional()
+          + Conditional()
+          + Conditional()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Configuration {
+          - averagedFlag : boolean
+          - mAmtFolds : int
+          - mAmtScores : int
+          - mArgStrings : String
+          - mAverageScore : double
+          - mEvaluatedFold : int
+          - mEvaluatedScore : double
+          - mFolds : ArrayList<String>
+          - mScores : ArrayList<String>
+          + Configuration()
+          + Configuration()
+          + Configuration()
+          + compareTo()
+          + forceUpdateAverage()
+          + getAmtFolds()
+          + getArgStrings()
+          + getAverageScore()
+          + getEvaluatedFold()
+          + getEvaluatedScore()
+          + getEvaluationAmount()
+          + getFolds()
+          + getScores()
+          + hashCode()
+          + lazyUpdateAverage()
+          + mergeWith()
+          + setEvaluationValues()
+          + setFoldId()
+          + setScore()
+          + toString()
+          - average()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ConfigurationCollection {
+          - mConfigurations : ArrayList<Configuration>
+          + ConfigurationCollection()
+          + ConfigurationCollection()
+          + ConfigurationCollection()
+          + add()
+          + asArrayList()
+          {static} + fromXML()
+          + get()
+          + getFullyEvaluatedAmt()
+          + size()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ConfigurationRanker {
+          {static} + rank()
+          {static} - forceFirst()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.DefaultsExperimentConstructor {
+          + DefaultsExperimentConstructor()
+          + addArgStrings()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Experiment {
+          + allowedClassifiers : List<String>
+          + attributeSelection : boolean
+          + attributeSelectionTimeout : float
+          + callString : List<String>
+          + datasetString : String
+          + envVariables : List<String>
+          + extraPropsString : String
+          + instanceGenerator : String
+          + instanceGeneratorArgs : String
+          + memory : String
+          + name : String
+          + resultMetric : String
+          + trainTimeout : float
+          + trajectoryParserClassName : String
+          + trajectoryPointExtras : List<TrajectoryPointExtra>
+          + tunerTimeout : float
+          + type : String
+          {static} ~ log : Logger
+          + Experiment()
+          {static} + createFromFolder()
+          {static} + fromXML()
+          {static} + fromXML()
+          {static} + main()
+          + validate()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Experiment.TrajectoryPointExtra {
+          + instance : String
+          + name : String
+          + TrajectoryPointExtra()
+          + TrajectoryPointExtra()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ExperimentBatch {
+          + mDatasets : List<DatasetComponent>
+          + mExperiments : List<ExperimentComponent>
+          {static} ~ log : Logger
+          {static} + createExperiment()
+          {static} + fromXML()
+          {static} + fromXML()
+          {static} + main()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ExperimentBatch.DatasetComponent {
+          + name : String
+          - classIndex : String
+          - testArff : String
+          - trainArff : String
+          - zipFile : String
+          + getDatasetString()
+          + setTrainTestArff()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ExperimentBatch.ExperimentComponent {
+          + allowedClassifiers : List<String>
+          + attributeSelection : boolean
+          + attributeSelectionTimeout : float
+          + constructor : String
+          + constructorArgs : List<String>
+          + extraProps : String
+          + instanceGenerator : String
+          + instanceGeneratorArgs : String
+          + memory : String
+          + name : String
+          + resultMetric : String
+          + trainTimeout : float
+          + trajectoryPointExtras : List<TrajectoryPointExtra>
+          + tunerTimeout : float
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.ExperimentConstructor {
+          # mAllowedClassifiers : List<String>
+          # mAttribEvalClassParams : List<ClassParams>
+          # mAttribSearchClassParams : List<ClassParams>
+          # mBaseClassParams : List<ClassParams>
+          # mEnsembleClassParams : List<ClassParams>
+          # mEnsembleMaxNum : int
+          # mExperiment : Experiment
+          # mExperimentPath : String
+          # mIncludeBase : boolean
+          # mIncludeEnsemble : boolean
+          # mIncludeMeta : boolean
+          # mInstanceGenerator : InstanceGenerator
+          # mMetaClassParams : List<ClassParams>
+          # mParamBaseDir : String
+          # mProperties : Properties
+          {static} ~ log : Logger
+          {static} + buildSingle()
+          + generateAlgorithmParameterConditionalGroupForDAG()
+          {static} + generateBatches()
+          + getPrefix()
+          {static} + main()
+          {abstract} + prepareExperiment()
+          + processArg()
+          {abstract} # getCallString()
+          # getEnvVariables()
+          {abstract} # getTrajectoryParserClassName()
+          {abstract} # getType()
+          # getWrapperPropString()
+          - addClassifierToParameterConditionalGroupForDAG()
+          - checkPrefixes()
+          - loadAttributeSelectors()
+          - loadClassifiers()
+          - run()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.GridSearchExperimentConstructor {
+          - mNumGridPoints : int
+          + GridSearchExperimentConstructor()
+          + addArgStrings()
+          # addGridSearchPoints()
+          # processArg()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.InstanceGenerator {
+          {static} ~ log : Logger
+          - mTesting : Instances
+          - mTraining : Instances
+          + InstanceGenerator()
+          + InstanceGenerator()
+          + InstanceGenerator()
+          {abstract} + _getTestingFromParams()
+          {abstract} + _getTrainingFromParams()
+          {static} + create()
+          {static} + create()
+          + getAllInstanceFeatures()
+          {abstract} + getAllInstanceStrings()
+          + getTesting()
+          + getTestingFromParams()
+          + getTraining()
+          + getTrainingFromParams()
+          - loadTrainTestArff()
+          - loadZipFile()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.InstanceGenerator.NestedArgs {
+          + child : String
+          + current : String
+          + instance : String
+          + NestedArgs()
+          + NestedArgs()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListExperiment {
+          + argStrings : ArrayList<String>
+          + datasetString : String
+          + extraPropsString : String
+          + instanceGenerator : String
+          + instanceGeneratorArgs : String
+          + memory : String
+          + name : String
+          + resultMetric : String
+          + seed : String
+          + trainTimeout : float
+          + trajectoryPointExtras : List<TrajectoryPointExtra>
+          + ListExperiment()
+          {static} + fromXML()
+          {static} + fromXML()
+          {static} + main()
+          + validate()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListExperimentBatch {
+          {static} ~ log : Logger
+          ~ mExperiments : List<ListExperimentComponent>
+          ~ mInstances : List<DatasetComponent>
+          {static} + createListExperiment()
+          {static} + fromXML()
+          {static} + fromXML()
+          {static} + main()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListExperimentBatch.ListExperimentComponent {
+          + constructor : String
+          + constructorArgs : List<String>
+          + extraProps : String
+          + instanceGenerator : String
+          + instanceGeneratorArgs : String
+          + memory : String
+          + name : String
+          + resultMetric : String
+          + seed : String
+          + trainTimeout : float
+          + trajectoryPointExtras : List<TrajectoryPointExtra>
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.ListExperimentConstructor {
+          # mClassifierParams : ArrayList<ClassParams>
+          # mExperiment : ListExperiment
+          # mExperimentPath : String
+          # mIncludeBase : boolean
+          # mIncludeEnsemble : boolean
+          # mIncludeMeta : boolean
+          # mInstanceGenerator : InstanceGenerator
+          # mParamBaseDir : String
+          # mProperties : Properties
+          # mTrajectoryPointExtras : ArrayList<TrajectoryPointExtra>
+          {static} ~ log : Logger
+          {static} + buildSingle()
+          {static} + generateBatches()
+          {static} + main()
+          {abstract} # addArgStrings()
+          # loadClassifiers()
+          # processArg()
+          - run()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListResultGroup {
+          + experiment : ListExperiment
+          + results : ArrayList<ListResult>
+          + ListResultGroup()
+          + ListResultGroup()
+          {static} + fromXML()
+          {static} + fromXML()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListResultGroup.ListResult {
+          + argString : String
+          + results : ArrayList<InstanceResult>
+          + ListResult()
+          + ListResult()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListResultGroup.ListResult.InstanceResult {
+          + instance : String
+          ~ error : double
+          ~ time : double
+          + InstanceResult()
+          + InstanceResult()
+          + InstanceResult()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListResultMerger {
+          {static} ~ log : Logger
+          {static} + main()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Parameter {
+          + categoricalInnards : List<String>
+          + defaultCategorical : String
+          + defaultCategoricalIndex : int
+          + defaultNumeric : float
+          + maxNumeric : float
+          + minNumeric : float
+          + name : String
+          {static} - paramPattern : Pattern
+          + Parameter()
+          + Parameter()
+          + Parameter()
+          + Parameter()
+          + Parameter()
+          + getDiscretization()
+          + getRandomValue()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      enum ParamType {
+        CATEGORICAL
+        INTEGER
+        LOG_INTEGER
+        LOG_NUMERIC
+        NUMERIC
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ParameterConditionalGroup {
+          - mConditionals : Map<String, List<Conditional>>
+          - mParams : Map<String, Parameter>
+          + add()
+          + add()
+          + getConditionalsForParameter()
+          + getConditionalsForParameter()
+          + getParameter()
+          + getParameters()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.SubProcessWrapper {
+          {static} ~ log : Logger
+          {static} - mResultPattern : Pattern
+          {static} + getErrorAndTime()
+          {static} + getErrorAndTime()
+          {static} + getErrorAndTime()
+          {static} + getErrorAndTime()
+          {static} + getErrorAndTime()
+          {static} + main()
+          # _processParameter()
+          # _processResults()
+          # _processWrapperParameterStart()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.SubProcessWrapper.ErrorAndTime {
+          + error : float
+          + time : float
+          + ErrorAndTime()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Trajectory {
+          - mNumEvaluations : int
+          - mNumMemOutEvaluations : int
+          - mNumTimeOutEvaluations : int
+          - mPoints : List<Point>
+          - mSeed : String
+          + Trajectory()
+          + addPoint()
+          + getLastPoint()
+          + getNextPoint()
+          + getNumEvaluations()
+          + getNumMemOutEvaluations()
+          + getNumTimedOutEvaluations()
+          + getPointAtTime()
+          + getPoints()
+          + getSeed()
+          + setEvaluationCounts()
+          + toString()
+          + truncateToTime()
+          - Trajectory()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Trajectory.Point {
+          + mArgs : String
+          + mErrorEstimate : double
+          + mTime : double
+          + specificInstanceInfo : ArrayList<SpecificInstanceInfo>
+          + Point()
+          + getArgs()
+          + getErrorEstimate()
+          + getTime()
+          + toString()
+          - Point()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Trajectory.Point.SpecificInstanceInfo {
+          + error : double
+          + instance : String
+          + name : String
+          + time : double
+          + SpecificInstanceInfo()
+          + SpecificInstanceInfo()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryGroup {
+          - mExperiment : Experiment
+          - mTrajectories : ArrayList<Trajectory>
+          + TrajectoryGroup()
+          + TrajectoryGroup()
+          + addTrajectory()
+          {static} + fromXML()
+          {static} + fromXML()
+          + getExperiment()
+          + getSeeds()
+          + getTrajectories()
+          + getTrajectory()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryMerger {
+          {static} ~ log : Logger
+          {static} + main()
+          {static} + mergeExperimentFolder()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.TrajectoryParser {
+          {static} ~ log : Logger
+          + TrajectoryParser()
+          {static} + getTrajectory()
+          {static} + main()
+          {abstract} + parseTrajectory()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryPointExtraRunner {
+          {static} + main()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryPointPredictionRunner {
+          {static} + main()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Util {
+          {static} ~ log : Logger
+          {static} - msFailedToFindDistributionOnce : boolean
+          {static} - msPropertyStringPattern : Pattern
+          {static} + argMapToString()
+          {static} + cartesianProduct()
+          {static} + copyFile()
+          {static} + createDummyInstances()
+          {static} + expandEnvironmentVariable()
+          {static} + expandPath()
+          {static} + findExecutableOnPath()
+          {static} + getAbsoluteClasspath()
+          {static} + getAutoWekaDistributionPath()
+          {static} + getJavaExecutable()
+          {static} + initializeFile()
+          {static} + joinStrings()
+          {static} + joinStrings()
+          {static} + loadDataSource()
+          {static} + makePath()
+          {static} + parseCommandLineProperties()
+          {static} + parseCommandLineProperties()
+          {static} + parsePropertyString()
+          {static} + parsePropertyString()
+          {static} + propertiesToString()
+          {static} + quoteStrings()
+          {static} + removeExtension()
+          {static} + removeHidden()
+          {static} + splitNestedString()
+          {static} + splitQuotedString()
+          {static} - _cartesianProduct()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Util.NullPrintStream {
+          + NullPrintStream()
+          + write()
+          + write()
+          + write()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Util.ProcessKillerShutdownHook {
+          - mProc : Process
+          + ProcessKillerShutdownHook()
+          + run()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.WekaArgumentConverter {
+          {static} ~ log : Logger
+          {static} + convert()
+          {static} - processArgs()
+          {static} - sortArgs()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.WekaArgumentConverter.ArgumentPair {
+          + name : String
+          + value : String
+          + ArgumentPair()
+          + compareTo()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.WekaArgumentConverter.Arguments {
+          + argMap : Map<String, List<String>>
+          + propertyMap : Map<String, String>
+          + toString()
+          - Arguments()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.WekaArgumentConverter.PrefixElement {
+          + mapName : String
+          + prefix : String
+          + PrefixElement()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.WorkerThread {
+          ~ log : Logger
+          - mCompleted : boolean
+          - mException : Exception
+          - mOSBean : OperatingSystemMXBean
+          - mTerminated : boolean
+          {static} - msPollInterval : int
+          {static} - msTimeoutMultiplyer : float
+          {static} - msWalltimeMultiplyer : float
+          + completed()
+          + getException()
+          + run()
+          + terminate()
+          + terminated()
+          {abstract} # doWork()
+          {abstract} # getOpName()
+          ~ runWorker()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Wrapper {
+          # mExperimentSeed : String
+          # mInstance : String
+          # mProperties : Properties
+          # mResultMetric : String
+          # mRunner : ClassifierRunner
+          # mTimeout : float
+          ~ log : Logger
+          + run()
+          # _doRun()
+          # _postRun()
+          # _preRun()
+          # _processParameter()
+          # _processResults()
+          # _processWrapperParameterStart()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable {
+          {static} ~ log : Logger
+          {static} - msParserMap : Map<Class<?>, Class<?>>
+          {static} + fromXML()
+          {static} + populateObjectFromCMDParams()
+          {static} + populateObjectFromCMDParams()
+          + toXML()
+          + toXML()
+          {static} # fromXML()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable.BooleanParser {
+          + BooleanParser()
+          ~ setParameter()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable.FloatParser {
+          + FloatParser()
+          ~ setParameter()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable.IntParser {
+          + IntParser()
+          ~ setParameter()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable.ListParser {
+          + ListParser()
+          ~ setParameter()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.XmlSerializable.ParamParser {
+          # mField : Field
+          + ParamParser()
+          {abstract} ~ setParameter()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable.StringParser {
+          + StringParser()
+          ~ setParameter()
+      }
+    }
+  }
+  
+
+  autoweka.ApplicabilityTester +-down- autoweka.ApplicabilityTester.ApplicableClassifiers
+  autoweka.ApplicabilityTester +-down- autoweka.ApplicabilityTester.Testable
+  autoweka.ClassifierResult o-- autoweka.ClassifierResult.Metric : mMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.AreaAboveROCMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.AreaUnderROCMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.AvgCostMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.CorrectMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.CorrelationCoefficientMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.ErrorRateMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.FMeasureMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.FalseNegativeRateMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.FalsePositiveRateMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.IncorrectMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.KBInformationMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.KBMeanInformationMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.KBRelativeInformationMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.KappaMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.MeanAbsoluteErrorMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.PctCorrectMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.PctIncorrectMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.PrecisionMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.RelativeAbsoluteErrorMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.RootMeanSquaredErrorMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.RootRelativeSquaredErrorMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedAreaUnderROCMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedFMeasureMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedFalseNegativeRateMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedFalsePositiveRateMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedPrecisionMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedRecallMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedTrueNegativeRateMetric
+  autoweka.ClassifierResult +-down- autoweka.ClassifierResult.WeightedTruePositiveRateMetric
+  autoweka.ClassifierResult.AreaAboveROCMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.AreaUnderROCMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.AvgCostMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.CorrectMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.CorrelationCoefficientMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.ErrorRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.FMeasureMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.FalseNegativeRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.FalsePositiveRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.IncorrectMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.KBInformationMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.KBMeanInformationMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.KBRelativeInformationMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.KappaMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.MeanAbsoluteErrorMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.PctCorrectMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.PctIncorrectMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.PrecisionMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.RelativeAbsoluteErrorMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.RootMeanSquaredErrorMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.RootRelativeSquaredErrorMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedAreaUnderROCMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedFMeasureMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedFalseNegativeRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedFalsePositiveRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedPrecisionMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedRecallMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedTrueNegativeRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierResult.WeightedTruePositiveRateMetric .up.|> autoweka.ClassifierResult.Metric
+  autoweka.ClassifierRunner +-down- autoweka.ClassifierRunner.AttributeSelectorThread
+  autoweka.ClassifierRunner +-down- autoweka.ClassifierRunner.BuilderThread
+  autoweka.ClassifierRunner +-down- autoweka.ClassifierRunner.EvaluatorThread
+  autoweka.ClassifierRunner +-down- autoweka.ClassifierRunner.RunnerThread
+  autoweka.Configuration .up.|> Comparable
+  autoweka.Experiment +-down- autoweka.Experiment.TrajectoryPointExtra
+  autoweka.ExperimentBatch +-down- autoweka.ExperimentBatch.DatasetComponent
+  autoweka.ExperimentBatch +-down- autoweka.ExperimentBatch.ExperimentComponent
+  autoweka.InstanceGenerator +-down- autoweka.InstanceGenerator.NestedArgs
+  autoweka.ListExperimentBatch +-down- autoweka.ListExperimentBatch.ListExperimentComponent
+  autoweka.ListResultGroup +-down- autoweka.ListResultGroup.ListResult
+  autoweka.ListResultGroup.ListResult +-down- autoweka.ListResultGroup.ListResult.InstanceResult
+  autoweka.Parameter o-- autoweka.Parameter.ParamType : type
+  autoweka.Parameter +-down- autoweka.Parameter.ParamType
+  autoweka.SubProcessWrapper +-down- autoweka.SubProcessWrapper.ErrorAndTime
+  autoweka.Trajectory +-down- autoweka.Trajectory.Point
+  autoweka.Trajectory.Point +-down- autoweka.Trajectory.Point.SpecificInstanceInfo
+  autoweka.Util +-down- autoweka.Util.NullPrintStream
+  autoweka.Util +-down- autoweka.Util.ProcessKillerShutdownHook
+  autoweka.WekaArgumentConverter +-down- autoweka.WekaArgumentConverter.ArgumentPair
+  autoweka.WekaArgumentConverter +-down- autoweka.WekaArgumentConverter.Arguments
+  autoweka.WekaArgumentConverter +-down- autoweka.WekaArgumentConverter.PrefixElement
+  autoweka.WekaArgumentConverter.ArgumentPair .up.|> Comparable
+  autoweka.XmlSerializable +-down- autoweka.XmlSerializable.BooleanParser
+  autoweka.XmlSerializable +-down- autoweka.XmlSerializable.FloatParser
+  autoweka.XmlSerializable +-down- autoweka.XmlSerializable.IntParser
+  autoweka.XmlSerializable +-down- autoweka.XmlSerializable.ListParser
+  autoweka.XmlSerializable +-down- autoweka.XmlSerializable.ParamParser
+  autoweka.XmlSerializable +-down- autoweka.XmlSerializable.StringParser
+  autoweka.XmlSerializable.BooleanParser -up-|> autoweka.XmlSerializable.ParamParser
+  autoweka.XmlSerializable.FloatParser -up-|> autoweka.XmlSerializable.ParamParser
+  autoweka.XmlSerializable.IntParser -up-|> autoweka.XmlSerializable.ParamParser
+  autoweka.XmlSerializable.ListParser -up-|> autoweka.XmlSerializable.ParamParser
+  autoweka.XmlSerializable.StringParser -up-|> autoweka.XmlSerializable.ParamParser
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

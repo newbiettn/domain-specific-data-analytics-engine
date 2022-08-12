@@ -1,0 +1,3464 @@
+@startuml
+
+title __DIABETESDISCOVERYV2's Class Diagram__\n
+
+  namespace  {
+    class ASTAddNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTAndNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTAssignment {
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseAndNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseComplNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseOrNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseXorNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTBlock {
+    }
+  }
+  
+
+  namespace  {
+    class ASTCompilationUnit {
+    }
+  }
+  
+
+  namespace  {
+    class ASTCompilationUnit {
+    }
+  }
+  
+
+  namespace  {
+    class ASTDivNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTEQNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTFalseNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTGENode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTGTNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTId {
+    }
+  }
+  
+
+  namespace  {
+    class ASTIfStatement {
+    }
+  }
+  
+
+  namespace  {
+    class ASTIntConstNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTLENode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTLTNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTModNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTMulNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTMyID {
+    }
+  }
+  
+
+  namespace  {
+    class ASTMyOtherID {
+    }
+  }
+  
+
+  namespace  {
+    class ASTNENode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTNotNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTOrNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTReadStatement {
+    }
+  }
+  
+
+  namespace  {
+    class ASTSpecialBlock {
+    }
+  }
+  
+
+  namespace  {
+    class ASTStatementExpression {
+    }
+  }
+  
+
+  namespace  {
+    class ASTSubtractNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTTrueNode {
+    }
+  }
+  
+
+  namespace  {
+    class ASTVarDeclaration {
+    }
+  }
+  
+
+  namespace  {
+    class ASTWhileStatement {
+    }
+  }
+  
+
+  namespace  {
+    class ASTWriteStatement {
+    }
+  }
+  
+
+  namespace  {
+    class AddAcceptVisitor {
+    }
+  }
+  
+
+  namespace  {
+    class CalcGUI {
+    }
+  }
+  
+
+  namespace  {
+    class CalcGUI {
+    }
+  }
+  
+
+  namespace  {
+    class CharCollector {
+    }
+  }
+  
+
+  namespace  {
+    class Eg4DumpVisitor {
+    }
+  }
+  
+
+  namespace  {
+    class Globals {
+    }
+  }
+  
+
+  namespace  {
+    class JavaGenerics {
+    }
+  }
+  
+
+  namespace  {
+    class Main {
+    }
+  }
+  
+
+  namespace  {
+    class Main {
+    }
+  }
+  
+
+  namespace  {
+    class Main {
+    }
+  }
+  
+
+  namespace  {
+    class Main {
+    }
+  }
+  
+
+  namespace  {
+    class Main {
+    }
+  }
+  
+
+  namespace  {
+    class MyLexer {
+    }
+  }
+  
+
+  namespace  {
+    class MyNode {
+    }
+  }
+  
+
+  namespace  {
+    class MyToken {
+    }
+  }
+  
+
+  namespace  {
+    interface Node {
+    }
+  }
+  
+
+  namespace  {
+    class Obfuscator {
+    }
+  }
+  
+
+  namespace  {
+    class ProducerConsumer {
+    }
+  }
+  
+
+  namespace  {
+    class SPL {
+    }
+  }
+  
+
+  namespace  {
+    class SimpleNode {
+    }
+  }
+  
+
+  namespace  {
+    class SimpleNode {
+    }
+  }
+  
+
+  namespace  {
+    class Test {
+    }
+  }
+  
+
+  namespace  {
+    class Test {
+    }
+  }
+  
+
+  namespace  {
+    class TokenCollector {
+    }
+  }
+  
+
+  namespace  {
+    class UnparseVisitor {
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ApplicabilityTester {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.AutoWEKATestSuite {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassParams {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierResult {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ClassifierRunner {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Conditional {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Configuration {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ConfigurationCollection {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ConfigurationRanker {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ConfigurationTester {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.DefaultsExperimentConstructor {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Experiment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ExperimentBatch {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.ExperimentConstructor {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.GridSearchExperimentConstructor {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.InstanceGenerator {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListExperiment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListExperimentBatch {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.ListExperimentConstructor {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListResultGroup {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ListResultMerger {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Parameter {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.ParameterConditionalGroup {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.SubProcessWrapper {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Trajectory {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryGroup {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryMerger {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.TrajectoryParser {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryPointExtraRunner {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.TrajectoryPointPredictionRunner {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Util {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.UtilTester {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.WekaArgumentConverter {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.WekaArgumentConverterTester {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      abstract class autoweka.WorkerThread {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.Wrapper {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      class autoweka.XmlSerializable {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace instancegenerators {
+        class autoweka.instancegenerators.CrossValidation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace instancegenerators {
+        class autoweka.instancegenerators.Default {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace instancegenerators {
+        class autoweka.instancegenerators.MultiLevel {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace instancegenerators {
+        class autoweka.instancegenerators.MultiLevelTester {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace instancegenerators {
+        class autoweka.instancegenerators.RandomSubSampling {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace smac {
+        class autoweka.smac.MultiInstanceWrapper {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace smac {
+        class autoweka.smac.SMACExperimentConstructor {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace smac {
+        class autoweka.smac.SMACTrajectoryParser {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace smac {
+        class autoweka.smac.SMACTrajectoryParserTester {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace smac {
+        class autoweka.smac.SMACWrapper {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace tools {
+        class autoweka.tools.DatasetStats {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace tools {
+        class autoweka.tools.ExperimentRunner {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace tools {
+        class autoweka.tools.GetBestFromTrajectoryGroup {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace tools {
+        class autoweka.tools.ParamFilterer {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace tools {
+        class autoweka.tools.TrainedModelPredictionMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace utoweka {
+      namespace tools {
+        class autoweka.tools.TrajectoryTruncator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace 2rq {
+      class d2rq.d2r_query {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace 2rq {
+      class d2rq.dump_rdf {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace 2rq {
+      class d2rq.generate_mapping {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace 2rq {
+      class d2rq.server {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.AllTests {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.ClassMapLister {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      abstract class de.fuberlin.wiwiss.d2rq.CommandLineTool {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.D2RQException {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.D2RQTestSuite {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.DBConnectionTest {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.JenaAPITest {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.Log4jHelper {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.ResourceDescriber {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      class de.fuberlin.wiwiss.d2rq.SystemLoader {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AliasMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AliasMapTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.Attribute {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AttributeTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        abstract class de.fuberlin.wiwiss.d2rq.algebra.ColumnRenamer {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.ColumnRenamerMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.ColumnRenamerTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroup {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroupTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.ExpressionProjectionSpec {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.Join {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.JoinOptimizer {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.JoinTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.MutableRelation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.NodeRelation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.OrderSpec {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        interface de.fuberlin.wiwiss.d2rq.algebra.ProjectionSpec {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        abstract class de.fuberlin.wiwiss.d2rq.algebra.Relation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.RelationImpl {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.RelationName {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.RelationTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        interface de.fuberlin.wiwiss.d2rq.algebra.RelationalOperators {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.TripleRelation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.TripleRelationTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.VariableConstraints {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace assembler {
+        class de.fuberlin.wiwiss.d2rq.assembler.D2RQAssembler {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace csv {
+        class de.fuberlin.wiwiss.d2rq.csv.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace csv {
+        class de.fuberlin.wiwiss.d2rq.csv.CSV {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace csv {
+        class de.fuberlin.wiwiss.d2rq.csv.TranslationTableParser {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace csv {
+        class de.fuberlin.wiwiss.d2rq.csv.TranslationTableParserTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace d2rq_sdb {
+        class de.fuberlin.wiwiss.d2rq.d2rq_sdb.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace d2rq_sdb {
+        abstract class de.fuberlin.wiwiss.d2rq.d2rq_sdb.LoadDataTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace d2rq_sdb {
+        class de.fuberlin.wiwiss.d2rq.d2rq_sdb.SdbSqlEqualityTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace dbschema {
+        class de.fuberlin.wiwiss.d2rq.dbschema.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace dbschema {
+        class de.fuberlin.wiwiss.d2rq.dbschema.DatabaseSchemaInspector {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace dbschema {
+        class de.fuberlin.wiwiss.d2rq.dbschema.ISWCSchemaTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace download {
+        class de.fuberlin.wiwiss.d2rq.download.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace download {
+        class de.fuberlin.wiwiss.d2rq.download.DownloadContentQuery {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace download {
+        class de.fuberlin.wiwiss.d2rq.download.DownloadContentQueryTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.BindingMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.GraphPatternTranslatorTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.MapFixture {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.OpTableSQL {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.OpUnionTableSQL {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.PushDownOpFilterVisitor {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.QueryEngineD2RQ {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.QueryIterTableSQL {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TransformFilterCNF {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TransformOpBGP {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.TripleRelationJoiner {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace engine {
+        class de.fuberlin.wiwiss.d2rq.engine.VarCollector {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace examples {
+        class de.fuberlin.wiwiss.d2rq.examples.AssemblerExample {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace examples {
+        class de.fuberlin.wiwiss.d2rq.examples.JenaGraphExample {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace examples {
+        class de.fuberlin.wiwiss.d2rq.examples.JenaModelExample {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace examples {
+        class de.fuberlin.wiwiss.d2rq.examples.SPARQLExample {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace examples {
+        class de.fuberlin.wiwiss.d2rq.examples.SystemLoaderExample {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Add {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.AttributeExpr {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        abstract class de.fuberlin.wiwiss.d2rq.expr.BinaryOperator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.BooleanToIntegerCaseExpression {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Concatenation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.ConcatenationTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Conjunction {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.ConjunctionTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Constant {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Disjunction {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Divide {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Equality {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        abstract class de.fuberlin.wiwiss.d2rq.expr.Expression {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.ExpressionTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.GreaterThan {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.GreaterThanOrEqual {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.LessThan {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.LessThanOrEqual {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Multiply {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Negation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.NotNull {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.SQLExpression {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.SQLExpressionTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.Subtract {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace expr {
+        class de.fuberlin.wiwiss.d2rq.expr.UnaryMinus {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace find {
+        class de.fuberlin.wiwiss.d2rq.find.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace find {
+        class de.fuberlin.wiwiss.d2rq.find.FindQuery {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace find {
+        class de.fuberlin.wiwiss.d2rq.find.TripleQueryIter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace find {
+        class de.fuberlin.wiwiss.d2rq.find.URIMakerRule {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace find {
+        class de.fuberlin.wiwiss.d2rq.find.URIMakerRuleTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace functional_tests {
+        class de.fuberlin.wiwiss.d2rq.functional_tests.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace functional_tests {
+        class de.fuberlin.wiwiss.d2rq.functional_tests.FindTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace functional_tests {
+        class de.fuberlin.wiwiss.d2rq.functional_tests.ModelAPITest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace functional_tests {
+        class de.fuberlin.wiwiss.d2rq.functional_tests.SPARQLTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace helpers {
+        class de.fuberlin.wiwiss.d2rq.helpers.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace helpers {
+        class de.fuberlin.wiwiss.d2rq.helpers.FindTestFramework {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace helpers {
+        class de.fuberlin.wiwiss.d2rq.helpers.HSQLDatabase {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace helpers {
+        class de.fuberlin.wiwiss.d2rq.helpers.HSQLSimpleTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace helpers {
+        class de.fuberlin.wiwiss.d2rq.helpers.MappingHelper {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace helpers {
+        abstract class de.fuberlin.wiwiss.d2rq.helpers.QueryLanguageTestFramework {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace jena {
+        class de.fuberlin.wiwiss.d2rq.jena.CachingGraphD2RQ {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace jena {
+        class de.fuberlin.wiwiss.d2rq.jena.D2RQQueryHandler {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace jena {
+        class de.fuberlin.wiwiss.d2rq.jena.GraphD2RQ {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace jena {
+        class de.fuberlin.wiwiss.d2rq.jena.ModelD2RQ {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.ClassMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.CompileTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Configuration {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.ConstantValueClassMapTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Database {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.DownloadMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        abstract class de.fuberlin.wiwiss.d2rq.map.MapObject {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.Mapping {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.MappingTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.PropertyBridge {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.PropertyMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        abstract class de.fuberlin.wiwiss.d2rq.map.ResourceMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.TranslationTable {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        class de.fuberlin.wiwiss.d2rq.map.TranslationTableTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.AllTests {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          abstract class de.fuberlin.wiwiss.d2rq.mapgen.Filter {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterIncludeExclude {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchAny {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchColumn {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchSchema {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterMatchTable {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterParser {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.FilterParserTest {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.IRIEncoder {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.IRIEncoderTest {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.MappingGenerator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace map {
+        namespace en {
+          class de.fuberlin.wiwiss.d2rq.mapgen.W3CMappingGenerator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.DetermineNodeType {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.FixedNodeMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        interface de.fuberlin.wiwiss.d2rq.nodes.NodeMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.NodeMakerTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.NodeSetConstraintBuilder {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        interface de.fuberlin.wiwiss.d2rq.nodes.NodeSetFilter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.NodeSetTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace nodes {
+        class de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        class de.fuberlin.wiwiss.d2rq.optimizer.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        class de.fuberlin.wiwiss.d2rq.optimizer.ExprTransformTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        class de.fuberlin.wiwiss.d2rq.optimizer.ExprTransformTest2 {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        namespace expr {
+          class de.fuberlin.wiwiss.d2rq.optimizer.expr.AttributeExprEx {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        namespace expr {
+          class de.fuberlin.wiwiss.d2rq.optimizer.expr.ConstantEx {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        namespace expr {
+          class de.fuberlin.wiwiss.d2rq.optimizer.expr.TransformExprToSQLApplyer {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace optimizer {
+        namespace expr {
+          class de.fuberlin.wiwiss.d2rq.optimizer.expr.XSD {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace parser {
+        class de.fuberlin.wiwiss.d2rq.parser.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace parser {
+        class de.fuberlin.wiwiss.d2rq.parser.MapParser {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace parser {
+        class de.fuberlin.wiwiss.d2rq.parser.ParserTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace parser {
+        class de.fuberlin.wiwiss.d2rq.parser.RelationBuilder {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace parser {
+        class de.fuberlin.wiwiss.d2rq.parser.URITest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace pp {
+        class de.fuberlin.wiwiss.d2rq.pp.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace pp {
+        class de.fuberlin.wiwiss.d2rq.pp.PrettyPrinter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace pp {
+        class de.fuberlin.wiwiss.d2rq.pp.PrettyPrinterTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.AutoReloadableDataset {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ClassMapServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ConfigLoader {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.D2RQDatasetDesc {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.D2RServer {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.DatasetDescriptionServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.DirectoryServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.JettyLauncher {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.MetadataCreator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ModelResponse {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.NamespaceServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.PageServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.RequestParamHandler {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ResourceDescriptionServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.ResourceServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.RootServlet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.VelocityWrapper {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace server {
+        class de.fuberlin.wiwiss.d2rq.server.WebappInitListener {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.BeanCounter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ConnectedDB {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        abstract class de.fuberlin.wiwiss.d2rq.sql.DatatypeTestBase {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.DummyDB {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.HSQLDBDatatypeTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.MySQLDatatypeTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        interface de.fuberlin.wiwiss.d2rq.sql.Quoter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        interface de.fuberlin.wiwiss.d2rq.sql.ResultRow {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ResultRowMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.ResultRowTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQL {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLBuildingTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLIterator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLScriptLoader {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SQLSyntaxTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        class de.fuberlin.wiwiss.d2rq.sql.SelectStatementBuilder {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          abstract class de.fuberlin.wiwiss.d2rq.sql.types.DataType {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLApproximateNumeric {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLBinary {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLBit {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLBoolean {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLCharacterString {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLDate {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLExactNumeric {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLInterval {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLTime {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.SQLTimestamp {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace types {
+          class de.fuberlin.wiwiss.d2rq.sql.types.UnsupportedDataType {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.HSQLDB {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.MySQL {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.Oracle {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.PostgreSQL {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.SQL92 {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          class de.fuberlin.wiwiss.d2rq.sql.vendor.SQLServer {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace sql {
+        namespace vendor {
+          interface de.fuberlin.wiwiss.d2rq.sql.vendor.Vendor {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.BlankNodeID {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Column {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.ConstantValueMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.DummyValueMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.Pattern {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.PatternTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.SQLExpressionValueMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        interface de.fuberlin.wiwiss.d2rq.values.Translator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.ValueDecorator {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        interface de.fuberlin.wiwiss.d2rq.values.ValueMaker {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace values {
+        class de.fuberlin.wiwiss.d2rq.values.ValueMakerTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.AllTests {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.D2RConfig {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.D2RQ {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.ISWC {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.JDBC {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.META {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.SD {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.SKOS {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.Test {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.VoID {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.VocabularySummarizer {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace vocab {
+        class de.fuberlin.wiwiss.d2rq.vocab.VocabularySummarizerTest {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.pubby.negotiation {
+      class de.fuberlin.wiwiss.pubby.negotiation.ContentTypeNegotiator {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.pubby.negotiation {
+      class de.fuberlin.wiwiss.pubby.negotiation.MediaRangeSpec {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.pubby.negotiation {
+      class de.fuberlin.wiwiss.pubby.negotiation.PubbyNegotiator {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace ackage1 {
+      class package1.Main {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace ackage2 {
+      class package2.Incr {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace eka.classifiers.meta {
+      class weka.classifiers.meta.AutoWEKAClassifier {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace eka.classifiers.meta {
+      class weka.classifiers.meta.AutoWEKAClassifierTest {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace eka.gui.explorer {
+      class weka.gui.explorer.AutoWEKAPanel {
+      }
+    }
+  }
+  
+
+  ASTVarDeclaration .up.|> SPLParserConstants
+  CalcGUI .up.|> CalcInputParserConstants
+  CalcGUI .up.|> CalcInputParserConstants
+  CharCollector .up.|> CharStream
+  Eg4DumpVisitor .up.|> Eg4Visitor
+  SimpleNode .up.|> Node
+  SimpleNode .up.|> Node
+  TokenCollector .up.|> TokenManager
+  UnparseVisitor .up.|> JavaParserVisitor
+  autoweka.ClassifierResult o-- autoweka.ClassifierResult.Metric : mMetric
+  autoweka.Configuration .up.|> Comparable
+  autoweka.Parameter o-- autoweka.Parameter.ParamType : type
+  de.fuberlin.wiwiss.d2rq.algebra.Attribute .up.|> ProjectionSpec
+  de.fuberlin.wiwiss.d2rq.algebra.ExpressionProjectionSpec .up.|> ProjectionSpec
+  de.fuberlin.wiwiss.d2rq.algebra.MutableRelation .up.|> RelationalOperators
+  de.fuberlin.wiwiss.d2rq.algebra.Relation .up.|> RelationalOperators
+  de.fuberlin.wiwiss.d2rq.algebra.RelationName .up.|> Comparable
+  de.fuberlin.wiwiss.d2rq.engine.PushDownOpFilterVisitor .up.|> OpVisitor
+  de.fuberlin.wiwiss.d2rq.find.URIMakerRule .up.|> Comparator
+  de.fuberlin.wiwiss.d2rq.jena.GraphD2RQ .up.|> Graph
+  de.fuberlin.wiwiss.d2rq.jena.ModelD2RQ .up.|> Model
+  de.fuberlin.wiwiss.d2rq.nodes.DetermineNodeType .up.|> NodeSetFilter
+  de.fuberlin.wiwiss.d2rq.nodes.FixedNodeMaker .up.|> NodeMaker
+  de.fuberlin.wiwiss.d2rq.nodes.NodeSetConstraintBuilder .up.|> NodeSetFilter
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker .up.|> NodeMaker
+  de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker o-- de.fuberlin.wiwiss.d2rq.nodes.TypedNodeMaker.NodeType : nodeType
+  de.fuberlin.wiwiss.d2rq.optimizer.expr.TransformExprToSQLApplyer .up.|> ExprVisitor
+  de.fuberlin.wiwiss.d2rq.server.AutoReloadableDataset .up.|> Dataset
+  de.fuberlin.wiwiss.d2rq.server.WebappInitListener .up.|> ServletContextListener
+  de.fuberlin.wiwiss.d2rq.sql.BeanCounter .up.|> Cloneable
+  de.fuberlin.wiwiss.d2rq.sql.ConnectedDB o-- de.fuberlin.wiwiss.d2rq.sql.ConnectedDB.KeepAliveAgent : keepAliveAgent
+  de.fuberlin.wiwiss.d2rq.sql.ResultRowMap .up.|> ResultRow
+  de.fuberlin.wiwiss.d2rq.sql.SQLIterator .up.|> ClosableIterator
+  de.fuberlin.wiwiss.d2rq.sql.vendor.SQL92 .up.|> Vendor
+  de.fuberlin.wiwiss.d2rq.values.BlankNodeID .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.Column .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.ConstantValueMaker .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.DummyValueMaker .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.Pattern .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.SQLExpressionValueMaker .up.|> ValueMaker
+  de.fuberlin.wiwiss.d2rq.values.ValueDecorator .up.|> ValueMaker
+  weka.classifiers.meta.AutoWEKAClassifier .up.|> AdditionalMeasureProducer
+  weka.classifiers.meta.AutoWEKAClassifier o-- weka.classifiers.meta.AutoWEKAClassifier.Metric : metric
+  weka.classifiers.meta.AutoWEKAClassifier o-- weka.classifiers.meta.AutoWEKAClassifier.Resampling : resampling
+  weka.gui.explorer.AutoWEKAPanel .up.|> ExplorerPanel
+  weka.gui.explorer.AutoWEKAPanel .up.|> LogHandler
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

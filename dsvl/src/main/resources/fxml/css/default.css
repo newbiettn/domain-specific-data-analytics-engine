@@ -124,5 +124,6 @@
     -fx-background-color: transparent;
 }
 .connectionName {
-    -fx-fill: black;
+    -fx-fill: red;
+    -fx-font-size: 40;
 }

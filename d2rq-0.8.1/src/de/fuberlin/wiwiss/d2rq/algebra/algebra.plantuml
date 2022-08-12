@@ -1,0 +1,473 @@
+@startuml
+
+title __ALGEBRA's Class Diagram__\n
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AliasMap {
+            {static} + NO_ALIASES : AliasMap
+            - byAlias : Map<RelationName, Alias>
+            - byOriginal : Map<RelationName, Alias>
+            + AliasMap()
+            + applyTo()
+            + applyTo()
+            + applyTo()
+            + applyTo()
+            + applyTo()
+            {static} + create1()
+            + equals()
+            + hasAlias()
+            + hashCode()
+            + isAlias()
+            + originalOf()
+            + originalOf()
+            + originalOf()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.AliasMap.Alias {
+            - alias : RelationName
+            - original : RelationName
+            + Alias()
+            + alias()
+            + equals()
+            + hashCode()
+            + original()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.Attribute {
+            - attributeName : String
+            - qualifiedName : String
+            - relationName : RelationName
+            + Attribute()
+            + Attribute()
+            + attributeName()
+            + compareTo()
+            + equals()
+            + hashCode()
+            + notNullExpression()
+            + qualifiedName()
+            + relationName()
+            + renameAttributes()
+            + requiredAttributes()
+            + schemaName()
+            + selectValue()
+            + tableName()
+            + toExpression()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        abstract class de.fuberlin.wiwiss.d2rq.algebra.ColumnRenamer {
+            {static} + NULL : ColumnRenamer
+            {abstract} + applyTo()
+            + applyTo()
+            + applyTo()
+            + applyTo()
+            + applyTo()
+            {abstract} + applyTo()
+            + applyToJoinSet()
+            + applyToProjectionSet()
+            {static} # invertMap()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.ColumnRenamerMap {
+            - originalsToReplacements : Map<Attribute, Attribute>
+            + ColumnRenamerMap()
+            + applyTo()
+            + applyTo()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroup {
+            - allUnique : boolean
+            - differentConditions : boolean
+            - differentSoftConditions : boolean
+            - firstBaseRelation : Relation
+            - longestOrderSpecs : List<OrderSpec>
+            - makers : List<BiningMakerAndCondition>
+            - projections : Set<ProjectionSpec>
+            - relationCounter : int
+            + addBindingMaker()
+            + addRelation()
+            + baseRelation()
+            + bindingMakers()
+            {static} + groupNodeRelations()
+            + isCompatible()
+            {static} - addNodeRelation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroup.BiningMakerAndCondition {
+            - bMaker : BindingMaker
+            - condition : Expression
+            - softCondition : Expression
+            ~ BiningMakerAndCondition()
+            - conditionProjection()
+            - conditionWithSoft()
+            - makeConditional()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.ExpressionProjectionSpec {
+            - expression : Expression
+            - name : String
+            + ExpressionProjectionSpec()
+            + compareTo()
+            + equals()
+            + hashCode()
+            + notNullExpression()
+            + renameAttributes()
+            + requiredAttributes()
+            + toExpression()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.Join {
+            {static} + DIRECTION_LEFT : int
+            {static} + DIRECTION_RIGHT : int
+            {static} + DIRECTION_UNDIRECTED : int
+            {static} + joinOperators : String[]
+            - attributes1 : List<Attribute>
+            - attributes2 : List<Attribute>
+            - joinDirection : int
+            - otherSide : Map<Attribute, Attribute>
+            - table1 : RelationName
+            - table2 : RelationName
+            + Join()
+            + Join()
+            + attributes1()
+            + attributes2()
+            + containsColumn()
+            + equalAttribute()
+            + equals()
+            + hashCode()
+            + isSameTable()
+            + joinDirection()
+            + renameColumns()
+            + table1()
+            + table2()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.JoinOptimizer {
+            - relation : TripleRelation
+            + JoinOptimizer()
+            + optimize()
+            - isRemovableJoin()
+            - isRemovableJoinSide()
+            - replacementColumns()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.MutableRelation {
+            - relation : Relation
+            + MutableRelation()
+            + empty()
+            + immutableSnapshot()
+            + limit()
+            + orderBy()
+            + project()
+            + renameColumns()
+            + select()
+            + swapLimits()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.NodeRelation {
+            {static} + TRUE : NodeRelation
+            - base : Relation
+            - nodeMakers : Map<Var, NodeMaker>
+            + NodeRelation()
+            + baseRelation()
+            {static} + empty()
+            + extendWith()
+            + limit()
+            + nodeMaker()
+            + orderBy()
+            + renameSingleRelation()
+            + select()
+            + toString()
+            + variables()
+            + withPrefix()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.OrderSpec {
+            {static} + NONE : List<OrderSpec>
+            - ascending : boolean
+            - expression : Expression
+            + OrderSpec()
+            + OrderSpec()
+            + equals()
+            + expression()
+            + hashCode()
+            + isAscending()
+            + toSQL()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        interface de.fuberlin.wiwiss.d2rq.algebra.ProjectionSpec {
+            {abstract} + notNullExpression()
+            {abstract} + renameAttributes()
+            {abstract} + requiredAttributes()
+            {abstract} + toExpression()
+            {abstract} + toSQL()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        abstract class de.fuberlin.wiwiss.d2rq.algebra.Relation {
+            {static} + EMPTY : Relation
+            {static} + NO_LIMIT : int
+            {static} + TRUE : Relation
+            {abstract} + aliases()
+            + allKnownAttributes()
+            {static} + combineLimits()
+            {abstract} + condition()
+            {static} + createSimpleRelation()
+            {abstract} + database()
+            + isTrivial()
+            {abstract} + isUnique()
+            {abstract} + joinConditions()
+            {abstract} + limit()
+            {abstract} + limitInverse()
+            {abstract} + orderSpecs()
+            {abstract} + projections()
+            {abstract} + softCondition()
+            + tables()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.RelationImpl {
+            - aliases : AliasMap
+            - condition : Expression
+            - database : ConnectedDB
+            - isUnique : boolean
+            - joinConditions : Set<Join>
+            - limit : int
+            - limitInverse : int
+            - orderSpecs : List<OrderSpec>
+            - projections : Set<ProjectionSpec>
+            - softCondition : Expression
+            + RelationImpl()
+            + aliases()
+            + condition()
+            + database()
+            + isUnique()
+            + joinConditions()
+            + limit()
+            + limitInverse()
+            + orderSpecs()
+            + project()
+            + projections()
+            + renameColumns()
+            + select()
+            + softCondition()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.RelationName {
+            - caseUnspecified : boolean
+            - qualifiedName : String
+            - schemaName : String
+            - tableName : String
+            + RelationName()
+            + RelationName()
+            + caseUnspecified()
+            + compareTo()
+            + equals()
+            + hashCode()
+            + qualifiedName()
+            + schemaName()
+            + tableName()
+            + toString()
+            + withPrefix()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        interface de.fuberlin.wiwiss.d2rq.algebra.RelationalOperators {
+            {static} + DUMMY : RelationalOperators
+            {abstract} + project()
+            {abstract} + renameColumns()
+            {abstract} + select()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.TripleRelation {
+            {static} + OBJECT : Var
+            {static} + PREDICATE : Var
+            {static} + SUBJECT : Var
+            {static} - EMPTY : TripleRelation
+            {static} - SPO : Set<Var>
+            + TripleRelation()
+            + limit()
+            + orderBy()
+            + selectTriple()
+            + selectWithVariables()
+            {static} - fromNodeRelation()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace e.fuberlin.wiwiss.d2rq {
+      namespace algebra {
+        class de.fuberlin.wiwiss.d2rq.algebra.VariableConstraints {
+            - nodeMakers : Map<Var, NodeMaker>
+            - nodeRelationAliases : Map<Var, AliasMap>
+            - nodeSets : Map<Var, NodeSetFilter>
+            - projections : Set<ProjectionSpec>
+            + add()
+            + addAll()
+            + addIfVariable()
+            + allNames()
+            + allProjections()
+            + constraint()
+            + relationAliases()
+            + satisfiable()
+            + toMap()
+        }
+      }
+    }
+  }
+  
+
+  de.fuberlin.wiwiss.d2rq.algebra.AliasMap +-down- de.fuberlin.wiwiss.d2rq.algebra.AliasMap.Alias
+  de.fuberlin.wiwiss.d2rq.algebra.Attribute .up.|> ProjectionSpec
+  de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroup +-down- de.fuberlin.wiwiss.d2rq.algebra.CompatibleRelationGroup.BiningMakerAndCondition
+  de.fuberlin.wiwiss.d2rq.algebra.ExpressionProjectionSpec .up.|> ProjectionSpec
+  de.fuberlin.wiwiss.d2rq.algebra.MutableRelation .up.|> RelationalOperators
+  de.fuberlin.wiwiss.d2rq.algebra.Relation .up.|> RelationalOperators
+  de.fuberlin.wiwiss.d2rq.algebra.RelationName .up.|> Comparable
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

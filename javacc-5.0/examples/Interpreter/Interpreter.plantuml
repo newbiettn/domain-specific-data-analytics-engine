@@ -1,0 +1,335 @@
+@startuml
+
+title __INTERPRETER's Class Diagram__\n
+
+  namespace  {
+    class ASTAddNode {
+        + ASTAddNode()
+        + ASTAddNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTAndNode {
+        + ASTAndNode()
+        + ASTAndNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTAssignment {
+        + ASTAssignment()
+        + ASTAssignment()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseAndNode {
+        + ASTBitwiseAndNode()
+        + ASTBitwiseAndNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseComplNode {
+        + ASTBitwiseComplNode()
+        + ASTBitwiseComplNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseOrNode {
+        + ASTBitwiseOrNode()
+        + ASTBitwiseOrNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTBitwiseXorNode {
+        + ASTBitwiseXorNode()
+        + ASTBitwiseXorNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTBlock {
+        + ASTBlock()
+        + ASTBlock()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTCompilationUnit {
+        + ASTCompilationUnit()
+        + ASTCompilationUnit()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTDivNode {
+        + ASTDivNode()
+        + ASTDivNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTEQNode {
+        + ASTEQNode()
+        + ASTEQNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTFalseNode {
+        + ASTFalseNode()
+        + ASTFalseNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTGENode {
+        + ASTGENode()
+        + ASTGENode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTGTNode {
+        + ASTGTNode()
+        + ASTGTNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTId {
+        ~ name : String
+        + ASTId()
+        + ASTId()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTIfStatement {
+        + ASTIfStatement()
+        + ASTIfStatement()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTIntConstNode {
+        ~ val : int
+        + ASTIntConstNode()
+        + ASTIntConstNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTLENode {
+        + ASTLENode()
+        + ASTLENode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTLTNode {
+        + ASTLTNode()
+        + ASTLTNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTModNode {
+        + ASTModNode()
+        + ASTModNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTMulNode {
+        + ASTMulNode()
+        + ASTMulNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTNENode {
+        + ASTNENode()
+        + ASTNENode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTNotNode {
+        + ASTNotNode()
+        + ASTNotNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTOrNode {
+        + ASTOrNode()
+        + ASTOrNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTReadStatement {
+        ~ name : String
+        + ASTReadStatement()
+        + ASTReadStatement()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTStatementExpression {
+        + ASTStatementExpression()
+        + ASTStatementExpression()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTSubtractNode {
+        + ASTSubtractNode()
+        + ASTSubtractNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTTrueNode {
+        + ASTTrueNode()
+        + ASTTrueNode()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTVarDeclaration {
+        ~ name : String
+        ~ type : int
+        + ASTVarDeclaration()
+        + ASTVarDeclaration()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTWhileStatement {
+        + ASTWhileStatement()
+        + ASTWhileStatement()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class ASTWriteStatement {
+        ~ name : String
+        + ASTWriteStatement()
+        + ASTWriteStatement()
+        + interpret()
+    }
+  }
+  
+
+  namespace  {
+    class MyNode {
+        {static} # in : Reader
+        {static} # out : Writer
+        {static} # stack : Object[]
+        {static} # symtab : Hashtable
+        {static} # top : int
+        + interpret()
+        {static} + setIn()
+        {static} + setOut()
+    }
+  }
+  
+
+  namespace  {
+    interface Node {
+        {abstract} + interpret()
+        {abstract} + jjtAddChild()
+        {abstract} + jjtClose()
+        {abstract} + jjtGetChild()
+        {abstract} + jjtGetNumChildren()
+        {abstract} + jjtGetParent()
+        {abstract} + jjtOpen()
+        {abstract} + jjtSetParent()
+    }
+  }
+  
+
+  namespace  {
+    class SPL {
+        {static} + main()
+    }
+  }
+  
+
+  ASTVarDeclaration .up.|> SPLParserConstants
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
