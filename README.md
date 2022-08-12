@@ -1,6 +1,6 @@
-# Diabetes Discovery V2.2
+# Domain-specific Data Analytics Engine
 
-Start from 08/01/2019.
+Demo: https://www.youtube.com/watch?v=BqOVRlL1VYo
 
 ## Instruction
 
