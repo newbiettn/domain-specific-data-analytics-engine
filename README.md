@@ -1,5 +1,7 @@
 # Domain-specific Data Analytics Engine
 
+A semantic data analytics engine that can (i) let users query data semantically and visually, and (ii) automatically perform and optimize complex data science tasks, such as data cleaning, building predictive models.
+
 Demo: https://www.youtube.com/watch?v=BqOVRlL1VYo
 
 ## Instruction
